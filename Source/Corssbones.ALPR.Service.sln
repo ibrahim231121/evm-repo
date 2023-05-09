@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33627.172
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Corssbones.ALPR.Service", "Corssbones.ALPR.Service\Corssbones.ALPR.Service.csproj", "{B9B33756-9EEE-46FA-9630-8977C6C16885}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossbones.ALPR.Api", "Crossbones.ALPR.Api\Crossbones.ALPR.Api.csproj", "{256FAF7F-4AE3-437C-A079-61827E5F2DFA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Corssbones.ALPR.Business", "Crossbones.ALPR.Business\Corssbones.ALPR.Business.csproj", "{0972B651-C45B-406C-ADB9-AE7E73D873A6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossbones.ALPR.Common", "Crossbones.ALPR.Common\Crossbones.ALPR.Common.csproj", "{AE8F0B6A-96F7-4EAC-98A5-3057DEE7629A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Corssbones.ALPR.Database", "Crossbones.ALPR.Database\Corssbones.ALPR.Database.csproj", "{CC893B43-3F8D-424B-8187-B0BB89DF76E8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossbones.ALPR.Models", "Crossbones.ALPR.Models\Crossbones.ALPR.Models.csproj", "{2FDC0A8D-07CD-4231-AEF6-4A7F347E298F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B9B33756-9EEE-46FA-9630-8977C6C16885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9B33756-9EEE-46FA-9630-8977C6C16885}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9B33756-9EEE-46FA-9630-8977C6C16885}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9B33756-9EEE-46FA-9630-8977C6C16885}.Release|Any CPU.Build.0 = Release|Any CPU
+		{256FAF7F-4AE3-437C-A079-61827E5F2DFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{256FAF7F-4AE3-437C-A079-61827E5F2DFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{256FAF7F-4AE3-437C-A079-61827E5F2DFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{256FAF7F-4AE3-437C-A079-61827E5F2DFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0972B651-C45B-406C-ADB9-AE7E73D873A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0972B651-C45B-406C-ADB9-AE7E73D873A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0972B651-C45B-406C-ADB9-AE7E73D873A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0972B651-C45B-406C-ADB9-AE7E73D873A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE8F0B6A-96F7-4EAC-98A5-3057DEE7629A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE8F0B6A-96F7-4EAC-98A5-3057DEE7629A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE8F0B6A-96F7-4EAC-98A5-3057DEE7629A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE8F0B6A-96F7-4EAC-98A5-3057DEE7629A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC893B43-3F8D-424B-8187-B0BB89DF76E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC893B43-3F8D-424B-8187-B0BB89DF76E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC893B43-3F8D-424B-8187-B0BB89DF76E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC893B43-3F8D-424B-8187-B0BB89DF76E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FDC0A8D-07CD-4231-AEF6-4A7F347E298F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FDC0A8D-07CD-4231-AEF6-4A7F347E298F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FDC0A8D-07CD-4231-AEF6-4A7F347E298F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FDC0A8D-07CD-4231-AEF6-4A7F347E298F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CCB297B5-64B4-4FD5-B15E-FC9A460D7290}
+	EndGlobalSection
+EndGlobal

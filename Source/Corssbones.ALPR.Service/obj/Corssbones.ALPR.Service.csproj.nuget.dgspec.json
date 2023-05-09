@@ -1,0 +1,475 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Corssbones.ALPR.Service\\Corssbones.ALPR.Service.csproj": {}
+  },
+  "projects": {
+    "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Corssbones.ALPR.Service\\Corssbones.ALPR.Service.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Corssbones.ALPR.Service\\Corssbones.ALPR.Service.csproj",
+        "projectName": "Corssbones.ALPR.Service",
+        "projectPath": "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Corssbones.ALPR.Service\\Corssbones.ALPR.Service.csproj",
+        "packagesPath": "C:\\Users\\MuhammadMohsin\\.nuget\\packages\\",
+        "outputPath": "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Corssbones.ALPR.Service\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\MuhammadMohsin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "D:\\Active Packages": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Api\\Crossbones.ALPR.Api.csproj": {
+                "projectPath": "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Api\\Crossbones.ALPR.Api.csproj"
+              },
+              "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Business\\Corssbones.ALPR.Business.csproj": {
+                "projectPath": "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Business\\Corssbones.ALPR.Business.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Crossbones.DI.SimpleInjector": {
+              "target": "Package",
+              "version": "[1.1.6.13, )"
+            },
+            "Crossbones.Logging.Display": {
+              "target": "Package",
+              "version": "[1.1.6.14, )"
+            },
+            "Crossbones.Logging.Nlog": {
+              "target": "Package",
+              "version": "[1.1.6.15, )"
+            },
+            "Crossbones.Microkernel": {
+              "target": "Package",
+              "version": "[1.1.6.13, )"
+            },
+            "Crossbones.Modules.Logger": {
+              "target": "Package",
+              "version": "[1.1.6.13, )"
+            },
+            "Crossbones.Modules.Sequence": {
+              "target": "Package",
+              "version": "[1.0.0.3, )"
+            },
+            "Crossbones.Transport.InMemory": {
+              "target": "Package",
+              "version": "[1.1.6.13, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Api\\Crossbones.ALPR.Api.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Api\\Crossbones.ALPR.Api.csproj",
+        "projectName": "Crossbones.ALPR.Api",
+        "projectPath": "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Api\\Crossbones.ALPR.Api.csproj",
+        "packagesPath": "C:\\Users\\MuhammadMohsin\\.nuget\\packages\\",
+        "outputPath": "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Api\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\MuhammadMohsin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "D:\\Active Packages": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Business\\Corssbones.ALPR.Business.csproj": {
+                "projectPath": "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Business\\Corssbones.ALPR.Business.csproj"
+              },
+              "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Common\\Crossbones.ALPR.Common.csproj": {
+                "projectPath": "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Common\\Crossbones.ALPR.Common.csproj"
+              },
+              "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Models\\Crossbones.ALPR.Models.csproj": {
+                "projectPath": "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Models\\Crossbones.ALPR.Models.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Crossbones.Modules.Sequence.Common": {
+              "target": "Package",
+              "version": "[1.0.0.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Business\\Corssbones.ALPR.Business.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Business\\Corssbones.ALPR.Business.csproj",
+        "projectName": "Corssbones.ALPR.Business",
+        "projectPath": "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Business\\Corssbones.ALPR.Business.csproj",
+        "packagesPath": "C:\\Users\\MuhammadMohsin\\.nuget\\packages\\",
+        "outputPath": "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Business\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\MuhammadMohsin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "D:\\Active Packages": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Common\\Crossbones.ALPR.Common.csproj": {
+                "projectPath": "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Common\\Crossbones.ALPR.Common.csproj"
+              },
+              "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Database\\Corssbones.ALPR.Database.csproj": {
+                "projectPath": "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Database\\Corssbones.ALPR.Database.csproj"
+              },
+              "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Models\\Crossbones.ALPR.Models.csproj": {
+                "projectPath": "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Models\\Crossbones.ALPR.Models.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Common\\Crossbones.ALPR.Common.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Common\\Crossbones.ALPR.Common.csproj",
+        "projectName": "Crossbones.ALPR.Common",
+        "projectPath": "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Common\\Crossbones.ALPR.Common.csproj",
+        "packagesPath": "C:\\Users\\MuhammadMohsin\\.nuget\\packages\\",
+        "outputPath": "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Common\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\MuhammadMohsin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "D:\\Active Packages": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Crossbones.Modules.Common": {
+              "target": "Package",
+              "version": "[1.0.0.46, )"
+            },
+            "Crossbones.Modules.MQTT.Config": {
+              "target": "Package",
+              "version": "[1.0.0.6, )"
+            },
+            "Crossbones.Modules.Vault": {
+              "target": "Package",
+              "version": "[1.0.0.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Database\\Corssbones.ALPR.Database.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Database\\Corssbones.ALPR.Database.csproj",
+        "projectName": "Corssbones.ALPR.Database",
+        "projectPath": "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Database\\Corssbones.ALPR.Database.csproj",
+        "packagesPath": "C:\\Users\\MuhammadMohsin\\.nuget\\packages\\",
+        "outputPath": "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Database\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\MuhammadMohsin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "D:\\Active Packages": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Crossbones.Modules.Business": {
+              "target": "Package",
+              "version": "[1.1.8.16, )"
+            },
+            "Crossbones.Modules.Common": {
+              "target": "Package",
+              "version": "[1.0.0.46, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.0-preview.2.23128.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.0-preview.2.23128.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.0-preview.2.23128.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Models\\Crossbones.ALPR.Models.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Models\\Crossbones.ALPR.Models.csproj",
+        "projectName": "Crossbones.ALPR.Models",
+        "projectPath": "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Models\\Crossbones.ALPR.Models.csproj",
+        "packagesPath": "C:\\Users\\MuhammadMohsin\\.nuget\\packages\\",
+        "outputPath": "D:\\ALPR\\EVM4-MS-ALPR\\Source\\Crossbones.ALPR.Models\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\MuhammadMohsin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "D:\\Active Packages": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

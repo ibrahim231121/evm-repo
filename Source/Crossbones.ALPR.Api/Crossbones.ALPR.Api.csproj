@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Crossbones.Modules.Sequence.Common" Version="1.0.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Crossbones.ALPR.Business\Corssbones.ALPR.Business.csproj" />
+    <ProjectReference Include="..\Crossbones.ALPR.Common\Crossbones.ALPR.Common.csproj" />
+    <ProjectReference Include="..\Crossbones.ALPR.Models\Crossbones.ALPR.Models.csproj" />
+  </ItemGroup>
+
+</Project>

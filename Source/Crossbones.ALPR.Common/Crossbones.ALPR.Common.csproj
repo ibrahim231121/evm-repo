@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Exceptions\**" />
+    <EmbeddedResource Remove="Exceptions\**" />
+    <None Remove="Exceptions\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="LogHelper.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Crossbones.Modules.Common" Version="1.0.0.46" />
+    <PackageReference Include="Crossbones.Modules.MQTT.Config" Version="1.0.0.6" />
+    <PackageReference Include="Crossbones.Modules.Vault" Version="1.0.0.4" />
+  </ItemGroup>
+
+</Project>

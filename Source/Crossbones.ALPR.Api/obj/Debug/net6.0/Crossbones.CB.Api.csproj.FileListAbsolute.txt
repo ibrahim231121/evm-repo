@@ -1,0 +1,17 @@
+D:\temp\API\bin\Debug\net6.0\Crossbones.CB.Api.deps.json
+D:\temp\API\bin\Debug\net6.0\Crossbones.CB.Api.dll
+D:\temp\API\bin\Debug\net6.0\Crossbones.CB.Api.pdb
+D:\temp\API\bin\Debug\net6.0\Crossbones.CB.Common.dll
+D:\temp\API\bin\Debug\net6.0\System.Reactive.dll
+D:\temp\API\bin\Debug\net6.0\Crossbones.CB.Common.pdb
+D:\temp\API\bin\Debug\net6.0\System.Reactive.xml
+D:\temp\API\obj\Debug\net6.0\Crossbones.CB.Api.csproj.AssemblyReference.cache
+D:\temp\API\obj\Debug\net6.0\Crossbones.CB.Api.GeneratedMSBuildEditorConfig.editorconfig
+D:\temp\API\obj\Debug\net6.0\Crossbones.CB.Api.AssemblyInfoInputs.cache
+D:\temp\API\obj\Debug\net6.0\Crossbones.CB.Api.AssemblyInfo.cs
+D:\temp\API\obj\Debug\net6.0\Crossbones.CB.Api.csproj.CoreCompileInputs.cache
+D:\temp\API\obj\Debug\net6.0\Crossbones.CB.Api.csproj.CopyComplete
+D:\temp\API\obj\Debug\net6.0\Crossbones.CB.Api.dll
+D:\temp\API\obj\Debug\net6.0\refint\Crossbones.CB.Api.dll
+D:\temp\API\obj\Debug\net6.0\Crossbones.CB.Api.pdb
+D:\temp\API\obj\Debug\net6.0\ref\Crossbones.CB.Api.dll

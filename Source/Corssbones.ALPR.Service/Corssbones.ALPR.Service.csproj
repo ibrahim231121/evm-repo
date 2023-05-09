@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Crossbones.DI.SimpleInjector" Version="1.1.6.13" />
+    <PackageReference Include="Crossbones.Logging.Display" Version="1.1.6.14" />
+    <PackageReference Include="Crossbones.Logging.Nlog" Version="1.1.6.15" />
+    <PackageReference Include="Crossbones.Microkernel" Version="1.1.6.13" />
+    <PackageReference Include="Crossbones.Modules.Logger" Version="1.1.6.13" />
+    <PackageReference Include="Crossbones.Modules.Sequence" Version="1.0.0.3" />
+    <PackageReference Include="Crossbones.Transport.InMemory" Version="1.1.6.13" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Crossbones.ALPR.Api\Crossbones.ALPR.Api.csproj" />
+    <ProjectReference Include="..\Crossbones.ALPR.Business\Corssbones.ALPR.Business.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Configuration.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

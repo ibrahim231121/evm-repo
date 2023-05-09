@@ -1,0 +1,17 @@
+D:\temp\temp1\ALPR.Database\bin\Release\net6.0\ALPR.Database.deps.json
+D:\temp\temp1\ALPR.Database\bin\Release\net6.0\ALPR.Database.runtimeconfig.json
+D:\temp\temp1\ALPR.Database\bin\Release\net6.0\ALPR.Database.dll
+D:\temp\temp1\ALPR.Database\bin\Release\net6.0\ALPR.Database.pdb
+D:\temp\temp1\ALPR.Database\bin\Release\net6.0\System.Reactive.dll
+D:\temp\temp1\ALPR.Database\bin\Release\net6.0\System.Reactive.xml
+D:\temp\temp1\ALPR.Database\obj\Release\net6.0\ALPR.Database.csproj.AssemblyReference.cache
+D:\temp\temp1\ALPR.Database\obj\Release\net6.0\ALPR.Database.GeneratedMSBuildEditorConfig.editorconfig
+D:\temp\temp1\ALPR.Database\obj\Release\net6.0\ALPR.Database.AssemblyInfoInputs.cache
+D:\temp\temp1\ALPR.Database\obj\Release\net6.0\ALPR.Database.AssemblyInfo.cs
+D:\temp\temp1\ALPR.Database\obj\Release\net6.0\ALPR.Database.csproj.CoreCompileInputs.cache
+D:\temp\temp1\ALPR.Database\obj\Release\net6.0\ALPR.Database.csproj.CopyComplete
+D:\temp\temp1\ALPR.Database\obj\Release\net6.0\ALPR.Database.dll
+D:\temp\temp1\ALPR.Database\obj\Release\net6.0\refint\ALPR.Database.dll
+D:\temp\temp1\ALPR.Database\obj\Release\net6.0\ALPR.Database.pdb
+D:\temp\temp1\ALPR.Database\obj\Release\net6.0\ALPR.Database.genruntimeconfig.cache
+D:\temp\temp1\ALPR.Database\obj\Release\net6.0\ref\ALPR.Database.dll
