@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using NetTopologySuite.Geometries;
 
-namespace ALPR.Database.Entities;
+namespace Corssbones.ALPR.Database.Entities;
 
 [Index("RowGuid", Name = "UQ__Captured__B975DD838D88CBD6", IsUnique = true)]
 public partial class CapturedPlate
@@ -53,6 +54,8 @@ public partial class CapturedPlate
     public string? CharactersConfidence { get; set; }
 
     public int? AvgConfidence { get; set; }
+
+    public Point GeoLocation { get; set; } = null!;
 
     public int GeoLocationCode { get; set; }
 

@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace ALPR.Database.Entities;
+namespace Corssbones.ALPR.Database.Entities;
 
 [Table("CapturePlatesSummaryStatus")]
 public partial class CapturePlatesSummaryStatus
 {
     [Key]
-    public int SyncId { get; set; }
+    public long SyncId { get; set; }
 
     [Column(TypeName = "datetime")]
     public DateTime? LastExecutionDate { get; set; }

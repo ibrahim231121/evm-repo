@@ -4,7 +4,7 @@ using Crossbones.Modules.Common.DbContextWithChannel;
 using Crossbones.Transport.Pipes;
 using Microsoft.EntityFrameworkCore;
 
-namespace ALPR.Database.Entities;
+namespace Corssbones.ALPR.Database.Entities;
 
 public partial class AlprContext : DbContextWithChannel
 {
@@ -12,12 +12,6 @@ public partial class AlprContext : DbContextWithChannel
     {
     }
 
-
-
-    //public AlprContext(DbContextOptions<AlprContext> options)
-    //    : base(options)
-    //{
-    //}
 
     public AlprContext(DbContextOptions options, IMessageChannel channel, string tenantServiceId) : base(options, channel, tenantServiceId)
     {
@@ -41,16 +35,22 @@ public partial class AlprContext : DbContextWithChannel
 
     public virtual DbSet<NumberPlatesTemp> NumberPlatesTemps { get; set; }
 
+    public virtual DbSet<Sequence> Sequences { get; set; }
+
+    public virtual DbSet<ServiceInfo> ServiceInfos { get; set; }
+
     public virtual DbSet<SourceType> SourceTypes { get; set; }
 
     public virtual DbSet<UserCapturedPlate> UserCapturedPlates { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=.;Database=ALPR;Trusted_Connection=True;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=localhost;Database=ALPR;Trusted_Connection=True;TrustServerCertificate=True;", x => x.UseNetTopologySuite());
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.UseCollation("Latin1_General_CI_AS");
+
         modelBuilder.Entity<AlprexportDetail>(entity =>
         {
             entity.Property(e => e.ExportedOn).HasDefaultValueSql("(getutcdate())");

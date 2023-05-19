@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace ALPR.Database.Entities;
+namespace Corssbones.ALPR.Database.Entities;
 
 [Table("SourceType")]
 public partial class SourceType
@@ -22,5 +22,5 @@ public partial class SourceType
     public string? Description { get; set; }
 
     [InverseProperty("SourceType")]
-    public virtual ICollection<HotlistDataSource> HotlistDataSources { get; } = new List<HotlistDataSource>();
+    public virtual ICollection<HotlistDataSource> HotlistDataSources { get; set; } = new List<HotlistDataSource>();
 }

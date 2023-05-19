@@ -6,7 +6,7 @@ using Crossbones.Modules.Business.Handlers.Command;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using E = ALPR.Database.Entities;
+using E = Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Business.HotList.Add;
 
 namespace Crossbones.ALPR.Business.HotList.Add

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace ALPR.Database.Entities;
+namespace Corssbones.ALPR.Database.Entities;
 
 [Table("Hotlist")]
 public partial class Hotlist

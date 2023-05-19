@@ -22,4 +22,9 @@
     <PackageReference Include="Crossbones.Modules.Vault" Version="1.0.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Crossbones.ALPR.Database\Corssbones.ALPR.Database.csproj" />
+    <ProjectReference Include="..\Crossbones.ALPR.Models\Crossbones.ALPR.Models.csproj" />
+  </ItemGroup>
+
 </Project>

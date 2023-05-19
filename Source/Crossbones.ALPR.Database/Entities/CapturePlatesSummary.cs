@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace ALPR.Database.Entities;
+namespace Corssbones.ALPR.Database.Entities;
 
 [PrimaryKey("CapturePlateId", "UserId")]
 [Table("CapturePlatesSummary")]
@@ -22,13 +22,14 @@ public partial class CapturePlatesSummary
     public string UnitId { get; set; } = null!;
 
     [Key]
-    public int UserId { get; set; }
+    public long UserId { get; set; }
 
     [StringLength(110)]
     [Unicode(false)]
     public string LoginId { get; set; } = null!;
 
-    public DateOnly CaptureDate { get; set; }
+    [Column(TypeName = "date")]
+    public DateTime CaptureDate { get; set; }
 
     public bool HasAlert { get; set; }
 

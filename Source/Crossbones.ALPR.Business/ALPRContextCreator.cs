@@ -1,4 +1,4 @@
-﻿using ALPR.Database;
+﻿using Corssbones.ALPR.Database;
 using Crossbones.Modules.Business.Common;
 using Crossbones.Transport.Pipes;
 using Microsoft.EntityFrameworkCore;

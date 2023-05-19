@@ -1,11 +1,11 @@
-﻿using ALPR.Database.Entities;
+﻿using Corssbones.ALPR.Database.Entities;
 using Crossbones.Transport.Pipes;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ALPR.Database
+namespace Corssbones.ALPR.Database
 {
     public class ALPRContextFactory
     {

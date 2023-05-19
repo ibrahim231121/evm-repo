@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace ALPR.Database.Entities;
+namespace Corssbones.ALPR.Database.Entities;
 
 [Table("HotlistDataSource")]
 public partial class HotlistDataSource
@@ -74,7 +74,7 @@ public partial class HotlistDataSource
     public string? StatusDesc { get; set; }
 
     [InverseProperty("Source")]
-    public virtual ICollection<Hotlist> Hotlists { get; } = new List<Hotlist>();
+    public virtual ICollection<Hotlist> Hotlists { get; set; } = new List<Hotlist>();
 
     [ForeignKey("SourceTypeId")]
     [InverseProperty("HotlistDataSources")]

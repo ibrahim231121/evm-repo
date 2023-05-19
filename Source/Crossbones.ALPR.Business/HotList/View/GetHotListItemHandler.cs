@@ -4,7 +4,7 @@ using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Query;
 using LanguageExt;
 using Microsoft.EntityFrameworkCore;
-using E = ALPR.Database.Entities;
+using E = Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Models;
 using Corssbones.ALPR.Business.Enums;
 using Crossbones.ALPR.Models.Items;

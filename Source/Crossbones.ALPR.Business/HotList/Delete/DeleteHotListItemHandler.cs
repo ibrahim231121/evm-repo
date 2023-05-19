@@ -9,7 +9,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using E = ALPR.Database.Entities;
+using E = Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Business.HotList.Delete;
 
 namespace Crossbones.ALPR.Business.HotList.Delete
