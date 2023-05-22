@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using E = Corssbones.ALPR.Database.Entities;
 
-namespace Corssbones.ALPR.Business.CapturedPlate.View
+namespace Corssbones.ALPR.Business.CapturedPlate.Get
 {
     public class GetCapturePlatesSummaryItemHandler : QueryHandlerBase<GetCapturePlatesSummaryItem>
     {

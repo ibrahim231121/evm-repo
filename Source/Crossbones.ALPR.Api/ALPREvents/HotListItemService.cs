@@ -1,13 +1,13 @@
-﻿using Crossbones.ALPR.Common.ValueObjects;
-using Crossbones.ALPR.Models;
-using Corssbones.ALPR.Business.Enums;
-using Crossbones.Modules.Common.Pagination;
-using Crossbones.Modules.Sequence.Common.Interfaces;
-using Corssbones.ALPR.Business.HotList.View;
+﻿using Corssbones.ALPR.Business.Enums;
+using Corssbones.ALPR.Business.HotList.Get;
 using Crossbones.ALPR.Business.HotList.Add;
 using Crossbones.ALPR.Business.HotList.Change;
 using Crossbones.ALPR.Business.HotList.Delete;
+using Crossbones.ALPR.Common.ValueObjects;
+using Crossbones.ALPR.Models;
 using Crossbones.ALPR.Models.Items;
+using Crossbones.Modules.Common.Pagination;
+using Crossbones.Modules.Sequence.Common.Interfaces;
 
 namespace Crossbones.ALPR.Api.ALPREvents
 {
@@ -63,17 +63,17 @@ namespace Crossbones.ALPR.Api.ALPREvents
 
         public async Task<HotListItem> Get(SysSerial HotlistSysSerial)
         {
-            var query = new GetHotListItem(HotlistSysSerial, GetQueryFilter.Single);
+            var query = new GetHotListNumberPlate(HotlistSysSerial, GetQueryFilter.Single);
             var res = await Inquire<IEnumerable<HotListItem>>(query);
             return res.FirstOrDefault();
         }
 
         public async Task<PagedResponse<HotListItem>> GetAll(Pager paging)
         {
-            var dataQuery = new GetHotListItem(SysSerial.Empty, GetQueryFilter.All) { Paging = paging };
+            var dataQuery = new GetHotListNumberPlate(SysSerial.Empty, GetQueryFilter.All) { Paging = paging };
             var t0 = Inquire<IEnumerable<HotListItem>>(dataQuery);
 
-            var countQuery = new GetHotListItem(SysSerial.Empty, GetQueryFilter.Count);
+            var countQuery = new GetHotListNumberPlate(SysSerial.Empty, GetQueryFilter.Count);
             var t1 = Inquire<RowCount>(countQuery);
 
             await Task.WhenAll(t0, t1);

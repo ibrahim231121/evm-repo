@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Source",
+    "\\Source\\Crossbones.ALPR.Api",
+    "\\Source\\Crossbones.ALPR.Api\\ALPREvents",
+    "\\Source\\Crossbones.ALPR.Api\\ALPREvents\\HotListNumberPlates",
+    "\\Source\\Crossbones.ALPR.Business",
+    "\\Source\\Crossbones.ALPR.Business\\HotListNumberPlates",
+    "\\Source\\Crossbones.ALPR.Business\\HotListNumberPlates\\Add",
+    "\\Source\\Crossbones.ALPR.Database",
+    "\\Source\\Crossbones.ALPR.Database\\Entities"
+  ],
+  "SelectedNode": "\\Source\\Crossbones.ALPR.Business\\HotListNumberPlates\\Add\\AddHotListNumberPlateHandler.cs",
+  "PreviewInSolutionExplorer": false
+}

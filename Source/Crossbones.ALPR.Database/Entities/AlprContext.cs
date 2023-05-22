@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Crossbones.Modules.Common.DbContextWithChannel;
+﻿using Crossbones.Modules.Common.DbContextWithChannel;
 using Crossbones.Transport.Pipes;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,7 +15,7 @@ public partial class AlprContext : DbContextWithChannel
     {
     }
 
-    public virtual DbSet<AlprexportDetail> AlprexportDetails { get; set; }
+    public virtual DbSet<ALPRExportDetail> ALPRExportDetail { get; set; }
 
     public virtual DbSet<CapturePlatesSummary> CapturePlatesSummaries { get; set; }
 
@@ -51,7 +49,7 @@ public partial class AlprContext : DbContextWithChannel
     {
         modelBuilder.UseCollation("Latin1_General_CI_AS");
 
-        modelBuilder.Entity<AlprexportDetail>(entity =>
+        modelBuilder.Entity<ALPRExportDetail>(entity =>
         {
             entity.Property(e => e.ExportedOn).HasDefaultValueSql("(getutcdate())");
         });

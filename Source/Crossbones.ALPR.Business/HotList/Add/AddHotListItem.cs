@@ -21,7 +21,7 @@ namespace Crossbones.ALPR.Business.HotList.Add
 
         public DateTime LastUpdatedOn { get; set; }
 
-        public TimeSpan LastTimeStamp { get; set; }
+        public byte[] LastTimeStamp { get; set; }
 
         public int StationId { get; set; }
     }

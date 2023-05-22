@@ -1,4 +1,6 @@
 ﻿using Crossbones.ALPR.Api.ALPREvents;
+using Crossbones.ALPR.Api.ALPREvents.ExportDetails;
+using Crossbones.ALPR.Api.ALPREvents.HotListNumberPlates;
 using Crossbones.ALPR.Api.CapturedPlate;
 using Crossbones.ALPR.Api.CapturePlatesSummary;
 using Crossbones.ALPR.Api.CapturePlatesSummaryStatus;
@@ -63,6 +65,8 @@ namespace Crossbones.ALPR.Api
             services.AddScoped<ServiceArguments>();
 
             services.Add(new ServiceDescriptor(typeof(IHotListItemService), typeof(HotListItemService), ServiceLifetime.Transient));
+            services.Add(new ServiceDescriptor(typeof(IExportDetailService), typeof(ExportDetailService), ServiceLifetime.Transient));
+            services.Add(new ServiceDescriptor(typeof(IHotListNumberPlateService), typeof(HotListNumberPlateService), ServiceLifetime.Transient));
 
             services.AddScoped<ICapturedPlateService, CapturedPlateService>();
             services.AddScoped<ICapturePlatesSummaryService, CapturePlatesSummaryService>();

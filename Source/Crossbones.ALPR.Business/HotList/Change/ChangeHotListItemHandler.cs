@@ -1,8 +1,6 @@
-﻿using Crossbones.Modules.Common.Exceptions;
-using Crossbones.Modules.Business;
-using Crossbones.Modules.Business.Contexts;
-using Crossbones.Modules.Business.Handlers;
+﻿using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
+using Crossbones.Modules.Common.Exceptions;
 using System;
 using System.Threading;
 using System.Threading.Tasks;

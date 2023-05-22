@@ -1,11 +1,11 @@
-﻿using Crossbones.Common;
+﻿using Crossbones.ALPR.Common.Log;
+using Crossbones.Common;
 using Crossbones.Logging;
-using Crossbones.Workers.Common;
-using Crossbones.Modules.Business;
 using Crossbones.Modules.Api;
-using Crossbones.ALPR.Common.Log;
-using Microsoft.AspNetCore.Http;
+using Crossbones.Modules.Business;
 using Crossbones.Modules.Common.Queryables;
+using Crossbones.Workers.Common;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
 namespace Crossbones.ALPR.Api

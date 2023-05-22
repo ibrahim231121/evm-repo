@@ -1,22 +1,22 @@
-﻿using Crossbones.Microkernel;
+﻿using Corssbones.ALPR.Business;
+using Crossbones.ALPR.Api;
+using Crossbones.ALPR.Common.ServiceConfiguration;
+using Crossbones.Common.DependencyInjection;
 using Crossbones.DependencyInjection.SimpleInjector;
 using Crossbones.Logging;
 using Crossbones.Logging.Display;
 using Crossbones.Logging.Nlog;
+using Crossbones.Microkernel;
+using Crossbones.Modules.Business.Common;
+using Crossbones.Modules.Common.Configuration;
 using Crossbones.Modules.Common.ServiceDiscovery;
+using Crossbones.Modules.Logger;
+using Crossbones.Modules.Sequence;
+using Crossbones.Modules.Sequence.Common.Configuration;
+using Crossbones.Modules.Vault.Configuration;
+using Crossbones.Modules.Vault.VaultService;
 using Crossbones.Transport.InMemory;
 using System.Reflection;
-using Crossbones.Common.DependencyInjection;
-using Crossbones.Modules.Logger;
-using Crossbones.Modules.Common.Configuration;
-using Crossbones.Modules.Business.Common;
-using Crossbones.Modules.Sequence.Common.Configuration;
-using Crossbones.ALPR.Api;
-using Crossbones.ALPR.Common.ServiceConfiguration;
-using Corssbones.ALPR.Business;
-using Crossbones.Modules.Vault.VaultService;
-using Crossbones.Modules.Vault.Configuration;
-using Crossbones.Modules.Sequence;
 
 namespace Corssbones.ALPR.Service
 {
@@ -61,6 +61,14 @@ namespace Corssbones.ALPR.Service
                     String.Empty, String.Empty, String.Empty,
                     Path.Combine(logPathInfo.rootDir, "Logs", $"{logPathInfo.logFileName}.log"))
             };
+
+            //var mappingConfig = new MapperConfiguration(mc =>
+            //{
+            //    mc.AddProfile(new MappingProfile());
+            //});
+
+            //var mapper = mappingConfig.CreateMapper();
+            //services.AddSingleton<IMapper>(mapper);
 
 
             // Step 4:Define log writers and pipe type
@@ -110,6 +118,7 @@ namespace Corssbones.ALPR.Service
             //config.Register<MQTT_Configuration>(() => configuration.MQTTConfiguration, LifeSpan.Singleton);
             config.Register<IVaultConfiguration>(() => new VaultConfigurationProvider(configuration.VaultConfiguration), LifeSpan.Singleton);
             config.Register<SequenceConfiguration>(() => new SequenceConfiguration(5000, 10000, ALPRResources.HotList), LifeSpan.Singleton);
+            //config.Register<SequenceConfiguration>(() => new SequenceConfiguration(5000, 10000, ALPRResources.ExortDetail), LifeSpan.Singleton);
 
             nLogWriter.Info("ALPR micro-service is starting...!", DateTime.UtcNow);
             nLogWriter.Info($"Assembly file version {Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion}", DateTime.UtcNow);

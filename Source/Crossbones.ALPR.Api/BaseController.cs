@@ -1,13 +1,13 @@
 ﻿using Crossbones.Logging;
-using Crossbones.Modules.Common.Pagination;
 using Crossbones.Modules.Api;
 using Crossbones.Modules.Api.Controllers;
+using Crossbones.Modules.Common;
+using Crossbones.Modules.Common.AuditLogs;
+using Crossbones.Modules.Common.Configuration;
+using Crossbones.Modules.Common.Pagination;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Crossbones.Modules.Common.AuditLogs;
-using Crossbones.Modules.Common.Configuration;
-using Crossbones.Modules.Common;
 
 namespace Crossbones.ALPR.Api
 {

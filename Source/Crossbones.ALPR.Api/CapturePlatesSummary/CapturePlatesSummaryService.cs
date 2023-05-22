@@ -1,7 +1,7 @@
 ﻿using Corssbones.ALPR.Business.CapturedPlate.Add;
 using Corssbones.ALPR.Business.CapturedPlate.Change;
 using Corssbones.ALPR.Business.CapturedPlate.Delete;
-using Corssbones.ALPR.Business.CapturedPlate.View;
+using Corssbones.ALPR.Business.CapturedPlate.Get;
 using Corssbones.ALPR.Business.Enums;
 using Crossbones.ALPR.Api.CapturedPlate;
 using Crossbones.ALPR.Common.ValueObjects;

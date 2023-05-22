@@ -17,6 +17,10 @@ namespace Crossbones.ALPR.Api
         CapturePlateSummary = 4,
 
         [Description("CapturePlateSummaryStatus")]
-        CapturePlateSummaryStatus = 5
+        CapturePlateSummaryStatus = 5,
+        [Description("ExortDetail")]
+        ExortDetail = 6,
+        [Description("HotListNumberPlate")]
+        HotListNumberPlate = 7,
     }
 }

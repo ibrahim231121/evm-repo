@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Crossbones.ALPR.Models
+﻿namespace Crossbones.ALPR.Models
 {
     public class RowCount
     {

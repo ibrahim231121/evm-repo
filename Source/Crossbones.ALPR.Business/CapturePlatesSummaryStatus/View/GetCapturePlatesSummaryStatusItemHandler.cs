@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using E = Corssbones.ALPR.Database.Entities;
 
-namespace Corssbones.ALPR.Business.CapturedPlate.View
+namespace Corssbones.ALPR.Business.CapturedPlate.Get
 {
     public class GetCapturePlatesSummaryStatusItemHandler : QueryHandlerBase<GetCapturePlatesSummaryStatusItem>
     {

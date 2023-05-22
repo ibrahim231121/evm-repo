@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace Corssbones.ALPR.Database.Entities;
 
 [Table("ALPRExportDetail")]
-public partial class AlprexportDetail
+public partial class ALPRExportDetail
 {
     [Key]
-    public int SysSerial { get; set; }
+    public long SysSerial { get; set; }
 
     public long CapturedPlateId { get; set; }
 

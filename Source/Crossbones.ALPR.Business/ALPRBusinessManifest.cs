@@ -1,4 +1,5 @@
-﻿using Crossbones.Common.DependencyInjection;
+﻿using AutoMapper;
+using Crossbones.Common.DependencyInjection;
 using Crossbones.Modules.Business;
 using Crossbones.Modules.Business.Common;
 using System.Reflection;
@@ -20,7 +21,14 @@ namespace Corssbones.ALPR.Business
         {
             reg.Register<IDbContextCreator>(() => new ALPRContextCreator(), LifeSpan.Scoped);
             base.RegisterDependencies(reg);
+
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new ALPRMappingProfile());
+            });
+
+            var mapper = mappingConfig.CreateMapper();
+            reg.Register<IMapper>(() => mapper, LifeSpan.Singleton);
         }
     }
 }
-

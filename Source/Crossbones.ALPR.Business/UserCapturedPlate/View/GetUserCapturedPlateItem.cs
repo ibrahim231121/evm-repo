@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Corssbones.ALPR.Business.CapturedPlate.View
+namespace Corssbones.ALPR.Business.CapturedPlate.Get
 {
     public class GetUserCapturedPlateItem : CapturedPlateMessage
     {        

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace Corssbones.ALPR.Database.Entities;
 
@@ -10,7 +8,7 @@ namespace Corssbones.ALPR.Database.Entities;
 public partial class Hotlist
 {
     [Key]
-    [Column("sysSerial")]
+    [Column("SysSerial")]
     public long SysSerial { get; set; }
 
     [StringLength(50)]

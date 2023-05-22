@@ -1,8 +1,8 @@
-﻿using Crossbones.Modules.Api;
-using Microsoft.AspNetCore.Mvc;
-using Crossbones.ALPR.Common.ValueObjects;
-using Crossbones.Modules.Common.Pagination;
+﻿using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.ALPR.Models.Items;
+using Crossbones.Modules.Api;
+using Crossbones.Modules.Common.Pagination;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Crossbones.ALPR.Api.ALPREvents
 {
@@ -12,7 +12,7 @@ namespace Crossbones.ALPR.Api.ALPREvents
         readonly IHotListItemService _service;
 
         public HotListItemController(ApiParams feature, IHotListItemService service) : base(feature) => _service = service;
-        
+
         [HttpPost]
         [ProducesResponseType(201)]
         public async Task<IActionResult> Add([FromBody] HotListItem hotListItem)

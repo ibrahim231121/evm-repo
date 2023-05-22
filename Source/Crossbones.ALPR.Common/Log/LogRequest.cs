@@ -1,5 +1,4 @@
-﻿using Crossbones.ALPR.Common.Log;
-using Crossbones.Modules.Common.Configuration;
+﻿using Crossbones.Modules.Common.Configuration;
 using Crossbones.Modules.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
