@@ -2,7 +2,7 @@
 using Crossbones.ALPR.Models.Items;
 using Crossbones.Modules.Common.Pagination;
 
-namespace Crossbones.ALPR.Api.ALPREvents
+namespace Crossbones.ALPR.Api.HotList.Service
 {
     public interface IHotListItemService
     {

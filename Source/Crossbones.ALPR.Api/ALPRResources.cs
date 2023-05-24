@@ -22,5 +22,9 @@ namespace Crossbones.ALPR.Api
         ExortDetail = 6,
         [Description("HotListNumberPlate")]
         HotListNumberPlate = 7,
+        [Description("NumberPlate")]
+        NumberPlate = 8,
+        [Description("NumberPlatesTemp")]
+        NumberPlatesTemp = 9,
     }
 }

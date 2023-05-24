@@ -1,4 +1,7 @@
-﻿using Crossbones.ALPR.Api.ALPREvents;
+﻿using Crossbones.ALPR.Api.HotList.Service;
+using Crossbones.ALPR.Api.NumberPlates.Service;
+using Crossbones.ALPR.Api.NumberPlatesTemp.Service;
+using Crossbones.ALPR.Api.ALPREvents;
 using Crossbones.ALPR.Api.ALPREvents.ExportDetails;
 using Crossbones.ALPR.Api.ALPREvents.HotListNumberPlates;
 using Crossbones.ALPR.Api.CapturedPlate;
@@ -30,6 +33,7 @@ using System.Net;
 namespace Crossbones.ALPR.Api
 {
     [Worker("ALPR Micro Service API"), Description("EVM 4.0")]
+    [Worker("ALPR micro service API"), Description("EVM 4.0")]
     public sealed class ALPRApiManifest : IWorkerManifest
     {
         public void Register(IWorkerManifestRegistrant registrant)
@@ -72,6 +76,8 @@ namespace Crossbones.ALPR.Api
             services.AddScoped<ICapturePlatesSummaryService, CapturePlatesSummaryService>();
             services.AddScoped<ICapturePlatesSummaryStatusService, CapturePlatesSummaryStatusService>();
             services.AddScoped<IUserCapturedPlateService, UserCapturedPlateService>();
+            services.Add(new ServiceDescriptor(typeof(INumberPlateService), typeof(NumberPlateService), ServiceLifetime.Transient));
+            services.Add(new ServiceDescriptor(typeof(INumberPlatesTempService), typeof(NumberPlatesTempService), ServiceLifetime.Transient));
 
             services.AddSingleton<IMessageChannel>(_channel);
 

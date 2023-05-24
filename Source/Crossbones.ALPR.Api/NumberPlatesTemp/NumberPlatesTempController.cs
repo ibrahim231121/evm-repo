@@ -1,25 +1,28 @@
-﻿using Crossbones.ALPR.Common.ValueObjects;
-using Crossbones.ALPR.Models.Items;
+﻿using Crossbones.ALPR.Api.NumberPlates.Service;
+using Crossbones.ALPR.Api.NumberPlatesTemp.Service;
+using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.Modules.Api;
 using Crossbones.Modules.Common.Pagination;
 using Microsoft.AspNetCore.Mvc;
+using M = Crossbones.ALPR.Models.Items;
 
-namespace Crossbones.ALPR.Api.ALPREvents
+namespace Crossbones.ALPR.Api.NumberPlatesTemp
 {
-    [Route("HotList")]
-    public class HotListItemController : BaseController
+    [Route("LicensePlatesTemp")]
+    public class NumberPlatesTempController : BaseController
     {
-        readonly IHotListItemService _service;
-
-        public HotListItemController(ApiParams feature, IHotListItemService service) : base(feature) => _service = service;
+        readonly INumberPlatesTempService _service;
+        public NumberPlatesTempController(ApiParams feature, INumberPlatesTempService service) : base(feature)
+        {
+            _service = service;
+        }
 
         [HttpPost]
         [ProducesResponseType(201)]
-        public async Task<IActionResult> Add([FromBody] HotListItem hotListItem)
+        public async Task<IActionResult> Add([FromBody] M.NumberPlatesTemp numberPlatesTemp)
         {
-            var SysSerial = await _service.Add(hotListItem);
-
-            return Created($"{baseUrl}/HotList/{SysSerial}", SysSerial);
+            var SysSerial = await _service.Add(numberPlatesTemp);
+            return Created($"{baseUrl}/LicensePlatesTemp/{SysSerial}", SysSerial);
         }
 
         [HttpGet]
@@ -29,17 +32,17 @@ namespace Crossbones.ALPR.Api.ALPREvents
         }
 
         [HttpGet("{SysSerial}")]
-        public async Task<IActionResult> GetOne(long SysSerial)
+        public async Task<IActionResult> GetOne(long sysSerial)
         {
-            var res = await _service.Get(new SysSerial(SysSerial));
+            var res = await _service.Get(new SysSerial(sysSerial));
             return Ok(res);
         }
 
         [HttpPut("{SysSerial}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> Change(long SysSerial, [FromBody] HotListItem hotListItem)
+        public async Task<IActionResult> Change(long sysSerial, [FromBody] M.NumberPlatesTemp numberPlatesTemp)
         {
-            await _service.Change(new SysSerial(SysSerial), hotListItem);
+            await _service.Change(new SysSerial(sysSerial), numberPlatesTemp);
             return NoContent();
         }
 
@@ -50,7 +53,6 @@ namespace Crossbones.ALPR.Api.ALPREvents
             await _service.Delete(new SysSerial(SysSerial));
             return NoContent();
         }
-
         [HttpDelete]
         [ProducesResponseType(204)]
         public async Task<IActionResult> DeleteAll()
@@ -58,7 +60,6 @@ namespace Crossbones.ALPR.Api.ALPREvents
             await _service.DeleteAll();
             return NoContent();
         }
-
         [HttpGet("HealthCheck")]
         public IActionResult HealthCheck()
         {
