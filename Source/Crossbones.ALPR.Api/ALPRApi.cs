@@ -29,7 +29,7 @@ using System.Net;
 
 namespace Crossbones.ALPR.Api
 {
-    [Worker("HotList micro service API"), Description("EVM 4.0")]
+    [Worker("ALPR Micro Service API"), Description("EVM 4.0")]
     public sealed class ALPRApiManifest : IWorkerManifest
     {
         public void Register(IWorkerManifestRegistrant registrant)

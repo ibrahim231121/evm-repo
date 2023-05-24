@@ -265,3 +265,9 @@ Thumbs.db
 /Source/Crossbones.ALPR.Database/bin/Debug/net6.0
 /Source/Crossbones.ALPR.Database/obj/Debug/net6.0
 /Source/Crossbones.ALPR.Models/obj
+/Source/Corssbones.ALPR.Service/obj/Release/net6.0
+/Source/Crossbones.ALPR.Api/obj/Release/net6.0
+/Source/Crossbones.ALPR.Business/obj/Release/net6.0
+/Source/Crossbones.ALPR.Database/obj/Release/net6.0
+/.vs/EVM4-MS-ALPR/v17/.wsuo
+/Source/Corssbones.ALPR.Service/bin/Debug/net6.0/Corssbones.ALPR.Service.pdb

@@ -14,7 +14,7 @@ namespace Crossbones.ALPR.Api.ALPREvents.ExportDetails
     public class ExportDetailService : ServiceBase, IExportDetailService
     {
         readonly ISequenceProxy exportDetailSequenceProxy;
-        public ExportDetailService(ServiceArguments args, ISequenceProxyFactory sequenceProxyFactory) : base(args) => exportDetailSequenceProxy = sequenceProxyFactory.GetProxy(ALPRResources.HotList);
+        public ExportDetailService(ServiceArguments args, ISequenceProxyFactory sequenceProxyFactory) : base(args) => exportDetailSequenceProxy = sequenceProxyFactory.GetProxy(ALPRResources.ExortDetail);
 
         public async Task<SysSerial> Add(ExportDetailItem addExportDetail)
         {
