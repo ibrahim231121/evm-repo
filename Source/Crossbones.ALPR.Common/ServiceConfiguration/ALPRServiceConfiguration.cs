@@ -30,7 +30,7 @@ namespace Crossbones.ALPR.Common.ServiceConfiguration
         public RedisConfiguration RedisConfiguration { get; set; }
         public FluentdConfiguration FluentdConfiguration { get; set; }
         public string FFmpegLoaderPath { get; set; }
-
+        public GrpcServerConfiguration GrpcServerConfiguration { get; set; }
     }
 
     public sealed class Password

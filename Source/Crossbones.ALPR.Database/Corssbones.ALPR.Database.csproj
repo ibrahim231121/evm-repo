@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Crossbones.Modules.Business" Version="1.1.8.16" />
-    <PackageReference Include="Crossbones.Modules.Common" Version="1.0.0.46" />
+    <PackageReference Include="Crossbones.Modules.Common" Version="1.0.0.49" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite" Version="7.0.5" />
