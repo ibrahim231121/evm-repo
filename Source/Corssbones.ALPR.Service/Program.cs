@@ -126,7 +126,7 @@ namespace Corssbones.ALPR.Service
 
             //List your workers. you need to provide this list to micro kernel. 
             var loader = new ManifestReader(
-                typeof(ALPRApiManifest),
+                typeof(AlprApiManifest),
                 typeof(SequencerManifest),
                 typeof(Logger),
                 typeof(ALPRBusinessManifest)
