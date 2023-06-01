@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Corssbones.ALPR.Business.NumberPlatesTemp.Change
 {
-    public class ChangeNumberPlatesTemp : NumberPlatesTempMessage
+    public class ChangeNumberPlatesTemp : SysSerialItemMessage
     {
         public ChangeNumberPlatesTemp(SysSerial id) : base(id){}
         public string ImportSerialId { get; set; }

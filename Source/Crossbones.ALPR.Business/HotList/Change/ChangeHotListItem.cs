@@ -1,10 +1,13 @@
 ﻿
-using Corssbones.ALPR.Business.HotList;
+using Corssbones.ALPR.Business;
 using Crossbones.ALPR.Common.ValueObjects;
+using Crossbones.ALPR.Models;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Crossbones.ALPR.Business.HotList.Change
 {
-    public class ChangeHotListItem : HotListItemMessage
+    public class ChangeHotListItem : SysSerialItemMessage
     {
 
         public ChangeHotListItem(SysSerial id) : base(id)

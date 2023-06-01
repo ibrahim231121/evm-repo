@@ -5,7 +5,7 @@ using Crossbones.Modules.Business.Handlers.Query;
 using Crossbones.Modules.Common.Exceptions;
 using Crossbones.Modules.Common.Pagination;
 using Microsoft.EntityFrameworkCore;
-using E = ALPR.Database.Entities;
+using E = Corssbones.ALPR.Database.Entities;
 using M = Crossbones.ALPR.Models.Items;
 
 namespace Corssbones.ALPR.Business.NumberPlatesTemp.View

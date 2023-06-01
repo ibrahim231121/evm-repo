@@ -2,7 +2,7 @@
 
 namespace Corssbones.ALPR.Business.ExportDetail.Add
 {
-    public class AddExportDetail : ALPRExportDetailMessage
+    public class AddExportDetail : SysSerialItemMessage
     {
         public long CapturedPlateId { get; set; }
         public long TicketNumber { get; set; }

@@ -1,5 +1,4 @@
-﻿using E = ALPR.Database.Entities;
-using Crossbones.ALPR.Business.NumberPlates.Change;
+﻿using E = Corssbones.ALPR.Database.Entities;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Common.Exceptions;
 using System;

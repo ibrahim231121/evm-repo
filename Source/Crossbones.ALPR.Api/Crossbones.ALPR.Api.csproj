@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ALPREvents\**" />
+    <EmbeddedResource Remove="ALPREvents\**" />
+    <None Remove="ALPREvents\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Crossbones.Modules.Sequence.Common" Version="1.0.0.4" />
   </ItemGroup>
 

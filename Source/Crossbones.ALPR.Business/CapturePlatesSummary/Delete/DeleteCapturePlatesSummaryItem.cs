@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Delete
 {
-    public class DeleteCapturePlatesSummaryItem : CapturedPlateMessage
+    public class DeleteCapturePlatesSummaryItem : SysSerialItemMessage
     {
         public DeleteCapturePlatesSummaryItem(SysSerial id, DeleteCommandFilter deletdCommandFilter, long userId = 0, long capturedPlateId = 0) : base(id)
         {

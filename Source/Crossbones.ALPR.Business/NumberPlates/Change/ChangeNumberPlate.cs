@@ -1,8 +1,9 @@
-﻿using Crossbones.ALPR.Common.ValueObjects;
+﻿using Corssbones.ALPR.Business;
+using Crossbones.ALPR.Common.ValueObjects;
 
 namespace Crossbones.ALPR.Business.NumberPlates.Change
 {
-    public class ChangeNumberPlate : NumberPlatesMessage
+    public class ChangeNumberPlate : SysSerialItemMessage
     {
         public ChangeNumberPlate(SysSerial id) : base(id) { }
         public string ImportSerialId { get; set; }

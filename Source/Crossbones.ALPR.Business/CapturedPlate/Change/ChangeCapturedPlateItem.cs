@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Change
 {
-    public class ChangeCapturedPlateItem: CapturedPlateMessage
+    public class ChangeCapturedPlateItem: SysSerialItemMessage
     {
         public ChangeCapturedPlateItem(SysSerial id, CapturedPlateItem updateItem):base(id)
         {

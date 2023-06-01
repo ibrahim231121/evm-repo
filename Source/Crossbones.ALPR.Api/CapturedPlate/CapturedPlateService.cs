@@ -3,10 +3,7 @@ using Crossbones.ALPR.Models;
 using Corssbones.ALPR.Business.Enums;
 using Crossbones.Modules.Common.Pagination;
 using Crossbones.Modules.Sequence.Common.Interfaces;
-using Corssbones.ALPR.Business.HotList.Get;
-using Crossbones.ALPR.Business.HotList.Add;
-using Crossbones.ALPR.Business.HotList.Change;
-using Crossbones.ALPR.Business.HotList.Delete;
+
 using Crossbones.ALPR.Models.Items;
 using Crossbones.ALPR.Models.CapturedPlate;
 using Crossbones.Modules.Common.Queryables;

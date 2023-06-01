@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Corssbones.ALPR.Business.NumberPlatesTemp.Add
 {
-    public class AddNumberPlatesTemp : NumberPlatesTempMessage
+    public class AddNumberPlatesTemp : SysSerialItemMessage
     {
         public AddNumberPlatesTemp(SysSerial id) : base(id)
         {

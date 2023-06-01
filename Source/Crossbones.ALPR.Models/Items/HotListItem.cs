@@ -7,7 +7,7 @@
 
         public string Description { get; set; }
 
-        public int SourceId { get; set; }
+        public long? SourceId { get; set; }
 
         public string RulesExpression { get; set; }
 
@@ -19,6 +19,6 @@
 
         public byte[] LastTimeStamp { get; set; }
 
-        public int StationId { get; set; }
+        public long? StationId { get; set; }
     }
 }

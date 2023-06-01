@@ -4,7 +4,7 @@ using Crossbones.Modules.Common.Pagination;
 
 namespace Corssbones.ALPR.Business.HotListNumberPlates.Get
 {
-    public class GetHotListNumberPlate : HotListNumberPlatesMessage
+    public class GetHotListNumberPlate : SysSerialItemMessage
     {
         public Pager Paging { get; set; }
         public GetQueryFilter Filter { get; set; }

@@ -1,11 +1,11 @@
-﻿using Crossbones.Modules.Business.Contexts;
+﻿using Crossbones.Modules.Common.Exceptions;
+using Crossbones.Modules.Business;
+using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 using E = Corssbones.ALPR.Database.Entities;
-using Crossbones.ALPR.Business.HotList.Add;
-using Crossbones.Modules.Common.Exceptions;
 
 namespace Crossbones.ALPR.Business.HotList.Add
 {

@@ -1,4 +1,5 @@
-﻿using ALPR.Database.Entities;
+﻿
+using Corssbones.ALPR.Database.Entities;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
 using Crossbones.Modules.Common.Exceptions;

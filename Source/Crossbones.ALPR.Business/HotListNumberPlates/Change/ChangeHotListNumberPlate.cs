@@ -3,7 +3,7 @@ using Crossbones.ALPR.Common.ValueObjects;
 
 namespace Corssbones.ALPR.Business.HotListNumberPlates.Change
 {
-    public class ChangeHotListNumberPlate : HotListItemMessage
+    public class ChangeHotListNumberPlate : SysSerialItemMessage
     {
         public long HotListID { get; set; }
         public long NumberPlatesId { get; set; }

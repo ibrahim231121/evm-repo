@@ -11,7 +11,7 @@ public partial class HotlistDataSource
 {
     [Key]
     [Column("sysSerial")]
-    public int SysSerial { get; set; }
+    public long SysSerial { get; set; }
 
     [StringLength(50)]
     [Unicode(false)]
@@ -22,10 +22,10 @@ public partial class HotlistDataSource
     public string? SourceName { get; set; }
 
     [Column("AgencyID")]
-    public int? AgencyId { get; set; }
+    public long? AgencyId { get; set; }
 
     [Column("SourceTypeID")]
-    public int SourceTypeId { get; set; }
+    public long SourceTypeId { get; set; }
 
     [Column(TypeName = "decimal(10, 0)")]
     public decimal? SchedulePeriod { get; set; }
@@ -40,7 +40,7 @@ public partial class HotlistDataSource
     public string? SchemaDefinition { get; set; }
 
     [Column("LastUpdateExternalHotListID")]
-    public int? LastUpdateExternalHotListId { get; set; }
+    public long? LastUpdateExternalHotListId { get; set; }
 
     [StringLength(10)]
     [Unicode(false)]

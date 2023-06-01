@@ -1,5 +1,4 @@
-﻿using ALPR.Database.Entities;
-using Crossbones.Modules.Business.Contexts;
+﻿using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Query;
 using M = Crossbones.ALPR.Models.Items;
 using Crossbones.Modules.Common.Pagination;
@@ -7,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Crossbones.Modules.Common.Exceptions;
 using Corssbones.ALPR.Business.Enums;
 using Crossbones.ALPR.Models;
+using Corssbones.ALPR.Database.Entities;
 
 namespace Crossbones.ALPR.Business.NumberPlates.View
 {

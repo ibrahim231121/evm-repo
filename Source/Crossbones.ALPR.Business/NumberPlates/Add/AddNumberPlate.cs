@@ -1,8 +1,9 @@
-﻿using Crossbones.ALPR.Common.ValueObjects;
+﻿using Corssbones.ALPR.Business;
+using Crossbones.ALPR.Common.ValueObjects;
 
 namespace Crossbones.ALPR.Business.NumberPlates.Add
 {
-    public class AddNumberPlate : NumberPlatesMessage
+    public class AddNumberPlate : SysSerialItemMessage
     {
         public AddNumberPlate(SysSerial id) : base(id)
         {

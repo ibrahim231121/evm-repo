@@ -20,7 +20,7 @@ public partial class Hotlist
     public string? Description { get; set; }
 
     [Column("SourceID")]
-    public int? SourceId { get; set; }
+    public long? SourceId { get; set; }
 
     [StringLength(1000)]
     [Unicode(false)]
@@ -37,7 +37,7 @@ public partial class Hotlist
     public byte[] LastTimeStamp { get; set; } = null!;
 
     [Column("StationID")]
-    public int? StationId { get; set; }
+    public long? StationId { get; set; }
 
     [StringLength(10)]
     [Unicode(false)]

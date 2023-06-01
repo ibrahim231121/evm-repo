@@ -1,18 +1,19 @@
-﻿using Crossbones.ALPR.Common.ValueObjects;
+﻿using Crossbones.Modules.Common.Exceptions;
+using Crossbones.Modules.Business;
 using Crossbones.Modules.Business.Contexts;
+using Crossbones.Modules.Business.Handlers;
 using Crossbones.Modules.Business.Handlers.Command;
-using Crossbones.Modules.Common.Exceptions;
+using Crossbones.ALPR.Common.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using E = Corssbones.ALPR.Database.Entities;
-using Crossbones.ALPR.Business.HotList.Delete;
 
 namespace Crossbones.ALPR.Business.HotList.Delete
 {
-    public class DeleteHotListItemHandler : CommandHandlerBase<DeleteHotListItem>
+    public class DeleteHotListDataSourceItemHandler : CommandHandlerBase<DeleteHotListItem>
     {
         protected override async Task OnMessage(DeleteHotListItem command, ICommandContext context, CancellationToken token)
         {

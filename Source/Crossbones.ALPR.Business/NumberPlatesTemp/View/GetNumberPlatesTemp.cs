@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Corssbones.ALPR.Business.NumberPlatesTemp.View
 {
-    public class GetNumberPlatesTemp : NumberPlatesTempMessage
+    public class GetNumberPlatesTemp : SysSerialItemMessage
     {
         public GetNumberPlatesTemp(SysSerial sysSerial, GetQueryFilter filter) : base(sysSerial)
         {

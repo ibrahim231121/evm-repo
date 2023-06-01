@@ -3,7 +3,7 @@ using Crossbones.Modules.Business.Handlers.Command;
 using Crossbones.ALPR.Common.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Crossbones.Modules.Common.Exceptions;
-using ALPR.Database.Entities;
+using Corssbones.ALPR.Database.Entities;
 
 namespace Crossbones.ALPR.Business.NumberPlates.Delete
 {

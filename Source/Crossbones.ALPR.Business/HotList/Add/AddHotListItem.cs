@@ -1,9 +1,9 @@
-﻿using Corssbones.ALPR.Business.HotList;
+﻿using Corssbones.ALPR.Business;
 using Crossbones.ALPR.Common.ValueObjects;
 
 namespace Crossbones.ALPR.Business.HotList.Add
 {
-    public class AddHotListItem : HotListItemMessage
+    public class AddHotListItem : SysSerialItemMessage
     {
         public AddHotListItem(SysSerial id) : base(id)
         {
@@ -11,7 +11,7 @@ namespace Crossbones.ALPR.Business.HotList.Add
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public int SourceId { get; set; }
+        public long? SourceId { get; set; }
 
         public string RulesExpression { get; set; }
 
@@ -23,6 +23,6 @@ namespace Crossbones.ALPR.Business.HotList.Add
 
         public byte[] LastTimeStamp { get; set; }
 
-        public int StationId { get; set; }
+        public long? StationId { get; set; }
     }
 }

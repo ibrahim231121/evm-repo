@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Get
 {
-    public class GetCapturedPlateItem : CapturedPlateMessage
+    public class GetCapturedPlateItem : SysSerialItemMessage
     {        
         public GetCapturedPlateItem(SysSerial sysSerial, GetQueryFilter queryFilter, List<long> capturedPlateIds = null, DateTime startDate = default, DateTime endDate = default, GridFilter filter = null, Pager paging = null, GridSort sort = null) : base(sysSerial)
         {

@@ -1,4 +1,5 @@
-﻿using Crossbones.ALPR.Common.ValueObjects;
+﻿using Corssbones.ALPR.Business;
+using Crossbones.ALPR.Common.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Crossbones.ALPR.Business.NumberPlates.Delete
 {
-    public class DeleteNumberPlate : NumberPlatesMessage
+    public class DeleteNumberPlate : SysSerialItemMessage
     {
         public DeleteNumberPlate(SysSerial id) : base(id)
         {

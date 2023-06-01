@@ -2,7 +2,7 @@
 
 namespace Corssbones.ALPR.Business.HotListNumberPlates.Add
 {
-    public class AddHotListNumberPlate : HotListNumberPlatesMessage
+    public class AddHotListNumberPlate : SysSerialItemMessage
     {
         public long HotListID { get; set; }
         public long NumberPlatesId { get; set; }

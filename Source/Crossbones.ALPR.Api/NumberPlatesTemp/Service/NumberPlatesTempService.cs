@@ -3,8 +3,6 @@ using Corssbones.ALPR.Business.NumberPlatesTemp.Add;
 using Corssbones.ALPR.Business.NumberPlatesTemp.Change;
 using Corssbones.ALPR.Business.NumberPlatesTemp.Delete;
 using Corssbones.ALPR.Business.NumberPlatesTemp.View;
-using Crossbones.ALPR.Business.NumberPlates.Change;
-using Crossbones.ALPR.Business.NumberPlates.Delete;
 using Crossbones.ALPR.Business.NumberPlates.View;
 using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.ALPR.Models;

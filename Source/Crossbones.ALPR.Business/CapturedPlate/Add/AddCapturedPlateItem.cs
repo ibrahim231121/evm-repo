@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Add
 {
-    public class AddCapturedPlateItem : CapturedPlateMessage
+    public class AddCapturedPlateItem : SysSerialItemMessage
     {
         public AddCapturedPlateItem(SysSerial id, CapturedPlateItem capturedPlateItem) : base(id)
         {
