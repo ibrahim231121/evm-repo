@@ -1,6 +1,8 @@
 ﻿using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.ALPR.Models.Items;
+using Crossbones.Modules.Common;
 using Crossbones.Modules.Common.Pagination;
+using Crossbones.Modules.Common.Queryables;
 
 namespace Crossbones.ALPR.Api.HotList.Service
 {
@@ -24,7 +26,7 @@ namespace Crossbones.ALPR.Api.HotList.Service
         /// It is used to Get All Hotlist data from database
         /// </summary>
         /// <returns>List of Hotlist records</returns>
-        Task<PagedResponse<HotListItem>> GetAll(Pager paging);
+        Task<PageResponse<HotListItem>> GetAll(Pager paging, GridFilter filter, GridSort sort);
 
         /// <summary>
         /// It is used to update Hotlist data from database

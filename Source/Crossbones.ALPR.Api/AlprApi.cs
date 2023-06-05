@@ -1,9 +1,6 @@
 ﻿using Crossbones.ALPR.Api.HotList.Service;
 using Crossbones.ALPR.Api.NumberPlates.Service;
 using Crossbones.ALPR.Api.NumberPlatesTemp.Service;
-using Crossbones.ALPR.Api.ALPREvents;
-using Crossbones.ALPR.Api.ALPREvents.ExportDetails;
-using Crossbones.ALPR.Api.ALPREvents.HotListNumberPlates;
 using Crossbones.ALPR.Api.CapturedPlate;
 using Crossbones.ALPR.Api.CapturePlatesSummary;
 using Crossbones.ALPR.Api.CapturePlatesSummaryStatus;
@@ -29,7 +26,8 @@ using Microsoft.Graph.SecurityNamespace;
 using System.ComponentModel;
 using System.Net;
 using Microsoft.Extensions.Configuration;
-
+using Crossbones.ALPR.Api.ExportDetails;
+using Crossbones.ALPR.Api.HotListNumberPlates;
 
 namespace Crossbones.ALPR.Api
 {

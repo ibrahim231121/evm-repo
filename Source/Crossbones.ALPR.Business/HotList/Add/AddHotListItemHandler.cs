@@ -14,7 +14,7 @@ namespace Crossbones.ALPR.Business.HotList.Add
         protected override async Task OnMessage(AddHotListItem command, ICommandContext context, CancellationToken token)
         {
             var _repository = context.Get<E.Hotlist>();
-            var nameExist = await _repository.Exists(x => x.Name == command.Name, token);
+            var nameExist = await _repository.Exists(x => x.Name == command.ItemToAdd.Name, token);
             if (nameExist)
             {
                 throw new DuplicationNotAllowed("Name already exist");
@@ -24,15 +24,17 @@ namespace Crossbones.ALPR.Business.HotList.Add
                 await _repository.Add(new E.Hotlist()
                 {
                     SysSerial = command.Id,
-                    Name = command.Name,
-                    Description = command.Description,
-                    SourceId = command.SourceId,
-                    RulesExpression = command.RulesExpression,
-                    AlertPriority = command.AlertPriority,
-                    CreatedOn = command.CreatedOn,
-                    LastUpdatedOn = command.LastUpdatedOn,
+                    Name = command.ItemToAdd.Name,
+                    Description = command.ItemToAdd.Description,
+                    SourceId = command.ItemToAdd.SourceId,
+                    RulesExpression = command.ItemToAdd.RulesExpression,
+                    AlertPriority = command.ItemToAdd.AlertPriority,
+                    CreatedOn = command.ItemToAdd.CreatedOn,
+                    LastUpdatedOn = command.ItemToAdd.LastUpdatedOn,
                     //LastTimeStamp = command.LastTimeStamp,
-                    StationId = command.StationId
+                    StationId = command.ItemToAdd.StationId,
+                    Color = command.ItemToAdd.Color,
+                    Urilocation = command.ItemToAdd.Audio
                 }, token);
                 context.Success($"HotList Item has been added, SysSerial:{command.Id}");
             }

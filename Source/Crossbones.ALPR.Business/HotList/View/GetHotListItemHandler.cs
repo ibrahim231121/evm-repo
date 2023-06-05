@@ -8,8 +8,10 @@ using E = Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Models;
 using Corssbones.ALPR.Business.Enums;
 using Crossbones.ALPR.Models.Items;
+using Crossbones.Modules.Common;
+using Crossbones.ALPR.Common;
 
-namespace Corssbones.ALPR.Business.HotList.View
+namespace Corssbones.ALPR.Business.HotList.Get
 {
     public class GetHotListItemHandler : QueryHandlerBase<GetHotListItem>
     {
@@ -17,38 +19,55 @@ namespace Corssbones.ALPR.Business.HotList.View
         {
             var _repository = context.Get<E.Hotlist>();
 
-            if (query.Filter == GetQueryFilter.Count)
+            if (query.QueryFilter == GetQueryFilter.Count)
             {
                 return new RowCount(await _repository.Count());
             }
             else
             {
-                var singleRequest = query.Filter == GetQueryFilter.Single;
-                var data = await (singleRequest switch
+                switch (query.QueryFilter)
                 {
-                    true => _repository.Many(x => x.SysSerial == query.Id),
-                    false => _repository.Many(),
-                }).ApplyPaging(query.Paging).ToListAsync(token);
-
-                if (!data.Any() && singleRequest)
-                {
-                    throw new RecordNotFound($"Unable to process your request because HotList Item Data is not found against provided Id '{query.Id}'");
+                    case GetQueryFilter.Single:
+                        return _repository.Many(x => x.SysSerial == query.Id).Select(x => new HotListItem()
+                                {
+                                    Name = x.Name,
+                                    Description = x.Description,
+                                    AlertPriority = x.AlertPriority,
+                                    CreatedOn = x.CreatedOn,
+                                    LastTimeStamp = x.LastTimeStamp,
+                                    LastUpdatedOn = x.LastUpdatedOn,
+                                    RulesExpression = x.RulesExpression,
+                                    SysSerial = x.SysSerial,
+                                    Audio = x.Urilocation,
+                                    Color = x.Color,
+                                    SourceId = x.SourceId,
+                                    StationId = x.StationId,
+                                    SourceName = x.Source == null ? string.Empty : x.Source.SourceName
+                                }).FirstOrDefault();
+                        break;
+                    case GetQueryFilter.All:
+                        return await _repository.Many().Include(hotlist=>hotlist.Source).Select(x => new HotListItem()
+                                {
+                                    Name = x.Name,
+                                    Description = x.Description,
+                                    SourceId = x.SourceId,
+                                    AlertPriority = x.AlertPriority,
+                                    CreatedOn = x.CreatedOn,
+                                    LastTimeStamp = x.LastTimeStamp,
+                                    LastUpdatedOn = x.LastUpdatedOn,
+                                    RulesExpression = x.RulesExpression,
+                                    SysSerial = x.SysSerial,
+                                    Audio = x.Urilocation,
+                                    Color = x.Color,
+                                    StationId = x.StationId,
+                                    SourceName = x.Source == null ? string.Empty : x.Source.SourceName
+                                }).ToFilteredPagedListAsync(query.Filter, query.Paging, query.Sort, token);
+                        break;                    
+                    default:
+                        break;
                 }
 
-                var res = data.Select(x => new HotListItem()
-                {
-                    Name = x.Name,
-                    Description = x.Description,
-                    SourceId = x.SourceId,
-                    RulesExpression = x.RulesExpression,
-                    AlertPriority = x.AlertPriority,
-                    CreatedOn = x.CreatedOn,
-                    LastUpdatedOn = x.LastUpdatedOn,
-                    //LastTimeStamp = x.LastTimeStamp,
-                    StationId = x.StationId,
-                });
-
-                return res;
+                return null;
             }
         }
     }

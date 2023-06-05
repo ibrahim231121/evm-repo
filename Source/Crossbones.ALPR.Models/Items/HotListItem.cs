@@ -9,6 +9,8 @@
 
         public long? SourceId { get; set; }
 
+        public string SourceName { get; set; }
+
         public string RulesExpression { get; set; }
 
         public short AlertPriority { get; set; }
@@ -20,5 +22,9 @@
         public byte[] LastTimeStamp { get; set; }
 
         public long? StationId { get; set; }
+
+        public string Color { get; set; }
+
+        public string Audio { get; set; }
     }
 }

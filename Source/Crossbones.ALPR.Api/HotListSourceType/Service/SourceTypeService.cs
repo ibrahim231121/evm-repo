@@ -1,6 +1,6 @@
 ﻿
 using Corssbones.ALPR.Business.Enums;
-using Corssbones.ALPR.Business.HotList.View;
+using Corssbones.ALPR.Business.HotList.Get;
 using Corssbones.ALPR.Business.SourceType.Add;
 using Corssbones.ALPR.Business.SourceType.Change;
 using Corssbones.ALPR.Business.SourceType.Delete;

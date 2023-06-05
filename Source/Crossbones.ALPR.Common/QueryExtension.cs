@@ -12,29 +12,29 @@ namespace Crossbones.ALPR.Common
     {
         public static async Task<PagedResponse<T>> ToPagedListAsync<T>(this IQueryable<T> source, Pager pagination, GridSort sort, CancellationToken token)
         {
-			if (sort != null)
-				source = source.OrderBy(sort.Field + " " + sort.Dir);
+            if (sort != null)
+                source = source.OrderBy(sort.Field + " " + sort.Dir);
 
-			int page=1,size = 10,skip = 0,count=1;
-            if(pagination != null)
+            int page = 1, size = 10, skip = 0, count = 1;
+            if (pagination != null)
             {
                 page = pagination.Page <= 0 ? 1 : pagination.Page;
                 size = pagination.Size <= 0 ? 10 : pagination.Size;
                 skip = (pagination.Page - 1) * pagination.Size;
                 count = await source.CountAsync(token);
             }
-            var items =await source.Skip(skip).Take(size).ToListAsync(token);
+            var items = await source.Skip(skip).Take(size).ToListAsync(token);
             return PaginationHelper.GetPagedResponse(items, count);
         }
         public static async Task<PagedResponse<T>> ToFilteredPagedSortedListAsync<T>(this IQueryable<T> source, GridFilter filter, Pager pagination, GridSort sort, CancellationToken token)
         {
-			if (filter != null && (filter.Filters != null && filter.Filters.Count > 0))
-				ProcessDataUtil.ProcessFilters(filter, ref source);
+            if (filter != null && (filter.Filters != null && filter.Filters.Count > 0))
+                ProcessDataUtil.ProcessFilters(filter, ref source);
 
             if (sort != null && sort.Field != null && sort.Dir != null)
-				source = source.OrderBy(sort.Field + " " + sort.Dir);
+                source = source.OrderBy(sort.Field + " " + sort.Dir);
 
-			int page = 1, size = 10, skip = 0, count = 1;
+            int page = 1, size = 10, skip = 0, count = 1;
             if (pagination != null)
             {
                 page = pagination.Page <= 0 ? 1 : pagination.Page;
@@ -50,10 +50,10 @@ namespace Crossbones.ALPR.Common
             if (filter != null && (filter.Filters != null && filter.Filters.Count > 0))
                 ProcessDataUtil.ProcessFilters(filter, ref source);
 
-			if (sort != null)
-				source = source.OrderBy(sort.Field + " " + sort.Dir);
+            if (sort != null)
+                source = source.OrderBy(sort.Field + " " + sort.Dir);
 
-			int page = 1, size = 10, skip = 0, count = 1;
+            int page = 1, size = 10, skip = 0, count = 1;
             if (pagination != null)
             {
                 page = pagination.Page <= 0 ? 1 : pagination.Page;
@@ -73,7 +73,7 @@ namespace Crossbones.ALPR.Common
             if (sort != null && sort.Field != null && sort.Dir != null)
                 source = source.OrderBy(sort.Field + " " + sort.Dir);
 
-           
+
             return await source.ToListAsync();
         }
     }

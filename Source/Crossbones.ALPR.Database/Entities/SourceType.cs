@@ -11,7 +11,7 @@ public partial class SourceType
 {
     [Key]
     [Column("sysSerial")]
-    public int SysSerial { get; set; }
+    public long SysSerial { get; set; }
 
     [StringLength(50)]
     [Unicode(false)]

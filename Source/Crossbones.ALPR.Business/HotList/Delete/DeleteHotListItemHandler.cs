@@ -20,21 +20,21 @@ namespace Crossbones.ALPR.Business.HotList.Delete
             var _repository = context.Get<E.Hotlist>();
             var singleDeleteRequest = command.Id != SysSerial.Empty;
 
-            var result = singleDeleteRequest switch
+            if (command.Id == SysSerial.Empty)
             {
-                true => await _repository.Many(x => x.SysSerial == command.Id).ToListAsync(token),
-                false => await _repository.Many().ToListAsync(token),
-            };
+                await _repository.Delete(x => true);
 
-            if (!result.Any())
-                throw new RecordNotFound("HotList Data Not Found");
-            else
-            {
-                await _repository.Delete(result, token);
-
-                var logMessage = singleDeleteRequest ? $"HotList record has been deleted, SysSerial: {command.Id}" : $"All HotList records have been deleted";
+                var logMessage = "All HotList records have been deleted";
                 context.Success(logMessage);
             }
+            else
+            {
+                await _repository.Delete(x => x.SysSerial == command.Id);
+
+                var logMessage = $"HotList record has been deleted, SysSerial: {command.Id}";
+                context.Success(logMessage);
+            }
+
         }
     }
 }
