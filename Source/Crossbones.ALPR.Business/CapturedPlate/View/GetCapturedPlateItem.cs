@@ -12,11 +12,12 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
 {
     public class GetCapturedPlateItem : SysSerialItemMessage
     {        
-        public GetCapturedPlateItem(SysSerial sysSerial, GetQueryFilter queryFilter, List<long> capturedPlateIds = null, DateTime startDate = default, DateTime endDate = default, GridFilter filter = null, Pager paging = null, GridSort sort = null) : base(sysSerial)
+        public GetCapturedPlateItem(SysSerial sysSerial, GetQueryFilter queryFilter, List<long> capturedPlateIds = null, DateTime startDate = default, DateTime endDate = default, GridFilter filter = null, Pager paging = null, GridSort sort = null, List<long> hotListIds = null) : base(sysSerial)
         {
             Paging = paging;
             Filter = filter;
             Sort = sort;
+            HotListIds = hotListIds;
             StartDate = startDate;
             EndDate = endDate;
             QueryFilter = queryFilter;
@@ -26,7 +27,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
         public Pager Paging { get; }
 
         public GridSort Sort { get; }
-
+        public List<long> HotListIds { get; }
         public GridFilter Filter { get; }
         public DateTime StartDate { get; }
         public DateTime EndDate { get; }

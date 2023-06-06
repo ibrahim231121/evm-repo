@@ -30,9 +30,11 @@ namespace Crossbones.ALPR.Api.CapturedPlate
         {
             GridFilter filter;
             GridSort sort;
+            List<long> hotListIds = null;
 
             Microsoft.Extensions.Primitives.StringValues HeaderGridFilter;
             Microsoft.Extensions.Primitives.StringValues HeaderGridSort;
+            Microsoft.Extensions.Primitives.StringValues HeaderHotListIds;
 
             try
             {
@@ -41,6 +43,9 @@ namespace Crossbones.ALPR.Api.CapturedPlate
 
                 HttpContext.Request.Headers.TryGetValue("GridSort", out HeaderGridSort);
                 sort = JsonConvert.DeserializeObject<GridSort>(HeaderGridSort);
+
+                HttpContext.Request.Headers.TryGetValue("HotListIds", out HeaderHotListIds);
+                hotListIds = JsonConvert.DeserializeObject<List<long>>(HeaderHotListIds);
             }
             catch
             {
@@ -51,9 +56,9 @@ namespace Crossbones.ALPR.Api.CapturedPlate
                 sort = new GridSort();
             }
 
-            var res = await _service.GetAll(userId, startDate, endDate, paging, filter, sort);
+            var res = await _service.GetAll(userId, startDate, endDate, paging, filter, sort, hotListIds);
 
-            return PagedResult(res);
+            return PaginatedOk(res);
         }
 
         [HttpGet("{SysSerial}")]

@@ -10,7 +10,7 @@ namespace Crossbones.ALPR.Models.CapturedPlate
     {
         public long CapturedPlateId { get; set; }
 
-        public string PlateNumber { get; set;}
+        public string NumberPlate { get; set;}
 
         public string HotlistName { get; set; }
 
@@ -24,23 +24,25 @@ namespace Crossbones.ALPR.Models.CapturedPlate
             }
         }
 
-        public string UnitName { get; set; }
+        public string UnitId { get; set; }
 
         public long User { get; set; }
 
         public string Description { get; set; }
 
-        public int? Confidence { get; set; }
+        public int Confidence { get; set; }
 
         public short State { get; set; }
 
         public string Notes { get; set; }
 
-        public long? TicketNumber { get; set; }
+        public long TicketNumber { get; set; }
 
         public double Latitude { get; set; }
 
         public double Longitude { get; set; }
+
+        public double Distance { get; set; }
 
         public string LifeSpan { get; set; }
 

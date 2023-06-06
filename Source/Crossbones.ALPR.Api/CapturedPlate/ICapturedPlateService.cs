@@ -1,5 +1,6 @@
 ﻿using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.ALPR.Models.CapturedPlate;
+using Crossbones.Modules.Common;
 using Crossbones.Modules.Common.Pagination;
 using Crossbones.Modules.Common.Queryables;
 using Microsoft.AspNetCore.Mvc;
@@ -36,7 +37,7 @@ namespace Crossbones.ALPR.Api.CapturedPlate
         /// <param name="filter">The filter.</param>
         /// <param name="sort">The sort.</param>
         /// <returns></returns>
-        Task<PagedResponse<CapturedPlateItem>> GetAll(long userID, DateTime startDate, DateTime endDate, Pager paging, GridFilter filter, GridSort sort);
+        Task<PageResponse<CapturedPlateItem>> GetAll(long userID, DateTime startDate, DateTime endDate, Pager paging, GridFilter filter, GridSort sort, List<long> hotListIds);
 
 
         /// <summary>

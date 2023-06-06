@@ -37,7 +37,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Add
             var capturedPlate = new E.CapturedPlate()
             {
                 SysSerial = command.Id,
-                NumberPlate = command.CapturedPlateItem.PlateNumber,
+                NumberPlate = command.CapturedPlateItem.NumberPlate,
                 CapturedAt = command.CapturedPlateItem.CapturedAt,
                 LastUpdated = command.CapturedPlateItem.CapturedAt,
                 Confidence = command.CapturedPlateItem.Confidence,

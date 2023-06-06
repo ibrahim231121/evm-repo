@@ -18,7 +18,7 @@ namespace Crossbones.ALPR.Common.Validation
                 throw new InvalidValue("CapturedPlate Item is invalid");
             }
 
-            if (string.IsNullOrEmpty(capturedPlateItem.PlateNumber))
+            if (string.IsNullOrEmpty(capturedPlateItem.NumberPlate))
             {
                 throw new InvalidValue("Captured plate number can not be empty");
             }

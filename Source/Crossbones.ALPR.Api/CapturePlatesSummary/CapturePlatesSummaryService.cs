@@ -4,6 +4,7 @@ using Corssbones.ALPR.Business.CapturedPlate.Delete;
 using Corssbones.ALPR.Business.CapturedPlate.Get;
 using Corssbones.ALPR.Business.Enums;
 using Crossbones.ALPR.Api.CapturedPlate;
+using Crossbones.ALPR.Common;
 using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.ALPR.Models.CapturedPlate;
 using Crossbones.Modules.Common.Pagination;
@@ -101,9 +102,9 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummary
                                                                                       null,
                                                                                       sort);
 
-            var resp = await Inquire<List<CapturePlatesSummaryItem>>(getCapturePlateSummaryQuery);
+            var resp = await Inquire<List<Corssbones.ALPR.Database.Entities.CapturePlatesSummary>>(getCapturePlateSummaryQuery);
 
-            return resp;
+            return resp.Select(cps => DTOHelper.ConvertToDTO(cps)).ToList();
         }
     }
 }

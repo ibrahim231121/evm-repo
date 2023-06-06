@@ -6,9 +6,11 @@ using Crossbones.Modules.Business.Repositories;
 using Crossbones.Modules.Common.Exceptions;
 using Crossbones.Modules.Common.Pagination;
 using Microsoft.EntityFrameworkCore;
+using NetTopologySuite.Geometries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using E = Corssbones.ALPR.Database.Entities;
@@ -25,7 +27,14 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
             }
 
             var cpRepsitory = context.Get<E.CapturedPlate>();
+            var hotlistRepository = context.Get<E.HotListNumberPlate>();
 
+            bool applySort = false;
+
+            if (query.Sort != null && !string.IsNullOrEmpty(query.Sort.Field))
+            {
+                applySort = typeof(E.CapturedPlate).GetProperty(query.Sort.Field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) != null;
+            }
 
             var tsLifeSpan = query.EndDate.Subtract(query.StartDate);
 
@@ -45,25 +54,57 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
                                                         cp.CapturedAt >= query.StartDate && cp.CapturedAt <= query.EndDate);
             }
 
-            
+            if (query.HotListIds != null && (query.HotListIds.Count == 1 && query.HotListIds[0] != 0))
+            {
+                var hotListQueryable = hotlistRepository.Many(hotlist => query.HotListIds.Contains(hotlist.HotListId)).Include(hotList=>hotList.NumberPlate);
 
+                capturedPlates = capturedPlates.Join(hotListQueryable,
+                                    f => f.NumberPlate,
+                                    s => s.NumberPlate.NumberPlate1,
+                                    (f, s) => f);
+            }
+
+            double latitude = 0;
+            bool filterByLatitude = false;
+            double longitude = 0;
+            bool filterByLongitude = false;
+
+            if (query.Filter != null && query.Filter.Filters != null && query.Filter.Filters.Exists(filter => filter.Field == "Latitude"))
+            {
+                filterByLatitude = true;
+                latitude = Convert.ToDouble(query.Filter.Filters.Find(filter => filter.Field == "Latitude").Value);
+
+                query.Filter.Filters = query.Filter.Filters.Filter(filter => filter.Field != "Latitude").ToList();
+            }
+
+            if (query.Filter != null && query.Filter.Filters != null && query.Filter.Filters.Exists(filter => filter.Field == "Longitude"))
+            {
+                filterByLongitude = true;
+                longitude = Convert.ToDouble(query.Filter.Filters.Find(filter => filter.Field == "Longitude").Value);
+
+                query.Filter.Filters = query.Filter.Filters.Filter(filter => filter.Field != "Longitude").ToList();
+            }
 
             var capturedPlateQueryable = capturedPlates.Select(z => new CapturedPlateItem()
             {
                 CapturedPlateId= z.SysSerial,
-                PlateNumber = z.NumberPlate,
+                NumberPlate = z.NumberPlate,
                 Description = "",
                 HotlistName = "",
                 CapturedAt = z.CapturedAt,
-                Confidence = z.Confidence,
+                Confidence = z.Confidence == null ? 0 : (int)z.Confidence,
                 State = z.State,
                 Notes = z.Notes,
-                TicketNumber = z.TicketNumber,
+                TicketNumber = z.TicketNumber == null ? 0 : (long)z.TicketNumber,
                 Longitude = z.GeoLocation.X,
                 Latitude = z.GeoLocation.Y,
-                LifeSpan = lifeSpan
+                LifeSpan = lifeSpan,
+                Distance = filterByLatitude ?
+                            filterByLongitude ? z.GeoLocation.Distance(new Point(longitude, latitude)) : 
+                                                z.GeoLocation.Distance(new Point(z.GeoLocation.X, latitude)) : 
+                            filterByLongitude ? z.GeoLocation.Distance(new Point(longitude, z.GeoLocation.Y)) : 0
             });
-            
+
             switch (query.QueryFilter)
             {
                 case Enums.GetQueryFilter.Single:
@@ -73,13 +114,13 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
                                 resp;
                     break;
                 case Enums.GetQueryFilter.All:
-                    return await capturedPlateQueryable.ToFilteredPagedSortedListAsync(query.Filter, query.Paging, query.Sort, token);
+                    return await capturedPlateQueryable.ToFilteredPagedSortedListAsync(query.Filter, query.Paging, applySort ? query.Sort : null, token);
                     break;
                 case Enums.GetQueryFilter.AllWithoutPaging:
-                    return await capturedPlateQueryable.ToFilteredSortedListAsync(query.Filter, query.Sort, token);
+                    return await capturedPlateQueryable.ToFilteredSortedListAsync(query.Filter, applySort ? query.Sort : null, token);
                     break;
                 case Enums.GetQueryFilter.AllByUser:
-                    return await capturedPlateQueryable.ToFilteredPagedSortedListAsync(query.Filter, query.Paging, query.Sort, token);
+                    return await capturedPlateQueryable.ToFilteredPagedSortedListAsync(query.Filter, query.Paging, applySort ? query.Sort : null, token);
                     break;
                 case Enums.GetQueryFilter.Count:
                     return await capturedPlateQueryable.CountAsync();

@@ -1,4 +1,5 @@
 ﻿using E = Corssbones.ALPR.Database.Entities;
+using Crossbones.ALPR.Business.NumberPlates.Delete;
 using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;

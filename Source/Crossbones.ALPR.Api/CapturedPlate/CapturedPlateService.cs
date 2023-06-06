@@ -15,6 +15,9 @@ using Corssbones.ALPR.Business.CapturedPlate.Change;
 using Corssbones.ALPR.Business.CapturedPlate.Delete;
 using Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Api.CapturePlatesSummary;
+using System.Reflection;
+using E = Corssbones.ALPR.Database.Entities;
+using System.Drawing;
 
 namespace Crossbones.ALPR.Api.CapturedPlate
 {
@@ -44,7 +47,7 @@ namespace Crossbones.ALPR.Api.CapturedPlate
             {
                 CapturePlateId = capturedPlateId,
                 UserId = capturedPlate.User,
-                UnitId = capturedPlate.UnitName,
+                UnitId = capturedPlate.UnitId,
                 CaptureDate = capturedPlate.CapturedAt,
                 LoginId = capturedPlate.LoginId,
                 StationId = Convert.ToInt32(this.GetTenantId()),
@@ -69,7 +72,7 @@ namespace Crossbones.ALPR.Api.CapturedPlate
             {
                 CapturePlateId = capturedPlateSysSerial,
                 UserId = capturedPlateItem.User,
-                UnitId = capturedPlateItem.UnitName,
+                UnitId = capturedPlateItem.UnitId,
                 CaptureDate = capturedPlateItem.CapturedAt,
                 LoginId = capturedPlateItem.LoginId,
                 StationId = Convert.ToInt32(this.GetTenantId()),
@@ -129,40 +132,118 @@ namespace Crossbones.ALPR.Api.CapturedPlate
             var query = new GetCapturedPlateItem(capturedPlateId, GetQueryFilter.Single);
             var capturedPlateItem = await Inquire<CapturedPlateItem>(query);
 
-            capturedPlateItem.UnitName = capturePlatesSummaryItem.UnitId;
+            capturedPlateItem.UnitId = capturePlatesSummaryItem.UnitId;
             capturedPlateItem.User = capturePlatesSummaryItem.UserId;
             capturedPlateItem.LoginId = capturePlatesSummaryItem.LoginId;
 
             return capturedPlateItem;
         }
 
-        public async Task<PagedResponse<CapturedPlateItem>> GetAll(long userID, DateTime startDate, DateTime endDate, Pager paging, GridFilter filter, GridSort sort)
+        public async Task<PageResponse<CapturedPlateItem>> GetAll(long userID, DateTime startDate, DateTime endDate, Pager paging, GridFilter filter, GridSort sort, List<long> hotListIds)
         {
-            var capturePlatesSummaryItems = await this._capturePlatesSummary.GetAllWithOutPaging(filter, sort ,userID);
+            GridFilter summaryFilters = new GridFilter()
+            {
+                Field = filter.Field,
+                FieldType = filter.FieldType,
+                Logic = filter.Logic,
+                Operator = filter.Operator,
+                Value = filter.Value,
+                Filters = filter.Filters.Filter(f =>
+                            typeof(CapturePlatesSummaryItem).GetProperty(f.Field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) != null
+                          ).ToList()
+            };
+            
+
+            var capturePlatesSummaryItems = await this._capturePlatesSummary.GetAllWithOutPaging(summaryFilters, sort ,userID);
 
             var capturePlateIds = (from item in capturePlatesSummaryItems
                                    select item.CapturePlateId).ToList();
 
+            bool summarySortApplied = false;
+
+            if (sort != null && !string.IsNullOrEmpty(sort.Field))
+            {
+                summarySortApplied = typeof(CapturePlatesSummaryItem).GetProperty(sort.Field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) != null;
+            }
+
+            GridFilter capturedPlatesFilters = new GridFilter()
+            {
+                Field = filter.Field,
+                FieldType = filter.FieldType,
+                Logic = filter.Logic,
+                Operator = filter.Operator,
+                Value = filter.Value,
+                Filters = filter.Filters.Filter(f =>
+                            typeof(CapturedPlateItem).GetProperty(f.Field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) != null &&
+                            typeof(CapturePlatesSummaryItem).GetProperty(f.Field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) == null
+                          ).ToList()
+            };
+
+            bool latitudeFilterExist = false;
+            bool longitudeFilterExist = false;
+
+
+            if (capturedPlatesFilters != null && capturedPlatesFilters.Filters != null && capturedPlatesFilters.Filters.Exists(filter => filter.Field == "Latitude"))
+            {
+                latitudeFilterExist = true;
+            }
+
+            if (capturedPlatesFilters != null && capturedPlatesFilters.Filters != null && capturedPlatesFilters.Filters.Exists(filter => filter.Field == "Longitude"))
+            {
+                longitudeFilterExist = true;
+            }
+
             var dataQuery = new GetCapturedPlateItem(SysSerial.Empty,
-                                                                      GetQueryFilter.All,
-                                                                      capturePlateIds,
-                                                                      startDate,
-                                                                      endDate,
-                                                                      filter,
-                                                                      paging,
-                                                                      sort);
+                                                     summarySortApplied || latitudeFilterExist || longitudeFilterExist ? GetQueryFilter.AllWithoutPaging :GetQueryFilter.All,
+                                                     capturePlateIds,
+                                                     startDate,
+                                                     endDate,
+                                                     capturedPlatesFilters,
+                                                     paging,
+                                                     sort,
+                                                     hotListIds);
+
+            PageResponse<CapturedPlateItem> capturedPlates = null;
+
+            if (summarySortApplied || latitudeFilterExist || longitudeFilterExist)
+            {
+                var taskGetCapturedPlates = Inquire<List<CapturedPlateItem>>(dataQuery);
+
+                 List<CapturedPlateItem> capturedPlatesItems = await taskGetCapturedPlates;
+
+                int size = paging.Size <= 0 ? 25 : paging.Size;
+                int skip = (paging.Page - 1) * paging.Size;
+                int totalCount = capturedPlatesItems.Count;
+
+                if (latitudeFilterExist || longitudeFilterExist)
+                {
+                    capturedPlatesItems = capturedPlatesItems.Where(cpItem => cpItem.Distance < 0.05).ToList();
+                }
+                
+                if (summarySortApplied)
+                {
+                    capturedPlatesItems = capturedPlatesItems.OrderBy(cpItem => capturePlateIds.IndexOf(cpItem.CapturedPlateId)).ToList();
+                }
+
+                capturedPlatesItems = capturedPlatesItems.Skip(skip).Take(size).ToList();
+
+                capturedPlates = new PageResponse<CapturedPlateItem>(capturedPlatesItems, totalCount);
+            }
+            else
+            {
+                var taskGetCapturedPlates = Inquire<PageResponse<CapturedPlateItem>>(dataQuery);
+
+                capturedPlates = await taskGetCapturedPlates;
+            }
             
-            var taskGetCapturedPlates = Inquire<PagedResponse<CapturedPlateItem>>(dataQuery);
 
-            var capturedPlates = await taskGetCapturedPlates;
-
-            foreach (var item in capturedPlates.Data)
+            foreach (var item in capturedPlates.Items)
             {
                 var capturePlatesSummaryItem = capturePlatesSummaryItems.Find(cps => cps.CapturePlateId == item.CapturedPlateId);
 
                 if (capturePlatesSummaryItem != null)
                 {
-                    item.UnitName = capturePlatesSummaryItem.UnitId;
+                    item.UnitId = capturePlatesSummaryItem.UnitId;
                     item.User = capturePlatesSummaryItem.UserId;
                     item.LoginId = capturePlatesSummaryItem.LoginId;
                 }
