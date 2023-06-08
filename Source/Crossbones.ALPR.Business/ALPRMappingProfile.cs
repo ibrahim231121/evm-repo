@@ -1,6 +1,8 @@
-﻿using Corssbones.ALPR.Database.Entities;
-using AutoMapper;
+﻿using AutoMapper;
 using Crossbones.ALPR.Models.Items;
+using Crossbones.ALPR.Business.HotList.Add;
+using Crossbones.ALPR.Business.HotListDataSource.Add;
+using E = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business
 {
@@ -8,10 +10,16 @@ namespace Corssbones.ALPR.Business
     {
         public ALPRMappingProfile()
         {
-            CreateMap<HotListNumberPlate, HotListNumberPlateItem>().ReverseMap();
-            CreateMap<Hotlist, HotListItem>().ReverseMap();
-            CreateMap<NumberPlate, NumberPlates>().ReverseMap();
-            CreateMap<ALPRExportDetail, ExportDetailItem>().ReverseMap();
+            CreateMap<E.HotListNumberPlate, HotListNumberPlateItem>().ReverseMap();
+            CreateMap<E.Hotlist, HotListItem>().ReverseMap();
+            CreateMap<E.NumberPlate, NumberPlates>().ReverseMap();
+            CreateMap<E.ALPRExportDetail, ExportDetailItem>().ReverseMap();
+            CreateMap<E.HotlistDataSource, HotListDataSourceItem>().ReverseMap();
+            CreateMap<E.SourceType, SourceTypeItem>().ReverseMap();
+
+            CreateMap<E.Hotlist, AddHotListItem>().ReverseMap();
+            CreateMap<E.HotlistDataSource, AddHotListDataSourceItem>().ReverseMap();
+
         }
     }
 }

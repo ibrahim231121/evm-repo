@@ -8,13 +8,16 @@ using E = Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Models;
 using Corssbones.ALPR.Business.Enums;
 using Crossbones.ALPR.Models.Items;
-using Crossbones.Modules.Common;
-using Crossbones.ALPR.Common;
+using AutoMapper;
 
 namespace Corssbones.ALPR.Business.HotList.Get
 {
     public class GetHotListItemHandler : QueryHandlerBase<GetHotListItem>
     {
+        readonly IMapper mapper;
+
+        public GetHotListItemHandler(IMapper _mapper) => mapper = _mapper;
+
         protected override async Task<object> OnQuery(GetHotListItem query, IQueryContext context, CancellationToken token)
         {
             var _repository = context.Get<E.Hotlist>();
@@ -27,45 +30,16 @@ namespace Corssbones.ALPR.Business.HotList.Get
             {
                 switch (query.QueryFilter)
                 {
-                    case GetQueryFilter.Single:
-                        return _repository.Many(x => x.SysSerial == query.Id).Select(x => new HotListItem()
-                                {
-                                    Name = x.Name,
-                                    Description = x.Description,
-                                    AlertPriority = x.AlertPriority,
-                                    CreatedOn = x.CreatedOn,
-                                    LastTimeStamp = x.LastTimeStamp,
-                                    LastUpdatedOn = x.LastUpdatedOn,
-                                    RulesExpression = x.RulesExpression,
-                                    SysSerial = x.SysSerial,
-                                    Audio = x.Urilocation,
-                                    Color = x.Color,
-                                    SourceId = x.SourceId,
-                                    StationId = x.StationId,
-                                    SourceName = x.Source == null ? string.Empty : x.Source.SourceName
-                                }).FirstOrDefault();
-                        break;
-                    case GetQueryFilter.All:
-                        return await _repository.Many().Include(hotlist=>hotlist.Source).Select(x => new HotListItem()
-                                {
-                                    Name = x.Name,
-                                    Description = x.Description,
-                                    SourceId = x.SourceId,
-                                    AlertPriority = x.AlertPriority,
-                                    CreatedOn = x.CreatedOn,
-                                    LastTimeStamp = x.LastTimeStamp,
-                                    LastUpdatedOn = x.LastUpdatedOn,
-                                    RulesExpression = x.RulesExpression,
-                                    SysSerial = x.SysSerial,
-                                    Audio = x.Urilocation,
-                                    Color = x.Color,
-                                    StationId = x.StationId,
-                                    SourceName = x.Source == null ? string.Empty : x.Source.SourceName
-                                }).ToFilteredPagedListAsync(query.Filter, query.Paging, query.Sort, token);
-                        break;                    
-                    default:
-                        break;
+                    true => _repository.Many(x => x.SysSerial == query.Id),
+                    false => _repository.Many(),
+                }).ApplyPaging(query.Paging).ToListAsync(token);
+
+                if (!data.Any() && singleRequest)
+                {
+                    throw new RecordNotFound($"Unable to process your request because HotList Item Data is not found against provided Id '{query.Id}'");
                 }
+
+                var res = mapper.Map<List<HotListItem>>(data);
 
                 return null;
             }

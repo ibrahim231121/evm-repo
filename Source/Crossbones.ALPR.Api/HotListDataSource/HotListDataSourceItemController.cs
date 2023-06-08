@@ -14,7 +14,7 @@ namespace Crossbones.ALPR.Api.HotListDataSource
         readonly IHotListDataSourceItemService _service;
 
         public HotListDataSourceItemController(ApiParams feature, IHotListDataSourceItemService service) : base(feature) => _service = service;
-        
+
         [HttpPost]
         [ProducesResponseType(201)]
         public async Task<IActionResult> Add([FromBody] HotlistDataSource hotListDataSourceItem)
@@ -27,7 +27,7 @@ namespace Crossbones.ALPR.Api.HotListDataSource
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] Pager paging)
         {
-            return PagedResult(await _service.GetAll(paging));
+            return PaginatedOk(await _service.GetAll(paging));
         }
 
         [HttpGet("{SysSerial}")]

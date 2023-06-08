@@ -1,6 +1,7 @@
 ﻿using Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.ALPR.Models.Items;
+using Crossbones.Modules.Common;
 using Crossbones.Modules.Common.Pagination;
 
 namespace Crossbones.ALPR.Api.HotListDataSource.Service
@@ -25,7 +26,7 @@ namespace Crossbones.ALPR.Api.HotListDataSource.Service
         /// It is used to Get All HotListDataSource data from database
         /// </summary>
         /// <returns>List of HotListDataSource records</returns>
-        Task<PagedResponse<HotListDataSourceItem>> GetAll(Pager paging);
+        Task<PageResponse<HotListDataSourceItem>> GetAll(Pager paging);
 
         /// <summary>
         /// It is used to update HotListDataSource data from database

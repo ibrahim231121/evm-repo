@@ -9,6 +9,14 @@ using Crossbones.ALPR.Business.HotListDataSource.Change;
 using Corssbones.ALPR.Business.HotListDataSource.View;
 using Crossbones.ALPR.Business.HotListDataSource.Delete;
 using Azure.Core;
+using Consul.Filtering;
+using Crossbones.Modules.Common.Queryables;
+using Crossbones.ALPR.Business.NumberPlates.View;
+using AutoMapper;
+using Crossbones.Modules.Business.Repositories;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using E = Corssbones.ALPR.Database.Entities;
+using Crossbones.Modules.Common;
 using Corssbones.ALPR.Database.Entities;
 
 namespace Crossbones.ALPR.Api.HotListDataSource.Service
@@ -16,63 +24,37 @@ namespace Crossbones.ALPR.Api.HotListDataSource.Service
     public class HotListDataSourceItemService : ServiceBase, IHotListDataSourceItemService
     {
         readonly ISequenceProxy _hotListSequenceProxy;
+        readonly IMapper mapper;
 
-        public HotListDataSourceItemService(ServiceArguments args, ISequenceProxyFactory sequenceProxyFactory) : base(args) => _hotListSequenceProxy = sequenceProxyFactory.GetProxy(ALPRResources.HotList);
+        public HotListDataSourceItemService(ServiceArguments args, ISequenceProxyFactory sequenceProxyFactory, IMapper _mapper) : base(args)
+        {
+            _hotListSequenceProxy = sequenceProxyFactory.GetProxy(ALPRResources.HotList);
+            mapper = _mapper;
+        }
 
-        public async Task<SysSerial> Add(HotlistDataSource r)
+        public async Task<SysSerial> Add(E.HotlistDataSource request)
         {
             var id = new SysSerial(await _hotListSequenceProxy.Next(CancellationToken.None));
-            var cmd = new AddHotListDataSourceItem(id)
-            {
-                Name = r.Name,
-                SourceName = r.SourceName,
-                AgencyID = r.AgencyId,
-                SourceTypeID = r.SourceTypeId,
-                SchedulePeriod = r.SchedulePeriod,
-                LastUpdated = r.LastUpdated,
-                IsExpire = r.IsExpire,
-                SchemaDefinition = r.SchemaDefinition,
-                LastUpdateExternalHotListID = r.LastUpdateExternalHotListId,
-                ConnectionType = r.ConnectionType,
-                Userid = r.Userid,
-                locationPath = r.LocationPath,
-                Password = r.Password,
-                port = r.Port,
-                LastRun = r.LastRun,
-                Status = r.Status,
-                SkipFirstLine = r.SkipFirstLine,
-                StatusDesc = r.StatusDesc,
-            };
-            _ = await Execute(cmd);
+            AddHotListDataSourceItem _object = new(id);
+
+            var cmd = mapper.Map<E.HotlistDataSource, HotListDataSourceItem>(request);
+            _object.Item = cmd;
+            _object.Item.SysSerial = _object.Id;
+
+            _ = await Execute(_object);
             return id;
         }
 
 
-        public async Task Change(SysSerial HotlistSysSerial, HotlistDataSource request)
+        public async Task Change(SysSerial SysSerial, E.HotlistDataSource request)
         {
+            ChangeHotListDataSourceItem _object = new(SysSerial);
 
-            var cmd = new ChangeHotListDataSourceItem(HotlistSysSerial)
-            {
-                Name = request.Name,
-                SourceName = request.SourceName,
-                AgencyID = request.AgencyId,
-                SourceTypeID = request.SourceTypeId,
-                SchedulePeriod = request.SchedulePeriod,
-                LastUpdated = request.LastUpdated,
-                IsExpire = request.IsExpire,
-                SchemaDefinition = request.SchemaDefinition,
-                LastUpdateExternalHotListID = request.LastUpdateExternalHotListId,
-                ConnectionType = request.ConnectionType,
-                Userid = request.Userid,
-                locationPath = request.LocationPath,
-                Password = request.Password,
-                port = request.Port,
-                LastRun = request.LastRun,
-                Status = request.Status,
-                SkipFirstLine = request.SkipFirstLine,
-                StatusDesc = request.StatusDesc,
-            };
-            _ = await Execute(cmd);
+            var cmd = mapper.Map<E.HotlistDataSource, HotListDataSourceItem>(request);
+            _object.Item = cmd;
+            _object.Item.SysSerial = _object.Id;
+
+            _ = await Execute(_object);
         }
 
 
@@ -90,23 +72,21 @@ namespace Crossbones.ALPR.Api.HotListDataSource.Service
 
         public async Task<HotListDataSourceItem> Get(SysSerial HotlistSysSerial)
         {
-            var query = new GetHotListDataSource(HotlistSysSerial, GetQueryFilter.Single);
+            GridFilter filter = GetGridFilter();
+            GridSort sort = GetGridSort();
+
+            var query = new GetHotListDataSource(HotlistSysSerial, GetQueryFilter.Single, filter, sort);
             var res = await Inquire<IEnumerable<HotListDataSourceItem>>(query);
             return res.FirstOrDefault();
         }
 
-        public async Task<PagedResponse<HotListDataSourceItem>> GetAll(Pager paging)
+        public Task<PageResponse<HotListDataSourceItem>> GetAll(Pager paging)
         {
-            var dataQuery = new GetHotListDataSource(SysSerial.Empty, GetQueryFilter.All) { Paging = paging };
-            var t0 = Inquire<IEnumerable<HotListDataSourceItem>>(dataQuery);
+            GridFilter filter = GetGridFilter();
+            GridSort sort = GetGridSort();
 
-            var countQuery = new GetHotListDataSource(SysSerial.Empty, GetQueryFilter.Count);
-            var t1 = Inquire<RowCount>(countQuery);
-
-            var list = await t0;
-            var total = (await t1).Total;
-
-            return PaginationHelper.GetPagedResponse(list, total);
+            var dataQuery = new GetHotListDataSource(SysSerial.Empty, GetQueryFilter.All, filter, sort) { Paging = paging };
+            return Inquire<PageResponse<HotListDataSourceItem>>(dataQuery);
         }
 
     }

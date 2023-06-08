@@ -1,6 +1,7 @@
 ﻿using Crossbones.ALPR.Api.HotList.Service;
 using Crossbones.ALPR.Api.NumberPlates.Service;
 using Crossbones.ALPR.Api.NumberPlatesTemp.Service;
+
 using Crossbones.ALPR.Api.CapturedPlate;
 using Crossbones.ALPR.Api.CapturePlatesSummary;
 using Crossbones.ALPR.Api.CapturePlatesSummaryStatus;
@@ -26,8 +27,14 @@ using Microsoft.Graph.SecurityNamespace;
 using System.ComponentModel;
 using System.Net;
 using Microsoft.Extensions.Configuration;
+using Crossbones.ALPR.Api.HotListDataSource.Service;
 using Crossbones.ALPR.Api.ExportDetails;
 using Crossbones.ALPR.Api.HotListNumberPlates;
+using Crossbones.ALPR.Api.HotListSourceType.Service;
+using Corssbones.ALPR.Business;
+using AutoMapper;
+using Crossbones.Common.DependencyInjection;
+using LanguageExt;
 
 namespace Crossbones.ALPR.Api
 {
@@ -65,10 +72,12 @@ namespace Crossbones.ALPR.Api
             base.RegisterDependencies(services);
             services.Add(new ServiceDescriptor(typeof(ISequenceProxyFactory), typeof(SequenceProxyProvider), ServiceLifetime.Scoped));
             services.AddScoped<ServiceArguments>();
-
+            
             services.Add(new ServiceDescriptor(typeof(IHotListItemService), typeof(HotListItemService), ServiceLifetime.Transient));
             services.Add(new ServiceDescriptor(typeof(IExportDetailService), typeof(ExportDetailService), ServiceLifetime.Transient));
             services.Add(new ServiceDescriptor(typeof(IHotListNumberPlateService), typeof(HotListNumberPlateService), ServiceLifetime.Transient));
+            services.Add(new ServiceDescriptor(typeof(IHotListDataSourceItemService), typeof(HotListDataSourceItemService), ServiceLifetime.Transient));
+            services.Add(new ServiceDescriptor(typeof(ISourceTypeService), typeof(SourceTypeService), ServiceLifetime.Transient));
 
             services.AddScoped<ICapturedPlateService, CapturedPlateService>();
             services.AddScoped<ICapturePlatesSummaryService, CapturePlatesSummaryService>();
@@ -86,6 +95,14 @@ namespace Crossbones.ALPR.Api
             {
                 options.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc;
             });
+
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new ALPRMappingProfile());
+            });
+
+            var mapper = mappingConfig.CreateMapper();
+            services.AddSingleton<IMapper>(mapper);
         }
 
         protected override void Setup(CancellationToken token)

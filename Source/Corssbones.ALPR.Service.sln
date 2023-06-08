@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Corssbones.ALPR.Business", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossbones.ALPR.Common", "Crossbones.ALPR.Common\Crossbones.ALPR.Common.csproj", "{AE8F0B6A-96F7-4EAC-98A5-3057DEE7629A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Corssbones.ALPR.Database", "Crossbones.ALPR.Database\Corssbones.ALPR.Database.csproj", "{CC893B43-3F8D-424B-8187-B0BB89DF76E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossbones.ALPR.Database", "Crossbones.ALPR.Database\Crossbones.ALPR.Database.csproj", "{CC893B43-3F8D-424B-8187-B0BB89DF76E8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossbones.ALPR.Models", "Crossbones.ALPR.Models\Crossbones.ALPR.Models.csproj", "{2FDC0A8D-07CD-4231-AEF6-4A7F347E298F}"
 EndProject

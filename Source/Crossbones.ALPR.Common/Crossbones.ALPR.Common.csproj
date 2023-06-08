@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Crossbones.ALPR.Database\Corssbones.ALPR.Database.csproj" />
+    <ProjectReference Include="..\Crossbones.ALPR.Database\Crossbones.ALPR.Database.csproj" />
     <ProjectReference Include="..\Crossbones.ALPR.Models\Crossbones.ALPR.Models.csproj" />
   </ItemGroup>
 

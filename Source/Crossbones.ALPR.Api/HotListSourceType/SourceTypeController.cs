@@ -28,6 +28,9 @@ namespace Crossbones.ALPR.Api.HotListSourceType
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] Pager paging)
         {
+
+
+
             return PagedResult(await _service.GetAll(paging));
         }
 
