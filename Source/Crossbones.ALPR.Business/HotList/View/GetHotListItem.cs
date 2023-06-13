@@ -14,7 +14,7 @@ namespace Corssbones.ALPR.Business.HotList.Get
         public Pager Paging { get; set; }
         public GetQueryFilter QueryFilter { get; set; }
         public GridSort Sort { get; set; }
-        public GridFilter Filter { get; set;}
+        public GridFilter Filter { get; set; }
 
     }
 }

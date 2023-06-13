@@ -1,14 +1,14 @@
-﻿using Corssbones.ALPR.Business.Enums;
-using Crossbones.ALPR.Models.Items;
+﻿using AutoMapper;
+using Corssbones.ALPR.Business.Enums;
 using Crossbones.ALPR.Models;
+using Crossbones.ALPR.Models.Items;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Query;
-using Crossbones.Modules.Common.Exceptions;
-using E = Corssbones.ALPR.Database.Entities;
-using Microsoft.EntityFrameworkCore;
-using LanguageExt;
 using Crossbones.Modules.Common;
-using AutoMapper;
+using Crossbones.Modules.Common.Exceptions;
+using LanguageExt;
+using Microsoft.EntityFrameworkCore;
+using E = Corssbones.ALPR.Database.Entities;
 
 
 namespace Corssbones.ALPR.Business.HotListDataSource.View

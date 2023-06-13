@@ -2,16 +2,11 @@
 using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.Modules.Common.Pagination;
 using Crossbones.Modules.Common.Queryables;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Get
 {
     public class GetCapturePlatesSummaryItem : SysSerialItemMessage
-    {        
+    {
         public GetCapturePlatesSummaryItem(long userId, SysSerial sysSerial, long capturedPlateId, GetQueryFilter queryFilter, List<long> capturedPlateIds = null, GridFilter filter = null, Pager paging = null, GridSort sort = null) : base(sysSerial)
         {
             Paging = paging;

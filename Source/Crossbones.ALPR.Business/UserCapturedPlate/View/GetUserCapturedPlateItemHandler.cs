@@ -1,16 +1,7 @@
-﻿using Crossbones.ALPR.Common;
-using Crossbones.ALPR.Models.CapturedPlate;
-using Crossbones.Modules.Business.Contexts;
+﻿using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Query;
-using Crossbones.Modules.Business.Repositories;
 using Crossbones.Modules.Common.Exceptions;
-using Crossbones.Modules.Common.Pagination;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using E = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Get
@@ -20,7 +11,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
         protected override async Task<object> OnQuery(GetUserCapturedPlateItem query, IQueryContext context, CancellationToken token)
         {
             var ucpRepsitory = context.Get<E.UserCapturedPlate>();
-            
+
             switch (query.QueryFilter)
             {
                 case Enums.GetQueryFilter.Single:
@@ -37,7 +28,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
                     return await ucpRepsitory.Many().CountAsync();
                     break;
                 case Enums.GetQueryFilter.AllByUser:
-                    return await ucpRepsitory.Many(ucp=> query.UserId > 0 ? ucp.UserId == query.UserId : true).Select(ucp=>new Tuple<long, long>(ucp.UserId, ucp.CapturedId)).ToListAsync(token);
+                    return await ucpRepsitory.Many(ucp => query.UserId > 0 ? ucp.UserId == query.UserId : true).Select(ucp => new Tuple<long, long>(ucp.UserId, ucp.CapturedId)).ToListAsync(token);
                     break;
                 default:
                     throw new NotImplementedException();

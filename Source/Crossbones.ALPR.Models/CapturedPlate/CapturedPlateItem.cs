@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Crossbones.ALPR.Models.CapturedPlate
+﻿namespace Crossbones.ALPR.Models.CapturedPlate
 {
     public class CapturedPlateItem
     {
         public long CapturedPlateId { get; set; }
 
-        public string NumberPlate { get; set;}
+        public string NumberPlate { get; set; }
 
         public string HotlistName { get; set; }
 
         public DateTime CapturedAt { get; set; } = DateTime.MaxValue;
 
-        public DateTime CapturedAtUtc 
+        public DateTime CapturedAtUtc
         {
-            get 
+            get
             {
                 return this.CapturedAt.ToUniversalTime();
             }
@@ -46,6 +40,6 @@ namespace Crossbones.ALPR.Models.CapturedPlate
 
         public string LifeSpan { get; set; }
 
-        public string LoginId { get; set;}
+        public string LoginId { get; set; }
     }
 }

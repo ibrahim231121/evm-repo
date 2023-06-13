@@ -11,6 +11,6 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Get
         public GetHotListNumberPlate(SysSerial sysSerial, GetQueryFilter filter) : base(sysSerial)
         {
             Filter = filter;
-        }        
+        }
     }
 }

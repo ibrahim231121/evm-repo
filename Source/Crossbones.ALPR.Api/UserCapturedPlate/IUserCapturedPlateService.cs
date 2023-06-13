@@ -1,12 +1,4 @@
 ﻿using Crossbones.ALPR.Common.ValueObjects;
-using Crossbones.ALPR.Models.CapturedPlate;
-using Crossbones.Modules.Common.Pagination;
-using Crossbones.Modules.Common.Queryables;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Crossbones.ALPR.Api.CapturePlatesSummaryStatus
 {

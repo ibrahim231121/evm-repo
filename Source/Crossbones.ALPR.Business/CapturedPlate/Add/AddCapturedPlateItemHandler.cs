@@ -1,17 +1,9 @@
-﻿using Crossbones.ALPR.Business.HotList.Add;
-using Crossbones.ALPR.Common.Validation;
-using Crossbones.Modules.Business;
+﻿using Crossbones.ALPR.Common.Validation;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
-using Crossbones.Modules.Business.Repositories;
 using Crossbones.Modules.Common.Exceptions;
 using NetTopologySuite;
 using NetTopologySuite.Geometries;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using E = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Add
@@ -31,7 +23,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Add
 
             CapturedPlateValidations.ValidateCapturedPlateItem(command.CapturedPlateItem);
 
-            var point = NtsGeometryServices.Instance.CreateGeometryFactory().CreatePoint(new Coordinate(command.CapturedPlateItem.Longitude, command.CapturedPlateItem.Latitude) );
+            var point = NtsGeometryServices.Instance.CreateGeometryFactory().CreatePoint(new Coordinate(command.CapturedPlateItem.Longitude, command.CapturedPlateItem.Latitude));
             point.SRID = 4326;
 
             var capturedPlate = new E.CapturedPlate()
@@ -49,9 +41,9 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Add
             };
 
             await cpRepository.Add(capturedPlate, token);
-            
+
             context.Success($"CapturedPlate Item has been added, SysSerial:{command.Id}");
-            
+
         }
     }
 }

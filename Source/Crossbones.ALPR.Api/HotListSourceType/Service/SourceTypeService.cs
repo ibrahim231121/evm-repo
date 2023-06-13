@@ -1,27 +1,15 @@
 ﻿
 using Corssbones.ALPR.Business.Enums;
-using Corssbones.ALPR.Business.HotList.Get;
 using Corssbones.ALPR.Business.SourceType.Add;
 using Corssbones.ALPR.Business.SourceType.Change;
 using Corssbones.ALPR.Business.SourceType.Delete;
 using Corssbones.ALPR.Business.SourceType.View;
 using Corssbones.ALPR.Database.Entities;
-using Crossbones.ALPR.Api.HotList.Service;
-using Crossbones.ALPR.Api.HotListSourceType.Service;
-using Crossbones.ALPR.Business.HotList.Add;
-using Crossbones.ALPR.Business.HotList.Change;
-using Crossbones.ALPR.Business.HotList.Delete;
 using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.ALPR.Models;
 using Crossbones.ALPR.Models.Items;
 using Crossbones.Modules.Common.Pagination;
-using Crossbones.Modules.Common.ValueObjects;
 using Crossbones.Modules.Sequence.Common.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Crossbones.ALPR.Api.HotListSourceType.Service
 {

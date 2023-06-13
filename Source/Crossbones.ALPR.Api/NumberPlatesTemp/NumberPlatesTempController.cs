@@ -1,5 +1,4 @@
-﻿using Crossbones.ALPR.Api.NumberPlates.Service;
-using Crossbones.ALPR.Api.NumberPlatesTemp.Service;
+﻿using Crossbones.ALPR.Api.NumberPlatesTemp.Service;
 using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.Modules.Api;
 using Crossbones.Modules.Common.Pagination;
@@ -19,7 +18,7 @@ namespace Crossbones.ALPR.Api.NumberPlatesTemp
 
         [HttpPost]
         [ProducesResponseType(201)]
-        public async Task<IActionResult> Add([FromBody] M.NumberPlatesTemp numberPlatesTemp)
+        public async Task<IActionResult> Add([FromBody] M.NumberPlateTempItem numberPlatesTemp)
         {
             var SysSerial = await _service.Add(numberPlatesTemp);
             return Created($"{baseUrl}/LicensePlatesTemp/{SysSerial}", SysSerial);
@@ -40,7 +39,7 @@ namespace Crossbones.ALPR.Api.NumberPlatesTemp
 
         [HttpPut("{SysSerial}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> Change(long sysSerial, [FromBody] M.NumberPlatesTemp numberPlatesTemp)
+        public async Task<IActionResult> Change(long sysSerial, [FromBody] M.NumberPlateTempItem numberPlatesTemp)
         {
             await _service.Change(new SysSerial(sysSerial), numberPlatesTemp);
             return NoContent();

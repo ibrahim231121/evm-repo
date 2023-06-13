@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Crossbones.ALPR.Models.Items
+﻿namespace Crossbones.ALPR.Models.Items
 {
-    public class NumberPlatesTemp
+    public class NumberPlateTempItem
     {
         public string ImportSerialId { get; set; }
         public string Ncicnumber { get; set; }

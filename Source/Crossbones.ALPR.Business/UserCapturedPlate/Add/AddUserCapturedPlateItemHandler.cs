@@ -1,15 +1,6 @@
-﻿using Crossbones.ALPR.Business.HotList.Add;
-using Crossbones.Modules.Business;
-using Crossbones.Modules.Business.Contexts;
+﻿using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
 using Crossbones.Modules.Common.Exceptions;
-using NetTopologySuite;
-using NetTopologySuite.Geometries;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using E = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Add
@@ -20,7 +11,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Add
         {
             var ucpRepository = context.Get<E.UserCapturedPlate>();
 
-            if(command.UserId < 0)
+            if (command.UserId < 0)
             {
                 throw new InvalidValue("UserCapturedPlate userId can not less than 0");
             }
@@ -38,7 +29,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Add
             };
 
             await ucpRepository.Add(userCapturedPlate, token);
-            
+
             context.Success($"UserCapturedPlate Item has been added, SysSerial:{command.Id}");
         }
     }

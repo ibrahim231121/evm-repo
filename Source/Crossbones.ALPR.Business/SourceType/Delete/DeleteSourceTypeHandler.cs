@@ -1,14 +1,8 @@
-﻿using Crossbones.ALPR.Business.HotListDataSource.Delete;
-using Crossbones.ALPR.Common.ValueObjects;
+﻿using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
 using Crossbones.Modules.Common.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using E = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.SourceType.Delete

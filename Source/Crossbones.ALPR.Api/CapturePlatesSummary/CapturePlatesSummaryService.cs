@@ -3,23 +3,16 @@ using Corssbones.ALPR.Business.CapturedPlate.Change;
 using Corssbones.ALPR.Business.CapturedPlate.Delete;
 using Corssbones.ALPR.Business.CapturedPlate.Get;
 using Corssbones.ALPR.Business.Enums;
-using Crossbones.ALPR.Api.CapturedPlate;
 using Crossbones.ALPR.Common;
 using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.ALPR.Models.CapturedPlate;
 using Crossbones.Modules.Common.Pagination;
 using Crossbones.Modules.Common.Queryables;
 using Crossbones.Modules.Sequence.Common.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Crossbones.ALPR.Api.CapturePlatesSummary
 {
-    public class CapturePlatesSummaryService: ServiceBase, ICapturePlatesSummaryService
+    public class CapturePlatesSummaryService : ServiceBase, ICapturePlatesSummaryService
     {
         readonly ISequenceProxy _capturedPlateSummarySequenceProxy;
 
@@ -60,7 +53,7 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummary
                                                                                                  userId > 0 ? DeleteCommandFilter.AllOfUser : DeleteCommandFilter.All,
                                                                                                  userId);
 
-            _= await Execute(deleteCapturePlateSummaryCommand);
+            _ = await Execute(deleteCapturePlateSummaryCommand);
         }
 
         public async Task<CapturePlatesSummaryItem> Get(long userId, long capturedPlateId)

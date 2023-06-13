@@ -1,11 +1,10 @@
-﻿using Crossbones.Modules.Api;
-using Microsoft.AspNetCore.Mvc;
-using Crossbones.ALPR.Common.ValueObjects;
-using Crossbones.Modules.Common.Pagination;
-using Crossbones.ALPR.Models.Items;
-using Crossbones.Modules.Common.Queryables;
-using Newtonsoft.Json;
+﻿using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.ALPR.Models.CapturedPlate;
+using Crossbones.Modules.Api;
+using Crossbones.Modules.Common.Pagination;
+using Crossbones.Modules.Common.Queryables;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace Crossbones.ALPR.Api.CapturedPlate
 {
@@ -70,7 +69,7 @@ namespace Crossbones.ALPR.Api.CapturedPlate
 
         [HttpPut]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> Change([FromQuery]long SysSerial, [FromBody] CapturedPlateItem capturedPlateItem)
+        public async Task<IActionResult> Change([FromQuery] long SysSerial, [FromBody] CapturedPlateItem capturedPlateItem)
         {
             await _service.Change(new SysSerial(SysSerial), capturedPlateItem);
             return NoContent();
@@ -86,7 +85,7 @@ namespace Crossbones.ALPR.Api.CapturedPlate
 
         [HttpDelete]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> DeleteAll([FromQuery]long userId)
+        public async Task<IActionResult> DeleteAll([FromQuery] long userId)
         {
             await _service.DeleteAll(userId);
             return NoContent();

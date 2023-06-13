@@ -1,7 +1,7 @@
-﻿using Crossbones.Modules.Business.Contexts;
+﻿using Corssbones.ALPR.Database.Entities;
+using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
 using Crossbones.Modules.Common.Exceptions;
-using Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.HotListNumberPlates.Change
 {

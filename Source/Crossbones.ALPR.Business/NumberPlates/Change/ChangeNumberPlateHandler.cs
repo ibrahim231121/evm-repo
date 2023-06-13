@@ -1,7 +1,7 @@
-﻿using Crossbones.Modules.Business.Contexts;
-using Crossbones.Modules.Common.Exceptions;
+﻿using Corssbones.ALPR.Database.Entities;
+using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
-using Corssbones.ALPR.Database.Entities;
+using Crossbones.Modules.Common.Exceptions;
 
 namespace Crossbones.ALPR.Business.NumberPlates.Change
 {
@@ -14,7 +14,7 @@ namespace Crossbones.ALPR.Business.NumberPlates.Change
 
             if (entityExist)
             {
-                var numPlateExist = await _repository.Exists(x => x.NumberPlate1 == command.NumberPlate && x.SysSerial != command.Id, token);
+                var numPlateExist = await _repository.Exists(x => x.LicensePlate == command.NumberPlate && x.SysSerial != command.Id, token);
                 if (numPlateExist)
                 {
                     throw new DuplicationNotAllowed("License Plate Already Exist");
@@ -27,7 +27,7 @@ namespace Crossbones.ALPR.Business.NumberPlates.Change
                     NumberPlate.LastUpdatedOn = DateTime.UtcNow;
                     NumberPlate.FirstName = command.FirstName;
                     NumberPlate.LastName = command.LastName;
-                    NumberPlate.NumberPlate1 = command.NumberPlate;
+                    NumberPlate.LicensePlate = command.NumberPlate;
                     NumberPlate.AgencyId = command.AgencyId;
                     NumberPlate.StateId = command.StateId;
                     NumberPlate.DateOfInterest = command.DateOfInterest;
@@ -46,7 +46,6 @@ namespace Crossbones.ALPR.Business.NumberPlates.Change
                     await _repository.Update(NumberPlate, token);
                     context.Success($"License Plate has been updated, SysSerial:{command.Id}");
                 }
-
             }
             else
             {

@@ -30,7 +30,7 @@
     },
     "WebServer": {
       "IP": "127.0.0.1",
-      "Port": "8099"
+      "Port": "8098"
     },
     "ServiceURLs": {
       "AuditLogs": "http://127.0.0.1:8086/",

@@ -1,14 +1,6 @@
-﻿using Crossbones.Modules.Common.Exceptions;
-using Crossbones.Modules.Business;
+﻿using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.Modules.Business.Contexts;
-using Crossbones.Modules.Business.Handlers;
 using Crossbones.Modules.Business.Handlers.Command;
-using Crossbones.ALPR.Common.ValueObjects;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using E = Corssbones.ALPR.Database.Entities;
 
 namespace Crossbones.ALPR.Business.HotList.Delete

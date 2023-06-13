@@ -57,4 +57,6 @@ public partial class Hotlist
     [ForeignKey("SourceId")]
     [InverseProperty("Hotlists")]
     public virtual HotlistDataSource? Source { get; set; }
+
+    public virtual ICollection<HotListNumberPlate> HotListNumberPlates { get; set; } = new List<HotListNumberPlate>();
 }

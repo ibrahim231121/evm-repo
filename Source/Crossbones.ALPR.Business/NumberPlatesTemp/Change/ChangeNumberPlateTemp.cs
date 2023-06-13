@@ -1,15 +1,10 @@
 ﻿using Crossbones.ALPR.Common.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Corssbones.ALPR.Business.NumberPlatesTemp.Change
 {
     public class ChangeNumberPlatesTemp : SysSerialItemMessage
     {
-        public ChangeNumberPlatesTemp(SysSerial id) : base(id){}
+        public ChangeNumberPlatesTemp(SysSerial id) : base(id) { }
         public string ImportSerialId { get; set; }
         public string Ncicnumber { get; set; }
         public string AgencyId { get; set; }

@@ -2,11 +2,6 @@
 using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.ALPR.Models.Items;
 using Crossbones.Modules.Common.Pagination;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Crossbones.ALPR.Api.HotListSourceType.Service
 {

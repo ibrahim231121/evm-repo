@@ -13,6 +13,6 @@ namespace Crossbones.ALPR.Models.Items
         public DateTime? LastUpdatedOn { get; set; }
         public byte[]? LastTimeStamp { get; set; } = null!;
         public virtual HotListItem? HotList { get; set; }
-        public virtual NumberPlates? NumberPlate { get; set; }
+        public virtual NumberPlateItem? NumberPlate { get; set; }
     }
 }

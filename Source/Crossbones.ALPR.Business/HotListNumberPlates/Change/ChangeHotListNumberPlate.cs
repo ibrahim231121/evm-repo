@@ -1,5 +1,4 @@
-﻿using Corssbones.ALPR.Business.HotList;
-using Crossbones.ALPR.Common.ValueObjects;
+﻿using Crossbones.ALPR.Common.ValueObjects;
 
 namespace Corssbones.ALPR.Business.HotListNumberPlates.Change
 {

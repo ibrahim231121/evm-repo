@@ -1,13 +1,10 @@
-﻿using Crossbones.ALPR.Common.ValueObjects;
+﻿using Crossbones.ALPR.Api.HotList.Service;
+using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.ALPR.Models.Items;
 using Crossbones.Modules.Api;
 using Crossbones.Modules.Common.Pagination;
-using Microsoft.AspNetCore.Mvc;
-using Crossbones.ALPR.Common.ValueObjects;
-using Crossbones.Modules.Common.Pagination;
-using Crossbones.ALPR.Models.Items;
-using Crossbones.ALPR.Api.HotList.Service;
 using Crossbones.Modules.Common.Queryables;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace Crossbones.ALPR.Api.HotList

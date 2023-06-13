@@ -3,7 +3,6 @@ using Crossbones.ALPR.Models.CapturedPlate;
 using Crossbones.Modules.Common;
 using Crossbones.Modules.Common.Pagination;
 using Crossbones.Modules.Common.Queryables;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Crossbones.ALPR.Api.CapturedPlate
 {

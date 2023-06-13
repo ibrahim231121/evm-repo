@@ -2,17 +2,10 @@
 using Crossbones.ALPR.Models.CapturedPlate;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Query;
-using Crossbones.Modules.Business.Repositories;
 using Crossbones.Modules.Common.Exceptions;
-using Crossbones.Modules.Common.Pagination;
 using LanguageExt;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using E = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Get
@@ -27,9 +20,9 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
             {
                 applySort = typeof(CapturePlatesSummaryItem).GetProperty(query.Sort.Field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) != null;
             }
-            
+
             var cpsRepsitory = context.Get<E.CapturePlatesSummary>();
-            
+
             switch (query.QueryFilter)
             {
                 case Enums.GetQueryFilter.Single:
@@ -41,7 +34,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
                                     throw new RecordNotFound($"CapturePlatesSummary with User Id:{query.UserId} and CapturePlateId:{query.CapturedPlateId} not found.") :
                                     resp;
                     }
-                    else if(query.CapturedPlateId > 0)
+                    else if (query.CapturedPlateId > 0)
                     {
                         var resp = await cpsRepsitory.One(cps => cps.CapturePlateId == query.CapturedPlateId).Select(cps => DTOHelper.ConvertToDTO(cps));
 
@@ -58,19 +51,19 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
                                                         .ToFilteredPagedSortedListAsync(query.Filter, query.Paging, applySort ? query.Sort : null, token);
                     break;
                 case Enums.GetQueryFilter.AllWithoutPaging:
-                    return await cpsRepsitory.Many(cps => query.CapturedPlateIds == null ? true : query.CapturedPlateIds.Contains(cps.CapturePlateId))                                                         
+                    return await cpsRepsitory.Many(cps => query.CapturedPlateIds == null ? true : query.CapturedPlateIds.Contains(cps.CapturePlateId))
                                                          .ToFilteredSortedListAsync(query.Filter, applySort ? query.Sort : null, token);
                     break;
                 case Enums.GetQueryFilter.Count:
                     return await cpsRepsitory.Many().CountAsync();
                     break;
                 case Enums.GetQueryFilter.AllByUser:
-                    return await cpsRepsitory.Many(cps=>cps.UserId == query.UserId)
+                    return await cpsRepsitory.Many(cps => cps.UserId == query.UserId)
                                                         .Select(cps => DTOHelper.ConvertToDTO(cps))
                                                         .ToFilteredPagedSortedListAsync(query.Filter, query.Paging, applySort ? query.Sort : null, token);
                     break;
                 case Enums.GetQueryFilter.AllByUserWithOutPaging:
-                    return await cpsRepsitory.Many(cps => cps.UserId == query.UserId)                                                        
+                    return await cpsRepsitory.Many(cps => cps.UserId == query.UserId)
                                                         .ToFilteredSortedListAsync(query.Filter, applySort ? query.Sort : null, token);
                     break;
                 default:

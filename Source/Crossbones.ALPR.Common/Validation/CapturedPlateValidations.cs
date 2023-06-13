@@ -1,11 +1,5 @@
 ﻿using Crossbones.ALPR.Models.CapturedPlate;
 using Crossbones.Modules.Common.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Crossbones.ALPR.Common.Validation
 {

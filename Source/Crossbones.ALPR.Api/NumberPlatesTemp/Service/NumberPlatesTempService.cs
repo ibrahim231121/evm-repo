@@ -2,14 +2,12 @@
 using Corssbones.ALPR.Business.NumberPlatesTemp.Add;
 using Corssbones.ALPR.Business.NumberPlatesTemp.Change;
 using Corssbones.ALPR.Business.NumberPlatesTemp.Delete;
-using Corssbones.ALPR.Business.NumberPlatesTemp.View;
-using Crossbones.ALPR.Business.NumberPlates.View;
+using Corssbones.ALPR.Business.NumberPlatesTemp.Get;
 using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.ALPR.Models;
-using Crossbones.Modules.Common;
 using Crossbones.Modules.Common.Pagination;
+using Crossbones.Modules.Common.Queryables;
 using Crossbones.Modules.Sequence.Common.Interfaces;
-using System.Net.NetworkInformation;
 using M = Crossbones.ALPR.Models.Items;
 
 namespace Crossbones.ALPR.Api.NumberPlatesTemp.Service
@@ -20,7 +18,7 @@ namespace Crossbones.ALPR.Api.NumberPlatesTemp.Service
         public NumberPlatesTempService(ServiceArguments args, ISequenceProxyFactory sequenceProxyFactory) : base(args)
             => _numberPlatesTempSequenceProxy = sequenceProxyFactory.GetProxy(ALPRResources.NumberPlatesTemp);
 
-        public async Task<SysSerial> Add(M.NumberPlatesTemp request)
+        public async Task<SysSerial> Add(M.NumberPlateTempItem request)
         {
             var id = new SysSerial(await _numberPlatesTempSequenceProxy.Next(CancellationToken.None));
             var cmd = new AddNumberPlatesTemp(id)
@@ -50,15 +48,18 @@ namespace Crossbones.ALPR.Api.NumberPlatesTemp.Service
             _ = await Execute(cmd);
             return id;
         }
-        public async Task<PagedResponse<M.NumberPlatesTemp>> GetAll(Pager paging)
+        public async Task<PagedResponse<M.NumberPlateTempItem>> GetAll(Pager paging)
         {
+            GridFilter filter = GetGridFilter();
+            GridSort sort = GetGridSort();
+
             var dataQuery = new GetNumberPlatesTemp(SysSerial.Empty, GetQueryFilter.All)
             {
                 Paging = paging
             };
-            var t0 = Inquire<IEnumerable<M.NumberPlatesTemp>>(dataQuery);
+            var t0 = Inquire<IEnumerable<M.NumberPlateTempItem>>(dataQuery);
 
-            var countQuery = new GetNumberPlate(SysSerial.Empty, GetQueryFilter.Count);
+            var countQuery = new GetNumberPlatesTemp(SysSerial.Empty, GetQueryFilter.Count);
             var t1 = Inquire<RowCount>(countQuery);
 
             await Task.WhenAll(t0, t1);
@@ -67,13 +68,13 @@ namespace Crossbones.ALPR.Api.NumberPlatesTemp.Service
 
             return PaginationHelper.GetPagedResponse(list, total);
         }
-        public async Task<M.NumberPlatesTemp> Get(SysSerial LPSysSerial)
+        public async Task<M.NumberPlateTempItem> Get(SysSerial LPSysSerial)
         {
             var query = new GetNumberPlatesTemp(LPSysSerial, GetQueryFilter.Single);
-            var res = await Inquire<IEnumerable<M.NumberPlatesTemp>>(query);
+            var res = await Inquire<IEnumerable<M.NumberPlateTempItem>>(query);
             return res.FirstOrDefault();
         }
-        public async Task Change(SysSerial LPSysSerial, M.NumberPlatesTemp request)
+        public async Task Change(SysSerial LPSysSerial, M.NumberPlateTempItem request)
         {
             var cmd = new ChangeNumberPlatesTemp(LPSysSerial)
             {

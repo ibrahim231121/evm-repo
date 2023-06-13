@@ -9,6 +9,6 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Add
         public DateTime CreatedOn { get; set; }
         public AddHotListNumberPlate(SysSerial id) : base(id)
         {
-        }        
+        }
     }
 }

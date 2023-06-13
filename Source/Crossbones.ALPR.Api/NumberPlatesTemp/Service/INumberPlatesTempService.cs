@@ -6,10 +6,10 @@ namespace Crossbones.ALPR.Api.NumberPlatesTemp.Service
 {
     public interface INumberPlatesTempService
     {
-        Task<SysSerial> Add(M.NumberPlatesTemp request);
-        Task<M.NumberPlatesTemp> Get(SysSerial LPSysSerial);
-        Task<PagedResponse<M.NumberPlatesTemp>> GetAll(Pager page);
-        Task Change(SysSerial LPSysSerial, M.NumberPlatesTemp request);
+        Task<SysSerial> Add(M.NumberPlateTempItem request);
+        Task<M.NumberPlateTempItem> Get(SysSerial LPSysSerial);
+        Task<PagedResponse<M.NumberPlateTempItem>> GetAll(Pager page);
+        Task Change(SysSerial LPSysSerial, M.NumberPlateTempItem request);
         Task Delete(SysSerial LPSysSerial);
         Task DeleteAll();
     }

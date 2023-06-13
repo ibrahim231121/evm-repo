@@ -2,17 +2,10 @@
 using Crossbones.ALPR.Models.CapturedPlate;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Query;
-using Crossbones.Modules.Business.Repositories;
 using Crossbones.Modules.Common.Exceptions;
-using Crossbones.Modules.Common.Pagination;
 using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.Geometries;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using E = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Get
@@ -50,17 +43,17 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
             }
             else
             {
-                capturedPlates = cpRepsitory.Many(cp => query.CapturedPlateIds.Contains(cp.SysSerial) && 
+                capturedPlates = cpRepsitory.Many(cp => query.CapturedPlateIds.Contains(cp.SysSerial) &&
                                                         cp.CapturedAt >= query.StartDate && cp.CapturedAt <= query.EndDate);
             }
 
             if (query.HotListIds != null && (query.HotListIds.Count == 1 && query.HotListIds[0] != 0))
             {
-                var hotListQueryable = hotlistRepository.Many(hotlist => query.HotListIds.Contains(hotlist.HotListId)).Include(hotList=>hotList.NumberPlate);
+                var hotListQueryable = hotlistRepository.Many(hotlist => query.HotListIds.Contains(hotlist.HotListId)).Include(hotList => hotList.NumberPlate);
 
                 capturedPlates = capturedPlates.Join(hotListQueryable,
                                     f => f.NumberPlate,
-                                    s => s.NumberPlate.NumberPlate1,
+                                    s => s.NumberPlate.LicensePlate,
                                     (f, s) => f);
             }
 
@@ -87,7 +80,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
 
             var capturedPlateQueryable = capturedPlates.Select(z => new CapturedPlateItem()
             {
-                CapturedPlateId= z.SysSerial,
+                CapturedPlateId = z.SysSerial,
                 NumberPlate = z.NumberPlate,
                 Description = "",
                 HotlistName = "",
@@ -100,8 +93,8 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
                 Latitude = z.GeoLocation.Y,
                 LifeSpan = lifeSpan,
                 Distance = filterByLatitude ?
-                            filterByLongitude ? z.GeoLocation.Distance(new Point(longitude, latitude)) : 
-                                                z.GeoLocation.Distance(new Point(z.GeoLocation.X, latitude)) : 
+                            filterByLongitude ? z.GeoLocation.Distance(new Point(longitude, latitude)) :
+                                                z.GeoLocation.Distance(new Point(z.GeoLocation.X, latitude)) :
                             filterByLongitude ? z.GeoLocation.Distance(new Point(longitude, z.GeoLocation.Y)) : 0
             });
 

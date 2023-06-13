@@ -1,10 +1,16 @@
-﻿using Crossbones.ALPR.Api.HotList.Service;
-using Crossbones.ALPR.Api.NumberPlates.Service;
-using Crossbones.ALPR.Api.NumberPlatesTemp.Service;
-
+﻿using AutoMapper;
+using Corssbones.ALPR.Business;
 using Crossbones.ALPR.Api.CapturedPlate;
 using Crossbones.ALPR.Api.CapturePlatesSummary;
 using Crossbones.ALPR.Api.CapturePlatesSummaryStatus;
+using Crossbones.ALPR.Api.ExportDetails;
+using Crossbones.ALPR.Api.HotList.Service;
+using Crossbones.ALPR.Api.HotListDataSource.Service;
+using Crossbones.ALPR.Api.HotListNumberPlates;
+using Crossbones.ALPR.Api.HotListSourceType.Service;
+using Crossbones.ALPR.Api.NumberPlates.Service;
+using Crossbones.ALPR.Api.NumberPlatesTemp.Service;
+using Crossbones.ALPR.Api.State;
 using Crossbones.ALPR.Common.ServiceConfiguration;
 using Crossbones.Common;
 using Crossbones.Modules.Api;
@@ -23,18 +29,8 @@ using Crossbones.Workers;
 using Crossbones.Workers.Common;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Graph.SecurityNamespace;
 using System.ComponentModel;
 using System.Net;
-using Microsoft.Extensions.Configuration;
-using Crossbones.ALPR.Api.HotListDataSource.Service;
-using Crossbones.ALPR.Api.ExportDetails;
-using Crossbones.ALPR.Api.HotListNumberPlates;
-using Crossbones.ALPR.Api.HotListSourceType.Service;
-using Corssbones.ALPR.Business;
-using AutoMapper;
-using Crossbones.Common.DependencyInjection;
-using LanguageExt;
 
 namespace Crossbones.ALPR.Api
 {
@@ -72,7 +68,7 @@ namespace Crossbones.ALPR.Api
             base.RegisterDependencies(services);
             services.Add(new ServiceDescriptor(typeof(ISequenceProxyFactory), typeof(SequenceProxyProvider), ServiceLifetime.Scoped));
             services.AddScoped<ServiceArguments>();
-            
+
             services.Add(new ServiceDescriptor(typeof(IHotListItemService), typeof(HotListItemService), ServiceLifetime.Transient));
             services.Add(new ServiceDescriptor(typeof(IExportDetailService), typeof(ExportDetailService), ServiceLifetime.Transient));
             services.Add(new ServiceDescriptor(typeof(IHotListNumberPlateService), typeof(HotListNumberPlateService), ServiceLifetime.Transient));
@@ -85,6 +81,7 @@ namespace Crossbones.ALPR.Api
             services.AddScoped<IUserCapturedPlateService, UserCapturedPlateService>();
             services.Add(new ServiceDescriptor(typeof(INumberPlateService), typeof(NumberPlateService), ServiceLifetime.Transient));
             services.Add(new ServiceDescriptor(typeof(INumberPlatesTempService), typeof(NumberPlatesTempService), ServiceLifetime.Transient));
+            services.Add(new ServiceDescriptor(typeof(IStateService), typeof(StateService), ServiceLifetime.Transient));
 
             services.AddSingleton<IMessageChannel>(_channel);
 

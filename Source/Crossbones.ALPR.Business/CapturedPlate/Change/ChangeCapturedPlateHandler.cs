@@ -1,17 +1,9 @@
 ﻿using Crossbones.ALPR.Common.Validation;
-using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
-using Crossbones.Modules.Business.Repositories;
 using Crossbones.Modules.Common.Exceptions;
-using LanguageExt;
 using NetTopologySuite;
 using NetTopologySuite.Geometries;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using E = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Change

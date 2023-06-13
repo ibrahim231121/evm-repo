@@ -6,9 +6,9 @@ using Corssbones.ALPR.Business.HotListNumberPlates.Delete;
 using Corssbones.ALPR.Business.HotListNumberPlates.Get;
 using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.ALPR.Models;
+using Crossbones.ALPR.Models.Items;
 using Crossbones.Modules.Common.Pagination;
 using Crossbones.Modules.Sequence.Common.Interfaces;
-using Crossbones.ALPR.Models.Items;
 
 namespace Crossbones.ALPR.Api.HotListNumberPlates
 {

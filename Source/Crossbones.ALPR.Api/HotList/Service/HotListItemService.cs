@@ -1,14 +1,9 @@
-﻿using Crossbones.ALPR.Common.ValueObjects;
-using Crossbones.ALPR.Models;
-using Corssbones.ALPR.Business.Enums;
-using Crossbones.Modules.Common.Pagination;
-using Crossbones.Modules.Sequence.Common.Interfaces;
+﻿using Corssbones.ALPR.Business.Enums;
 using Corssbones.ALPR.Business.HotList.Get;
 using Crossbones.ALPR.Business.HotList.Add;
 using Crossbones.ALPR.Business.HotList.Change;
 using Crossbones.ALPR.Business.HotList.Delete;
 using Crossbones.ALPR.Common.ValueObjects;
-using Crossbones.ALPR.Models;
 using Crossbones.ALPR.Models.Items;
 using Crossbones.Modules.Common;
 using Crossbones.Modules.Common.Pagination;
@@ -46,7 +41,7 @@ namespace Crossbones.ALPR.Api.HotList.Service
 
             var cmd = new DeleteHotListItem(HotlistSysSerial);
             _ = await Execute(cmd);
-            
+
         }
 
         public async Task DeleteAll()

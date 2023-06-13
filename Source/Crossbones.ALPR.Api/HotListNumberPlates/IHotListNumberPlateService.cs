@@ -1,6 +1,6 @@
 ﻿using Crossbones.ALPR.Common.ValueObjects;
-using Crossbones.Modules.Common.Pagination;
 using Crossbones.ALPR.Models.Items;
+using Crossbones.Modules.Common.Pagination;
 
 namespace Crossbones.ALPR.Api.HotListNumberPlates
 {

@@ -1,13 +1,8 @@
-﻿using Crossbones.Modules.Common.Exceptions;
-using Crossbones.Modules.Business;
+﻿using AutoMapper;
 using Crossbones.Modules.Business.Contexts;
-using Crossbones.Modules.Business.Handlers;
 using Crossbones.Modules.Business.Handlers.Command;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+using Crossbones.Modules.Common.Exceptions;
 using E = Corssbones.ALPR.Database.Entities;
-using AutoMapper;
 
 namespace Crossbones.ALPR.Business.HotListDataSource.Add
 {
@@ -27,7 +22,7 @@ namespace Crossbones.ALPR.Business.HotListDataSource.Add
             else
             {
                 var res = mapper.Map<E.HotlistDataSource>(command.Item);
-                
+
                 await _repository.Add(res, token);
                 context.Success($"HotListDataSource Item has been added, SysSerial:{command.Id}");
             }

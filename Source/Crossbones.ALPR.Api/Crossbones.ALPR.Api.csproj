@@ -22,4 +22,8 @@
     <ProjectReference Include="..\Crossbones.ALPR.Models\Crossbones.ALPR.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ALPREvents\" />
+  </ItemGroup>
+
 </Project>

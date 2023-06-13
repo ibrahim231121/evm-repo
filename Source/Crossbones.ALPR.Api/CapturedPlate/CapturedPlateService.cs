@@ -1,23 +1,17 @@
-﻿using Crossbones.ALPR.Common.ValueObjects;
-using Crossbones.ALPR.Models;
-using Corssbones.ALPR.Business.Enums;
-using Crossbones.Modules.Common.Pagination;
-using Crossbones.Modules.Sequence.Common.Interfaces;
-
-using Crossbones.ALPR.Models.Items;
-using Crossbones.ALPR.Models.CapturedPlate;
-using Crossbones.Modules.Common.Queryables;
-using Corssbones.ALPR.Business.CapturedPlate.Get;
-using Crossbones.Modules.Common;
-using Corssbones.ALPR.Business.CapturedPlate.Add;
-using Crossbones.Modules.Business;
+﻿using Corssbones.ALPR.Business.CapturedPlate.Add;
 using Corssbones.ALPR.Business.CapturedPlate.Change;
 using Corssbones.ALPR.Business.CapturedPlate.Delete;
-using Corssbones.ALPR.Database.Entities;
+using Corssbones.ALPR.Business.CapturedPlate.Get;
+using Corssbones.ALPR.Business.Enums;
 using Crossbones.ALPR.Api.CapturePlatesSummary;
+using Crossbones.ALPR.Common.ValueObjects;
+using Crossbones.ALPR.Models.CapturedPlate;
+using Crossbones.Modules.Business;
+using Crossbones.Modules.Common;
+using Crossbones.Modules.Common.Pagination;
+using Crossbones.Modules.Common.Queryables;
+using Crossbones.Modules.Sequence.Common.Interfaces;
 using System.Reflection;
-using E = Corssbones.ALPR.Database.Entities;
-using System.Drawing;
 
 namespace Crossbones.ALPR.Api.CapturedPlate
 {
@@ -27,7 +21,7 @@ namespace Crossbones.ALPR.Api.CapturedPlate
         readonly ISequenceProxy _userCapturedPlateSequenceProxy;
         ICapturePlatesSummaryService _capturePlatesSummary;
 
-        public CapturedPlateService(ServiceArguments args, ISequenceProxyFactory sequenceProxyFactory, ICapturePlatesSummaryService capturePlatesSummary) : base(args) => (_capturedPlateSequenceProxy , _userCapturedPlateSequenceProxy, _capturePlatesSummary) = (sequenceProxyFactory.GetProxy(ALPRResources.CapturedPlate), sequenceProxyFactory.GetProxy(ALPRResources.UserCapturedPlate), capturePlatesSummary);
+        public CapturedPlateService(ServiceArguments args, ISequenceProxyFactory sequenceProxyFactory, ICapturePlatesSummaryService capturePlatesSummary) : base(args) => (_capturedPlateSequenceProxy, _userCapturedPlateSequenceProxy, _capturePlatesSummary) = (sequenceProxyFactory.GetProxy(ALPRResources.CapturedPlate), sequenceProxyFactory.GetProxy(ALPRResources.UserCapturedPlate), capturePlatesSummary);
 
         public async Task<SysSerial> Add(CapturedPlateItem capturedPlate)
         {
@@ -152,9 +146,9 @@ namespace Crossbones.ALPR.Api.CapturedPlate
                             typeof(CapturePlatesSummaryItem).GetProperty(f.Field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) != null
                           ).ToList()
             };
-            
 
-            var capturePlatesSummaryItems = await this._capturePlatesSummary.GetAllWithOutPaging(summaryFilters, sort ,userID);
+
+            var capturePlatesSummaryItems = await this._capturePlatesSummary.GetAllWithOutPaging(summaryFilters, sort, userID);
 
             var capturePlateIds = (from item in capturePlatesSummaryItems
                                    select item.CapturePlateId).ToList();
@@ -194,7 +188,7 @@ namespace Crossbones.ALPR.Api.CapturedPlate
             }
 
             var dataQuery = new GetCapturedPlateItem(SysSerial.Empty,
-                                                     summarySortApplied || latitudeFilterExist || longitudeFilterExist ? GetQueryFilter.AllWithoutPaging :GetQueryFilter.All,
+                                                     summarySortApplied || latitudeFilterExist || longitudeFilterExist ? GetQueryFilter.AllWithoutPaging : GetQueryFilter.All,
                                                      capturePlateIds,
                                                      startDate,
                                                      endDate,
@@ -209,7 +203,7 @@ namespace Crossbones.ALPR.Api.CapturedPlate
             {
                 var taskGetCapturedPlates = Inquire<List<CapturedPlateItem>>(dataQuery);
 
-                 List<CapturedPlateItem> capturedPlatesItems = await taskGetCapturedPlates;
+                List<CapturedPlateItem> capturedPlatesItems = await taskGetCapturedPlates;
 
                 int size = paging.Size <= 0 ? 25 : paging.Size;
                 int skip = (paging.Page - 1) * paging.Size;
@@ -219,7 +213,7 @@ namespace Crossbones.ALPR.Api.CapturedPlate
                 {
                     capturedPlatesItems = capturedPlatesItems.Where(cpItem => cpItem.Distance < 0.05).ToList();
                 }
-                
+
                 if (summarySortApplied)
                 {
                     capturedPlatesItems = capturedPlatesItems.OrderBy(cpItem => capturePlateIds.IndexOf(cpItem.CapturedPlateId)).ToList();
@@ -235,7 +229,7 @@ namespace Crossbones.ALPR.Api.CapturedPlate
 
                 capturedPlates = await taskGetCapturedPlates;
             }
-            
+
 
             foreach (var item in capturedPlates.Items)
             {
@@ -247,7 +241,7 @@ namespace Crossbones.ALPR.Api.CapturedPlate
                     item.User = capturePlatesSummaryItem.UserId;
                     item.LoginId = capturePlatesSummaryItem.LoginId;
                 }
-               
+
             }
 
             return capturedPlates;

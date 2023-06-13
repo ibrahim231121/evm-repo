@@ -1,15 +1,17 @@
 ﻿using Crossbones.ALPR.Common.ValueObjects;
+using Crossbones.ALPR.Models.Items;
+using Crossbones.Modules.Common;
 using Crossbones.Modules.Common.Pagination;
-using M = Crossbones.ALPR.Models.Items;
 
 namespace Crossbones.ALPR.Api.NumberPlates.Service
 {
     public interface INumberPlateService
     {
-        Task<SysSerial> Add(M.NumberPlates request);
-        Task<M.NumberPlates> Get(SysSerial LPSysSerial);
-        Task<PagedResponse<M.NumberPlates>> GetAll(Pager page);
-        Task Change(SysSerial LPSysSerial, M.NumberPlates request);
+        Task<SysSerial> Add(NumberPlateItem request);
+        Task<NumberPlateItem> Get(SysSerial LPSysSerial);
+        Task<PageResponse<NumberPlateItem>> GetAll(Pager page);
+        Task<PagedResponse<NumberPlateItem>> GetAllByHotList(Pager page, long hotListId);
+        Task Change(SysSerial LPSysSerial, NumberPlateItem request);
         Task Delete(SysSerial LPSysSerial);
         Task DeleteAll();
     }

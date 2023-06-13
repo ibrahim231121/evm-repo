@@ -1,23 +1,16 @@
-﻿using Crossbones.ALPR.Common.ValueObjects;
-using Crossbones.ALPR.Models;
+﻿using AutoMapper;
 using Corssbones.ALPR.Business.Enums;
-using Crossbones.Modules.Common.Pagination;
-using Crossbones.Modules.Sequence.Common.Interfaces;
-using Crossbones.ALPR.Models.Items;
+using Corssbones.ALPR.Business.HotListDataSource.View;
 using Crossbones.ALPR.Business.HotListDataSource.Add;
 using Crossbones.ALPR.Business.HotListDataSource.Change;
-using Corssbones.ALPR.Business.HotListDataSource.View;
 using Crossbones.ALPR.Business.HotListDataSource.Delete;
-using Azure.Core;
-using Consul.Filtering;
-using Crossbones.Modules.Common.Queryables;
-using Crossbones.ALPR.Business.NumberPlates.View;
-using AutoMapper;
-using Crossbones.Modules.Business.Repositories;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-using E = Corssbones.ALPR.Database.Entities;
+using Crossbones.ALPR.Common.ValueObjects;
+using Crossbones.ALPR.Models.Items;
 using Crossbones.Modules.Common;
-using Corssbones.ALPR.Database.Entities;
+using Crossbones.Modules.Common.Pagination;
+using Crossbones.Modules.Common.Queryables;
+using Crossbones.Modules.Sequence.Common.Interfaces;
+using E = Corssbones.ALPR.Database.Entities;
 
 namespace Crossbones.ALPR.Api.HotListDataSource.Service
 {

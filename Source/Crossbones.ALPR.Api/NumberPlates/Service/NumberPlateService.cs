@@ -2,12 +2,14 @@
 using Crossbones.ALPR.Business.NumberPlates.Add;
 using Crossbones.ALPR.Business.NumberPlates.Change;
 using Crossbones.ALPR.Business.NumberPlates.Delete;
-using Crossbones.ALPR.Business.NumberPlates.View;
+using Crossbones.ALPR.Business.NumberPlates.Get;
 using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.ALPR.Models;
+using Crossbones.ALPR.Models.Items;
+using Crossbones.Modules.Common;
 using Crossbones.Modules.Common.Pagination;
+using Crossbones.Modules.Common.Queryables;
 using Crossbones.Modules.Sequence.Common.Interfaces;
-using M = Crossbones.ALPR.Models.Items;
 
 namespace Crossbones.ALPR.Api.NumberPlates.Service
 {
@@ -17,28 +19,29 @@ namespace Crossbones.ALPR.Api.NumberPlates.Service
         public NumberPlateService(ServiceArguments args, ISequenceProxyFactory sequenceProxyFactory) : base(args)
             => _numberPlatesSequenceProxy = sequenceProxyFactory.GetProxy(ALPRResources.NumberPlate);
 
-        public async Task<SysSerial> Add(M.NumberPlates request)
+        public async Task<SysSerial> Add(NumberPlateItem request)
         {
             var id = new SysSerial(await _numberPlatesSequenceProxy.Next(CancellationToken.None));
             var cmd = new AddNumberPlate(id)
             {
-                Ncicnumber = request.Ncicnumber,
+                SysSerial = id,
+                Ncicnumber = request.NCICNumber,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Alias = request.Alias,
                 AgencyId = request.AgencyId,
-                InsertType = request.InsertType,
+                InsertType = (short)request.InsertType,
                 LicenseType = request.LicenseType,
-                CreatedOn = request.CreatedOn,
-                DateOfInterest = request.DateOfInterest,
+                CreatedOn = DateTime.UtcNow,
+                DateOfInterest = DateTime.Parse(request.DateOfInterest),
                 //LastTimeStamp = request.LastTimeStamp,
                 LastUpdatedOn = request.LastUpdatedOn,
                 LicenseYear = request.LicenseYear,
                 Note = request.Note,
                 Notes = request.Notes,
-                NumberPlate = request.NumberPlate,
+                LicensePlate = request.LicensePlate,
                 StateId = request.StateId,
-                Status = request.Status,
+                Status = 0,
                 VehicleColor = request.VehicleColor,
                 VehicleMake = request.VehicleMake,
                 VehicleModel = request.VehicleModel,
@@ -51,43 +54,34 @@ namespace Crossbones.ALPR.Api.NumberPlates.Service
             return id;
         }
 
-        public async Task<PagedResponse<M.NumberPlates>> GetAll(Pager paging)
+        public Task<PageResponse<NumberPlateItem>> GetAll(Pager paging)
         {
-            var dataQuery = new GetNumberPlate(SysSerial.Empty, GetQueryFilter.All)
-            {
-                Paging = paging
-            };
-            var t0 = Inquire<IEnumerable<M.NumberPlates>>(dataQuery);
+            GridFilter filter = GetGridFilter();
+            GridSort sort = GetGridSort();
 
-            var countQuery = new GetNumberPlate(SysSerial.Empty, GetQueryFilter.Count);
-            var t1 = Inquire<RowCount>(countQuery);
-
-            await Task.WhenAll(t0, t1);
-            var list = await t0;
-            var total = (await t1).Total;
-
-            return PaginationHelper.GetPagedResponse(list, total);
+            var dataQuery = new GetNumberPlate(SysSerial.Empty, GetQueryFilter.All, filter, sort) { Paging = paging };
+            return Inquire<PageResponse<NumberPlateItem>>(dataQuery);
 
         }
-        public async Task Change(SysSerial LPSysSerial, M.NumberPlates request)
+        public async Task Change(SysSerial LPSysSerial, NumberPlateItem request)
         {
             var cmd = new ChangeNumberPlate(LPSysSerial)
             {
-                Ncicnumber = request.Ncicnumber,
+                Ncicnumber = request.NCICNumber,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Alias = request.Alias,
                 AgencyId = request.AgencyId,
                 InsertType = request.InsertType,
                 LicenseType = request.LicenseType,
-                CreatedOn = request.CreatedOn,
-                DateOfInterest = request.DateOfInterest,
+                CreatedOn = (DateTime)request.CreatedOn,
+                DateOfInterest = DateTime.Parse(request.DateOfInterest),
                 //LastTimeStamp = request.LastTimeStamp,
-                LastUpdatedOn = request.LastUpdatedOn,
+                LastUpdatedOn = DateTime.UtcNow,
                 LicenseYear = request.LicenseYear,
                 Note = request.Note,
                 Notes = request.Notes,
-                NumberPlate = request.NumberPlate,
+                NumberPlate = request.LicensePlate,
                 StateId = request.StateId,
                 Status = request.Status,
                 VehicleColor = request.VehicleColor,
@@ -114,11 +108,29 @@ namespace Crossbones.ALPR.Api.NumberPlates.Service
             _ = await Execute(cmd);
         }
 
-        public async Task<M.NumberPlates> Get(SysSerial LPSysSerial)
+        public async Task<NumberPlateItem> Get(SysSerial SysSerial)
         {
-            var query = new GetNumberPlate(LPSysSerial, GetQueryFilter.Single);    
-            var res = await Inquire<IEnumerable<M.NumberPlates>>(query);
+            var query = new GetNumberPlate(SysSerial, GetQueryFilter.Single);
+            var res = await Inquire<IEnumerable<NumberPlateItem>>(query);
             return res.FirstOrDefault();
+        }
+
+        public async Task<PagedResponse<NumberPlateItem>> GetAllByHotList(Pager page, long hotListId)
+        {
+            var dataQuery = new GetNumberPlate(SysSerial.Empty, GetQueryFilter.FilterByHostList, hotListId)
+            {
+                Paging = page
+            };
+            var t0 = Inquire<IEnumerable<NumberPlateItem>>(dataQuery);
+
+            var countQuery = new GetNumberPlate(SysSerial.Empty, GetQueryFilter.Count);
+            var t1 = Inquire<RowCount>(countQuery);
+
+            await Task.WhenAll(t0, t1);
+            var list = await t0;
+            var total = (await t1).Total;
+
+            return PaginationHelper.GetPagedResponse(list, total);
         }
     }
 }

@@ -1,13 +1,4 @@
 ﻿using Crossbones.ALPR.Common.ValueObjects;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Corssbones.ALPR.Business.NumberPlatesTemp.Add
 {
@@ -15,7 +6,7 @@ namespace Corssbones.ALPR.Business.NumberPlatesTemp.Add
     {
         public AddNumberPlatesTemp(SysSerial id) : base(id)
         {
-            
+
         }
         public string ImportSerialId { get; set; }
         public string Ncicnumber { get; set; }

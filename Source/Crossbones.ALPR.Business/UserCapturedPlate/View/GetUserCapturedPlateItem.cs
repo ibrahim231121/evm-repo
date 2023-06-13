@@ -1,17 +1,10 @@
 ﻿using Corssbones.ALPR.Business.Enums;
 using Crossbones.ALPR.Common.ValueObjects;
-using Crossbones.Modules.Common.Pagination;
-using Crossbones.Modules.Common.Queryables;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Get
 {
     public class GetUserCapturedPlateItem : SysSerialItemMessage
-    {        
+    {
         public GetUserCapturedPlateItem(long userId, SysSerial sysSerial, GetQueryFilter queryFilter) : base(sysSerial)
         {
             UserId = userId;

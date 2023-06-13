@@ -1,6 +1,5 @@
 ﻿
 using Corssbones.ALPR.Business.Enums;
-using Corssbones.ALPR.Business.HotListDataSource.View;
 using Crossbones.ALPR.Models;
 using Crossbones.ALPR.Models.Items;
 using Crossbones.Modules.Business.Contexts;
@@ -8,11 +7,6 @@ using Crossbones.Modules.Business.Handlers.Query;
 using Crossbones.Modules.Common.Exceptions;
 using Crossbones.Modules.Common.Pagination;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using E = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.SourceType.View

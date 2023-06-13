@@ -1,21 +1,14 @@
-﻿using Crossbones.ALPR.Api.CapturedPlate;
-using Crossbones.ALPR.Models.CapturedPlate;
+﻿using Crossbones.ALPR.Models.CapturedPlate;
 using Crossbones.Modules.Api;
 using Crossbones.Modules.Common.Pagination;
 using Crossbones.Modules.Common.Queryables;
-using Crossbones.ALPR.Common.ValueObjects;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Crossbones.ALPR.Api.CapturePlatesSummary
 {
     [Route("CapturePlatesSummary")]
-    public class CapturePlatesSummaryController: BaseController
+    public class CapturePlatesSummaryController : BaseController
     {
         ICapturePlatesSummaryService _service;
 

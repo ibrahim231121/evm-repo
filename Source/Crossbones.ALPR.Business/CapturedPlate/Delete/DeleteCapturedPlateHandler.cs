@@ -1,14 +1,8 @@
 ﻿using Corssbones.ALPR.Business.Enums;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
-using Crossbones.Modules.Business.Repositories;
 using Crossbones.Modules.Common.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using E = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Delete
@@ -16,7 +10,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Delete
     public class DeleteCapturedPlateHandler : CommandHandlerBase<DeleteCapturedPlateItem>
     {
         protected override async Task OnMessage(DeleteCapturedPlateItem command, ICommandContext context, CancellationToken token)
-        {            
+        {
             var cpRepository = context.Get<E.CapturedPlate>();
 
             switch (command.DeletdCommandFilter)
@@ -25,10 +19,10 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Delete
                     bool cpExist = await cpRepository.Exists(cp => cp.SysSerial == command.Id, token);
                     if (cpExist)
                     {
-                        await cpRepository.Delete(cp=>cp.SysSerial == command.Id, token);
+                        await cpRepository.Delete(cp => cp.SysSerial == command.Id, token);
                         context.Success($"CapturedPlate with Id:{command.Id} successfully deleted.");
                     }
-                    else 
+                    else
                     {
                         throw new RecordNotFound($"CapturedPlate with Id:{command.Id} does not exist.");
                     }
@@ -36,8 +30,8 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Delete
                 case DeleteCommandFilter.AllOfUser:
                     var ucpRepository = context.Get<E.UserCapturedPlate>();
 
-                    var capturedPlates = await ucpRepository.Many(ucp=>ucp.UserId == command.UserId, token).
-                                                                            Select(ucp=>new E.CapturedPlate() { SysSerial = ucp.CapturedId }).
+                    var capturedPlates = await ucpRepository.Many(ucp => ucp.UserId == command.UserId, token).
+                                                                            Select(ucp => new E.CapturedPlate() { SysSerial = ucp.CapturedId }).
                                                                             ToListAsync();
 
                     if (capturedPlates == null || capturedPlates.Count == 0)

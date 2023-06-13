@@ -1,25 +1,12 @@
-﻿using Corssbones.ALPR.Business.CapturedPlate.Add;
-using Corssbones.ALPR.Business.CapturedPlate.Change;
-using Corssbones.ALPR.Business.CapturedPlate.Delete;
-using Corssbones.ALPR.Business.CapturedPlate.Get;
+﻿using Corssbones.ALPR.Business.CapturedPlate.Get;
 using Corssbones.ALPR.Business.Enums;
-using Crossbones.ALPR.Api.CapturedPlate;
 using Crossbones.ALPR.Common.ValueObjects;
-using Crossbones.ALPR.Models.CapturedPlate;
-using Crossbones.Modules.Common.Pagination;
-using Crossbones.Modules.Common.Queryables;
-using Crossbones.Modules.Sequence.Common.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Crossbones.ALPR.Api.CapturePlatesSummaryStatus
 {
     public class UserCapturedPlateService : ServiceBase, IUserCapturedPlateService
     {
-        public UserCapturedPlateService(ServiceArguments args) : base(args) 
+        public UserCapturedPlateService(ServiceArguments args) : base(args)
         {
 
         }

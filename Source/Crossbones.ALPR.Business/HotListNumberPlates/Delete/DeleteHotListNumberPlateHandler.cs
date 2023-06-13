@@ -24,7 +24,7 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Delete
             if (!result.Any())
             {
                 throw new RecordNotFound("HotList Data Not Found");
-            }                
+            }
             else
             {
                 await _repository.Delete(result, token);

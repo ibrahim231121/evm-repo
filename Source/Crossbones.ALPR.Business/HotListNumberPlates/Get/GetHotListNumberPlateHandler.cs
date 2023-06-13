@@ -1,6 +1,6 @@
-﻿using Corssbones.ALPR.Database.Entities;
-using AutoMapper;
+﻿using AutoMapper;
 using Corssbones.ALPR.Business.Enums;
+using Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Models;
 using Crossbones.ALPR.Models.Items;
 using Crossbones.Modules.Business.Contexts;
@@ -35,15 +35,14 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Get
                 var singleRequest = query.Filter == GetQueryFilter.Single;
                 var data = await (singleRequest switch
                 {
-                    true => hotListNumberPlatesRepo.Many(x => x.SysSerial == query.Id),
-                    false => hotListNumberPlatesRepo.Many(),
+                    true => hotListNumberPlatesRepo.Many(x => x.SysSerial == query.Id).Include(x => x.NumberPlate).Include(x => x.HotList),
+                    false => hotListNumberPlatesRepo.Many().Include(x => x.NumberPlate).Include(x => x.HotList),
                 }).ApplyPaging(query.Paging).ToListAsync(token);
 
                 if (!data.Any() && singleRequest)
                 {
                     throw new RecordNotFound($"Unable to process your request because HotList Number Plate is not found against provided Id '{query.Id}'");
                 }
-                data.ForEach(x => { x.NumberPlate = numberPlates.FirstOrDefault(y => y.SysSerial == x.NumberPlatesId); x.HotList = hostLists.FirstOrDefault(z => z.SysSerial == x.HotListId); });
                 var res = _mapper.Map<List<HotListNumberPlateItem>>(data);
                 return res;
             }
