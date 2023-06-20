@@ -2,9 +2,9 @@
 
 namespace Corssbones.ALPR.Business.SourceType.Add
 {
-    public class AddSourceType : SysSerialItemMessage
+    public class AddSourceType : RecIdItemMessage
     {
-        public AddSourceType(SysSerial id) : base(id)
+        public AddSourceType(RecId id) : base(id)
         {
 
         }

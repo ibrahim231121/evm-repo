@@ -12,25 +12,33 @@ namespace Crossbones.ALPR.Business.NumberPlates.Delete
         protected override async Task OnMessage(DeleteNumberPlate command, ICommandContext context, CancellationToken token)
         {
             var _repository = context.Get<NumberPlate>();
-            var singleDeleteRequest = command.Id != SysSerial.Empty;
+            var hotListNumberPlateList = await context.Get<HotListNumberPlate>().Many().ToListAsync();
+            var singleDeleteRequest = command.Id != RecId.Empty;
 
-            var result = singleDeleteRequest switch
+            if (hotListNumberPlateList.Any(x=>x.NumberPlatesId == command.Id))
             {
-                true => await _repository.Many(x => x.SysSerial == command.Id).ToListAsync(token),
-                false => await _repository.Many().ToListAsync(token),
-            };
-
-            if (!result.Any())
-                throw new RecordNotFound("License Plate Not Found");
+                throw new DeleteNotAllowed("Can not delete number plate since it is associated with HotList");
+            }
             else
             {
-                await _repository.Delete(result, token);
+                var result = singleDeleteRequest switch
+                {
+                    true => await _repository.Many(x => x.RecId == command.Id).ToListAsync(token),
+                    false => await _repository.Many().ToListAsync(token),
+                };
 
-                var logMessage = singleDeleteRequest ? $"License Plate record has been deleted, SysSerial: {command.Id}"
-                    : $"All License Plate records have been deleted";
+                if (!result.Any())
+                    throw new RecordNotFound("License Plate Not Found");
+                else
+                {
+                    await _repository.Delete(result, token);
 
-                context.Success(logMessage);
-            }
+                    var logMessage = singleDeleteRequest ? $"License Plate record has been deleted, RecId: {command.Id}"
+                        : $"All License Plate records have been deleted";
+
+                    context.Success(logMessage);
+                }
+            }            
         }
     }
 }

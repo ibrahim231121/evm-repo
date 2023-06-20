@@ -25,7 +25,7 @@ namespace Corssbones.ALPR.Business.HotList.Get
                 switch (query.QueryFilter)
                 {
                     case GetQueryFilter.Single:
-                        return _repository.Many(x => x.SysSerial == query.Id).Select(x => new HotListItem()
+                        return _repository.Many(x => x.RecId == query.Id).Select(x => new HotListDTO()
                         {
                             Name = x.Name,
                             Description = x.Description,
@@ -34,7 +34,7 @@ namespace Corssbones.ALPR.Business.HotList.Get
                             LastTimeStamp = x.LastTimeStamp,
                             LastUpdatedOn = x.LastUpdatedOn,
                             RulesExpression = x.RulesExpression,
-                            SysSerial = x.SysSerial,
+                            RecId = x.RecId,
                             Audio = x.Urilocation,
                             Color = x.Color,
                             SourceId = x.SourceId,
@@ -43,7 +43,7 @@ namespace Corssbones.ALPR.Business.HotList.Get
                         }).FirstOrDefault();
                         break;
                     case GetQueryFilter.All:
-                        return await _repository.Many().Include(hotlist => hotlist.Source).Select(x => new HotListItem()
+                        return await _repository.Many().Include(hotlist => hotlist.Source).Select(x => new HotListDTO()
                         {
                             Name = x.Name,
                             Description = x.Description,
@@ -53,7 +53,7 @@ namespace Corssbones.ALPR.Business.HotList.Get
                             LastTimeStamp = x.LastTimeStamp,
                             LastUpdatedOn = x.LastUpdatedOn,
                             RulesExpression = x.RulesExpression,
-                            SysSerial = x.SysSerial,
+                            RecId = x.RecId,
                             Audio = x.Urilocation,
                             Color = x.Color,
                             StationId = x.StationId,

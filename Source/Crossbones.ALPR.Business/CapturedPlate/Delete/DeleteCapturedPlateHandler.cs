@@ -16,10 +16,10 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Delete
             switch (command.DeletdCommandFilter)
             {
                 case DeleteCommandFilter.Single:
-                    bool cpExist = await cpRepository.Exists(cp => cp.SysSerial == command.Id, token);
+                    bool cpExist = await cpRepository.Exists(cp => cp.RecId == command.Id, token);
                     if (cpExist)
                     {
-                        await cpRepository.Delete(cp => cp.SysSerial == command.Id, token);
+                        await cpRepository.Delete(cp => cp.RecId == command.Id, token);
                         context.Success($"CapturedPlate with Id:{command.Id} successfully deleted.");
                     }
                     else
@@ -31,7 +31,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Delete
                     var ucpRepository = context.Get<E.UserCapturedPlate>();
 
                     var capturedPlates = await ucpRepository.Many(ucp => ucp.UserId == command.UserId, token).
-                                                                            Select(ucp => new E.CapturedPlate() { SysSerial = ucp.CapturedId }).
+                                                                            Select(ucp => new E.CapturedPlate() { RecId = ucp.CapturedId }).
                                                                             ToListAsync();
 
                     if (capturedPlates == null || capturedPlates.Count == 0)

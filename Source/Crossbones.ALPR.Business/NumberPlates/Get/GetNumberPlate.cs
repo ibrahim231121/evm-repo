@@ -6,21 +6,21 @@ using Crossbones.Modules.Common.Queryables;
 
 namespace Crossbones.ALPR.Business.NumberPlates.Get
 {
-    public class GetNumberPlate : SysSerialItemMessage
+    public class GetNumberPlate : RecIdItemMessage
     {
-        public GetNumberPlate(SysSerial sysSerial, GetQueryFilter filter, GridFilter gridFilter, GridSort sort) : base(sysSerial)
+        public GetNumberPlate(RecId sysSerial, GetQueryFilter filter, GridFilter gridFilter, GridSort sort) : base(sysSerial)
         {
             Filter = filter;
             GridFilter = gridFilter;
             Sort = sort;
         }
 
-        public GetNumberPlate(SysSerial sysSerial, GetQueryFilter filter) : base(sysSerial)
+        public GetNumberPlate(RecId sysSerial, GetQueryFilter filter) : base(sysSerial)
         {
             Filter = filter;
         }
 
-        public GetNumberPlate(SysSerial sysSerial, GetQueryFilter filter, long hotListId) : base(sysSerial)
+        public GetNumberPlate(RecId sysSerial, GetQueryFilter filter, long hotListId) : base(sysSerial)
         {
             Filter = filter;
             HotListID = hotListId;

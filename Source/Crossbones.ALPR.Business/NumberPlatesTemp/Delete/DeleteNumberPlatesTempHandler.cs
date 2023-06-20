@@ -12,11 +12,11 @@ namespace Corssbones.ALPR.Business.NumberPlatesTemp.Delete
         protected override async Task OnMessage(DeleteNumberPlatesTemp command, ICommandContext context, CancellationToken token)
         {
             var _repository = context.Get<NumberPlateTemp>();
-            var singleDeleteRequest = command.Id != SysSerial.Empty;
+            var singleDeleteRequest = command.Id != RecId.Empty;
 
             var result = singleDeleteRequest switch
             {
-                true => await _repository.Many(x => x.SysSerial == command.Id).ToListAsync(token),
+                true => await _repository.Many(x => x.RecId == command.Id).ToListAsync(token),
                 false => await _repository.Many().ToListAsync(token),
             };
 
@@ -26,7 +26,7 @@ namespace Corssbones.ALPR.Business.NumberPlatesTemp.Delete
             {
                 await _repository.Delete(result, token);
 
-                var logMessage = singleDeleteRequest ? $"License Plate record has been deleted, SysSerial: {command.Id}"
+                var logMessage = singleDeleteRequest ? $"License Plate record has been deleted, RecId: {command.Id}"
                     : $"All License Plate records have been deleted";
 
                 context.Success(logMessage);

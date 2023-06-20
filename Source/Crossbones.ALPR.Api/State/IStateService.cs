@@ -4,6 +4,6 @@ namespace Crossbones.ALPR.Api.State
 {
     public interface IStateService
     {
-        Task<List<StateItem>> GetAll();
+        Task<List<StateDTO>> GetAll();
     }
 }

@@ -7,13 +7,13 @@ namespace Crossbones.ALPR.Common
     {
         #region ConvertToDTO
 
-        public static CapturePlatesSummaryItem ConvertToDTO(CapturePlatesSummary item)
+        public static CapturePlatesSummaryDTO ConvertToDTO(CapturePlatesSummary item)
         {
             if (item == null)
             {
                 return null;
             }
-            var capturePlatesSummaryItem = new CapturePlatesSummaryItem()
+            var capturePlatesSummaryItem = new CapturePlatesSummaryDTO()
             {
                 UserId = item.UserId,
                 CapturePlateId = item.CapturePlateId,
@@ -28,13 +28,13 @@ namespace Crossbones.ALPR.Common
             return capturePlatesSummaryItem;
         }
 
-        public static CapturePlatesSummaryStatusItem ConvertToDTO(CapturePlatesSummaryStatus item)
+        public static CapturePlatesSummaryStatusDTO ConvertToDTO(CapturePlatesSummaryStatus item)
         {
             if (item == null)
             {
                 return null;
             }
-            var capturePlatesSummaryItem = new CapturePlatesSummaryStatusItem()
+            var capturePlatesSummaryItem = new CapturePlatesSummaryStatusDTO()
             {
                 SyncId = item.SyncId,
                 LastExecutionDate = item.LastExecutionDate,
@@ -49,7 +49,7 @@ namespace Crossbones.ALPR.Common
 
         #region ConvertFromDTO
 
-        public static CapturePlatesSummary ConvertFromDTO(CapturePlatesSummaryItem item)
+        public static CapturePlatesSummary ConvertFromDTO(CapturePlatesSummaryDTO item)
         {
             if (item == null)
             {
@@ -70,7 +70,7 @@ namespace Crossbones.ALPR.Common
             return capturePlatesSummaryItem;
         }
 
-        public static CapturePlatesSummaryStatus ConvertFromDTO(CapturePlatesSummaryStatusItem item)
+        public static CapturePlatesSummaryStatus ConvertFromDTO(CapturePlatesSummaryStatusDTO item)
         {
             if (item == null)
             {

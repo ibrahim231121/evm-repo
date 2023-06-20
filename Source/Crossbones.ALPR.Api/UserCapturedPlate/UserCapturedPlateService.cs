@@ -16,9 +16,9 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummaryStatus
         /// </summary>
         /// <param name="userCapturedPlateId">The user captured plate identifier.</param>
         /// <returns></returns>
-        public async Task<Tuple<long, long>> Get(SysSerial userCapturedPlateId)
+        public async Task<Tuple<long, long>> Get(RecId userCapturedPlateId)
         {
-            var query = new GetUserCapturedPlateItem(new SysSerial(0),
+            var query = new GetUserCapturedPlateItem(new RecId(0),
                                                             userCapturedPlateId,
                                                             GetQueryFilter.Single);
 
@@ -35,7 +35,7 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummaryStatus
         public async Task<List<Tuple<long, long>>> GetAll(long userId)
         {
             GetUserCapturedPlateItem query = new GetUserCapturedPlateItem(userId,
-                                                                          new SysSerial(0),
+                                                                          new RecId(0),
                                                                           GetQueryFilter.AllByUser);
 
             var resp = await Inquire<List<Tuple<long, long>>>(query);

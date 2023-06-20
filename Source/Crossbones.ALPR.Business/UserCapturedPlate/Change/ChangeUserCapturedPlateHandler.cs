@@ -10,7 +10,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Change
         protected override async Task OnMessage(ChangeUserCapturedPlateItem command, ICommandContext context, CancellationToken token)
         {
             var ucpRepository = context.Get<E.UserCapturedPlate>();
-            bool entityExist = await ucpRepository.Exists(x => x.SysSerial == command.Id, token);
+            bool entityExist = await ucpRepository.Exists(x => x.RecId == command.Id, token);
 
             if (entityExist)
             {
@@ -26,14 +26,14 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Change
 
                 var userCapturedPlate = new E.UserCapturedPlate()
                 {
-                    SysSerial = command.Id,
+                    RecId = command.Id,
                     UserId = command.UserId,
                     CapturedId = command.CapturedId
                 };
 
                 await ucpRepository.Update(userCapturedPlate, token);
 
-                context.Success($"CapturedPlate item has been updated, SysSerial:{command.Id}");
+                context.Success($"CapturedPlate item has been updated, RecId:{command.Id}");
             }
             else
             {

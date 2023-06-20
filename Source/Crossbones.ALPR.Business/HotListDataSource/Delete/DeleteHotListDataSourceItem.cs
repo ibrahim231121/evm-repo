@@ -3,9 +3,9 @@ using Crossbones.ALPR.Common.ValueObjects;
 
 namespace Crossbones.ALPR.Business.HotListDataSource.Delete
 {
-    public class DeleteHotListDataSourceItem : SysSerialItemMessage
+    public class DeleteHotListDataSourceItem : RecIdItemMessage
     {
-        public DeleteHotListDataSourceItem(SysSerial id) : base(id)
+        public DeleteHotListDataSourceItem(RecId id) : base(id)
         {
 
         }

@@ -5,7 +5,7 @@ namespace Crossbones.ALPR.Common.Validation
 {
     public static class CapturedPlateValidations
     {
-        public static void ValidateCapturedPlateItem(CapturedPlateItem capturedPlateItem)
+        public static void ValidateCapturedPlateItem(CapturedPlateDTO capturedPlateItem)
         {
             if (capturedPlateItem == null)
             {
@@ -43,7 +43,7 @@ namespace Crossbones.ALPR.Common.Validation
             }
         }
 
-        public static void ValidateCapturePlateSummaryItem(CapturePlatesSummaryItem capturePlateSummaryItem)
+        public static void ValidateCapturePlateSummaryItem(CapturePlatesSummaryDTO capturePlateSummaryItem)
         {
             if (capturePlateSummaryItem == null)
             {
@@ -76,7 +76,7 @@ namespace Crossbones.ALPR.Common.Validation
             }
         }
 
-        public static void ValidateCapturePlateSummaryStatusItem(CapturePlatesSummaryStatusItem capturePlateSummaryStatusItem)
+        public static void ValidateCapturePlateSummaryStatusItem(CapturePlatesSummaryStatusDTO capturePlateSummaryStatusItem)
         {
             if (capturePlateSummaryStatusItem == null)
             {

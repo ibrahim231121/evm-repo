@@ -8,7 +8,7 @@ namespace Corssbones.ALPR.Database.Entities;
 public partial class ALPRExportDetail
 {
     [Key]
-    public long SysSerial { get; set; }
+    public long RecId { get; set; }
 
     public long CapturedPlateId { get; set; }
 

@@ -13,7 +13,7 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummary
         /// </summary>
         /// <param name="capturedPlateSummaryItem">The captured plate summary  item.</param>
         /// <returns></returns>
-        Task<SysSerial> Add(CapturePlatesSummaryItem capturedPlateSummaryItem);
+        Task<RecId> Add(CapturePlatesSummaryDTO capturedPlateSummaryItem);
 
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummary
         /// <param name="userId">The user identifier.</param>
         /// <param name="capturedPlateId">The captured plate identifier.</param>
         /// <returns></returns>
-        Task<CapturePlatesSummaryItem> Get(long userId, long capturedPlateId);
+        Task<CapturePlatesSummaryDTO> Get(long userId, long capturedPlateId);
 
         /// <summary>
         /// Gets all.
@@ -31,7 +31,7 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummary
         /// <param name="filter">The filter.</param>
         /// <param name="sort">The sort.</param>
         /// <returns></returns>
-        Task<PagedResponse<CapturePlatesSummaryItem>> GetAll(Pager paging, GridFilter filter, GridSort sort, long userId = 0);
+        Task<PagedResponse<CapturePlatesSummaryDTO>> GetAll(Pager paging, GridFilter filter, GridSort sort, long userId = 0);
 
         /// <summary>
         /// Gets all CapturePlatesSummaryItems with out paging.
@@ -41,16 +41,16 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummary
         /// <param name="sort">The sort.</param>
         /// <param name="userId">The user identifier.</param>
         /// <returns></returns>
-        Task<List<CapturePlatesSummaryItem>> GetAllWithOutPaging(GridFilter filter, GridSort sort, long userId = 0);
+        Task<List<CapturePlatesSummaryDTO>> GetAllWithOutPaging(GridFilter filter, GridSort sort, long userId = 0);
 
 
         /// <summary>
         /// Changes the specified captured plate summary  system serial.
         /// </summary>
-        /// <param name="capturedPlateSummarySysSerial">The captured plate summary  system serial.</param>
+        /// <param name="capturedPlateSummaryRecId">The captured plate summary  system serial.</param>
         /// <param name="capturedPlateSummaryItem">The captured plate summary  item.</param>
         /// <returns></returns>
-        Task Change(CapturePlatesSummaryItem capturedPlateSummaryItem);
+        Task Change(CapturePlatesSummaryDTO capturedPlateSummaryItem);
 
 
         /// <summary>

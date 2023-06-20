@@ -18,10 +18,10 @@ namespace Crossbones.ALPR.Api.NumberPlatesTemp
 
         [HttpPost]
         [ProducesResponseType(201)]
-        public async Task<IActionResult> Add([FromBody] M.NumberPlateTempItem numberPlatesTemp)
+        public async Task<IActionResult> Add([FromBody] M.NumberPlateTempDTO numberPlatesTemp)
         {
-            var SysSerial = await _service.Add(numberPlatesTemp);
-            return Created($"{baseUrl}/LicensePlatesTemp/{SysSerial}", SysSerial);
+            var RecId = await _service.Add(numberPlatesTemp);
+            return Created($"{baseUrl}/LicensePlatesTemp/{RecId}", RecId);
         }
 
         [HttpGet]
@@ -30,26 +30,26 @@ namespace Crossbones.ALPR.Api.NumberPlatesTemp
             return PagedResult(await _service.GetAll(paging));
         }
 
-        [HttpGet("{SysSerial}")]
+        [HttpGet("{RecId}")]
         public async Task<IActionResult> GetOne(long sysSerial)
         {
-            var res = await _service.Get(new SysSerial(sysSerial));
+            var res = await _service.Get(new RecId(sysSerial));
             return Ok(res);
         }
 
-        [HttpPut("{SysSerial}")]
+        [HttpPut("{RecId}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> Change(long sysSerial, [FromBody] M.NumberPlateTempItem numberPlatesTemp)
+        public async Task<IActionResult> Change(long sysSerial, [FromBody] M.NumberPlateTempDTO numberPlatesTemp)
         {
-            await _service.Change(new SysSerial(sysSerial), numberPlatesTemp);
+            await _service.Change(new RecId(sysSerial), numberPlatesTemp);
             return NoContent();
         }
 
-        [HttpDelete("{SysSerial}")]
+        [HttpDelete("{RecId}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> DeleteOne(long SysSerial)
+        public async Task<IActionResult> DeleteOne(long RecId)
         {
-            await _service.Delete(new SysSerial(SysSerial));
+            await _service.Delete(new RecId(RecId));
             return NoContent();
         }
         [HttpDelete]

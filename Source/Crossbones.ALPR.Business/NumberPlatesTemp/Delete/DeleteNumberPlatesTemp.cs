@@ -2,8 +2,8 @@
 
 namespace Corssbones.ALPR.Business.NumberPlatesTemp.Delete
 {
-    public class DeleteNumberPlatesTemp : SysSerialItemMessage
+    public class DeleteNumberPlatesTemp : RecIdItemMessage
     {
-        public DeleteNumberPlatesTemp(SysSerial id) : base(id) { }
+        public DeleteNumberPlatesTemp(RecId id) : base(id) { }
     }
 }

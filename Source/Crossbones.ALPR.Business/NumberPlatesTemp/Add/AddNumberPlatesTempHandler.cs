@@ -23,7 +23,7 @@ namespace Corssbones.ALPR.Business.NumberPlatesTemp.Add
             else
             {
                 await _repository.Add(mapper.Map<NumberPlateTemp>(command), token);
-                context.Success($"Licnese Plate has been added, SysSerial: {command.Id}");
+                context.Success($"Licnese Plate has been added, RecId: {command.Id}");
             }
         }
     }

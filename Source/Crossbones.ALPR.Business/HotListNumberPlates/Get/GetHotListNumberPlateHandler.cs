@@ -35,7 +35,7 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Get
                 var singleRequest = query.Filter == GetQueryFilter.Single;
                 var data = await (singleRequest switch
                 {
-                    true => hotListNumberPlatesRepo.Many(x => x.SysSerial == query.Id).Include(x => x.NumberPlate).Include(x => x.HotList),
+                    true => hotListNumberPlatesRepo.Many(x => x.RecId == query.Id).Include(x => x.NumberPlate).Include(x => x.HotList),
                     false => hotListNumberPlatesRepo.Many().Include(x => x.NumberPlate).Include(x => x.HotList),
                 }).ApplyPaging(query.Paging).ToListAsync(token);
 
@@ -43,7 +43,7 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Get
                 {
                     throw new RecordNotFound($"Unable to process your request because HotList Number Plate is not found against provided Id '{query.Id}'");
                 }
-                var res = _mapper.Map<List<HotListNumberPlateItem>>(data);
+                var res = _mapper.Map<List<HotListNumberPlateDTO>>(data);
                 return res;
             }
         }

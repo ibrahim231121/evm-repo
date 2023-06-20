@@ -17,11 +17,11 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummaryStatus
 
         [HttpPost]
         [ProducesResponseType(201)]
-        public async Task<IActionResult> Add([FromBody] CapturePlatesSummaryStatusItem capturedPlateSummaryStatusItem)
+        public async Task<IActionResult> Add([FromBody] CapturePlatesSummaryStatusDTO capturedPlateSummaryStatusItem)
         {
-            var SysSerial = await _service.Add(capturedPlateSummaryStatusItem);
+            var RecId = await _service.Add(capturedPlateSummaryStatusItem);
 
-            return Created($"{baseUrl}/CapturedPlate/{SysSerial}", SysSerial);
+            return Created($"{baseUrl}/CapturedPlate/{RecId}", RecId);
         }
 
         [HttpGet]
@@ -55,26 +55,26 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummaryStatus
             return PagedResult(res);
         }
 
-        [HttpGet("{SysSerial}")]
-        public async Task<IActionResult> GetOne(long SysSerial)
+        [HttpGet("{RecId}")]
+        public async Task<IActionResult> GetOne(long RecId)
         {
-            var res = await _service.Get(new SysSerial(SysSerial));
+            var res = await _service.Get(new RecId(RecId));
             return Ok(res);
         }
 
         [HttpPut]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> Change([FromQuery] long SysSerial, [FromBody] CapturePlatesSummaryStatusItem capturedPlateSummaryStatusItem)
+        public async Task<IActionResult> Change([FromQuery] long RecId, [FromBody] CapturePlatesSummaryStatusDTO capturedPlateSummaryStatusItem)
         {
-            await _service.Change(new SysSerial(SysSerial), capturedPlateSummaryStatusItem);
+            await _service.Change(new RecId(RecId), capturedPlateSummaryStatusItem);
             return NoContent();
         }
 
-        [HttpDelete("{SysSerial}")]
+        [HttpDelete("{RecId}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> DeleteOne(long SysSerial)
+        public async Task<IActionResult> DeleteOne(long RecId)
         {
-            await _service.Delete(new SysSerial(SysSerial));
+            await _service.Delete(new RecId(RecId));
             return NoContent();
         }
 

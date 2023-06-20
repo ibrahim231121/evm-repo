@@ -3,9 +3,9 @@ using Crossbones.ALPR.Common.ValueObjects;
 
 namespace Crossbones.ALPR.Business.NumberPlates.Change
 {
-    public class ChangeNumberPlate : SysSerialItemMessage
+    public class ChangeNumberPlate : RecIdItemMessage
     {
-        public ChangeNumberPlate(SysSerial id) : base(id) { }
+        public ChangeNumberPlate(RecId id) : base(id) { }
         public string? ImportSerialId { get; set; }
         public string? Ncicnumber { get; set; }
         public string? AgencyId { get; set; }

@@ -1,8 +1,8 @@
 ﻿namespace Crossbones.ALPR.Models.Items
 {
-    public class HotListItem
+    public class HotListDTO
     {
-        public long SysSerial { get; set; }
+        public long RecId { get; set; }
         public string Name { get; set; }
 
         public string Description { get; set; }

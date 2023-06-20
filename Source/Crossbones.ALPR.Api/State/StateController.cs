@@ -18,7 +18,7 @@ namespace Crossbones.ALPR.Api.State
         {
             var stateList = await stateService.GetAll();
 
-            return StatusCode(StatusCodes.Status200OK, stateList.Select(x => new { id = x.StateId, label = x.StateName }));
+            return StatusCode(StatusCodes.Status200OK, stateList.Select(x => new { id = x.RecId, label = x.StateName }));
         }
     }
 }

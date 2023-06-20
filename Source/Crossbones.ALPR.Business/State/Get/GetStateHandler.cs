@@ -18,7 +18,7 @@ namespace Crossbones.ALPR.Business.State.Get
         {
             var _repository = context.Get<Corssbones.ALPR.Database.Entities.State>();
             var res = await _repository.Many().ToListAsync();
-            var data = mapper.Map<List<StateItem>>(res);
+            var data = mapper.Map<List<StateDTO>>(res);
             return data;
         }
     }

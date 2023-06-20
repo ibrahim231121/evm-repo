@@ -23,7 +23,7 @@ namespace Crossbones.ALPR.Business.NumberPlates.Add
             {
                 await _repository.Add(mapper.Map<NumberPlate>(command), token);
 
-                context.Success($"Licnese Plate has been added, SysSerial: {command.Id}");
+                context.Success($"Licnese Plate has been added, RecId: {command.Id}");
             }
         }
     }

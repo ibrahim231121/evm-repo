@@ -15,7 +15,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
             switch (query.QueryFilter)
             {
                 case Enums.GetQueryFilter.Single:
-                    var resp = await ucpRepsitory.One(ucp => ucp.SysSerial == query.Id);
+                    var resp = await ucpRepsitory.One(ucp => ucp.RecId == query.Id);
                     return resp == null ?
                                 throw new RecordNotFound($"UserCapturedPlate with Id:{query.Id} not found.") :
                                 new Tuple<long, long>(resp.UserId, resp.CapturedId);

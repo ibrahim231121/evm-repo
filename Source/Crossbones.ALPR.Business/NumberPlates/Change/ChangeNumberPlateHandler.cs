@@ -10,18 +10,18 @@ namespace Crossbones.ALPR.Business.NumberPlates.Change
         protected override async Task OnMessage(ChangeNumberPlate command, ICommandContext context, CancellationToken token)
         {
             var _repository = context.Get<NumberPlate>();
-            var entityExist = await _repository.Exists(x => x.SysSerial == command.Id, token);
+            var entityExist = await _repository.Exists(x => x.RecId == command.Id, token);
 
             if (entityExist)
             {
-                var numPlateExist = await _repository.Exists(x => x.LicensePlate == command.NumberPlate && x.SysSerial != command.Id, token);
+                var numPlateExist = await _repository.Exists(x => x.LicensePlate == command.NumberPlate && x.RecId != command.Id, token);
                 if (numPlateExist)
                 {
                     throw new DuplicationNotAllowed("License Plate Already Exist");
                 }
                 else
                 {
-                    var NumberPlate = await _repository.One(x => x.SysSerial == command.Id);
+                    var NumberPlate = await _repository.One(x => x.RecId == command.Id);
                     NumberPlate.Status = command.Status;
                     NumberPlate.Notes = command.Notes;
                     NumberPlate.LastUpdatedOn = DateTime.UtcNow;
@@ -44,7 +44,7 @@ namespace Crossbones.ALPR.Business.NumberPlates.Change
                     NumberPlate.Alias = command.Alias;
 
                     await _repository.Update(NumberPlate, token);
-                    context.Success($"License Plate has been updated, SysSerial:{command.Id}");
+                    context.Success($"License Plate has been updated, RecId:{command.Id}");
                 }
             }
             else

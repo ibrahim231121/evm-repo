@@ -16,11 +16,11 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummary
 
         [HttpPost]
         [ProducesResponseType(201)]
-        public async Task<IActionResult> Add([FromBody] CapturePlatesSummaryItem capturedPlateSummaryItem)
+        public async Task<IActionResult> Add([FromBody] CapturePlatesSummaryDTO capturedPlateSummaryItem)
         {
-            var SysSerial = await _service.Add(capturedPlateSummaryItem);
+            var RecId = await _service.Add(capturedPlateSummaryItem);
 
-            return Created($"{baseUrl}/CapturePlatesSummary/{SysSerial}", SysSerial);
+            return Created($"{baseUrl}/CapturePlatesSummary/{RecId}", RecId);
         }
 
         [HttpGet("{userId}")]
@@ -63,7 +63,7 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummary
 
         [HttpPut]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> Change([FromBody] CapturePlatesSummaryItem capturedPlateSummaryItem)
+        public async Task<IActionResult> Change([FromBody] CapturePlatesSummaryDTO capturedPlateSummaryItem)
         {
             await _service.Change(capturedPlateSummaryItem);
             return NoContent();

@@ -13,15 +13,15 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummaryStatus
         /// </summary>
         /// <param name="capturedPlateSummaryStatusItem">The captured plate summary status item.</param>
         /// <returns></returns>
-        Task<SysSerial> Add(CapturePlatesSummaryStatusItem capturedPlateSummaryStatusItem);
+        Task<RecId> Add(CapturePlatesSummaryStatusDTO capturedPlateSummaryStatusItem);
 
 
         /// <summary>
         /// Gets the specified captured plate summary status system serial.
         /// </summary>
-        /// <param name="capturedPlateSummaryStatusSysSerial">The captured plate summary status system serial.</param>
+        /// <param name="capturedPlateSummaryStatusRecId">The captured plate summary status system serial.</param>
         /// <returns></returns>
-        Task<CapturePlatesSummaryStatusItem> Get(SysSerial capturedPlateSummaryStatusSysSerial);
+        Task<CapturePlatesSummaryStatusDTO> Get(RecId capturedPlateSummaryStatusRecId);
 
         /// <summary>
         /// Gets all.
@@ -30,24 +30,24 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummaryStatus
         /// <param name="filter">The filter.</param>
         /// <param name="sort">The sort.</param>
         /// <returns></returns>
-        Task<PagedResponse<CapturePlatesSummaryStatusItem>> GetAll(Pager paging, GridFilter filter, GridSort sort);
+        Task<PagedResponse<CapturePlatesSummaryStatusDTO>> GetAll(Pager paging, GridFilter filter, GridSort sort);
 
 
         /// <summary>
         /// Changes the specified captured plate summary status system serial.
         /// </summary>
-        /// <param name="capturedPlateSummaryStatusSysSerial">The captured plate summary status system serial.</param>
+        /// <param name="capturedPlateSummaryStatusRecId">The captured plate summary status system serial.</param>
         /// <param name="capturedPlateSummaryStatusItem">The captured plate summary status item.</param>
         /// <returns></returns>
-        Task Change(SysSerial capturedPlateSummaryStatusSysSerial, CapturePlatesSummaryStatusItem capturedPlateSummaryStatusItem);
+        Task Change(RecId capturedPlateSummaryStatusRecId, CapturePlatesSummaryStatusDTO capturedPlateSummaryStatusItem);
 
 
         /// <summary>
         /// Deletes the specified captured plate summary status system serial.
         /// </summary>
-        /// <param name="capturedPlateSummaryStatusSysSerial">The captured plate summary status system serial.</param>
+        /// <param name="capturedPlateSummaryStatusRecId">The captured plate summary status system serial.</param>
         /// <returns></returns>
-        Task Delete(SysSerial capturedPlateSummaryStatusSysSerial);
+        Task Delete(RecId capturedPlateSummaryStatusRecId);
 
 
         /// <summary>

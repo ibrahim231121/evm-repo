@@ -1,8 +1,8 @@
 ﻿namespace Crossbones.ALPR.Models.Items
 {
-    public class StateItem
+    public class StateDTO
     {
-        public byte StateId { get; set; }
+        public byte RecId { get; set; }
         public string StateName { get; set; } = null!;
     }
 }

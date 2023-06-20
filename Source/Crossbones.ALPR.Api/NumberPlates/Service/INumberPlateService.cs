@@ -7,12 +7,12 @@ namespace Crossbones.ALPR.Api.NumberPlates.Service
 {
     public interface INumberPlateService
     {
-        Task<SysSerial> Add(NumberPlateItem request);
-        Task<NumberPlateItem> Get(SysSerial LPSysSerial);
-        Task<PageResponse<NumberPlateItem>> GetAll(Pager page);
-        Task<PagedResponse<NumberPlateItem>> GetAllByHotList(Pager page, long hotListId);
-        Task Change(SysSerial LPSysSerial, NumberPlateItem request);
-        Task Delete(SysSerial LPSysSerial);
+        Task<RecId> Add(NumberPlateDTO request);
+        Task<NumberPlateDTO> Get(RecId LPRecId);
+        Task<PageResponse<NumberPlateDTO>> GetAll(Pager page);
+        Task<PagedResponse<NumberPlateDTO>> GetAllByHotList(Pager page, long hotListId);
+        Task Change(RecId LPRecId, NumberPlateDTO request);
+        Task Delete(RecId LPRecId);
         Task DeleteAll();
     }
 }

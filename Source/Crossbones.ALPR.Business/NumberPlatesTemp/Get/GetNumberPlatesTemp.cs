@@ -4,9 +4,9 @@ using Crossbones.Modules.Common.Pagination;
 
 namespace Corssbones.ALPR.Business.NumberPlatesTemp.Get
 {
-    public class GetNumberPlatesTemp : SysSerialItemMessage
+    public class GetNumberPlatesTemp : RecIdItemMessage
     {
-        public GetNumberPlatesTemp(SysSerial sysSerial, GetQueryFilter filter) : base(sysSerial)
+        public GetNumberPlatesTemp(RecId sysSerial, GetQueryFilter filter) : base(sysSerial)
         {
             Filter = filter;
         }

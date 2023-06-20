@@ -3,13 +3,13 @@ using Crossbones.ALPR.Models.CapturedPlate;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Add
 {
-    public class AddCapturePlatesSummaryItem : SysSerialItemMessage
+    public class AddCapturePlatesSummaryItem : RecIdItemMessage
     {
-        public AddCapturePlatesSummaryItem(SysSerial id, CapturePlatesSummaryItem itemToAdd) : base(id)
+        public AddCapturePlatesSummaryItem(RecId id, CapturePlatesSummaryDTO itemToAdd) : base(id)
         {
             ItemToAdd = itemToAdd;
         }
 
-        public CapturePlatesSummaryItem ItemToAdd { get; }
+        public CapturePlatesSummaryDTO ItemToAdd { get; }
     }
 }

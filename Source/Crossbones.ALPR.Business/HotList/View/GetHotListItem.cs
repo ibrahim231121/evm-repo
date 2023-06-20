@@ -5,9 +5,9 @@ using Crossbones.Modules.Common.Queryables;
 
 namespace Corssbones.ALPR.Business.HotList.Get
 {
-    public class GetHotListItem : SysSerialItemMessage
+    public class GetHotListItem : RecIdItemMessage
     {
-        public GetHotListItem(SysSerial sysSerial, GetQueryFilter filter) : base(sysSerial)
+        public GetHotListItem(RecId sysSerial, GetQueryFilter filter) : base(sysSerial)
         {
             QueryFilter = filter;
         }

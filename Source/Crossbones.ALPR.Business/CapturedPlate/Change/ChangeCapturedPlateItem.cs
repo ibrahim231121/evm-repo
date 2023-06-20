@@ -3,13 +3,13 @@ using Crossbones.ALPR.Models.CapturedPlate;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Change
 {
-    public class ChangeCapturedPlateItem : SysSerialItemMessage
+    public class ChangeCapturedPlateItem : RecIdItemMessage
     {
-        public ChangeCapturedPlateItem(SysSerial id, CapturedPlateItem updateItem) : base(id)
+        public ChangeCapturedPlateItem(RecId id, CapturedPlateDTO updateItem) : base(id)
         {
             UpdateItem = updateItem;
         }
 
-        public CapturedPlateItem UpdateItem { get; }
+        public CapturedPlateDTO UpdateItem { get; }
     }
 }

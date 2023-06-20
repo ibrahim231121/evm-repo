@@ -19,9 +19,9 @@ namespace Crossbones.ALPR.Api.HotListSourceType
         [ProducesResponseType(201)]
         public async Task<IActionResult> Add([FromBody] SourceType sourceTypeItem)
         {
-            var SysSerial = await _service.Add(sourceTypeItem);
+            var RecId = await _service.Add(sourceTypeItem);
 
-            return Created($"{baseUrl}/SourceType/{SysSerial}", SysSerial);
+            return Created($"{baseUrl}/SourceType/{RecId}", RecId);
         }
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] Pager paging)
@@ -32,26 +32,26 @@ namespace Crossbones.ALPR.Api.HotListSourceType
             return PagedResult(await _service.GetAll(paging));
         }
 
-        [HttpGet("{SysSerial}")]
-        public async Task<IActionResult> GetOne(long SysSerial)
+        [HttpGet("{RecId}")]
+        public async Task<IActionResult> GetOne(long RecId)
         {
-            var res = await _service.Get(new SysSerial(SysSerial));
+            var res = await _service.Get(new RecId(RecId));
             return Ok(res);
         }
 
-        [HttpPut("{SysSerial}")]
+        [HttpPut("{RecId}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> Change(long SysSerial, [FromBody] SourceType sourceTypeItem)
+        public async Task<IActionResult> Change(long RecId, [FromBody] SourceType sourceTypeItem)
         {
-            await _service.Change(new SysSerial(SysSerial), sourceTypeItem);
+            await _service.Change(new RecId(RecId), sourceTypeItem);
             return NoContent();
         }
 
-        [HttpDelete("{SysSerial}")]
+        [HttpDelete("{RecId}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> DeleteOne(long SysSerial)
+        public async Task<IActionResult> DeleteOne(long RecId)
         {
-            await _service.Delete(new SysSerial(SysSerial));
+            await _service.Delete(new RecId(RecId));
             return NoContent();
         }
 

@@ -2,9 +2,9 @@
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Add
 {
-    public class AddUserCapturedPlateItem : SysSerialItemMessage
+    public class AddUserCapturedPlateItem : RecIdItemMessage
     {
-        public AddUserCapturedPlateItem(SysSerial id, long userId, long capturedId) : base(id)
+        public AddUserCapturedPlateItem(RecId id, long userId, long capturedId) : base(id)
         {
             UserId = userId;
             CapturedId = capturedId;

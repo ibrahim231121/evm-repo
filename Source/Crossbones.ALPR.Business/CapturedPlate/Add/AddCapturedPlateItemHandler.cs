@@ -14,7 +14,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Add
         {
             var cpRepository = context.Get<E.CapturedPlate>();
 
-            var itemExist = await cpRepository.Exists(cp => cp.SysSerial == command.Id);
+            var itemExist = await cpRepository.Exists(cp => cp.RecId == command.Id);
 
             if (itemExist)
             {
@@ -28,7 +28,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Add
 
             var capturedPlate = new E.CapturedPlate()
             {
-                SysSerial = command.Id,
+                RecId = command.Id,
                 NumberPlate = command.CapturedPlateItem.NumberPlate,
                 CapturedAt = command.CapturedPlateItem.CapturedAt,
                 LastUpdated = command.CapturedPlateItem.CapturedAt,
@@ -42,7 +42,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Add
 
             await cpRepository.Add(capturedPlate, token);
 
-            context.Success($"CapturedPlate Item has been added, SysSerial:{command.Id}");
+            context.Success($"CapturedPlate Item has been added, RecId:{command.Id}");
 
         }
     }

@@ -19,9 +19,9 @@ namespace Crossbones.ALPR.Api.HotListSourceType.Service
 
         public SourceTypeService(ServiceArguments args, ISequenceProxyFactory sequenceProxyFactory) : base(args) => _sourceTypeSequenceProxy = sequenceProxyFactory.GetProxy(ALPRResources.HotList);
 
-        public async Task<SysSerial> Add(SourceType request)
+        public async Task<RecId> Add(SourceType request)
         {
-            var id = new SysSerial(await _sourceTypeSequenceProxy.Next(CancellationToken.None));
+            var id = new RecId(await _sourceTypeSequenceProxy.Next(CancellationToken.None));
             var cmd = new AddSourceType(id)
             {
                 SourceTypeName = request.SourceTypeName,
@@ -31,9 +31,9 @@ namespace Crossbones.ALPR.Api.HotListSourceType.Service
             return id;
         }
 
-        public async Task Change(SysSerial SourceTypeSysSerial, SourceType request)
+        public async Task Change(RecId SourceTypeRecId, SourceType request)
         {
-            var cmd = new ChangeSourceType(SourceTypeSysSerial)
+            var cmd = new ChangeSourceType(SourceTypeRecId)
             {
                 SourceTypeName = request.SourceTypeName,
                 Description = request.Description,
@@ -41,31 +41,31 @@ namespace Crossbones.ALPR.Api.HotListSourceType.Service
             _ = await Execute(cmd);
         }
 
-        public async Task Delete(SysSerial SourceTypeSysSerial)
+        public async Task Delete(RecId SourceTypeRecId)
         {
-            var cmd = new DeleteSourceType(SourceTypeSysSerial);
+            var cmd = new DeleteSourceType(SourceTypeRecId);
             _ = await Execute(cmd);
         }
 
         public async Task DeleteAll()
         {
-            var cmd = new DeleteSourceType(SysSerial.Empty);
+            var cmd = new DeleteSourceType(RecId.Empty);
             _ = await Execute(cmd);
         }
 
-        public async Task<SourceTypeItem> Get(SysSerial SourceTypeSysSerial)
+        public async Task<SourceTypeDTO> Get(RecId SourceTypeRecId)
         {
-            var query = new GetSourceType(SourceTypeSysSerial, GetQueryFilter.Single);
-            var res = await Inquire<IEnumerable<SourceTypeItem>>(query);
+            var query = new GetSourceType(SourceTypeRecId, GetQueryFilter.Single);
+            var res = await Inquire<IEnumerable<SourceTypeDTO>>(query);
             return res.FirstOrDefault();
         }
 
-        public async Task<PagedResponse<SourceTypeItem>> GetAll(Pager paging)
+        public async Task<PagedResponse<SourceTypeDTO>> GetAll(Pager paging)
         {
-            var dataQuery = new GetSourceType(SysSerial.Empty, GetQueryFilter.All) { Paging = paging };
-            var t0 = Inquire<IEnumerable<SourceTypeItem>>(dataQuery);
+            var dataQuery = new GetSourceType(RecId.Empty, GetQueryFilter.All) { Paging = paging };
+            var t0 = Inquire<IEnumerable<SourceTypeDTO>>(dataQuery);
 
-            var countQuery = new GetSourceType(SysSerial.Empty, GetQueryFilter.Count);
+            var countQuery = new GetSourceType(RecId.Empty, GetQueryFilter.Count);
             var t1 = Inquire<RowCount>(countQuery);
 
             await Task.WhenAll(t0, t1);

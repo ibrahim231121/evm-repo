@@ -12,17 +12,17 @@ namespace Crossbones.ALPR.Api.ExportDetails
     public class ExportDetailController : BaseController
     {
         readonly IExportDetailService exportDetailService;
-        ValidateModel<ExportDetailItem> validateModel;
+        ValidateModel<ExportDetailDTO> validateModel;
 
         public ExportDetailController(ApiParams feature, IExportDetailService _exportDetailService) : base(feature)
         {
             exportDetailService = _exportDetailService;
-            validateModel = new ValidateModel<ExportDetailItem>();
+            validateModel = new ValidateModel<ExportDetailDTO>();
         }
 
         [HttpPost]
         [ProducesResponseType(201)]
-        public async Task<IActionResult> Add([FromBody] ExportDetailItem exportDetail)
+        public async Task<IActionResult> Add([FromBody] ExportDetailDTO exportDetail)
         {
             (bool isValid, string errorList) = validateModel.Validate(exportDetail);
             if (isValid)
@@ -45,18 +45,18 @@ namespace Crossbones.ALPR.Api.ExportDetails
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetOne(long Id)
         {
-            var res = await exportDetailService.Get(new SysSerial(Id));
+            var res = await exportDetailService.Get(new RecId(Id));
             return Ok(res);
         }
 
         [HttpPut("{Id}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> Change(long Id, [FromBody] ExportDetailItem exportDetail)
+        public async Task<IActionResult> Change(long Id, [FromBody] ExportDetailDTO exportDetail)
         {
             (bool isValid, string errorList) = validateModel.Validate(exportDetail);
             if (isValid)
             {
-                await exportDetailService.Change(new SysSerial(Id), exportDetail);
+                await exportDetailService.Change(new RecId(Id), exportDetail);
                 return NoContent();
             }
             else
@@ -69,7 +69,7 @@ namespace Crossbones.ALPR.Api.ExportDetails
         [ProducesResponseType(204)]
         public async Task<IActionResult> DeleteOne(long Id)
         {
-            await exportDetailService.Delete(new SysSerial(Id));
+            await exportDetailService.Delete(new RecId(Id));
             return NoContent();
         }
 

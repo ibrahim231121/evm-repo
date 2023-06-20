@@ -5,15 +5,15 @@ using Crossbones.ALPR.Models.Items;
 
 namespace Crossbones.ALPR.Business.HotListDataSource.Change
 {
-    public class ChangeHotListDataSourceItem : SysSerialItemMessage
+    public class ChangeHotListDataSourceItem : RecIdItemMessage
     {
 
-        public ChangeHotListDataSourceItem(SysSerial id) : base(id)
+        public ChangeHotListDataSourceItem(RecId id) : base(id)
         {
 
         }
 
-        public HotListDataSourceItem Item { get; set; }
+        public HotListDataSourceDTO Item { get; set; }
 
     }
 }

@@ -22,12 +22,12 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Add
             {
                 await hotListNumberPlateRepo.Add(new HotListNumberPlate()
                 {
-                    SysSerial = command.Id,
+                    RecId = command.Id,
                     HotListId = command.HotListID,
                     CreatedOn = command.CreatedOn,
                     NumberPlatesId = command.NumberPlatesId
                 }, token);
-                context.Success($"HotList Number Plate has been added, SysSerial:{command.Id}");
+                context.Success($"HotList Number Plate has been added, RecId:{command.Id}");
             }
         }
     }

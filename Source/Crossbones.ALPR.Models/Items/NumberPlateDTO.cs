@@ -1,8 +1,8 @@
 ﻿namespace Crossbones.ALPR.Models.Items
 {
-    public class NumberPlateItem
+    public class NumberPlateDTO
     {
-        public long SysSerial { get; set; }
+        public long RecId { get; set; }
         public string? NCICNumber { get; set; }
         public string? AgencyId { get; set; }
         public string DateOfInterest { get; set; }

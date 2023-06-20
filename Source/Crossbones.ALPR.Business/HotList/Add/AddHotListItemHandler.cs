@@ -24,7 +24,7 @@ namespace Crossbones.ALPR.Business.HotList.Add
             {
                 var res = mapper.Map<E.Hotlist>(command);
                 await _repository.Add(res, token);
-                context.Success($"HotList Item has been added, SysSerial:{command.Id}");
+                context.Success($"HotList Item has been added, RecId:{command.Id}");
             }
         }
     }

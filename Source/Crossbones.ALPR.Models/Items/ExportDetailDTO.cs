@@ -2,9 +2,9 @@
 
 namespace Crossbones.ALPR.Models.Items
 {
-    public class ExportDetailItem
+    public class ExportDetailDTO
     {
-        public long SysSerial { get; set; }
+        public long RecId { get; set; }
 
         [Required(ErrorMessage = "CapturedPlateId can not null or <= 0")]
         public long CapturedPlateId { get; set; }

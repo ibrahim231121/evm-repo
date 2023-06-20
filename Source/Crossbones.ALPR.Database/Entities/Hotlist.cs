@@ -8,8 +8,8 @@ namespace Corssbones.ALPR.Database.Entities;
 public partial class Hotlist
 {
     [Key]
-    [Column("SysSerial")]
-    public long SysSerial { get; set; }
+    [Column("RecId")]
+    public long RecId { get; set; }
 
     [StringLength(50)]
     [Unicode(false)]

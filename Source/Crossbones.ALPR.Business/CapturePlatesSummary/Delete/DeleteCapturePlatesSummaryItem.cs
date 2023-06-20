@@ -3,9 +3,9 @@ using Crossbones.ALPR.Common.ValueObjects;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Delete
 {
-    public class DeleteCapturePlatesSummaryItem : SysSerialItemMessage
+    public class DeleteCapturePlatesSummaryItem : RecIdItemMessage
     {
-        public DeleteCapturePlatesSummaryItem(SysSerial id, DeleteCommandFilter deletdCommandFilter, long userId = 0, long capturedPlateId = 0) : base(id)
+        public DeleteCapturePlatesSummaryItem(RecId id, DeleteCommandFilter deletdCommandFilter, long userId = 0, long capturedPlateId = 0) : base(id)
         {
             UserId = userId;
             CapturedPlateId = capturedPlateId;

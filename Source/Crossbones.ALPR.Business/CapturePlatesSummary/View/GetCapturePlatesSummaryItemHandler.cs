@@ -18,7 +18,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
 
             if (query.Sort != null && !string.IsNullOrEmpty(query.Sort.Field))
             {
-                applySort = typeof(CapturePlatesSummaryItem).GetProperty(query.Sort.Field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) != null;
+                applySort = typeof(CapturePlatesSummaryDTO).GetProperty(query.Sort.Field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) != null;
             }
 
             var cpsRepsitory = context.Get<E.CapturePlatesSummary>();

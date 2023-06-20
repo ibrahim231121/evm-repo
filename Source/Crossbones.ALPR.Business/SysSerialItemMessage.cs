@@ -2,9 +2,9 @@
 
 namespace Corssbones.ALPR.Business
 {
-    public class SysSerialItemMessage : MessageBase
+    public class RecIdItemMessage : MessageBase
     {
-        public SysSerial Id { get; }
-        public SysSerialItemMessage(SysSerial _id) => Id = _id;
+        public RecId Id { get; }
+        public RecIdItemMessage(RecId _id) => Id = _id;
     }
 }

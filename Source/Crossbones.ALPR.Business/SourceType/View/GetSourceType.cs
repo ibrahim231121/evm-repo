@@ -4,9 +4,9 @@ using Crossbones.Modules.Common.Pagination;
 
 namespace Corssbones.ALPR.Business.SourceType.View
 {
-    public class GetSourceType : SysSerialItemMessage
+    public class GetSourceType : RecIdItemMessage
     {
-        public GetSourceType(SysSerial sysSerial, GetQueryFilter filter) : base(sysSerial)
+        public GetSourceType(RecId sysSerial, GetQueryFilter filter) : base(sysSerial)
         {
             Filter = filter;
         }

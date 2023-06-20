@@ -18,9 +18,9 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummary
 
         public CapturePlatesSummaryService(ServiceArguments args, ISequenceProxyFactory sequenceProxyFactory) : base(args) => (_capturedPlateSummarySequenceProxy) = (sequenceProxyFactory.GetProxy(ALPRResources.CapturePlateSummary));
 
-        public async Task<SysSerial> Add(CapturePlatesSummaryItem capturedPlateSummaryItem)
+        public async Task<RecId> Add(CapturePlatesSummaryDTO capturedPlateSummaryItem)
         {
-            var capturedPlateSummaryId = new SysSerial(await _capturedPlateSummarySequenceProxy.Next(CancellationToken.None));
+            var capturedPlateSummaryId = new RecId(await _capturedPlateSummarySequenceProxy.Next(CancellationToken.None));
 
             var addCapturePlateSummaryCommand = new AddCapturePlatesSummaryItem(capturedPlateSummaryId, capturedPlateSummaryItem);
 
@@ -29,9 +29,9 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummary
             return capturedPlateSummaryId;
         }
 
-        public async Task Change(CapturePlatesSummaryItem capturedPlateSummaryItem)
+        public async Task Change(CapturePlatesSummaryDTO capturedPlateSummaryItem)
         {
-            var changeCapturePlateSummaryCommand = new ChangeCapturePlatesSummaryItem(new SysSerial(0),
+            var changeCapturePlateSummaryCommand = new ChangeCapturePlatesSummaryItem(new RecId(0),
                                                                                                  capturedPlateSummaryItem);
 
             _ = await Execute(changeCapturePlateSummaryCommand);
@@ -39,7 +39,7 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummary
 
         public async Task Delete(long userId, long capturedPlateId)
         {
-            var deleteCapturePlateSummaryCommand = new DeleteCapturePlatesSummaryItem(new SysSerial(0),
+            var deleteCapturePlateSummaryCommand = new DeleteCapturePlatesSummaryItem(new RecId(0),
                                                                                                  DeleteCommandFilter.All,
                                                                                                  userId,
                                                                                                  capturedPlateId);
@@ -49,29 +49,29 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummary
 
         public async Task DeleteAll(long userId)
         {
-            var deleteCapturePlateSummaryCommand = new DeleteCapturePlatesSummaryItem(new SysSerial(0),
+            var deleteCapturePlateSummaryCommand = new DeleteCapturePlatesSummaryItem(new RecId(0),
                                                                                                  userId > 0 ? DeleteCommandFilter.AllOfUser : DeleteCommandFilter.All,
                                                                                                  userId);
 
             _ = await Execute(deleteCapturePlateSummaryCommand);
         }
 
-        public async Task<CapturePlatesSummaryItem> Get(long userId, long capturedPlateId)
+        public async Task<CapturePlatesSummaryDTO> Get(long userId, long capturedPlateId)
         {
             var getCapturePlateSummaryQuery = new GetCapturePlatesSummaryItem(userId,
-                                                                                       new SysSerial(0),
+                                                                                       new RecId(0),
                                                                                        capturedPlateId,
                                                                                        GetQueryFilter.Single);
 
-            var resp = await Inquire<CapturePlatesSummaryItem>(getCapturePlateSummaryQuery);
+            var resp = await Inquire<CapturePlatesSummaryDTO>(getCapturePlateSummaryQuery);
 
             return resp;
         }
 
-        public async Task<PagedResponse<CapturePlatesSummaryItem>> GetAll(Pager paging, GridFilter filter, GridSort sort, long userId = 0)
+        public async Task<PagedResponse<CapturePlatesSummaryDTO>> GetAll(Pager paging, GridFilter filter, GridSort sort, long userId = 0)
         {
             var getCapturePlateSummaryQuery = new GetCapturePlatesSummaryItem(userId,
-                                                                                      new SysSerial(0),
+                                                                                      new RecId(0),
                                                                                       0,
                                                                                       userId > 0 ? GetQueryFilter.AllByUser : GetQueryFilter.All,
                                                                                       null,
@@ -79,15 +79,15 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummary
                                                                                       paging,
                                                                                       sort);
 
-            var resp = await Inquire<PagedResponse<CapturePlatesSummaryItem>>(getCapturePlateSummaryQuery);
+            var resp = await Inquire<PagedResponse<CapturePlatesSummaryDTO>>(getCapturePlateSummaryQuery);
 
             return resp;
         }
 
-        public async Task<List<CapturePlatesSummaryItem>> GetAllWithOutPaging(GridFilter filter, GridSort sort, long userId = 0)
+        public async Task<List<CapturePlatesSummaryDTO>> GetAllWithOutPaging(GridFilter filter, GridSort sort, long userId = 0)
         {
             var getCapturePlateSummaryQuery = new GetCapturePlatesSummaryItem(userId,
-                                                                                      new SysSerial(0),
+                                                                                      new RecId(0),
                                                                                       0,
                                                                                       userId > 0 ? GetQueryFilter.AllByUserWithOutPaging : GetQueryFilter.AllWithoutPaging,
                                                                                       null,

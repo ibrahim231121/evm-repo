@@ -13,7 +13,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Change
         protected override async Task OnMessage(ChangeCapturedPlateItem command, ICommandContext context, CancellationToken token)
         {
             var cpRepository = context.Get<E.CapturedPlate>();
-            bool entityExist = await cpRepository.Exists(x => x.SysSerial == command.Id, token);
+            bool entityExist = await cpRepository.Exists(x => x.RecId == command.Id, token);
 
             if (entityExist)
             {
@@ -22,7 +22,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Change
                 var point = NtsGeometryServices.Instance.CreateGeometryFactory().CreatePoint(new Coordinate(command.UpdateItem.Longitude, command.UpdateItem.Latitude));
                 point.SRID = 4326;
 
-                var capturedPlate = await cpRepository.One(x => x.SysSerial == command.Id);
+                var capturedPlate = await cpRepository.One(x => x.RecId == command.Id);
 
                 capturedPlate.Confidence = command.UpdateItem.Confidence;
                 capturedPlate.State = command.UpdateItem.State;
@@ -33,7 +33,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Change
 
                 await cpRepository.Update(capturedPlate, token);
 
-                context.Success($"CapturedPlate item has been updated, SysSerial:{command.Id}");
+                context.Success($"CapturedPlate item has been updated, RecId:{command.Id}");
             }
             else
             {

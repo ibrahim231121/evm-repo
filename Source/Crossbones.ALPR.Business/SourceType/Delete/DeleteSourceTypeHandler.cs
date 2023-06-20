@@ -12,11 +12,11 @@ namespace Corssbones.ALPR.Business.SourceType.Delete
         protected override async Task OnMessage(DeleteSourceType command, ICommandContext context, CancellationToken token)
         {
             var _repository = context.Get<E.SourceType>();
-            var singleDeleteRequest = command.Id != SysSerial.Empty;
+            var singleDeleteRequest = command.Id != RecId.Empty;
 
             var result = singleDeleteRequest switch
             {
-                true => await _repository.Many(x => x.SysSerial == command.Id).ToListAsync(token),
+                true => await _repository.Many(x => x.RecId == command.Id).ToListAsync(token),
                 false => await _repository.Many().ToListAsync(token),
             };
 
@@ -26,7 +26,7 @@ namespace Corssbones.ALPR.Business.SourceType.Delete
             {
                 await _repository.Delete(result, token);
 
-                var logMessage = singleDeleteRequest ? $"SourceType record has been deleted, SysSerial: {command.Id}" : $"All SourceType records have been deleted";
+                var logMessage = singleDeleteRequest ? $"SourceType record has been deleted, RecId: {command.Id}" : $"All SourceType records have been deleted";
                 context.Success(logMessage);
             }
         }

@@ -12,11 +12,11 @@ namespace Crossbones.ALPR.Business.HotListDataSource.Delete
         protected override async Task OnMessage(DeleteHotListDataSourceItem command, ICommandContext context, CancellationToken token)
         {
             var _repository = context.Get<E.HotlistDataSource>();
-            var singleDeleteRequest = command.Id != SysSerial.Empty;
+            var singleDeleteRequest = command.Id != RecId.Empty;
 
             var result = singleDeleteRequest switch
             {
-                true => await _repository.Many(x => x.SysSerial == command.Id).ToListAsync(token),
+                true => await _repository.Many(x => x.RecId == command.Id).ToListAsync(token),
                 false => await _repository.Many().ToListAsync(token),
             };
 
@@ -26,7 +26,7 @@ namespace Crossbones.ALPR.Business.HotListDataSource.Delete
             {
                 await _repository.Delete(result, token);
 
-                var logMessage = singleDeleteRequest ? $"HotListDataSource record has been deleted, SysSerial: {command.Id}" : $"All HotListDataSource records have been deleted";
+                var logMessage = singleDeleteRequest ? $"HotListDataSource record has been deleted, RecId: {command.Id}" : $"All HotListDataSource records have been deleted";
                 context.Success(logMessage);
             }
         }

@@ -10,11 +10,11 @@ namespace Crossbones.ALPR.Api.State
         {
         }
 
-        public async Task<List<StateItem>> GetAll()
+        public async Task<List<StateDTO>> GetAll()
         {
-            var dataQuery = new GetState(SysSerial.Empty) { };
+            var dataQuery = new GetState(RecId.Empty) { };
 
-            var stateList = await Inquire<IEnumerable<StateItem>>(dataQuery);
+            var stateList = await Inquire<IEnumerable<StateDTO>>(dataQuery);
 
             return stateList.ToList();
         }

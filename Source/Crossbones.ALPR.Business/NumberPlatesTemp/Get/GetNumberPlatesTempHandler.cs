@@ -27,7 +27,7 @@ namespace Corssbones.ALPR.Business.NumberPlatesTemp.Get
                 var data = await (singleRequest
                     switch
                 {
-                    true => _repository.Many(x => x.SysSerial == query.Id),
+                    true => _repository.Many(x => x.RecId == query.Id),
                     false => _repository.Many(),
                 }).ApplyPaging(query.Paging).ToListAsync(token);
 
@@ -36,7 +36,7 @@ namespace Corssbones.ALPR.Business.NumberPlatesTemp.Get
                     throw new RecordNotFound($"Unable to process your request because License Plate data is not found against provided Id {query.Id}");
                 }
                 
-                var res = mapper.Map<List<NumberPlateTempItem>>(data);
+                var res = mapper.Map<List<NumberPlateTempDTO>>(data);
                 return res;
             }
         }

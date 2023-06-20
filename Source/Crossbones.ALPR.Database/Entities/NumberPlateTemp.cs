@@ -5,7 +5,7 @@ namespace Corssbones.ALPR.Database.Entities;
 [Table("NumberPlatesTemp")]
 public partial class NumberPlateTemp
 {
-    public long SysSerial { get; set; }
+    public long RecId { get; set; }
     public string? ImportSerialId { get; set; }
     public string? NCICNumber { get; set; }
     public string? AgencyId { get; set; }

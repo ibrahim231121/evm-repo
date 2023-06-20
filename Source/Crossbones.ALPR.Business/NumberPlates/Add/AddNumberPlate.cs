@@ -3,13 +3,13 @@ using Crossbones.ALPR.Common.ValueObjects;
 
 namespace Crossbones.ALPR.Business.NumberPlates.Add
 {
-    public class AddNumberPlate : SysSerialItemMessage
+    public class AddNumberPlate : RecIdItemMessage
     {
-        public AddNumberPlate(SysSerial id) : base(id)
+        public AddNumberPlate(RecId id) : base(id)
         {
         }
 
-        public long SysSerial { get; set; }
+        public long RecId { get; set; }
         public string ImportSerialId { get; set; }
         public string Ncicnumber { get; set; }
         public string AgencyId { get; set; }

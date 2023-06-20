@@ -2,7 +2,7 @@
 
 public partial class HotListNumberPlate
 {
-    public long SysSerial { get; set; }
+    public long RecId { get; set; }
 
     public long HotListId { get; set; }
 

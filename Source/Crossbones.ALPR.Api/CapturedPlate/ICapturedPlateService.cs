@@ -18,7 +18,7 @@ namespace Crossbones.ALPR.Api.CapturedPlate
         /// </summary>
         /// <param name="capturedPlate">The captured plate.</param>
         /// <returns></returns>
-        Task<SysSerial> Add(CapturedPlateItem capturedPlate);
+        Task<RecId> Add(CapturedPlateDTO capturedPlate);
 
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace Crossbones.ALPR.Api.CapturedPlate
         /// </summary>
         /// <param name="capturedPlateId">The captured plate identifier.</param>
         /// <returns></returns>
-        Task<CapturedPlateItem> Get(SysSerial capturedPlateId);
+        Task<CapturedPlateDTO> Get(RecId capturedPlateId);
 
 
         /// <summary>
@@ -36,24 +36,24 @@ namespace Crossbones.ALPR.Api.CapturedPlate
         /// <param name="filter">The filter.</param>
         /// <param name="sort">The sort.</param>
         /// <returns></returns>
-        Task<PageResponse<CapturedPlateItem>> GetAll(long userID, DateTime startDate, DateTime endDate, Pager paging, GridFilter filter, GridSort sort, List<long> hotListIds);
+        Task<PageResponse<CapturedPlateDTO>> GetAll(long userID, DateTime startDate, DateTime endDate, Pager paging, GridFilter filter, GridSort sort, List<long> hotListIds);
 
 
         /// <summary>
         /// Changes the specified captured plate system serial.
         /// </summary>
-        /// <param name="capturedPlateSysSerial">The captured plate system serial.</param>
+        /// <param name="capturedPlateRecId">The captured plate system serial.</param>
         /// <param name="capturedPlateItem">The captured plate item.</param>
         /// <returns></returns>
-        Task Change(SysSerial capturedPlateSysSerial, CapturedPlateItem capturedPlateItem);
+        Task Change(RecId capturedPlateRecId, CapturedPlateDTO capturedPlateItem);
 
 
         /// <summary>
         /// Deletes the specified captured plate system serial.
         /// </summary>
-        /// <param name="capturedPlateSysSerial">The captured plate system serial.</param>
+        /// <param name="capturedPlateRecId">The captured plate system serial.</param>
         /// <returns></returns>
-        Task Delete(SysSerial capturedPlateSysSerial);
+        Task Delete(RecId capturedPlateRecId);
 
 
         /// <summary>

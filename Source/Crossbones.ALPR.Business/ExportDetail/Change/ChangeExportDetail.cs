@@ -2,14 +2,14 @@
 
 namespace Corssbones.ALPR.Business.ExportDetail.Change
 {
-    public class ChangeExportDetail : SysSerialItemMessage
+    public class ChangeExportDetail : RecIdItemMessage
     {
         public long CapturedPlateId { get; set; }
         public long TicketNumber { get; set; }
         public DateTime ExportedOn { get; set; }
         public string ExportPath { get; set; } = null!;
         public string? UriLocation { get; set; }
-        public ChangeExportDetail(SysSerial _id) : base(_id)
+        public ChangeExportDetail(RecId _id) : base(_id)
         {
         }
     }

@@ -9,8 +9,8 @@ namespace Corssbones.ALPR.Database.Entities;
 public partial class CapturedPlate
 {
     [Key]
-    [Column("sysSerial")]
-    public long SysSerial { get; set; }
+    [Column("RecId")]
+    public long RecId { get; set; }
 
     public Guid RowGuid { get; set; }
 

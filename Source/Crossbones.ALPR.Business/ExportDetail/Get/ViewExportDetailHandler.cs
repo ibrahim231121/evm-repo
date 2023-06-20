@@ -30,7 +30,7 @@ namespace Corssbones.ALPR.Business.ExportDetail.Get
                 var singleRequest = query.Filter == GetQueryFilter.Single;
                 var data = await (singleRequest switch
                 {
-                    true => _repository.Many(x => x.SysSerial == query.Id),
+                    true => _repository.Many(x => x.RecId == query.Id),
                     false => _repository.Many(),
                 }).ApplyPaging(query.Paging).ToListAsync(token);
 
@@ -39,7 +39,7 @@ namespace Corssbones.ALPR.Business.ExportDetail.Get
                     throw new RecordNotFound($"Unable to process your request because Export Detail is not found against provided Id '{query.Id}'");
                 }
 
-                var res = mapper.Map<List<ExportDetailItem>>(data);
+                var res = mapper.Map<List<ExportDetailDTO>>(data);
 
                 return res;
             }

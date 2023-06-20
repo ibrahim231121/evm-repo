@@ -13,29 +13,29 @@ namespace Corssbones.ALPR.Business
     {
         public ALPRMappingProfile()
         {
-            CreateMap<E.HotListNumberPlate, HotListNumberPlateItem>().ReverseMap();
-            CreateMap<E.Hotlist, HotListItem>().ReverseMap();
+            CreateMap<E.HotListNumberPlate, HotListNumberPlateDTO>().ReverseMap();
+            CreateMap<E.Hotlist, HotListDTO>().ReverseMap();
 
-            CreateMap<E.ALPRExportDetail, ExportDetailItem>().ReverseMap();
-            CreateMap<E.HotlistDataSource, HotListDataSourceItem>().ReverseMap();
-            CreateMap<E.SourceType, SourceTypeItem>().ReverseMap();
+            CreateMap<E.ALPRExportDetail, ExportDetailDTO>().ReverseMap();
+            CreateMap<E.HotlistDataSource, HotListDataSourceDTO>().ReverseMap();
+            CreateMap<E.SourceType, SourceTypeDTO>().ReverseMap();
 
             CreateMap<E.Hotlist, AddHotListItem>().ReverseMap();
             CreateMap<E.HotlistDataSource, AddHotListDataSourceItem>().ReverseMap();
 
-            CreateMap<HotListNumberPlate, HotListNumberPlateItem>().ReverseMap();
+            CreateMap<HotListNumberPlate, HotListNumberPlateDTO>().ReverseMap();
 
-            CreateMap<Hotlist, HotListItem>().ReverseMap();
+            CreateMap<Hotlist, HotListDTO>().ReverseMap();
 
-            CreateMap<NumberPlate, NumberPlateItem>()
+            CreateMap<NumberPlate, NumberPlateDTO>()
                 .ForMember(dest => dest.DateOfInterest, x => x.MapFrom(src => src.DateOfInterest.ToString("yyyy-MM-dd HH:mm")))
                 .ForMember(dest => dest.StateName, x => x.MapFrom(src => src.State.StateName));
             CreateMap<AddNumberPlate, NumberPlate>();
 
-            CreateMap<NumberPlateTemp, NumberPlateTempItem>().ReverseMap();
+            CreateMap<NumberPlateTemp, NumberPlateTempDTO>().ReverseMap();
             CreateMap<AddNumberPlatesTemp, NumberPlateTemp>().ReverseMap();
 
-            CreateMap<State, StateItem>().ReverseMap();
+            CreateMap<State, StateDTO>().ReverseMap();
         }
     }
 }

@@ -46,10 +46,10 @@ namespace Crossbones.ALPR.Business.NumberPlates.Get
 
                 foreach (var item in hotListNumberPlates)
                 {
-                    data.Add(numberPlateList.FirstOrDefault(x => x.SysSerial == item.NumberPlatesId));
+                    data.Add(numberPlateList.FirstOrDefault(x => x.RecId == item.NumberPlatesId));
                 }
 
-                var res = mapper.Map<List<NumberPlateItem>>(data);
+                var res = mapper.Map<List<NumberPlateDTO>>(data);
                 return res;
             }
             else
@@ -58,12 +58,12 @@ namespace Crossbones.ALPR.Business.NumberPlates.Get
                 var data = await (singleRequest
                     switch
                 {
-                    true => _repository.Many(x => x.SysSerial == query.Id).Include(x=>x.State),
+                    true => _repository.Many(x => x.RecId == query.Id).Include(x=>x.State),
                     false => _repository.Many().Include(x => x.State),
                 })
-                .Select(z => new NumberPlateItem()
+                .Select(z => new NumberPlateDTO()
                 {
-                    SysSerial = z.SysSerial,
+                    RecId = z.RecId,
                     NCICNumber = z.Ncicnumber,
                     AgencyId = z.AgencyId,
                     DateOfInterest = z.DateOfInterest.ToString("yyyy-MM-dd HH:mm"),
@@ -87,7 +87,7 @@ namespace Crossbones.ALPR.Business.NumberPlates.Get
                     ViolationInfo = z.ViolationInfo,
                     Notes = z.Notes,
                     ImportSerialId = z.ImportSerialId,
-                    HotList = ReturnHotListName(z.SysSerial),
+                    HotList = ReturnHotListName(z.RecId),
                     StateName = z.State.StateName
                 })
                 .ToFilteredPagedListAsync(query.GridFilter, query.Paging, query.Sort, token);
@@ -104,7 +104,7 @@ namespace Crossbones.ALPR.Business.NumberPlates.Get
         static string ReturnHotListName(long numberPlateId)
         {
             long? hotListId = hotListNumberPlates?.FirstOrDefault(z => z.NumberPlatesId == numberPlateId)?.HotListId;
-            return (hotListId > 0) ? hotLists?.FirstOrDefault(y => y.SysSerial == hotListId).Name : "Not Assigned";
+            return (hotListId > 0) ? hotLists?.FirstOrDefault(y => y.RecId == hotListId).Name : "Not Assigned";
         }
     }
 }

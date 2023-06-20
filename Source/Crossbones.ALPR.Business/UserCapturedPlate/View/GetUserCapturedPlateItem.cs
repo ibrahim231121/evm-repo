@@ -3,9 +3,9 @@ using Crossbones.ALPR.Common.ValueObjects;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Get
 {
-    public class GetUserCapturedPlateItem : SysSerialItemMessage
+    public class GetUserCapturedPlateItem : RecIdItemMessage
     {
-        public GetUserCapturedPlateItem(long userId, SysSerial sysSerial, GetQueryFilter queryFilter) : base(sysSerial)
+        public GetUserCapturedPlateItem(long userId, RecId sysSerial, GetQueryFilter queryFilter) : base(sysSerial)
         {
             UserId = userId;
             QueryFilter = queryFilter;

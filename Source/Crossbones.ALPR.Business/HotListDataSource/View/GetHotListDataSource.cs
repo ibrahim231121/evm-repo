@@ -5,9 +5,9 @@ using Crossbones.Modules.Common.Queryables;
 
 namespace Corssbones.ALPR.Business.HotListDataSource.View
 {
-    public class GetHotListDataSource : SysSerialItemMessage
+    public class GetHotListDataSource : RecIdItemMessage
     {
-        public GetHotListDataSource(SysSerial sysSerial, GetQueryFilter filter, GridFilter gridFilter, GridSort sort) : base(sysSerial)
+        public GetHotListDataSource(RecId sysSerial, GetQueryFilter filter, GridFilter gridFilter, GridSort sort) : base(sysSerial)
         {
             Filter = filter;
             GridFilter = gridFilter;

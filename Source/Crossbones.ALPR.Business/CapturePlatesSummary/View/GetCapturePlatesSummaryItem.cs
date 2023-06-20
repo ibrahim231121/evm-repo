@@ -5,9 +5,9 @@ using Crossbones.Modules.Common.Queryables;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Get
 {
-    public class GetCapturePlatesSummaryItem : SysSerialItemMessage
+    public class GetCapturePlatesSummaryItem : RecIdItemMessage
     {
-        public GetCapturePlatesSummaryItem(long userId, SysSerial sysSerial, long capturedPlateId, GetQueryFilter queryFilter, List<long> capturedPlateIds = null, GridFilter filter = null, Pager paging = null, GridSort sort = null) : base(sysSerial)
+        public GetCapturePlatesSummaryItem(long userId, RecId sysSerial, long capturedPlateId, GetQueryFilter queryFilter, List<long> capturedPlateIds = null, GridFilter filter = null, Pager paging = null, GridSort sort = null) : base(sysSerial)
         {
             Paging = paging;
             Filter = filter;

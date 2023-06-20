@@ -1,6 +1,6 @@
 ﻿namespace Crossbones.ALPR.Models.Items
 {
-    public class NumberPlateTempItem
+    public class NumberPlateTempDTO
     {
         public string ImportSerialId { get; set; }
         public string Ncicnumber { get; set; }
@@ -24,6 +24,6 @@
         public string ViolationInfo { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime LastUpdatedOn { get; set; }
-        public long SysSerial { get; set; }
+        public long RecId { get; set; }
     }
 }

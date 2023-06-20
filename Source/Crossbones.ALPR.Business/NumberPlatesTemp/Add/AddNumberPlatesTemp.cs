@@ -2,9 +2,9 @@
 
 namespace Corssbones.ALPR.Business.NumberPlatesTemp.Add
 {
-    public class AddNumberPlatesTemp : SysSerialItemMessage
+    public class AddNumberPlatesTemp : RecIdItemMessage
     {
-        public AddNumberPlatesTemp(SysSerial id) : base(id)
+        public AddNumberPlatesTemp(RecId id) : base(id)
         {
 
         }

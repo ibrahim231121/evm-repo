@@ -17,10 +17,10 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Delete
                 case DeleteCommandFilter.Single:
                     if (command.Id > 0)
                     {
-                        bool cpExist = await ucpRepository.Exists(cp => cp.SysSerial == command.Id, token);
+                        bool cpExist = await ucpRepository.Exists(cp => cp.RecId == command.Id, token);
                         if (cpExist)
                         {
-                            await ucpRepository.Delete(cp => cp.SysSerial == command.Id, token);
+                            await ucpRepository.Delete(cp => cp.RecId == command.Id, token);
                             context.Success($"UserCapturedPlate with Id:{command.Id} successfully deleted.");
                         }
                         else

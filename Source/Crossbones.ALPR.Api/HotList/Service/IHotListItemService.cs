@@ -13,35 +13,35 @@ namespace Crossbones.ALPR.Api.HotList.Service
         /// </summary>
         /// <param name="request">Hotlist domain model</param>
         /// <returns>HotlistId generated against the record</returns>
-        Task<SysSerial> Add(HotListItem request);
+        Task<RecId> Add(HotListDTO request);
 
         /// <summary>
         /// It is used to Get Single Hotlist data from database
         /// </summary>
         /// <param name="HotlistId">Database record Id</param>
         /// <returns>Hotlist record</returns>
-        Task<HotListItem> Get(SysSerial HotlistSysSerial);
+        Task<HotListDTO> Get(RecId HotlistRecId);
 
         /// <summary>
         /// It is used to Get All Hotlist data from database
         /// </summary>
         /// <returns>List of Hotlist records</returns>
-        Task<PageResponse<HotListItem>> GetAll(Pager paging, GridFilter filter, GridSort sort);
+        Task<PageResponse<HotListDTO>> GetAll(Pager paging, GridFilter filter, GridSort sort);
 
         /// <summary>
         /// It is used to update Hotlist data from database
         /// </summary>
-        /// <param name="HotItemSysSerial">Database record Id</param>
+        /// <param name="HotItemRecId">Database record Id</param>
         /// <param name="request">Hotlist domain model</param>
         /// <returns></returns>
-        Task Change(SysSerial HotlistSysSerial, HotListItem request);
+        Task Change(RecId HotlistRecId, HotListDTO request);
 
         /// <summary>
         /// It is used to Delete Single Hotlist data from database
         /// </summary>
         /// <param name="HotlistId">Database record Id</param>
         /// <returns></returns>
-        Task Delete(SysSerial HotlistSysSerial);
+        Task Delete(RecId HotlistRecId);
 
         /// <summary>
         /// It is used to Delete All Hotlist data from database

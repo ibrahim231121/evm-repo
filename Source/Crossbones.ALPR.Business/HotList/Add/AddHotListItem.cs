@@ -4,13 +4,13 @@ using Crossbones.ALPR.Models.Items;
 
 namespace Crossbones.ALPR.Business.HotList.Add
 {
-    public class AddHotListItem : SysSerialItemMessage
+    public class AddHotListItem : RecIdItemMessage
     {
-        public AddHotListItem(SysSerial id, HotListItem itemToAdd) : base(id)
+        public AddHotListItem(RecId id, HotListDTO itemToAdd) : base(id)
         {
             this.ItemToAdd = itemToAdd;
         }
 
-        public HotListItem ItemToAdd { get; }
+        public HotListDTO ItemToAdd { get; }
     }
 }

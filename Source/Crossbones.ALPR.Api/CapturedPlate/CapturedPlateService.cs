@@ -23,21 +23,21 @@ namespace Crossbones.ALPR.Api.CapturedPlate
 
         public CapturedPlateService(ServiceArguments args, ISequenceProxyFactory sequenceProxyFactory, ICapturePlatesSummaryService capturePlatesSummary) : base(args) => (_capturedPlateSequenceProxy, _userCapturedPlateSequenceProxy, _capturePlatesSummary) = (sequenceProxyFactory.GetProxy(ALPRResources.CapturedPlate), sequenceProxyFactory.GetProxy(ALPRResources.UserCapturedPlate), capturePlatesSummary);
 
-        public async Task<SysSerial> Add(CapturedPlateItem capturedPlate)
+        public async Task<RecId> Add(CapturedPlateDTO capturedPlate)
         {
-            var capturedPlateId = new SysSerial(await _capturedPlateSequenceProxy.Next(CancellationToken.None));
+            var capturedPlateId = new RecId(await _capturedPlateSequenceProxy.Next(CancellationToken.None));
 
             var addCapturedPlateCommand = new AddCapturedPlateItem(capturedPlateId, capturedPlate);
             var chainCommand = new ChainCommand(addCapturedPlateCommand);
 
-            var userCapturePlateId = new SysSerial(await _userCapturedPlateSequenceProxy.Next(CancellationToken.None));
+            var userCapturePlateId = new RecId(await _userCapturedPlateSequenceProxy.Next(CancellationToken.None));
 
             var addUserCapturedPlateCommand = new AddUserCapturedPlateItem(userCapturePlateId,
                                                                                                 capturedPlate.User,
                                                                                                 capturedPlateId);
             chainCommand += addUserCapturedPlateCommand;
 
-            var addCapturePlatesSummaryCommand = new AddCapturePlatesSummaryItem(new SysSerial(0), new CapturePlatesSummaryItem()
+            var addCapturePlatesSummaryCommand = new AddCapturePlatesSummaryItem(new RecId(0), new CapturePlatesSummaryDTO()
             {
                 CapturePlateId = capturedPlateId,
                 UserId = capturedPlate.User,
@@ -56,15 +56,15 @@ namespace Crossbones.ALPR.Api.CapturedPlate
             return capturedPlateId;
         }
 
-        public async Task Change(SysSerial capturedPlateSysSerial, CapturedPlateItem capturedPlateItem)
+        public async Task Change(RecId capturedPlateRecId, CapturedPlateDTO capturedPlateItem)
         {
-            var changeCapturePlateCommand = new ChangeCapturedPlateItem(capturedPlateSysSerial, capturedPlateItem);
+            var changeCapturePlateCommand = new ChangeCapturedPlateItem(capturedPlateRecId, capturedPlateItem);
 
             var chainCommand = new ChainCommand(changeCapturePlateCommand);
 
-            var changeCapturePlateSummaryCommand = new ChangeCapturePlatesSummaryItem(new SysSerial(0), new CapturePlatesSummaryItem()
+            var changeCapturePlateSummaryCommand = new ChangeCapturePlatesSummaryItem(new RecId(0), new CapturePlatesSummaryDTO()
             {
-                CapturePlateId = capturedPlateSysSerial,
+                CapturePlateId = capturedPlateRecId,
                 UserId = capturedPlateItem.User,
                 UnitId = capturedPlateItem.UnitId,
                 CaptureDate = capturedPlateItem.CapturedAt,
@@ -80,21 +80,21 @@ namespace Crossbones.ALPR.Api.CapturedPlate
             _ = await Execute(chainCommand);
         }
 
-        public async Task Delete(SysSerial capturedPlateSysSerial)
+        public async Task Delete(RecId capturedPlateRecId)
         {
-            var deleteCapturePlateCommand = new DeleteCapturedPlateItem(capturedPlateSysSerial,
+            var deleteCapturePlateCommand = new DeleteCapturedPlateItem(capturedPlateRecId,
                                                                                                  DeleteCommandFilter.Single);
             var chainCommand = new ChainCommand(deleteCapturePlateCommand);
 
-            var deletedUserCapturedPlateCommand = new DeleteUserCapturedPlateItem(new SysSerial(0),
+            var deletedUserCapturedPlateCommand = new DeleteUserCapturedPlateItem(new RecId(0),
                                                                                                           DeleteCommandFilter.Single,
                                                                                                           0,
-                                                                                                          capturedPlateSysSerial);
+                                                                                                          capturedPlateRecId);
             chainCommand += deletedUserCapturedPlateCommand;
 
-            var deleteCapturePlateSummaryCommand = new DeleteCapturePlatesSummaryItem(new SysSerial(0),
+            var deleteCapturePlateSummaryCommand = new DeleteCapturePlatesSummaryItem(new RecId(0),
                                                                                                  DeleteCommandFilter.Single,
-                                                                                                 capturedPlateId: capturedPlateSysSerial);
+                                                                                                 capturedPlateId: capturedPlateRecId);
             chainCommand += deleteCapturePlateSummaryCommand;
 
             _ = await Execute(chainCommand);
@@ -102,17 +102,17 @@ namespace Crossbones.ALPR.Api.CapturedPlate
 
         public async Task DeleteAll(long userId)
         {
-            var deleteCapturePlateItemCommand = new DeleteCapturedPlateItem(SysSerial.Empty,
+            var deleteCapturePlateItemCommand = new DeleteCapturedPlateItem(RecId.Empty,
                                                                                       userId > 0 ? DeleteCommandFilter.AllOfUser : DeleteCommandFilter.All,
                                                                                       userId);
             var chainCommand = new ChainCommand(deleteCapturePlateItemCommand);
 
-            var deleteUserCapturePlateCommand = new DeleteUserCapturedPlateItem(new SysSerial(0),
+            var deleteUserCapturePlateCommand = new DeleteUserCapturedPlateItem(new RecId(0),
                                                                                             userId > 0 ? DeleteCommandFilter.AllOfUser : DeleteCommandFilter.All,
                                                                                             userId);
             chainCommand += deleteUserCapturePlateCommand;
 
-            var deleteCapturePlateSummaryCommand = new DeleteCapturePlatesSummaryItem(new SysSerial(0),
+            var deleteCapturePlateSummaryCommand = new DeleteCapturePlatesSummaryItem(new RecId(0),
                                                                                                  userId > 0 ? DeleteCommandFilter.AllOfUser : DeleteCommandFilter.All,
                                                                                                  userId: userId);
             chainCommand += deleteCapturePlateSummaryCommand;
@@ -120,11 +120,11 @@ namespace Crossbones.ALPR.Api.CapturedPlate
             _ = await Execute(chainCommand);
         }
 
-        public async Task<CapturedPlateItem> Get(SysSerial capturedPlateId)
+        public async Task<CapturedPlateDTO> Get(RecId capturedPlateId)
         {
             var capturePlatesSummaryItem = await this._capturePlatesSummary.Get(0, capturedPlateId);
             var query = new GetCapturedPlateItem(capturedPlateId, GetQueryFilter.Single);
-            var capturedPlateItem = await Inquire<CapturedPlateItem>(query);
+            var capturedPlateItem = await Inquire<CapturedPlateDTO>(query);
 
             capturedPlateItem.UnitId = capturePlatesSummaryItem.UnitId;
             capturedPlateItem.User = capturePlatesSummaryItem.UserId;
@@ -133,7 +133,7 @@ namespace Crossbones.ALPR.Api.CapturedPlate
             return capturedPlateItem;
         }
 
-        public async Task<PageResponse<CapturedPlateItem>> GetAll(long userID, DateTime startDate, DateTime endDate, Pager paging, GridFilter filter, GridSort sort, List<long> hotListIds)
+        public async Task<PageResponse<CapturedPlateDTO>> GetAll(long userID, DateTime startDate, DateTime endDate, Pager paging, GridFilter filter, GridSort sort, List<long> hotListIds)
         {
             GridFilter summaryFilters = new GridFilter()
             {
@@ -143,7 +143,7 @@ namespace Crossbones.ALPR.Api.CapturedPlate
                 Operator = filter.Operator,
                 Value = filter.Value,
                 Filters = filter.Filters.Filter(f =>
-                            typeof(CapturePlatesSummaryItem).GetProperty(f.Field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) != null
+                            typeof(CapturePlatesSummaryDTO).GetProperty(f.Field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) != null
                           ).ToList()
             };
 
@@ -157,7 +157,7 @@ namespace Crossbones.ALPR.Api.CapturedPlate
 
             if (sort != null && !string.IsNullOrEmpty(sort.Field))
             {
-                summarySortApplied = typeof(CapturePlatesSummaryItem).GetProperty(sort.Field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) != null;
+                summarySortApplied = typeof(CapturePlatesSummaryDTO).GetProperty(sort.Field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) != null;
             }
 
             GridFilter capturedPlatesFilters = new GridFilter()
@@ -168,8 +168,8 @@ namespace Crossbones.ALPR.Api.CapturedPlate
                 Operator = filter.Operator,
                 Value = filter.Value,
                 Filters = filter.Filters.Filter(f =>
-                            typeof(CapturedPlateItem).GetProperty(f.Field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) != null &&
-                            typeof(CapturePlatesSummaryItem).GetProperty(f.Field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) == null
+                            typeof(CapturedPlateDTO).GetProperty(f.Field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) != null &&
+                            typeof(CapturePlatesSummaryDTO).GetProperty(f.Field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) == null
                           ).ToList()
             };
 
@@ -187,7 +187,7 @@ namespace Crossbones.ALPR.Api.CapturedPlate
                 longitudeFilterExist = true;
             }
 
-            var dataQuery = new GetCapturedPlateItem(SysSerial.Empty,
+            var dataQuery = new GetCapturedPlateItem(RecId.Empty,
                                                      summarySortApplied || latitudeFilterExist || longitudeFilterExist ? GetQueryFilter.AllWithoutPaging : GetQueryFilter.All,
                                                      capturePlateIds,
                                                      startDate,
@@ -197,13 +197,13 @@ namespace Crossbones.ALPR.Api.CapturedPlate
                                                      sort,
                                                      hotListIds);
 
-            PageResponse<CapturedPlateItem> capturedPlates = null;
+            PageResponse<CapturedPlateDTO> capturedPlates = null;
 
             if (summarySortApplied || latitudeFilterExist || longitudeFilterExist)
             {
-                var taskGetCapturedPlates = Inquire<List<CapturedPlateItem>>(dataQuery);
+                var taskGetCapturedPlates = Inquire<List<CapturedPlateDTO>>(dataQuery);
 
-                List<CapturedPlateItem> capturedPlatesItems = await taskGetCapturedPlates;
+                List<CapturedPlateDTO> capturedPlatesItems = await taskGetCapturedPlates;
 
                 int size = paging.Size <= 0 ? 25 : paging.Size;
                 int skip = (paging.Page - 1) * paging.Size;
@@ -221,11 +221,11 @@ namespace Crossbones.ALPR.Api.CapturedPlate
 
                 capturedPlatesItems = capturedPlatesItems.Skip(skip).Take(size).ToList();
 
-                capturedPlates = new PageResponse<CapturedPlateItem>(capturedPlatesItems, totalCount);
+                capturedPlates = new PageResponse<CapturedPlateDTO>(capturedPlatesItems, totalCount);
             }
             else
             {
-                var taskGetCapturedPlates = Inquire<PageResponse<CapturedPlateItem>>(dataQuery);
+                var taskGetCapturedPlates = Inquire<PageResponse<CapturedPlateDTO>>(dataQuery);
 
                 capturedPlates = await taskGetCapturedPlates;
             }

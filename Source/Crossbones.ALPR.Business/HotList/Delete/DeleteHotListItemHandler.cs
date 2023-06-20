@@ -10,9 +10,9 @@ namespace Crossbones.ALPR.Business.HotList.Delete
         protected override async Task OnMessage(DeleteHotListItem command, ICommandContext context, CancellationToken token)
         {
             var _repository = context.Get<E.Hotlist>();
-            var singleDeleteRequest = command.Id != SysSerial.Empty;
+            var singleDeleteRequest = command.Id != RecId.Empty;
 
-            if (command.Id == SysSerial.Empty)
+            if (command.Id == RecId.Empty)
             {
                 await _repository.Delete(x => true);
 
@@ -21,9 +21,9 @@ namespace Crossbones.ALPR.Business.HotList.Delete
             }
             else
             {
-                await _repository.Delete(x => x.SysSerial == command.Id);
+                await _repository.Delete(x => x.RecId == command.Id);
 
-                var logMessage = $"HotList record has been deleted, SysSerial: {command.Id}";
+                var logMessage = $"HotList record has been deleted, RecId: {command.Id}";
                 context.Success(logMessage);
             }
 

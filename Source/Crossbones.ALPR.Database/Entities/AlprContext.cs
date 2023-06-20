@@ -71,9 +71,9 @@ public partial class AlprContext : DbContextWithChannel
 
         modelBuilder.Entity<HotListNumberPlate>(entity =>
         {
-            entity.HasKey(e => e.SysSerial);
+            entity.HasKey(e => e.RecId);
 
-            entity.Property(e => e.SysSerial).ValueGeneratedNever();
+            entity.Property(e => e.RecId).ValueGeneratedNever();
             entity.Property(e => e.CreatedOn).HasColumnType("datetime");
             entity.Property(e => e.HotListId).HasColumnName("HotListID");
             entity.Property(e => e.LastTimeStamp)
@@ -95,7 +95,7 @@ public partial class AlprContext : DbContextWithChannel
 
         modelBuilder.Entity<Hotlist>(entity =>
         {
-            entity.HasKey(e => e.SysSerial).HasName("PK_HotList");
+            entity.HasKey(e => e.RecId).HasName("PK_HotList");
 
             entity.Property(e => e.AlertPriority).HasDefaultValueSql("((1))");
             entity.Property(e => e.LastTimeStamp)
@@ -107,7 +107,7 @@ public partial class AlprContext : DbContextWithChannel
 
         modelBuilder.Entity<HotlistDataSource>(entity =>
         {
-            entity.HasKey(e => e.SysSerial).HasName("PK_HotListSource");
+            entity.HasKey(e => e.RecId).HasName("PK_HotListSource");
 
             entity.HasOne(d => d.SourceType).WithMany(p => p.HotlistDataSources)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -116,9 +116,9 @@ public partial class AlprContext : DbContextWithChannel
 
         modelBuilder.Entity<NumberPlate>(entity =>
         {
-            entity.HasKey(e => e.SysSerial);
+            entity.HasKey(e => e.RecId);
 
-            entity.Property(e => e.SysSerial).ValueGeneratedNever();
+            entity.Property(e => e.RecId).ValueGeneratedNever();
             entity.Property(e => e.AgencyId)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -187,11 +187,11 @@ public partial class AlprContext : DbContextWithChannel
 
         modelBuilder.Entity<NumberPlateTemp>(entity =>
         {
-            entity.HasKey(e => e.SysSerial);
+            entity.HasKey(e => e.RecId);
 
             entity.ToTable("NumberPlatesTemp");
 
-            entity.Property(e => e.SysSerial).ValueGeneratedNever();
+            entity.Property(e => e.RecId).ValueGeneratedNever();
             entity.Property(e => e.AgencyId)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -260,9 +260,9 @@ public partial class AlprContext : DbContextWithChannel
         {
             entity.ToTable("State");
 
-            entity.Property(e => e.StateId)
+            entity.Property(e => e.RecId)
                 .ValueGeneratedOnAdd()
-                .HasColumnName("StateID");
+                .HasColumnName("RecId");
             entity.Property(e => e.StateName)
                 .HasMaxLength(50)
                 .IsUnicode(false);

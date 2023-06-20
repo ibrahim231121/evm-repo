@@ -37,13 +37,13 @@ namespace Corssbones.ALPR.Business.HotListDataSource.View
                 var singleRequest = query.Filter == GetQueryFilter.Single;
                 var data = await (singleRequest switch
                 {
-                    true => _repositoryHotListDataSource.Many(x => x.SysSerial == query.Id).Include(x => x.SourceType),
+                    true => _repositoryHotListDataSource.Many(x => x.RecId == query.Id).Include(x => x.SourceType),
                     false => _repositoryHotListDataSource.Many().Include(x => x.SourceType),
                 })
                 //.Select(z => mapper.Map<E.HotlistDataSource, HotListDataSourceItem>(z))
-                .Select(z => new HotListDataSourceItem()
+                .Select(z => new HotListDataSourceDTO()
                 {
-                    SysSerial = z.SysSerial,
+                    RecId = z.RecId,
                     Name = z.Name,
                     SourceName = z.SourceName,
                     //SourceType = mapper.Map<E.SourceType, SourceTypeItem>(z.SourceType),

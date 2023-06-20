@@ -12,17 +12,17 @@ namespace Crossbones.ALPR.Api.HotListNumberPlates
     public class HotListNumberPlateController : BaseController
     {
         readonly IHotListNumberPlateService hotListNumberPlateService;
-        ValidateModel<HotListNumberPlateItem> validateModel;
+        ValidateModel<HotListNumberPlateDTO> validateModel;
 
         public HotListNumberPlateController(ApiParams feature, IHotListNumberPlateService _hotListNumberPlateService) : base(feature)
         {
             hotListNumberPlateService = _hotListNumberPlateService;
-            validateModel = new ValidateModel<HotListNumberPlateItem>();
+            validateModel = new ValidateModel<HotListNumberPlateDTO>();
         }
 
         [HttpPost]
         [ProducesResponseType(201)]
-        public async Task<IActionResult> Add([FromBody] HotListNumberPlateItem hotListNumberPlate)
+        public async Task<IActionResult> Add([FromBody] HotListNumberPlateDTO hotListNumberPlate)
         {
             (bool isValid, string errorList) = validateModel.Validate(hotListNumberPlate);
             if (isValid)
@@ -46,18 +46,18 @@ namespace Crossbones.ALPR.Api.HotListNumberPlates
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetOne(long Id)
         {
-            var res = await hotListNumberPlateService.Get(new SysSerial(Id));
+            var res = await hotListNumberPlateService.Get(new RecId(Id));
             return Ok(res);
         }
 
         [HttpPut("{Id}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> Change(long Id, [FromBody] HotListNumberPlateItem hotListNumberPlate)
+        public async Task<IActionResult> Change(long Id, [FromBody] HotListNumberPlateDTO hotListNumberPlate)
         {
             (bool isValid, string errorList) = validateModel.Validate(hotListNumberPlate);
             if (isValid)
             {
-                await hotListNumberPlateService.Change(new SysSerial(Id), hotListNumberPlate);
+                await hotListNumberPlateService.Change(new RecId(Id), hotListNumberPlate);
                 return NoContent();
             }
             else
@@ -70,7 +70,7 @@ namespace Crossbones.ALPR.Api.HotListNumberPlates
         [ProducesResponseType(204)]
         public async Task<IActionResult> DeleteOne(long Id)
         {
-            await hotListNumberPlateService.Delete(new SysSerial(Id));
+            await hotListNumberPlateService.Delete(new RecId(Id));
             return NoContent();
         }
 

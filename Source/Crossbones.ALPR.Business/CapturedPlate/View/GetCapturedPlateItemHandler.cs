@@ -39,11 +39,11 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
 
             if (query.QueryFilter == Enums.GetQueryFilter.Single)
             {
-                capturedPlates = cpRepsitory.Many(cp => cp.SysSerial == query.Id);
+                capturedPlates = cpRepsitory.Many(cp => cp.RecId == query.Id);
             }
             else
             {
-                capturedPlates = cpRepsitory.Many(cp => query.CapturedPlateIds.Contains(cp.SysSerial) &&
+                capturedPlates = cpRepsitory.Many(cp => query.CapturedPlateIds.Contains(cp.RecId) &&
                                                         cp.CapturedAt >= query.StartDate && cp.CapturedAt <= query.EndDate);
             }
 
@@ -78,9 +78,9 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
                 query.Filter.Filters = query.Filter.Filters.Filter(filter => filter.Field != "Longitude").ToList();
             }
 
-            var capturedPlateQueryable = capturedPlates.Select(z => new CapturedPlateItem()
+            var capturedPlateQueryable = capturedPlates.Select(z => new CapturedPlateDTO()
             {
-                CapturedPlateId = z.SysSerial,
+                CapturedPlateId = z.RecId,
                 NumberPlate = z.NumberPlate,
                 Description = "",
                 HotlistName = "",

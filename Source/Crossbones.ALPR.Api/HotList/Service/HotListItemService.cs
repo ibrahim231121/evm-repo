@@ -18,49 +18,49 @@ namespace Crossbones.ALPR.Api.HotList.Service
 
         public HotListItemService(ServiceArguments args, ISequenceProxyFactory sequenceProxyFactory) : base(args) => _hotListSequenceProxy = sequenceProxyFactory.GetProxy(ALPRResources.HotList);
 
-        public async Task<SysSerial> Add(HotListItem request)
+        public async Task<RecId> Add(HotListDTO request)
         {
-            var id = new SysSerial(await _hotListSequenceProxy.Next(CancellationToken.None));
+            var id = new RecId(await _hotListSequenceProxy.Next(CancellationToken.None));
             var cmd = new AddHotListItem(id, request);
             _ = await Execute(cmd);
             return id;
         }
 
-        public async Task Change(SysSerial HotlistSysSerial, HotListItem request)
+        public async Task Change(RecId HotlistRecId, HotListDTO request)
         {
-            var cmd = new ChangeHotListItem(HotlistSysSerial, request);
+            var cmd = new ChangeHotListItem(HotlistRecId, request);
             _ = await Execute(cmd);
         }
 
-        public async Task Delete(SysSerial HotlistSysSerial)
+        public async Task Delete(RecId HotlistRecId)
         {
-            if (HotlistSysSerial == null || HotlistSysSerial <= 0 || HotlistSysSerial == SysSerial.Empty)
+            if (HotlistRecId == null || HotlistRecId <= 0 || HotlistRecId == RecId.Empty)
             {
-                HotlistSysSerial = new SysSerial(-1);
+                HotlistRecId = new RecId(-1);
             }
 
-            var cmd = new DeleteHotListItem(HotlistSysSerial);
+            var cmd = new DeleteHotListItem(HotlistRecId);
             _ = await Execute(cmd);
 
         }
 
         public async Task DeleteAll()
         {
-            var cmd = new DeleteHotListItem(SysSerial.Empty);
+            var cmd = new DeleteHotListItem(RecId.Empty);
             _ = await Execute(cmd);
         }
 
-        public async Task<HotListItem> Get(SysSerial HotlistSysSerial)
+        public async Task<HotListDTO> Get(RecId HotlistRecId)
         {
-            var query = new GetHotListItem(HotlistSysSerial, GetQueryFilter.Single);
-            var res = await Inquire<HotListItem>(query);
+            var query = new GetHotListItem(HotlistRecId, GetQueryFilter.Single);
+            var res = await Inquire<HotListDTO>(query);
             return res;
         }
 
-        public async Task<PageResponse<HotListItem>> GetAll(Pager paging, GridFilter filter, GridSort sort)
+        public async Task<PageResponse<HotListDTO>> GetAll(Pager paging, GridFilter filter, GridSort sort)
         {
-            var dataQuery = new GetHotListItem(SysSerial.Empty, GetQueryFilter.All) { Paging = paging, Filter = filter, Sort = sort };
-            var t0 = Inquire<PageResponse<HotListItem>>(dataQuery);
+            var dataQuery = new GetHotListItem(RecId.Empty, GetQueryFilter.All) { Paging = paging, Filter = filter, Sort = sort };
+            var t0 = Inquire<PageResponse<HotListDTO>>(dataQuery);
 
             var list = await t0;
 

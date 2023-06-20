@@ -19,14 +19,14 @@ namespace Corssbones.ALPR.Business.ExportDetail.Add
             {
                 await _repository.Add(new E.ALPRExportDetail()
                 {
-                    SysSerial = command.Id,
+                    RecId = command.Id,
                     TicketNumber = command.TicketNumber,
                     CapturedPlateId = command.CapturedPlateId,
                     ExportedOn = command.ExportedOn,
                     ExportPath = command.ExportPath,
                     UriLocation = command.UriLocation
                 }, token);
-                context.Success($"Export Detail has been added, SysSerial:{command.Id}");
+                context.Success($"Export Detail has been added, RecId:{command.Id}");
             }
         }
     }

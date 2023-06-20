@@ -17,11 +17,11 @@ namespace Crossbones.ALPR.Api.CapturedPlate
 
         [HttpPost]
         [ProducesResponseType(201)]
-        public async Task<IActionResult> Add([FromBody] CapturedPlateItem capturedPlateItem)
+        public async Task<IActionResult> Add([FromBody] CapturedPlateDTO capturedPlateItem)
         {
-            var SysSerial = await _service.Add(capturedPlateItem);
+            var RecId = await _service.Add(capturedPlateItem);
 
-            return Created($"{baseUrl}/CapturedPlate/{SysSerial}", SysSerial);
+            return Created($"{baseUrl}/CapturedPlate/{RecId}", RecId);
         }
 
         [HttpGet]
@@ -60,26 +60,26 @@ namespace Crossbones.ALPR.Api.CapturedPlate
             return PaginatedOk(res);
         }
 
-        [HttpGet("{SysSerial}")]
-        public async Task<IActionResult> GetOne(long SysSerial)
+        [HttpGet("{RecId}")]
+        public async Task<IActionResult> GetOne(long RecId)
         {
-            var res = await _service.Get(new SysSerial(SysSerial));
+            var res = await _service.Get(new RecId(RecId));
             return Ok(res);
         }
 
         [HttpPut]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> Change([FromQuery] long SysSerial, [FromBody] CapturedPlateItem capturedPlateItem)
+        public async Task<IActionResult> Change([FromQuery] long RecId, [FromBody] CapturedPlateDTO capturedPlateItem)
         {
-            await _service.Change(new SysSerial(SysSerial), capturedPlateItem);
+            await _service.Change(new RecId(RecId), capturedPlateItem);
             return NoContent();
         }
 
-        [HttpDelete("{SysSerial}")]
+        [HttpDelete("{RecId}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> DeleteOne(long SysSerial)
+        public async Task<IActionResult> DeleteOne(long RecId)
         {
-            await _service.Delete(new SysSerial(SysSerial));
+            await _service.Delete(new RecId(RecId));
             return NoContent();
         }
 

@@ -1,8 +1,10 @@
-﻿namespace Corssbones.ALPR.Database.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+namespace Corssbones.ALPR.Database.Entities;
 
 public partial class State
 {
-    public byte StateId { get; set; }
+    [Key]
+    public byte RecId { get; set; }
 
     public string StateName { get; set; } = null!;
 

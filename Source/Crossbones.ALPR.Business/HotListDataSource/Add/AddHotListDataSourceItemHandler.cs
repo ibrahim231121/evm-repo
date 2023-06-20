@@ -24,7 +24,7 @@ namespace Crossbones.ALPR.Business.HotListDataSource.Add
                 var res = mapper.Map<E.HotlistDataSource>(command.Item);
 
                 await _repository.Add(res, token);
-                context.Success($"HotListDataSource Item has been added, SysSerial:{command.Id}");
+                context.Success($"HotListDataSource Item has been added, RecId:{command.Id}");
             }
         }
     }

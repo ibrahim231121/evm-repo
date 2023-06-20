@@ -16,9 +16,9 @@ namespace Crossbones.ALPR.Api.ExportDetails
         readonly ISequenceProxy exportDetailSequenceProxy;
         public ExportDetailService(ServiceArguments args, ISequenceProxyFactory sequenceProxyFactory) : base(args) => exportDetailSequenceProxy = sequenceProxyFactory.GetProxy(ALPRResources.ExortDetail);
 
-        public async Task<SysSerial> Add(ExportDetailItem addExportDetail)
+        public async Task<RecId> Add(ExportDetailDTO addExportDetail)
         {
-            var id = new SysSerial(await exportDetailSequenceProxy.Next(CancellationToken.None));
+            var id = new RecId(await exportDetailSequenceProxy.Next(CancellationToken.None));
             var cmd = new AddExportDetail(id)
             {
                 CapturedPlateId = addExportDetail.CapturedPlateId,
@@ -32,7 +32,7 @@ namespace Crossbones.ALPR.Api.ExportDetails
             return id;
         }
 
-        public async Task Change(SysSerial Id, ExportDetailItem request)
+        public async Task Change(RecId Id, ExportDetailDTO request)
         {
             var cmd = new ChangeExportDetail(Id)
             {
@@ -45,7 +45,7 @@ namespace Crossbones.ALPR.Api.ExportDetails
             _ = await Execute(cmd);
         }
 
-        public async Task Delete(SysSerial Id)
+        public async Task Delete(RecId Id)
         {
             var cmd = new DeleteExportDetail(Id);
             _ = await Execute(cmd);
@@ -53,23 +53,23 @@ namespace Crossbones.ALPR.Api.ExportDetails
 
         public async Task DeleteAll()
         {
-            var cmd = new DeleteExportDetail(SysSerial.Empty);
+            var cmd = new DeleteExportDetail(RecId.Empty);
             _ = await Execute(cmd);
         }
 
-        public async Task<ExportDetailItem> Get(SysSerial Id)
+        public async Task<ExportDetailDTO> Get(RecId Id)
         {
             var query = new GetExportDetail(Id, GetQueryFilter.Single);
-            var res = await Inquire<IEnumerable<ExportDetailItem>>(query);
+            var res = await Inquire<IEnumerable<ExportDetailDTO>>(query);
             return res.FirstOrDefault();
         }
 
-        public async Task<PagedResponse<ExportDetailItem>> GetAll(Pager paging)
+        public async Task<PagedResponse<ExportDetailDTO>> GetAll(Pager paging)
         {
-            var dataQuery = new GetExportDetail(SysSerial.Empty, GetQueryFilter.All) { Paging = paging };
-            var t0 = Inquire<IEnumerable<ExportDetailItem>>(dataQuery);
+            var dataQuery = new GetExportDetail(RecId.Empty, GetQueryFilter.All) { Paging = paging };
+            var t0 = Inquire<IEnumerable<ExportDetailDTO>>(dataQuery);
 
-            var countQuery = new GetExportDetail(SysSerial.Empty, GetQueryFilter.Count);
+            var countQuery = new GetExportDetail(RecId.Empty, GetQueryFilter.Count);
             var t1 = Inquire<RowCount>(countQuery);
 
             await Task.WhenAll(t0, t1);

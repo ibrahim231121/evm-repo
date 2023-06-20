@@ -18,9 +18,9 @@ namespace Crossbones.ALPR.Api.HotListNumberPlates
         readonly IMapper mapper;
         public HotListNumberPlateService(ServiceArguments args, ISequenceProxyFactory sequenceProxyFactory) : base(args) => hotListNumberSequenceProxy = sequenceProxyFactory.GetProxy(ALPRResources.HotListNumberPlate);
 
-        public async Task<SysSerial> Add(HotListNumberPlateItem request)
+        public async Task<RecId> Add(HotListNumberPlateDTO request)
         {
-            var id = new SysSerial(await hotListNumberSequenceProxy.Next(CancellationToken.None));
+            var id = new RecId(await hotListNumberSequenceProxy.Next(CancellationToken.None));
             var cmd = new AddHotListNumberPlate(id)
             {
                 HotListID = request.HotListId,
@@ -31,7 +31,7 @@ namespace Crossbones.ALPR.Api.HotListNumberPlates
             return id;
         }
 
-        public async Task Change(SysSerial Id, HotListNumberPlateItem request)
+        public async Task Change(RecId Id, HotListNumberPlateDTO request)
         {
             var cmd = new ChangeHotListNumberPlate(Id)
             {
@@ -43,7 +43,7 @@ namespace Crossbones.ALPR.Api.HotListNumberPlates
             _ = await Execute(cmd);
         }
 
-        public async Task Delete(SysSerial Id)
+        public async Task Delete(RecId Id)
         {
             var cmd = new DeleteHotListNumberPlate(Id);
             _ = await Execute(cmd);
@@ -51,23 +51,23 @@ namespace Crossbones.ALPR.Api.HotListNumberPlates
 
         public async Task DeleteAll()
         {
-            var cmd = new DeleteHotListNumberPlate(SysSerial.Empty);
+            var cmd = new DeleteHotListNumberPlate(RecId.Empty);
             _ = await Execute(cmd);
         }
 
-        public async Task<HotListNumberPlateItem> Get(SysSerial Id)
+        public async Task<HotListNumberPlateDTO> Get(RecId Id)
         {
             var query = new GetHotListNumberPlate(Id, GetQueryFilter.Single);
-            var res = await Inquire<IEnumerable<HotListNumberPlateItem>>(query);
+            var res = await Inquire<IEnumerable<HotListNumberPlateDTO>>(query);
             return res.FirstOrDefault();
         }
 
-        public async Task<PagedResponse<HotListNumberPlateItem>> GetAll(Pager paging)
+        public async Task<PagedResponse<HotListNumberPlateDTO>> GetAll(Pager paging)
         {
-            var dataQuery = new GetHotListNumberPlate(SysSerial.Empty, GetQueryFilter.All) { Paging = paging };
-            var t0 = Inquire<IEnumerable<HotListNumberPlateItem>>(dataQuery);
+            var dataQuery = new GetHotListNumberPlate(RecId.Empty, GetQueryFilter.All) { Paging = paging };
+            var t0 = Inquire<IEnumerable<HotListNumberPlateDTO>>(dataQuery);
 
-            var countQuery = new GetHotListNumberPlate(SysSerial.Empty, GetQueryFilter.Count);
+            var countQuery = new GetHotListNumberPlate(RecId.Empty, GetQueryFilter.Count);
             var t1 = Inquire<RowCount>(countQuery);
 
             await Task.WhenAll(t0, t1);

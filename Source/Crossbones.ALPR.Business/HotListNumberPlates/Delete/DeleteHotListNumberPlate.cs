@@ -2,9 +2,9 @@
 
 namespace Corssbones.ALPR.Business.HotListNumberPlates.Delete
 {
-    public class DeleteHotListNumberPlate : SysSerialItemMessage
+    public class DeleteHotListNumberPlate : RecIdItemMessage
     {
-        public DeleteHotListNumberPlate(SysSerial id) : base(id)
+        public DeleteHotListNumberPlate(RecId id) : base(id)
         {
         }
     }

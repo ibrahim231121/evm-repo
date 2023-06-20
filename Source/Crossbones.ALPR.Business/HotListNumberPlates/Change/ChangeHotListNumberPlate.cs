@@ -2,14 +2,14 @@
 
 namespace Corssbones.ALPR.Business.HotListNumberPlates.Change
 {
-    public class ChangeHotListNumberPlate : SysSerialItemMessage
+    public class ChangeHotListNumberPlate : RecIdItemMessage
     {
         public long HotListID { get; set; }
         public long NumberPlatesId { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime LastUpdatedOn { get; set; }
         public byte[] LastTimeStamp { get; set; } = null!;
-        public ChangeHotListNumberPlate(SysSerial id) : base(id)
+        public ChangeHotListNumberPlate(RecId id) : base(id)
         {
         }
     }

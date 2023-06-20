@@ -2,10 +2,10 @@
 
 namespace Corssbones.ALPR.Business.SourceType.Change
 {
-    public class ChangeSourceType : SysSerialItemMessage
+    public class ChangeSourceType : RecIdItemMessage
     {
 
-        public ChangeSourceType(SysSerial id) : base(id)
+        public ChangeSourceType(RecId id) : base(id)
         {
 
         }

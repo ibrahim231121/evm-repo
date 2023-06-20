@@ -23,14 +23,14 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Add
 
             var userCapturedPlate = new E.UserCapturedPlate()
             {
-                SysSerial = command.Id,
+                RecId = command.Id,
                 UserId = command.UserId,
                 CapturedId = command.CapturedId
             };
 
             await ucpRepository.Add(userCapturedPlate, token);
 
-            context.Success($"UserCapturedPlate Item has been added, SysSerial:{command.Id}");
+            context.Success($"UserCapturedPlate Item has been added, RecId:{command.Id}");
         }
     }
 }

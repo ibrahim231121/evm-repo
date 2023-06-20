@@ -3,9 +3,9 @@ using Crossbones.ALPR.Common.ValueObjects;
 
 namespace Crossbones.ALPR.Business.State.Get
 {
-    public class GetState : SysSerialItemMessage
+    public class GetState : RecIdItemMessage
     {
-        public GetState(SysSerial _id) : base(_id)
+        public GetState(RecId _id) : base(_id)
         {
         }
     }

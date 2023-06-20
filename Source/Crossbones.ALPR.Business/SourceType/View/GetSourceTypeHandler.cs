@@ -26,7 +26,7 @@ namespace Corssbones.ALPR.Business.SourceType.View
                 var singleRequest = query.Filter == GetQueryFilter.Single;
                 var data = await (singleRequest switch
                 {
-                    true => _repository.Many(x => x.SysSerial == query.Id),
+                    true => _repository.Many(x => x.RecId == query.Id),
                     false => _repository.Many(),
                 }).ApplyPaging(query.Paging).ToListAsync(token);
 
@@ -35,7 +35,7 @@ namespace Corssbones.ALPR.Business.SourceType.View
                     throw new RecordNotFound($"Unable to process your request because SourceType Item Data is not found against provided Id '{query.Id}'");
                 }
 
-                var res = data.Select(x => new SourceTypeItem()
+                var res = data.Select(x => new SourceTypeDTO()
                 {
                     SourceTypeName = x.SourceTypeName,
                     Description = x.Description

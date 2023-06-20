@@ -23,7 +23,7 @@ namespace Corssbones.ALPR.Business.SourceType.Add
                     Description = command.Description,
 
                 }, token);
-                context.Success($"SourceType Item has been added, SysSerial:{command.Id}");
+                context.Success($"SourceType Item has been added, RecId:{command.Id}");
             }
         }
     }

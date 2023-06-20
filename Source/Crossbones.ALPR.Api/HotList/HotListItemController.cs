@@ -18,11 +18,11 @@ namespace Crossbones.ALPR.Api.HotList
 
         [HttpPost]
         [ProducesResponseType(201)]
-        public async Task<IActionResult> Add([FromBody] HotListItem hotListItem)
+        public async Task<IActionResult> Add([FromBody] HotListDTO hotListItem)
         {
-            var SysSerial = await _service.Add(hotListItem);
+            var RecId = await _service.Add(hotListItem);
 
-            return Created($"{baseUrl}/HotList/{SysSerial}", SysSerial);
+            return Created($"{baseUrl}/HotList/{RecId}", RecId);
         }
 
         [HttpGet]
@@ -54,26 +54,26 @@ namespace Crossbones.ALPR.Api.HotList
             return PaginatedOk(await _service.GetAll(paging, filter, sort));
         }
 
-        [HttpGet("{SysSerial}")]
-        public async Task<IActionResult> GetOne(long SysSerial)
+        [HttpGet("{RecId}")]
+        public async Task<IActionResult> GetOne(long RecId)
         {
-            var res = await _service.Get(new SysSerial(SysSerial));
+            var res = await _service.Get(new RecId(RecId));
             return Ok(res);
         }
 
-        [HttpPut("{SysSerial}")]
+        [HttpPut("{RecId}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> Change(long SysSerial, [FromBody] HotListItem hotListItem)
+        public async Task<IActionResult> Change(long RecId, [FromBody] HotListDTO hotListItem)
         {
-            await _service.Change(new SysSerial(SysSerial), hotListItem);
+            await _service.Change(new RecId(RecId), hotListItem);
             return NoContent();
         }
 
-        [HttpDelete("{SysSerial}")]
+        [HttpDelete("{RecId}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> DeleteOne(long SysSerial)
+        public async Task<IActionResult> DeleteOne(long RecId)
         {
-            await _service.Delete(new SysSerial(SysSerial));
+            await _service.Delete(new RecId(RecId));
             return NoContent();
         }
 

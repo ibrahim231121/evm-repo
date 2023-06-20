@@ -5,7 +5,7 @@ namespace Corssbones.ALPR.Database.Entities;
 [Table("NumberPlates")]
 public partial class NumberPlate
 {
-    public long SysSerial { get; set; }
+    public long RecId { get; set; }
 
     public string? ImportSerialId { get; set; }
 

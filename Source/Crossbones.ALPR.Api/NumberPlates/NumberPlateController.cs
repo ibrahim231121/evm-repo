@@ -17,10 +17,10 @@ namespace Crossbones.ALPR.Api.NumberPlates
 
         [HttpPost]
         [ProducesResponseType(201)]
-        public async Task<IActionResult> Add([FromBody] M.NumberPlateItem numberPlates)
+        public async Task<IActionResult> Add([FromBody] M.NumberPlateDTO numberPlates)
         {
-            var SysSerial = await _service.Add(numberPlates);
-            return Ok(new { statusCode = StatusCodes.Status201Created, message = $"Record against {SysSerial} successfully added" });
+            var RecId = await _service.Add(numberPlates);
+            return Ok(new { statusCode = StatusCodes.Status201Created, message = $"Record against {RecId} successfully added" });
         }
 
         [HttpGet]
@@ -39,39 +39,24 @@ namespace Crossbones.ALPR.Api.NumberPlates
         [HttpGet("{sysSerial}")]
         public async Task<IActionResult> GetOne(long sysSerial)
         {
-            var res = await _service.Get(new SysSerial(sysSerial));
+            var res = await _service.Get(new RecId(sysSerial));
             return Ok(res);
         }
 
-        [HttpPut("{SysSerial}")]
+        [HttpPut("{RecId}")]
         //[ProducesResponseType(204)]
-        public async Task<IActionResult> Change(long sysSerial, [FromBody] M.NumberPlateItem numberPlates)
+        public async Task<IActionResult> Change(long sysSerial, [FromBody] M.NumberPlateDTO numberPlates)
         {
-            await _service.Change(new SysSerial(sysSerial), numberPlates);
+            await _service.Change(new RecId(sysSerial), numberPlates);
             return Ok(new { statusCode = StatusCodes.Status204NoContent, message = "Successfully updated" });
         }
 
-        [HttpDelete("{SysSerial}")]
+        [HttpDelete("{RecId}")]
         //[ProducesResponseType(204)]
-        public async Task<IActionResult> DeleteOne(long SysSerial)
+        public async Task<IActionResult> DeleteOne(long RecId)
         {
-            try
-            {
-                await _service.Delete(new SysSerial(SysSerial));
-                return Ok(new { statusCode = StatusCodes.Status200OK, message = "Successfully deleted" });
-            }
-            catch (Exception ex)
-            {
-                if (ex.Message.Contains("FK_HotListNumberPlates_NumberPlates") && ex.Message.Contains("conflicted"))
-                {
-                    return StatusCode(StatusCodes.Status500InternalServerError, "Can not delete data since it is associated with HotList");
-                }
-                else
-                {
-                    return StatusCode(StatusCodes.Status500InternalServerError, $"{ex.Message}");
-                }
-            }
-
+            await _service.Delete(new RecId(RecId));
+            return Ok(new { statusCode = StatusCodes.Status200OK, message = "Successfully deleted" });
         }
 
         [HttpDelete]

@@ -10,22 +10,22 @@ namespace Corssbones.ALPR.Business.SourceType.Change
         protected override async Task OnMessage(ChangeSourceType command, ICommandContext context, CancellationToken token)
         {
             var _repository = context.Get<E.SourceType>();
-            var entityExist = await _repository.Exists(x => x.SysSerial == command.Id, token);
+            var entityExist = await _repository.Exists(x => x.RecId == command.Id, token);
             if (entityExist)
             {
-                var nameExist = await _repository.Exists(x => x.SourceTypeName == command.SourceTypeName && x.SysSerial != command.Id, token);
+                var nameExist = await _repository.Exists(x => x.SourceTypeName == command.SourceTypeName && x.RecId != command.Id, token);
                 if (nameExist)
                 {
                     throw new DuplicationNotAllowed("SourceTypeName Already Exist");
                 }
                 else
                 {
-                    var sourceTypeNameItem = await _repository.One(x => x.SysSerial == command.Id);
+                    var sourceTypeNameItem = await _repository.One(x => x.RecId == command.Id);
                     sourceTypeNameItem.SourceTypeName = command.SourceTypeName;
                     sourceTypeNameItem.Description = command.Description;
 
                     await _repository.Update(sourceTypeNameItem, token);
-                    context.Success($"SourceType item has been updated, SysSerial:{command.Id}");
+                    context.Success($"SourceType item has been updated, RecId:{command.Id}");
                 }
             }
             else

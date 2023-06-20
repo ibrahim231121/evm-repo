@@ -2,9 +2,9 @@
 
 namespace Corssbones.ALPR.Business.ExportDetail.Delete
 {
-    public class DeleteExportDetail : SysSerialItemMessage
+    public class DeleteExportDetail : RecIdItemMessage
     {
-        public DeleteExportDetail(SysSerial _id) : base(_id)
+        public DeleteExportDetail(RecId _id) : base(_id)
         {
         }
     }

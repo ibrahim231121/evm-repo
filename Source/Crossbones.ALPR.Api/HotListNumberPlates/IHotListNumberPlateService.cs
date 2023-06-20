@@ -10,21 +10,21 @@ namespace Crossbones.ALPR.Api.HotListNumberPlates
         /// It is used to Get All Hotlist Number Plate data from database
         /// </summary>
         /// <returns>List of Hotlist Number Plate records</returns>
-        Task<PagedResponse<HotListNumberPlateItem>> GetAll(Pager paging);
+        Task<PagedResponse<HotListNumberPlateDTO>> GetAll(Pager paging);
 
         /// <summary>
         /// Add HotList Number Plate
         /// </summary>
         /// <param name="addHotListNumber"></param>
         /// <returns></returns>
-        Task<SysSerial> Add(HotListNumberPlateItem request);
+        Task<RecId> Add(HotListNumberPlateDTO request);
 
         /// <summary>
         /// Get HotList Number Plate by Id
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        Task<HotListNumberPlateItem> Get(SysSerial Id);
+        Task<HotListNumberPlateDTO> Get(RecId Id);
 
         /// <summary>
         /// Edit or Update HotList Number Plate
@@ -32,14 +32,14 @@ namespace Crossbones.ALPR.Api.HotListNumberPlates
         /// <param name="Id"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task Change(SysSerial Id, HotListNumberPlateItem request);
+        Task Change(RecId Id, HotListNumberPlateDTO request);
 
         /// <summary>
         /// Delete HotList Number Plate through Id
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        Task Delete(SysSerial Id);
+        Task Delete(RecId Id);
 
         /// <summary>
         /// Delete every HotList Number Plates

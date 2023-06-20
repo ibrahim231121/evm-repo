@@ -3,9 +3,9 @@ using Crossbones.ALPR.Common.ValueObjects;
 
 namespace Crossbones.ALPR.Business.NumberPlates.Delete
 {
-    public class DeleteNumberPlate : SysSerialItemMessage
+    public class DeleteNumberPlate : RecIdItemMessage
     {
-        public DeleteNumberPlate(SysSerial id) : base(id)
+        public DeleteNumberPlate(RecId id) : base(id)
         {
 
         }

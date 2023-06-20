@@ -11,21 +11,21 @@ namespace Crossbones.ALPR.Api.ExportDetails
         /// </summary>
         /// <param name="addExportDetail"></param>
         /// <returns></returns>
-        Task<SysSerial> Add(ExportDetailItem addExportDetail);
+        Task<RecId> Add(ExportDetailDTO addExportDetail);
 
         /// <summary>
         /// Get Export Detail by Id
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        Task<ExportDetailItem> Get(SysSerial Id);
+        Task<ExportDetailDTO> Get(RecId Id);
 
         /// <summary>
         /// Get all Export Details
         /// </summary>
         /// <param name="paging"></param>
         /// <returns></returns>
-        Task<PagedResponse<ExportDetailItem>> GetAll(Pager paging);
+        Task<PagedResponse<ExportDetailDTO>> GetAll(Pager paging);
 
         /// <summary>
         /// Edit or Update Export Detail
@@ -33,14 +33,14 @@ namespace Crossbones.ALPR.Api.ExportDetails
         /// <param name="Id"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task Change(SysSerial Id, ExportDetailItem request);
+        Task Change(RecId Id, ExportDetailDTO request);
 
         /// <summary>
         /// Delete Export Detail through Id
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        Task Delete(SysSerial Id);
+        Task Delete(RecId Id);
 
         /// <summary>
         /// Delete every Export Details

@@ -2,9 +2,9 @@
 
 namespace Corssbones.ALPR.Business.NumberPlatesTemp.Change
 {
-    public class ChangeNumberPlatesTemp : SysSerialItemMessage
+    public class ChangeNumberPlatesTemp : RecIdItemMessage
     {
-        public ChangeNumberPlatesTemp(SysSerial id) : base(id) { }
+        public ChangeNumberPlatesTemp(RecId id) : base(id) { }
         public string ImportSerialId { get; set; }
         public string Ncicnumber { get; set; }
         public string AgencyId { get; set; }

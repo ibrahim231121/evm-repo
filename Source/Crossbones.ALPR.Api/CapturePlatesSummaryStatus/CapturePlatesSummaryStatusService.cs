@@ -17,9 +17,9 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummaryStatus
 
         public CapturePlatesSummaryStatusService(ServiceArguments args, ISequenceProxyFactory sequenceProxyFactory) : base(args) => (_capturedPlateSummaryStatusSequenceProxy) = (sequenceProxyFactory.GetProxy(ALPRResources.CapturePlateSummaryStatus));
 
-        public async Task<SysSerial> Add(CapturePlatesSummaryStatusItem capturedPlateSummaryStatusItem)
+        public async Task<RecId> Add(CapturePlatesSummaryStatusDTO capturedPlateSummaryStatusItem)
         {
-            var capturedPlateSummaryStatusId = new SysSerial(await _capturedPlateSummaryStatusSequenceProxy.Next(CancellationToken.None));
+            var capturedPlateSummaryStatusId = new RecId(await _capturedPlateSummaryStatusSequenceProxy.Next(CancellationToken.None));
 
             var addCapturePlateSummaryStatusCommand = new AddCapturePlatesSummaryStatusItem(capturedPlateSummaryStatusId, capturedPlateSummaryStatusItem);
 
@@ -28,17 +28,17 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummaryStatus
             return capturedPlateSummaryStatusId;
         }
 
-        public async Task Change(SysSerial capturedPlateSummaryStatusSysSerial, CapturePlatesSummaryStatusItem capturedPlateSummaryStatusItem)
+        public async Task Change(RecId capturedPlateSummaryStatusRecId, CapturePlatesSummaryStatusDTO capturedPlateSummaryStatusItem)
         {
-            var changeCapturePlateSummaryStatusCommand = new ChangeCapturePlatesSummaryStatusItem(capturedPlateSummaryStatusSysSerial,
+            var changeCapturePlateSummaryStatusCommand = new ChangeCapturePlatesSummaryStatusItem(capturedPlateSummaryStatusRecId,
                                                                                                               capturedPlateSummaryStatusItem);
 
             _ = await Execute(changeCapturePlateSummaryStatusCommand);
         }
 
-        public async Task Delete(SysSerial capturedPlateSummaryStatusSysSerial)
+        public async Task Delete(RecId capturedPlateSummaryStatusRecId)
         {
-            var deleteCapturePlateSummaryStatusCommand = new DeleteCapturePlatesSummaryStatusItem(capturedPlateSummaryStatusSysSerial,
+            var deleteCapturePlateSummaryStatusCommand = new DeleteCapturePlatesSummaryStatusItem(capturedPlateSummaryStatusRecId,
                                                                                                               DeleteCommandFilter.All);
 
             _ = await Execute(deleteCapturePlateSummaryStatusCommand);
@@ -46,31 +46,31 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummaryStatus
 
         public async Task DeleteAll()
         {
-            var deleteCapturePlateSummaryStatusCommand = new DeleteCapturePlatesSummaryStatusItem(new SysSerial(0),
+            var deleteCapturePlateSummaryStatusCommand = new DeleteCapturePlatesSummaryStatusItem(new RecId(0),
                                                                                                               DeleteCommandFilter.All);
 
             _ = await Execute(deleteCapturePlateSummaryStatusCommand);
         }
 
-        public async Task<CapturePlatesSummaryStatusItem> Get(SysSerial capturedPlateSummaryStatusSysSerial)
+        public async Task<CapturePlatesSummaryStatusDTO> Get(RecId capturedPlateSummaryStatusRecId)
         {
-            var getCapturePlateSummaryStatusQuery = new GetCapturePlatesSummaryStatusItem(capturedPlateSummaryStatusSysSerial,
+            var getCapturePlateSummaryStatusQuery = new GetCapturePlatesSummaryStatusItem(capturedPlateSummaryStatusRecId,
                                                                                                    GetQueryFilter.Single);
 
-            var resp = await Inquire<CapturePlatesSummaryStatusItem>(getCapturePlateSummaryStatusQuery);
+            var resp = await Inquire<CapturePlatesSummaryStatusDTO>(getCapturePlateSummaryStatusQuery);
 
             return resp;
         }
 
-        public async Task<PagedResponse<CapturePlatesSummaryStatusItem>> GetAll(Pager paging, GridFilter filter, GridSort sort)
+        public async Task<PagedResponse<CapturePlatesSummaryStatusDTO>> GetAll(Pager paging, GridFilter filter, GridSort sort)
         {
-            var getCapturePlateSummaryStatusQuery = new GetCapturePlatesSummaryStatusItem(new SysSerial(0),
+            var getCapturePlateSummaryStatusQuery = new GetCapturePlatesSummaryStatusItem(new RecId(0),
                                                                                                    GetQueryFilter.All,
                                                                                                    filter,
                                                                                                    paging,
                                                                                                    sort);
 
-            var resp = await Inquire<PagedResponse<CapturePlatesSummaryStatusItem>>(getCapturePlateSummaryStatusQuery);
+            var resp = await Inquire<PagedResponse<CapturePlatesSummaryStatusDTO>>(getCapturePlateSummaryStatusQuery);
 
             return resp;
         }
