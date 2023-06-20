@@ -39,9 +39,9 @@ public partial class AlprContext : DbContextWithChannel
 
     public virtual DbSet<SourceType> SourceTypes { get; set; }
 
-    public virtual DbSet<UserCapturedPlate> UserCapturedPlates { get; set; }
-
     public virtual DbSet<State> States { get; set; }
+
+    public virtual DbSet<UserCapturedPlate> UserCapturedPlates { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
@@ -61,8 +61,14 @@ public partial class AlprContext : DbContextWithChannel
             entity.HasKey(e => new { e.CapturePlateId, e.UserId }).HasName("PK_CapturePlatesSummary_Composite");
         });
 
+        modelBuilder.Entity<CapturePlatesSummaryStatus>(entity =>
+        {
+            entity.Property(e => e.SyncId).ValueGeneratedNever();
+        });
+
         modelBuilder.Entity<CapturedPlate>(entity =>
         {
+            entity.Property(e => e.RecId).ValueGeneratedNever();
             entity.Property(e => e.CaptureType).HasDefaultValueSql("((1))");
             entity.Property(e => e.RowGuid).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Status).HasDefaultValueSql("((1))");
@@ -97,6 +103,7 @@ public partial class AlprContext : DbContextWithChannel
         {
             entity.HasKey(e => e.RecId).HasName("PK_HotList");
 
+            entity.Property(e => e.RecId).ValueGeneratedNever();
             entity.Property(e => e.AlertPriority).HasDefaultValueSql("((1))");
             entity.Property(e => e.LastTimeStamp)
                 .IsRowVersion()
@@ -267,6 +274,20 @@ public partial class AlprContext : DbContextWithChannel
                 .HasMaxLength(50)
                 .IsUnicode(false);
         });
+
+        modelBuilder.Entity<State>(entity =>
+        {
+            entity.Property(e => e.RecId).ValueGeneratedOnAdd();
+        });
+
+        modelBuilder.Entity<UserCapturedPlate>(entity =>
+        {
+            entity.Property(e => e.RecId).ValueGeneratedNever();
+        });
+        modelBuilder.HasSequence("CapturedPlate_SEQ");
+        modelBuilder.HasSequence("CapturePlateSummaryStatus_SEQ");
+        modelBuilder.HasSequence("HotList_SEQ");
+        modelBuilder.HasSequence("UserCapturedPlate_SEQ");
 
         OnModelCreatingPartial(modelBuilder);
     }

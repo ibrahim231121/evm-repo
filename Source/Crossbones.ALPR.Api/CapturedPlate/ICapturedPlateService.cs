@@ -36,7 +36,7 @@ namespace Crossbones.ALPR.Api.CapturedPlate
         /// <param name="filter">The filter.</param>
         /// <param name="sort">The sort.</param>
         /// <returns></returns>
-        Task<PageResponse<CapturedPlateDTO>> GetAll(long userID, DateTime startDate, DateTime endDate, Pager paging, GridFilter filter, GridSort sort, List<long> hotListIds);
+        Task<PageResponse<CapturedPlateDTO>> GetAll(long userID, DateTime startDate, DateTime endDate, Pager paging, GridFilter filter, GridSort sort, long hotListId);
 
 
         /// <summary>

@@ -22,43 +22,30 @@ namespace Corssbones.ALPR.Business.HotList.Get
             }
             else
             {
+                var hotlistQuery = _repository.Many(x => query.QueryFilter == GetQueryFilter.Single ? x.RecId == query.Id : true).Include(hotlist => hotlist.Source).Select(x => new HotListDTO()
+                {
+                    Name = x.Name,
+                    Description = x.Description,
+                    AlertPriority = x.AlertPriority,
+                    CreatedOn = x.CreatedOn,
+                    LastTimeStamp = x.LastTimeStamp,
+                    LastUpdatedOn = x.LastUpdatedOn,
+                    RulesExpression = x.RulesExpression,
+                    RecId = x.RecId,
+                    Audio = x.Urilocation,
+                    Color = x.Color,
+                    SourceId = x.SourceId,
+                    StationId = x.StationId,
+                    SourceName = x.Source == null ? string.Empty : x.Source.SourceName
+                });
+
                 switch (query.QueryFilter)
                 {
                     case GetQueryFilter.Single:
-                        return _repository.Many(x => x.RecId == query.Id).Select(x => new HotListDTO()
-                        {
-                            Name = x.Name,
-                            Description = x.Description,
-                            AlertPriority = x.AlertPriority,
-                            CreatedOn = x.CreatedOn,
-                            LastTimeStamp = x.LastTimeStamp,
-                            LastUpdatedOn = x.LastUpdatedOn,
-                            RulesExpression = x.RulesExpression,
-                            RecId = x.RecId,
-                            Audio = x.Urilocation,
-                            Color = x.Color,
-                            SourceId = x.SourceId,
-                            StationId = x.StationId,
-                            SourceName = x.Source == null ? string.Empty : x.Source.SourceName
-                        }).FirstOrDefault();
+                        return hotlistQuery.FirstOrDefault();
                         break;
                     case GetQueryFilter.All:
-                        return await _repository.Many().Include(hotlist => hotlist.Source).Select(x => new HotListDTO()
-                        {
-                            Name = x.Name,
-                            Description = x.Description,
-                            SourceId = x.SourceId,
-                            AlertPriority = x.AlertPriority,
-                            CreatedOn = x.CreatedOn,
-                            LastTimeStamp = x.LastTimeStamp,
-                            LastUpdatedOn = x.LastUpdatedOn,
-                            RulesExpression = x.RulesExpression,
-                            RecId = x.RecId,
-                            Audio = x.Urilocation,
-                            Color = x.Color,
-                            StationId = x.StationId,
-                            SourceName = x.Source == null ? string.Empty : x.Source.SourceName
-                        }).ToFilteredPagedListAsync(query.Filter, query.Paging, query.Sort, token);
+                        return await hotlistQuery.ToFilteredPagedListAsync(query.Filter, query.Paging, query.Sort, token);
                         break;
                     default:
                         break;

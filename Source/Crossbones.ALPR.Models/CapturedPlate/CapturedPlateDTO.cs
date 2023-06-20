@@ -28,6 +28,8 @@
 
         public short State { get; set; }
 
+        public string StateName { get; set; }
+
         public string Notes { get; set; }
 
         public long TicketNumber { get; set; }

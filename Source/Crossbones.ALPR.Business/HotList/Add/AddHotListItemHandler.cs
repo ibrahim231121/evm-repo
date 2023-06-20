@@ -22,7 +22,10 @@ namespace Crossbones.ALPR.Business.HotList.Add
             }
             else
             {
-                var res = mapper.Map<E.Hotlist>(command);
+                command.ItemToAdd.RecId = command.Id;
+
+                var res = mapper.Map<E.Hotlist>(command.ItemToAdd);
+                res.Source = null;
                 await _repository.Add(res, token);
                 context.Success($"HotList Item has been added, RecId:{command.Id}");
             }

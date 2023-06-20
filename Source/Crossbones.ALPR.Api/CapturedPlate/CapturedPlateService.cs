@@ -133,117 +133,22 @@ namespace Crossbones.ALPR.Api.CapturedPlate
             return capturedPlateItem;
         }
 
-        public async Task<PageResponse<CapturedPlateDTO>> GetAll(long userID, DateTime startDate, DateTime endDate, Pager paging, GridFilter filter, GridSort sort, List<long> hotListIds)
+        public async Task<PageResponse<CapturedPlateDTO>> GetAll(long userID, DateTime startDate, DateTime endDate, Pager paging, GridFilter filter, GridSort sort, long hotListId)
         {
-            GridFilter summaryFilters = new GridFilter()
-            {
-                Field = filter.Field,
-                FieldType = filter.FieldType,
-                Logic = filter.Logic,
-                Operator = filter.Operator,
-                Value = filter.Value,
-                Filters = filter.Filters.Filter(f =>
-                            typeof(CapturePlatesSummaryDTO).GetProperty(f.Field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) != null
-                          ).ToList()
-            };
-
-
-            var capturePlatesSummaryItems = await this._capturePlatesSummary.GetAllWithOutPaging(summaryFilters, sort, userID);
-
-            var capturePlateIds = (from item in capturePlatesSummaryItems
-                                   select item.CapturePlateId).ToList();
-
-            bool summarySortApplied = false;
-
-            if (sort != null && !string.IsNullOrEmpty(sort.Field))
-            {
-                summarySortApplied = typeof(CapturePlatesSummaryDTO).GetProperty(sort.Field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) != null;
-            }
-
-            GridFilter capturedPlatesFilters = new GridFilter()
-            {
-                Field = filter.Field,
-                FieldType = filter.FieldType,
-                Logic = filter.Logic,
-                Operator = filter.Operator,
-                Value = filter.Value,
-                Filters = filter.Filters.Filter(f =>
-                            typeof(CapturedPlateDTO).GetProperty(f.Field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) != null &&
-                            typeof(CapturePlatesSummaryDTO).GetProperty(f.Field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) == null
-                          ).ToList()
-            };
-
-            bool latitudeFilterExist = false;
-            bool longitudeFilterExist = false;
-
-
-            if (capturedPlatesFilters != null && capturedPlatesFilters.Filters != null && capturedPlatesFilters.Filters.Exists(filter => filter.Field == "Latitude"))
-            {
-                latitudeFilterExist = true;
-            }
-
-            if (capturedPlatesFilters != null && capturedPlatesFilters.Filters != null && capturedPlatesFilters.Filters.Exists(filter => filter.Field == "Longitude"))
-            {
-                longitudeFilterExist = true;
-            }
-
             var dataQuery = new GetCapturedPlateItem(RecId.Empty,
-                                                     summarySortApplied || latitudeFilterExist || longitudeFilterExist ? GetQueryFilter.AllWithoutPaging : GetQueryFilter.All,
-                                                     capturePlateIds,
+                                                     GetQueryFilter.All,
+                                                     userID,
                                                      startDate,
                                                      endDate,
-                                                     capturedPlatesFilters,
+                                                     filter,
                                                      paging,
                                                      sort,
-                                                     hotListIds);
+                                                     hotListId);
 
-            PageResponse<CapturedPlateDTO> capturedPlates = null;
+            var taskGetCapturedPlates = Inquire<PageResponse<CapturedPlateDTO>>(dataQuery);
 
-            if (summarySortApplied || latitudeFilterExist || longitudeFilterExist)
-            {
-                var taskGetCapturedPlates = Inquire<List<CapturedPlateDTO>>(dataQuery);
-
-                List<CapturedPlateDTO> capturedPlatesItems = await taskGetCapturedPlates;
-
-                int size = paging.Size <= 0 ? 25 : paging.Size;
-                int skip = (paging.Page - 1) * paging.Size;
-                int totalCount = capturedPlatesItems.Count;
-
-                if (latitudeFilterExist || longitudeFilterExist)
-                {
-                    capturedPlatesItems = capturedPlatesItems.Where(cpItem => cpItem.Distance < 0.05).ToList();
-                }
-
-                if (summarySortApplied)
-                {
-                    capturedPlatesItems = capturedPlatesItems.OrderBy(cpItem => capturePlateIds.IndexOf(cpItem.CapturedPlateId)).ToList();
-                }
-
-                capturedPlatesItems = capturedPlatesItems.Skip(skip).Take(size).ToList();
-
-                capturedPlates = new PageResponse<CapturedPlateDTO>(capturedPlatesItems, totalCount);
-            }
-            else
-            {
-                var taskGetCapturedPlates = Inquire<PageResponse<CapturedPlateDTO>>(dataQuery);
-
-                capturedPlates = await taskGetCapturedPlates;
-            }
-
-
-            foreach (var item in capturedPlates.Items)
-            {
-                var capturePlatesSummaryItem = capturePlatesSummaryItems.Find(cps => cps.CapturePlateId == item.CapturedPlateId);
-
-                if (capturePlatesSummaryItem != null)
-                {
-                    item.UnitId = capturePlatesSummaryItem.UnitId;
-                    item.User = capturePlatesSummaryItem.UserId;
-                    item.LoginId = capturePlatesSummaryItem.LoginId;
-                }
-
-            }
-
+            var capturedPlates = await taskGetCapturedPlates;
+                        
             return capturedPlates;
         }
     }
