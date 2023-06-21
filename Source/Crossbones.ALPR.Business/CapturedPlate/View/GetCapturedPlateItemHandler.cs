@@ -3,11 +3,15 @@ using Crossbones.ALPR.Common;
 using Crossbones.ALPR.Models.CapturedPlate;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Query;
+using Crossbones.Modules.Business.Repositories;
 using Crossbones.Modules.Common;
 using Crossbones.Modules.Common.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.Geometries;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
 using E = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Get

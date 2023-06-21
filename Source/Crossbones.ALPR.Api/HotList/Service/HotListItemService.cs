@@ -44,9 +44,9 @@ namespace Crossbones.ALPR.Api.HotList.Service
 
         }
 
-        public async Task DeleteAll()
+        public async Task DeleteMany(List<long> hotlistIds)
         {
-            var cmd = new DeleteHotListItem(RecId.Empty);
+            var cmd = new DeleteHotListItem(RecId.Empty, hotlistIds);
             _ = await Execute(cmd);
         }
 

@@ -35,7 +35,7 @@ namespace Crossbones.ALPR.Business.HotList.Change
                     hotListItem.Name = command.ItemToUpdate.Name;
                     hotListItem.Description = command.ItemToUpdate.Description;
                     hotListItem.RulesExpression = command.ItemToUpdate.RulesExpression;
-                    hotListItem.AlertPriority = command.ItemToUpdate.AlertPriority;
+                    hotListItem.AlertPriority = Convert.ToInt16(command.ItemToUpdate.AlertPriority);
                     hotListItem.SourceId = command.ItemToUpdate.SourceId;
                     hotListItem.StationId = command.ItemToUpdate.StationId;
                     hotListItem.Color = command.ItemToUpdate.Color;

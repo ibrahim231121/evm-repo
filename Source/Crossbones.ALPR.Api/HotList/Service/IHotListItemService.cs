@@ -47,6 +47,6 @@ namespace Crossbones.ALPR.Api.HotList.Service
         /// It is used to Delete All Hotlist data from database
         /// </summary>
         /// <returns></returns>
-        Task DeleteAll();
+        Task DeleteMany(List<long> hotlistIds);
     }
 }

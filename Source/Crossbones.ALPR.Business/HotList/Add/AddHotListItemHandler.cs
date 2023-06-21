@@ -25,7 +25,7 @@ namespace Crossbones.ALPR.Business.HotList.Add
                 command.ItemToAdd.RecId = command.Id;
 
                 var res = mapper.Map<E.Hotlist>(command.ItemToAdd);
-                res.Source = null;
+                res.Source = null;//Since mapper is creating the object of navigation property so SQL is throwing error.
                 await _repository.Add(res, token);
                 context.Success($"HotList Item has been added, RecId:{command.Id}");
             }

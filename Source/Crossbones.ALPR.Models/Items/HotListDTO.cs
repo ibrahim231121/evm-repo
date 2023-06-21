@@ -13,7 +13,7 @@
 
         public string RulesExpression { get; set; }
 
-        public short AlertPriority { get; set; }
+        public int AlertPriority { get; set; }
 
         public DateTime CreatedOn { get; set; }
 

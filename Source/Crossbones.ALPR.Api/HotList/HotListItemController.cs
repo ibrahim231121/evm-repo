@@ -79,9 +79,35 @@ namespace Crossbones.ALPR.Api.HotList
 
         [HttpDelete]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> DeleteAll()
+        public async Task<IActionResult> DeleteMany([FromQuery]string hotlistIds)
         {
-            await _service.DeleteAll();
+            List<long> idsToDelete = new List<long>();
+
+            if (!string.IsNullOrEmpty(hotlistIds))
+            {
+                string[] ids = hotlistIds.Split(",");
+
+                if(ids != null && ids.Length > 0)
+                {
+                    foreach(string id in ids)
+                    {
+                        long hotlistId;
+
+                        bool parsed = long.TryParse(id, out hotlistId);
+
+                        if (parsed)
+                        {
+                            idsToDelete.Add(hotlistId);
+                        }
+                        else
+                        {
+                            throw new InvalidCastException("Unable to cast paramter.");
+                        }
+                    }
+                }
+            }
+
+            await _service.DeleteMany(idsToDelete);
             return NoContent();
         }
 
