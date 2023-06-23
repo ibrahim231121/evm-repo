@@ -29,6 +29,13 @@ namespace Crossbones.ALPR.Api.NumberPlates
             return PaginatedOk(await _service.GetAll(paging));
         }
 
+        [HttpGet("{numberPlateId}/history")]
+        public async Task<IActionResult> GetNumberPlateHistory(long numberPlateId, [FromQuery] Pager paging)
+        {
+            RecId id = new RecId(numberPlateId);
+            return PaginatedOk(await _service.GetNumberPlateHistory(id, paging));
+        }
+
         [HttpGet("HotList/{hotListId}")]
         public async Task<IActionResult> GetAllByHotListId([FromQuery] Pager paging, long hotListId)
         {

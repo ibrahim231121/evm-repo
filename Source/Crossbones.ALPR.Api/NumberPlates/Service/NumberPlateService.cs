@@ -1,10 +1,12 @@
 ﻿using Corssbones.ALPR.Business.Enums;
+using Corssbones.ALPR.Business.NumberPlateHistory.Get;
 using Crossbones.ALPR.Business.NumberPlates.Add;
 using Crossbones.ALPR.Business.NumberPlates.Change;
 using Crossbones.ALPR.Business.NumberPlates.Delete;
 using Crossbones.ALPR.Business.NumberPlates.Get;
 using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.ALPR.Models;
+using Crossbones.ALPR.Models.CapturedPlate;
 using Crossbones.ALPR.Models.Items;
 using Crossbones.Modules.Common;
 using Crossbones.Modules.Common.Pagination;
@@ -62,6 +64,21 @@ namespace Crossbones.ALPR.Api.NumberPlates.Service
             var dataQuery = new GetNumberPlate(RecId.Empty, GetQueryFilter.All, filter, sort) { Paging = paging };
             return Inquire<PageResponse<NumberPlateDTO>>(dataQuery);
 
+        }
+
+        public async Task<PageResponse<NumberPlateHistoryDTO>> GetNumberPlateHistory(RecId numberPlateId, Pager pager)
+        {
+            GridFilter filter = GetGridFilter();
+
+            GridSort sort = GetGridSort();
+
+            var dataQuery = new GetNumberPlateHistoryItem(numberPlateId, pager, filter, sort);
+
+            var taskGetNumberPlateHistory = Inquire<PageResponse<NumberPlateHistoryDTO>>(dataQuery);
+
+            var numberPlateHistory = await taskGetNumberPlateHistory;
+
+            return numberPlateHistory;
         }
         public async Task Change(RecId LPRecId, NumberPlateDTO request)
         {
