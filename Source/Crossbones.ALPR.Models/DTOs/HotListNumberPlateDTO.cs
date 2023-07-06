@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Crossbones.ALPR.Models.Items
+namespace Crossbones.ALPR.Models.DTOs
 {
     public class HotListNumberPlateDTO
     {

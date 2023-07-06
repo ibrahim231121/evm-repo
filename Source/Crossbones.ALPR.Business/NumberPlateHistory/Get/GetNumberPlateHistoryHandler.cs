@@ -1,17 +1,11 @@
 ﻿using Crossbones.ALPR.Common;
-using Crossbones.ALPR.Models.CapturedPlate;
-using Crossbones.ALPR.Models.Items;
+using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Query;
 using Crossbones.Modules.Common;
 using Crossbones.Modules.Common.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.Geometries;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using E = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.NumberPlateHistory.Get
@@ -71,7 +65,7 @@ namespace Corssbones.ALPR.Business.NumberPlateHistory.Get
                         (fh, hotListNumberPlate) => new { fh.np, fh.cp, fh.state, fh.cps, hotListNumberPlate }).
                     SelectMany(
                         hotlist => hotlist.hotListNumberPlate.DefaultIfEmpty(),
-                        (z,e) => new NumberPlateHistoryDTO()
+                        (z,e) => new DTO.NumberPlateHistoryDTO()
                         {
                             Id = z.np.RecId,
                             NumberPlate = z.np.LicensePlate,
@@ -108,7 +102,7 @@ namespace Corssbones.ALPR.Business.NumberPlateHistory.Get
                     }
                     var items = capturePlateItems.Skip(skip).Take(size).ToList();
 
-                    return new PageResponse<NumberPlateHistoryDTO>(items, count);
+                    return new PageResponse<DTO.NumberPlateHistoryDTO>(items, count);
                 }
                 else
                 {

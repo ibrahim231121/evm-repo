@@ -1,9 +1,9 @@
-﻿using Crossbones.ALPR.Models.Items;
+﻿using DTO = Crossbones.ALPR.Models.DTOs;
 
 namespace Crossbones.ALPR.Api.State
 {
     public interface IStateService
     {
-        Task<List<StateDTO>> GetAll();
+        Task<List<DTO.StateDTO>> GetAll();
     }
 }

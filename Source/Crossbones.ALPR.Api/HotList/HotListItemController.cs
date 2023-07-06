@@ -1,6 +1,6 @@
 ﻿using Crossbones.ALPR.Api.HotList.Service;
 using Crossbones.ALPR.Common.ValueObjects;
-using Crossbones.ALPR.Models.Items;
+using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Api;
 using Crossbones.Modules.Common.Pagination;
 using Crossbones.Modules.Common.Queryables;
@@ -18,11 +18,11 @@ namespace Crossbones.ALPR.Api.HotList
 
         [HttpPost]
         [ProducesResponseType(201)]
-        public async Task<IActionResult> Add([FromBody] HotListDTO hotListItem)
+        public async Task<IActionResult> Add([FromBody] DTO.HotListDTO hotListItem)
         {
-            var RecId = await _service.Add(hotListItem);
+            var recId = await _service.Add(hotListItem);
 
-            return Created($"{baseUrl}/HotList/{RecId}", RecId);
+            return Created($"{baseUrl}/HotList/{recId}", recId);
         }
 
         [HttpGet]
@@ -54,26 +54,26 @@ namespace Crossbones.ALPR.Api.HotList
             return PaginatedOk(await _service.GetAll(paging, filter, sort));
         }
 
-        [HttpGet("{RecId}")]
-        public async Task<IActionResult> GetOne(long RecId)
+        [HttpGet("{recId}")]
+        public async Task<IActionResult> GetOne(long recId)
         {
-            var res = await _service.Get(new RecId(RecId));
+            var res = await _service.Get(new RecId(recId));
             return Ok(res);
         }
 
-        [HttpPut("{RecId}")]
+        [HttpPut("{recId}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> Change(long RecId, [FromBody] HotListDTO hotListItem)
+        public async Task<IActionResult> Change(long recId, [FromBody] DTO.HotListDTO hotListItem)
         {
-            await _service.Change(new RecId(RecId), hotListItem);
+            await _service.Change(new RecId(recId), hotListItem);
             return NoContent();
         }
 
-        [HttpDelete("{RecId}")]
+        [HttpDelete("{recId}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> DeleteOne(long RecId)
+        public async Task<IActionResult> DeleteOne(long recId)
         {
-            await _service.Delete(new RecId(RecId));
+            await _service.Delete(new RecId(recId));
             return NoContent();
         }
 

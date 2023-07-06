@@ -1,7 +1,7 @@
 ﻿
 using Corssbones.ALPR.Business.Enums;
 using Crossbones.ALPR.Models;
-using Crossbones.ALPR.Models.Items;
+using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Query;
 using Crossbones.Modules.Common.Exceptions;
@@ -35,7 +35,7 @@ namespace Corssbones.ALPR.Business.SourceType.View
                     throw new RecordNotFound($"Unable to process your request because SourceType Item Data is not found against provided Id '{query.Id}'");
                 }
 
-                var res = data.Select(x => new SourceTypeDTO()
+                var res = data.Select(x => new DTO.SourceTypeDTO()
                 {
                     SourceTypeName = x.SourceTypeName,
                     Description = x.Description

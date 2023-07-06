@@ -5,7 +5,7 @@ using Corssbones.ALPR.Business.ExportDetail.Delete;
 using Corssbones.ALPR.Business.ExportDetail.Get;
 using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.ALPR.Models;
-using Crossbones.ALPR.Models.Items;
+using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Common.Pagination;
 using Crossbones.Modules.Sequence.Common.Interfaces;
 
@@ -16,7 +16,7 @@ namespace Crossbones.ALPR.Api.ExportDetails
         readonly ISequenceProxy exportDetailSequenceProxy;
         public ExportDetailService(ServiceArguments args, ISequenceProxyFactory sequenceProxyFactory) : base(args) => exportDetailSequenceProxy = sequenceProxyFactory.GetProxy(ALPRResources.ExortDetail);
 
-        public async Task<RecId> Add(ExportDetailDTO addExportDetail)
+        public async Task<RecId> Add(DTO.ExportDetailDTO addExportDetail)
         {
             var id = new RecId(await exportDetailSequenceProxy.Next(CancellationToken.None));
             var cmd = new AddExportDetail(id)
@@ -32,9 +32,9 @@ namespace Crossbones.ALPR.Api.ExportDetails
             return id;
         }
 
-        public async Task Change(RecId Id, ExportDetailDTO request)
+        public async Task Change(RecId recId, DTO.ExportDetailDTO request)
         {
-            var cmd = new ChangeExportDetail(Id)
+            var cmd = new ChangeExportDetail(recId)
             {
                 TicketNumber = request.TicketNumber,
                 CapturedPlateId = request.CapturedPlateId,
@@ -45,9 +45,9 @@ namespace Crossbones.ALPR.Api.ExportDetails
             _ = await Execute(cmd);
         }
 
-        public async Task Delete(RecId Id)
+        public async Task Delete(RecId recId)
         {
-            var cmd = new DeleteExportDetail(Id);
+            var cmd = new DeleteExportDetail(recId);
             _ = await Execute(cmd);
         }
 
@@ -57,17 +57,17 @@ namespace Crossbones.ALPR.Api.ExportDetails
             _ = await Execute(cmd);
         }
 
-        public async Task<ExportDetailDTO> Get(RecId Id)
+        public async Task<DTO.ExportDetailDTO> Get(RecId recId)
         {
-            var query = new GetExportDetail(Id, GetQueryFilter.Single);
-            var res = await Inquire<IEnumerable<ExportDetailDTO>>(query);
+            var query = new GetExportDetail(recId, GetQueryFilter.Single);
+            var res = await Inquire<IEnumerable<DTO.ExportDetailDTO>>(query);
             return res.FirstOrDefault();
         }
 
-        public async Task<PagedResponse<ExportDetailDTO>> GetAll(Pager paging)
+        public async Task<PagedResponse<DTO.ExportDetailDTO>> GetAll(Pager paging)
         {
             var dataQuery = new GetExportDetail(RecId.Empty, GetQueryFilter.All) { Paging = paging };
-            var t0 = Inquire<IEnumerable<ExportDetailDTO>>(dataQuery);
+            var t0 = Inquire<IEnumerable<DTO.ExportDetailDTO>>(dataQuery);
 
             var countQuery = new GetExportDetail(RecId.Empty, GetQueryFilter.Count);
             var t1 = Inquire<RowCount>(countQuery);

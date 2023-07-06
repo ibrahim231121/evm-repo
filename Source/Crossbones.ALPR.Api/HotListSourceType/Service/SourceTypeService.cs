@@ -7,7 +7,7 @@ using Corssbones.ALPR.Business.SourceType.View;
 using Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.ALPR.Models;
-using Crossbones.ALPR.Models.Items;
+using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Common.Pagination;
 using Crossbones.Modules.Sequence.Common.Interfaces;
 
@@ -31,9 +31,9 @@ namespace Crossbones.ALPR.Api.HotListSourceType.Service
             return id;
         }
 
-        public async Task Change(RecId SourceTypeRecId, SourceType request)
+        public async Task Change(RecId recId, SourceType request)
         {
-            var cmd = new ChangeSourceType(SourceTypeRecId)
+            var cmd = new ChangeSourceType(recId)
             {
                 SourceTypeName = request.SourceTypeName,
                 Description = request.Description,
@@ -41,9 +41,9 @@ namespace Crossbones.ALPR.Api.HotListSourceType.Service
             _ = await Execute(cmd);
         }
 
-        public async Task Delete(RecId SourceTypeRecId)
+        public async Task Delete(RecId recId)
         {
-            var cmd = new DeleteSourceType(SourceTypeRecId);
+            var cmd = new DeleteSourceType(recId);
             _ = await Execute(cmd);
         }
 
@@ -53,17 +53,17 @@ namespace Crossbones.ALPR.Api.HotListSourceType.Service
             _ = await Execute(cmd);
         }
 
-        public async Task<SourceTypeDTO> Get(RecId SourceTypeRecId)
+        public async Task<DTO.SourceTypeDTO> Get(RecId recId)
         {
-            var query = new GetSourceType(SourceTypeRecId, GetQueryFilter.Single);
-            var res = await Inquire<IEnumerable<SourceTypeDTO>>(query);
+            var query = new GetSourceType(recId, GetQueryFilter.Single);
+            var res = await Inquire<IEnumerable<DTO.SourceTypeDTO>>(query);
             return res.FirstOrDefault();
         }
 
-        public async Task<PagedResponse<SourceTypeDTO>> GetAll(Pager paging)
+        public async Task<PagedResponse<DTO.SourceTypeDTO>> GetAll(Pager paging)
         {
             var dataQuery = new GetSourceType(RecId.Empty, GetQueryFilter.All) { Paging = paging };
-            var t0 = Inquire<IEnumerable<SourceTypeDTO>>(dataQuery);
+            var t0 = Inquire<IEnumerable<DTO.SourceTypeDTO>>(dataQuery);
 
             var countQuery = new GetSourceType(RecId.Empty, GetQueryFilter.Count);
             var t1 = Inquire<RowCount>(countQuery);

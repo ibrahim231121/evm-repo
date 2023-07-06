@@ -74,7 +74,7 @@ namespace Corssbones.ALPR.Service
             // Step 4:Define log writers and pipe type
             //configuration.FluentdConfiguration.Tag = ServiceType.ALPR.ToString();
             var nLogWriter = new NlogWriter(new NlogConfiguration(config.LogFormat, config.FolderLocation.logging, configuration.FluentdConfiguration, ServiceType.ALPR.ToString()));
-            nLogWriter.Info("User micro-service is starting...!", DateTime.UtcNow);
+            nLogWriter.Info("ALPR micro-service is starting...!", DateTime.UtcNow);
             nLogWriter.Info($"Assembly file version {Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion}", DateTime.UtcNow);
             nLogWriter.Info($"Assembly Version {Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>().Version}", DateTime.UtcNow);
             config.PipeCreate = (pipe) => new InMemoryPipe(pipe);
@@ -119,10 +119,6 @@ namespace Corssbones.ALPR.Service
             config.Register<IVaultConfiguration>(() => new VaultConfigurationProvider(configuration.VaultConfiguration), LifeSpan.Singleton);
             config.Register<SequenceConfiguration>(() => new SequenceConfiguration(5000, 10000, ALPRResources.HotList), LifeSpan.Singleton);
             //config.Register<SequenceConfiguration>(() => new SequenceConfiguration(5000, 10000, ALPRResources.ExortDetail), LifeSpan.Singleton);
-
-            nLogWriter.Info("ALPR micro-service is starting...!", DateTime.UtcNow);
-            nLogWriter.Info($"Assembly file version {Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion}", DateTime.UtcNow);
-            nLogWriter.Info($"Assembly Version {Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>().Version}", DateTime.UtcNow);
 
             //List your workers. you need to provide this list to micro kernel. 
             var loader = new ManifestReader(

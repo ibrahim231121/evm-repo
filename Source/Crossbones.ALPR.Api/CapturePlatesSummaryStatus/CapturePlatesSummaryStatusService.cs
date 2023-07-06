@@ -28,17 +28,17 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummaryStatus
             return capturedPlateSummaryStatusId;
         }
 
-        public async Task Change(RecId capturedPlateSummaryStatusRecId, CapturePlatesSummaryStatusDTO capturedPlateSummaryStatusItem)
+        public async Task Change(RecId recId, CapturePlatesSummaryStatusDTO capturedPlateSummaryStatusItem)
         {
-            var changeCapturePlateSummaryStatusCommand = new ChangeCapturePlatesSummaryStatusItem(capturedPlateSummaryStatusRecId,
+            var changeCapturePlateSummaryStatusCommand = new ChangeCapturePlatesSummaryStatusItem(recId,
                                                                                                               capturedPlateSummaryStatusItem);
 
             _ = await Execute(changeCapturePlateSummaryStatusCommand);
         }
 
-        public async Task Delete(RecId capturedPlateSummaryStatusRecId)
+        public async Task Delete(RecId recId)
         {
-            var deleteCapturePlateSummaryStatusCommand = new DeleteCapturePlatesSummaryStatusItem(capturedPlateSummaryStatusRecId,
+            var deleteCapturePlateSummaryStatusCommand = new DeleteCapturePlatesSummaryStatusItem(recId,
                                                                                                               DeleteCommandFilter.All);
 
             _ = await Execute(deleteCapturePlateSummaryStatusCommand);
@@ -52,9 +52,9 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummaryStatus
             _ = await Execute(deleteCapturePlateSummaryStatusCommand);
         }
 
-        public async Task<CapturePlatesSummaryStatusDTO> Get(RecId capturedPlateSummaryStatusRecId)
+        public async Task<CapturePlatesSummaryStatusDTO> Get(RecId recId)
         {
-            var getCapturePlateSummaryStatusQuery = new GetCapturePlatesSummaryStatusItem(capturedPlateSummaryStatusRecId,
+            var getCapturePlateSummaryStatusQuery = new GetCapturePlatesSummaryStatusItem(recId,
                                                                                                    GetQueryFilter.Single);
 
             var resp = await Inquire<CapturePlatesSummaryStatusDTO>(getCapturePlateSummaryStatusQuery);

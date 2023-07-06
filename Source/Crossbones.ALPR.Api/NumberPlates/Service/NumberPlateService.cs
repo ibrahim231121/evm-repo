@@ -6,8 +6,7 @@ using Crossbones.ALPR.Business.NumberPlates.Delete;
 using Crossbones.ALPR.Business.NumberPlates.Get;
 using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.ALPR.Models;
-using Crossbones.ALPR.Models.CapturedPlate;
-using Crossbones.ALPR.Models.Items;
+using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Common;
 using Crossbones.Modules.Common.Pagination;
 using Crossbones.Modules.Common.Queryables;
@@ -21,7 +20,7 @@ namespace Crossbones.ALPR.Api.NumberPlates.Service
         public NumberPlateService(ServiceArguments args, ISequenceProxyFactory sequenceProxyFactory) : base(args)
             => _numberPlatesSequenceProxy = sequenceProxyFactory.GetProxy(ALPRResources.NumberPlate);
 
-        public async Task<RecId> Add(NumberPlateDTO request)
+        public async Task<RecId> Add(DTO.NumberPlateDTO request)
         {
             var id = new RecId(await _numberPlatesSequenceProxy.Next(CancellationToken.None));
             var cmd = new AddNumberPlate(id)
@@ -35,7 +34,7 @@ namespace Crossbones.ALPR.Api.NumberPlates.Service
                 InsertType = (short)request.InsertType,
                 LicenseType = request.LicenseType,
                 CreatedOn = DateTime.UtcNow,
-                DateOfInterest = DateTime.Parse(request.DateOfInterest),
+                DateOfInterest = request.DateOfInterest,//DateTime.Parse(request.DateOfInterest),
                 //LastTimeStamp = request.LastTimeStamp,
                 LastUpdatedOn = request.LastUpdatedOn,
                 LicenseYear = request.LicenseYear,
@@ -56,33 +55,33 @@ namespace Crossbones.ALPR.Api.NumberPlates.Service
             return id;
         }
 
-        public Task<PageResponse<NumberPlateDTO>> GetAll(Pager paging)
+        public Task<PageResponse<DTO.NumberPlateDTO>> GetAll(Pager paging)
         {
             GridFilter filter = GetGridFilter();
             GridSort sort = GetGridSort();
 
             var dataQuery = new GetNumberPlate(RecId.Empty, GetQueryFilter.All, filter, sort) { Paging = paging };
-            return Inquire<PageResponse<NumberPlateDTO>>(dataQuery);
+            return Inquire<PageResponse<DTO.NumberPlateDTO>>(dataQuery);
 
         }
 
-        public async Task<PageResponse<NumberPlateHistoryDTO>> GetNumberPlateHistory(RecId numberPlateId, Pager pager)
+        public async Task<PageResponse<DTO.NumberPlateHistoryDTO>> GetNumberPlateHistory(RecId recId, Pager pager)
         {
             GridFilter filter = GetGridFilter();
 
             GridSort sort = GetGridSort();
 
-            var dataQuery = new GetNumberPlateHistoryItem(numberPlateId, pager, filter, sort);
+            var dataQuery = new GetNumberPlateHistoryItem(recId, pager, filter, sort);
 
-            var taskGetNumberPlateHistory = Inquire<PageResponse<NumberPlateHistoryDTO>>(dataQuery);
+            var taskGetNumberPlateHistory = Inquire<PageResponse<DTO.NumberPlateHistoryDTO>>(dataQuery);
 
             var numberPlateHistory = await taskGetNumberPlateHistory;
 
             return numberPlateHistory;
         }
-        public async Task Change(RecId LPRecId, NumberPlateDTO request)
+        public async Task Change(RecId recId, DTO.NumberPlateDTO request)
         {
-            var cmd = new ChangeNumberPlate(LPRecId)
+            var cmd = new ChangeNumberPlate(recId)
             {
                 Ncicnumber = request.NCICNumber,
                 FirstName = request.FirstName,
@@ -92,7 +91,7 @@ namespace Crossbones.ALPR.Api.NumberPlates.Service
                 InsertType = request.InsertType,
                 LicenseType = request.LicenseType,
                 CreatedOn = (DateTime)request.CreatedOn,
-                DateOfInterest = DateTime.Parse(request.DateOfInterest),
+                DateOfInterest = request.DateOfInterest,//DateTime.Parse(request.DateOfInterest),
                 //LastTimeStamp = request.LastTimeStamp,
                 LastUpdatedOn = DateTime.UtcNow,
                 LicenseYear = request.LicenseYear,
@@ -113,9 +112,9 @@ namespace Crossbones.ALPR.Api.NumberPlates.Service
             _ = await Execute(cmd);
         }
 
-        public async Task Delete(RecId LPRecId)
+        public async Task Delete(RecId recId)
         {
-            var cmd = new DeleteNumberPlate(LPRecId);
+            var cmd = new DeleteNumberPlate(recId);
             _ = await Execute(cmd);
         }
 
@@ -125,20 +124,20 @@ namespace Crossbones.ALPR.Api.NumberPlates.Service
             _ = await Execute(cmd);
         }
 
-        public async Task<NumberPlateDTO> Get(RecId RecId)
+        public async Task<DTO.NumberPlateDTO> Get(RecId RecId)
         {
             var query = new GetNumberPlate(RecId, GetQueryFilter.Single);
-            var res = await Inquire<IEnumerable<NumberPlateDTO>>(query);
+            var res = await Inquire<IEnumerable<DTO.NumberPlateDTO>>(query);
             return res.FirstOrDefault();
         }
 
-        public async Task<PagedResponse<NumberPlateDTO>> GetAllByHotList(Pager page, long hotListId)
+        public async Task<PagedResponse<DTO.NumberPlateDTO>> GetAllByHotList(Pager page, long hotListId)
         {
             var dataQuery = new GetNumberPlate(RecId.Empty, GetQueryFilter.FilterByHostList, hotListId)
             {
                 Paging = page
             };
-            var t0 = Inquire<IEnumerable<NumberPlateDTO>>(dataQuery);
+            var t0 = Inquire<IEnumerable<DTO.NumberPlateDTO>>(dataQuery);
 
             var countQuery = new GetNumberPlate(RecId.Empty, GetQueryFilter.Count);
             var t1 = Inquire<RowCount>(countQuery);

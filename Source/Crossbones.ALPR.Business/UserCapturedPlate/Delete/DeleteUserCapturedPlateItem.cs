@@ -5,7 +5,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Delete
 {
     public class DeleteUserCapturedPlateItem : RecIdItemMessage
     {
-        public DeleteUserCapturedPlateItem(RecId id, DeleteCommandFilter deletdCommandFilter, long userId = 0, long capturedPlateId = 0) : base(id)
+        public DeleteUserCapturedPlateItem(RecId recId, DeleteCommandFilter deletdCommandFilter, long userId = 0, long capturedPlateId = 0) : base(recId)
         {
             UserId = userId;
             CapturedPlateId = capturedPlateId;

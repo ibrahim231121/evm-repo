@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Corssbones.ALPR.Business.Enums;
 using Crossbones.ALPR.Models;
-using Crossbones.ALPR.Models.Items;
+using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Query;
 using Crossbones.Modules.Common;
@@ -41,7 +41,7 @@ namespace Corssbones.ALPR.Business.HotListDataSource.View
                     false => _repositoryHotListDataSource.Many().Include(x => x.SourceType),
                 })
                 //.Select(z => mapper.Map<E.HotlistDataSource, HotListDataSourceItem>(z))
-                .Select(z => new HotListDataSourceDTO()
+                .Select(z => new DTO.HotListDataSourceDTO()
                 {
                     RecId = z.RecId,
                     Name = z.Name,

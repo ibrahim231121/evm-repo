@@ -1,5 +1,5 @@
 ﻿using Crossbones.ALPR.Common.ValueObjects;
-using Crossbones.ALPR.Models.Items;
+using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Common;
 using Crossbones.Modules.Common.Pagination;
 using Crossbones.Modules.Common.Queryables;
@@ -8,15 +8,14 @@ namespace Crossbones.ALPR.Api.NumberPlates.Service
 {
     public interface INumberPlateService
     {
-        Task<RecId> Add(NumberPlateDTO request);
-        Task<NumberPlateDTO> Get(RecId LPRecId);
-        Task<PageResponse<NumberPlateDTO>> GetAll(Pager page);
-        Task<PagedResponse<NumberPlateDTO>> GetAllByHotList(Pager page, long hotListId);
+        Task<PageResponse<DTO.NumberPlateHistoryDTO>> GetNumberPlateHistory(RecId recId, Pager page);
 
-        Task<PageResponse<NumberPlateHistoryDTO>> GetNumberPlateHistory(RecId numberPlateId, Pager page);
-
-        Task Change(RecId LPRecId, NumberPlateDTO request);
-        Task Delete(RecId LPRecId);
+        Task Change(RecId recId, DTO.NumberPlateDTO request);
+        Task Delete(RecId recId);
+        Task<RecId> Add(DTO.NumberPlateDTO request);
+        Task<DTO.NumberPlateDTO> Get(RecId recId);
+        Task<PageResponse<DTO.NumberPlateDTO>> GetAll(Pager page);
+        Task<PagedResponse<DTO.NumberPlateDTO>> GetAllByHotList(Pager page, long hotListId);
         Task DeleteAll();
     }
 }

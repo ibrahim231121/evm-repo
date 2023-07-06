@@ -56,15 +56,15 @@ namespace Crossbones.ALPR.Api.CapturedPlate
             return capturedPlateId;
         }
 
-        public async Task Change(RecId capturedPlateRecId, CapturedPlateDTO capturedPlateItem)
+        public async Task Change(RecId recId, CapturedPlateDTO capturedPlateItem)
         {
-            var changeCapturePlateCommand = new ChangeCapturedPlateItem(capturedPlateRecId, capturedPlateItem);
+            var changeCapturePlateCommand = new ChangeCapturedPlateItem(recId, capturedPlateItem);
 
             var chainCommand = new ChainCommand(changeCapturePlateCommand);
 
             var changeCapturePlateSummaryCommand = new ChangeCapturePlatesSummaryItem(new RecId(0), new CapturePlatesSummaryDTO()
             {
-                CapturePlateId = capturedPlateRecId,
+                CapturePlateId = recId,
                 UserId = capturedPlateItem.User,
                 UnitId = capturedPlateItem.UnitId,
                 CaptureDate = capturedPlateItem.CapturedAt,
@@ -80,21 +80,21 @@ namespace Crossbones.ALPR.Api.CapturedPlate
             _ = await Execute(chainCommand);
         }
 
-        public async Task Delete(RecId capturedPlateRecId)
+        public async Task Delete(RecId recId)
         {
-            var deleteCapturePlateCommand = new DeleteCapturedPlateItem(capturedPlateRecId,
+            var deleteCapturePlateCommand = new DeleteCapturedPlateItem(recId,
                                                                                                  DeleteCommandFilter.Single);
             var chainCommand = new ChainCommand(deleteCapturePlateCommand);
 
             var deletedUserCapturedPlateCommand = new DeleteUserCapturedPlateItem(new RecId(0),
                                                                                                           DeleteCommandFilter.Single,
                                                                                                           0,
-                                                                                                          capturedPlateRecId);
+                                                                                                          recId);
             chainCommand += deletedUserCapturedPlateCommand;
 
             var deleteCapturePlateSummaryCommand = new DeleteCapturePlatesSummaryItem(new RecId(0),
                                                                                                  DeleteCommandFilter.Single,
-                                                                                                 capturedPlateId: capturedPlateRecId);
+                                                                                                 capturedPlateId: recId);
             chainCommand += deleteCapturePlateSummaryCommand;
 
             _ = await Execute(chainCommand);
@@ -120,10 +120,10 @@ namespace Crossbones.ALPR.Api.CapturedPlate
             _ = await Execute(chainCommand);
         }
 
-        public async Task<CapturedPlateDTO> Get(RecId capturedPlateId)
+        public async Task<CapturedPlateDTO> Get(RecId recId)
         {
-            var capturePlatesSummaryItem = await this._capturePlatesSummary.Get(0, capturedPlateId);
-            var query = new GetCapturedPlateItem(capturedPlateId, GetQueryFilter.Single);
+            var capturePlatesSummaryItem = await this._capturePlatesSummary.Get(0, recId);
+            var query = new GetCapturedPlateItem(recId, GetQueryFilter.Single);
             var capturedPlateItem = await Inquire<CapturedPlateDTO>(query);
 
             capturedPlateItem.UnitId = capturePlatesSummaryItem.UnitId;

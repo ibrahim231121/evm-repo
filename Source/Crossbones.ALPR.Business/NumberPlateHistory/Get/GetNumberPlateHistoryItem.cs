@@ -11,7 +11,7 @@ namespace Corssbones.ALPR.Business.NumberPlateHistory.Get
 {
     public class GetNumberPlateHistoryItem : RecIdItemMessage
     {
-        public GetNumberPlateHistoryItem(RecId id, Pager pager, GridFilter filter, GridSort sort):base(id)
+        public GetNumberPlateHistoryItem(RecId recId, Pager pager, GridFilter filter, GridSort sort):base(recId)
         {
             Pager = pager;
             Filter = filter;

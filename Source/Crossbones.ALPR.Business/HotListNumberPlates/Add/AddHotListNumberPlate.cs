@@ -7,7 +7,7 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Add
         public long HotListID { get; set; }
         public long NumberPlatesId { get; set; }
         public DateTime CreatedOn { get; set; }
-        public AddHotListNumberPlate(RecId id) : base(id)
+        public AddHotListNumberPlate(RecId recId) : base(recId)
         {
         }
     }

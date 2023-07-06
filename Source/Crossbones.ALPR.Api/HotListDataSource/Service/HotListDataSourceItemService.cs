@@ -5,7 +5,7 @@ using Crossbones.ALPR.Business.HotListDataSource.Add;
 using Crossbones.ALPR.Business.HotListDataSource.Change;
 using Crossbones.ALPR.Business.HotListDataSource.Delete;
 using Crossbones.ALPR.Common.ValueObjects;
-using Crossbones.ALPR.Models.Items;
+using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Common;
 using Crossbones.Modules.Common.Pagination;
 using Crossbones.Modules.Common.Queryables;
@@ -30,7 +30,7 @@ namespace Crossbones.ALPR.Api.HotListDataSource.Service
             var id = new RecId(await _hotListSequenceProxy.Next(CancellationToken.None));
             AddHotListDataSourceItem _object = new(id);
 
-            var cmd = mapper.Map<E.HotlistDataSource, HotListDataSourceDTO>(request);
+            var cmd = mapper.Map<E.HotlistDataSource, DTO.HotListDataSourceDTO>(request);
             _object.Item = cmd;
             _object.Item.RecId = _object.Id;
 
@@ -39,11 +39,11 @@ namespace Crossbones.ALPR.Api.HotListDataSource.Service
         }
 
 
-        public async Task Change(RecId RecId, E.HotlistDataSource request)
+        public async Task Change(RecId recId, E.HotlistDataSource request)
         {
-            ChangeHotListDataSourceItem _object = new(RecId);
+            ChangeHotListDataSourceItem _object = new(recId);
 
-            var cmd = mapper.Map<E.HotlistDataSource, HotListDataSourceDTO>(request);
+            var cmd = mapper.Map<E.HotlistDataSource, DTO.HotListDataSourceDTO>(request);
             _object.Item = cmd;
             _object.Item.RecId = _object.Id;
 
@@ -51,9 +51,9 @@ namespace Crossbones.ALPR.Api.HotListDataSource.Service
         }
 
 
-        public async Task Delete(RecId HotlistRecId)
+        public async Task Delete(RecId recId)
         {
-            var cmd = new DeleteHotListDataSourceItem(HotlistRecId);
+            var cmd = new DeleteHotListDataSourceItem(recId);
             _ = await Execute(cmd);
         }
 
@@ -63,23 +63,23 @@ namespace Crossbones.ALPR.Api.HotListDataSource.Service
             _ = await Execute(cmd);
         }
 
-        public async Task<HotListDataSourceDTO> Get(RecId HotlistRecId)
+        public async Task<DTO.HotListDataSourceDTO> Get(RecId recId)
         {
             GridFilter filter = GetGridFilter();
             GridSort sort = GetGridSort();
 
-            var query = new GetHotListDataSource(HotlistRecId, GetQueryFilter.Single, filter, sort);
-            var res = await Inquire<IEnumerable<HotListDataSourceDTO>>(query);
+            var query = new GetHotListDataSource(recId, GetQueryFilter.Single, filter, sort);
+            var res = await Inquire<IEnumerable<DTO.HotListDataSourceDTO>>(query);
             return res.FirstOrDefault();
         }
 
-        public Task<PageResponse<HotListDataSourceDTO>> GetAll(Pager paging)
+        public Task<PageResponse<DTO.HotListDataSourceDTO>> GetAll(Pager paging)
         {
             GridFilter filter = GetGridFilter();
             GridSort sort = GetGridSort();
 
             var dataQuery = new GetHotListDataSource(RecId.Empty, GetQueryFilter.All, filter, sort) { Paging = paging };
-            return Inquire<PageResponse<HotListDataSourceDTO>>(dataQuery);
+            return Inquire<PageResponse<DTO.HotListDataSourceDTO>>(dataQuery);
         }
 
     }

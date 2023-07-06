@@ -1,28 +1,29 @@
 ﻿using AutoMapper;
 using Corssbones.ALPR.Business.Enums;
-using Corssbones.ALPR.Database.Entities;
+using Entites =  Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Models;
-using Crossbones.ALPR.Models.Items;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Query;
 using Crossbones.Modules.Common;
 using Crossbones.Modules.Common.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using DTO = Crossbones.ALPR.Models.DTOs;
+using System.Globalization;
 
 namespace Crossbones.ALPR.Business.NumberPlates.Get
 {
     public class GetNumberPlateHandler : QueryHandlerBase<GetNumberPlate>
     {
         readonly IMapper mapper;
-        static List<Hotlist> hotLists;
-        static List<HotListNumberPlate> hotListNumberPlates;
+        static List<Entites.Hotlist> hotLists;
+        static List<Entites.HotListNumberPlate> hotListNumberPlates;
         public GetNumberPlateHandler(IMapper _mapper) => mapper = _mapper;
 
         protected override async Task<object> OnQuery(GetNumberPlate query, IQueryContext context, CancellationToken token)
         {
-            var _repository = context.Get<NumberPlate>();
-            var hotListNumberPlateRepository = context.Get<HotListNumberPlate>();
-            var hotListRepository = context.Get<Hotlist>();
+            var _repository = context.Get<Entites.NumberPlate>();
+            var hotListNumberPlateRepository = context.Get<Entites.HotListNumberPlate>();
+            var hotListRepository = context.Get<Entites.Hotlist>();
             hotListNumberPlates = await hotListNumberPlateRepository.Many().ToListAsync();
             hotLists = await hotListRepository.Many().ToListAsync();
 
@@ -42,14 +43,14 @@ namespace Crossbones.ALPR.Business.NumberPlates.Get
                 hotListNumberPlates = await hotListNumberPlateRepository.Many(x => x.HotListId == query.HotListID).ToListAsync();
                 var numberPlateList = await _repository.Many().Include(x => x.State).ToListAsync();
 
-                var data = new List<NumberPlate>();
+                var data = new List<Entites.NumberPlate>();
 
                 foreach (var item in hotListNumberPlates)
                 {
                     data.Add(numberPlateList.FirstOrDefault(x => x.RecId == item.NumberPlatesId));
                 }
 
-                var res = mapper.Map<List<NumberPlateDTO>>(data);
+                var res = mapper.Map<List<DTO.NumberPlateDTO>>(data);
                 return res;
             }
             else
@@ -61,12 +62,12 @@ namespace Crossbones.ALPR.Business.NumberPlates.Get
                     true => _repository.Many(x => x.RecId == query.Id).Include(x=>x.State),
                     false => _repository.Many().Include(x => x.State),
                 })
-                .Select(z => new NumberPlateDTO()
+                .Select(z => new DTO.NumberPlateDTO()
                 {
                     RecId = z.RecId,
                     NCICNumber = z.Ncicnumber,
                     AgencyId = z.AgencyId,
-                    DateOfInterest = z.DateOfInterest.ToString("yyyy-MM-dd HH:mm"),
+                    DateOfInterest = z.DateOfInterest,//.ToString("yyyy-MM-dd HH:mm"),
                     LicensePlate = z.LicensePlate,
                     StateId = z.StateId,
                     LicenseYear = z.LicenseYear,

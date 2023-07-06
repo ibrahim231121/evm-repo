@@ -3,7 +3,7 @@ using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.Modules.Api;
 using Crossbones.Modules.Common.Pagination;
 using Microsoft.AspNetCore.Mvc;
-using M = Crossbones.ALPR.Models.Items;
+using DTO = Crossbones.ALPR.Models.DTOs;
 
 namespace Crossbones.ALPR.Api.NumberPlatesTemp
 {
@@ -18,10 +18,10 @@ namespace Crossbones.ALPR.Api.NumberPlatesTemp
 
         [HttpPost]
         [ProducesResponseType(201)]
-        public async Task<IActionResult> Add([FromBody] M.NumberPlateTempDTO numberPlatesTemp)
+        public async Task<IActionResult> Add([FromBody] DTO.NumberPlateTempDTO numberPlatesTemp)
         {
-            var RecId = await _service.Add(numberPlatesTemp);
-            return Created($"{baseUrl}/LicensePlatesTemp/{RecId}", RecId);
+            var recId = await _service.Add(numberPlatesTemp);
+            return Created($"{baseUrl}/LicensePlatesTemp/{recId}", recId);
         }
 
         [HttpGet]
@@ -30,26 +30,26 @@ namespace Crossbones.ALPR.Api.NumberPlatesTemp
             return PagedResult(await _service.GetAll(paging));
         }
 
-        [HttpGet("{RecId}")]
-        public async Task<IActionResult> GetOne(long sysSerial)
+        [HttpGet("{recId}")]
+        public async Task<IActionResult> GetOne(long recId)
         {
-            var res = await _service.Get(new RecId(sysSerial));
+            var res = await _service.Get(new RecId(recId));
             return Ok(res);
         }
 
-        [HttpPut("{RecId}")]
+        [HttpPut("{recId}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> Change(long sysSerial, [FromBody] M.NumberPlateTempDTO numberPlatesTemp)
+        public async Task<IActionResult> Change(long recId, [FromBody] DTO.NumberPlateTempDTO numberPlatesTemp)
         {
-            await _service.Change(new RecId(sysSerial), numberPlatesTemp);
+            await _service.Change(new RecId(recId), numberPlatesTemp);
             return NoContent();
         }
 
-        [HttpDelete("{RecId}")]
+        [HttpDelete("{recId}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> DeleteOne(long RecId)
+        public async Task<IActionResult> DeleteOne(long recId)
         {
-            await _service.Delete(new RecId(RecId));
+            await _service.Delete(new RecId(recId));
             return NoContent();
         }
         [HttpDelete]

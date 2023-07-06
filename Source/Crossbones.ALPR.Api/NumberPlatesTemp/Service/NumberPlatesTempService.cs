@@ -8,7 +8,7 @@ using Crossbones.ALPR.Models;
 using Crossbones.Modules.Common.Pagination;
 using Crossbones.Modules.Common.Queryables;
 using Crossbones.Modules.Sequence.Common.Interfaces;
-using M = Crossbones.ALPR.Models.Items;
+using DTO = Crossbones.ALPR.Models.DTOs;
 
 namespace Crossbones.ALPR.Api.NumberPlatesTemp.Service
 {
@@ -18,7 +18,7 @@ namespace Crossbones.ALPR.Api.NumberPlatesTemp.Service
         public NumberPlatesTempService(ServiceArguments args, ISequenceProxyFactory sequenceProxyFactory) : base(args)
             => _numberPlatesTempSequenceProxy = sequenceProxyFactory.GetProxy(ALPRResources.NumberPlatesTemp);
 
-        public async Task<RecId> Add(M.NumberPlateTempDTO request)
+        public async Task<RecId> Add(DTO.NumberPlateTempDTO request)
         {
             var id = new RecId(await _numberPlatesTempSequenceProxy.Next(CancellationToken.None));
             var cmd = new AddNumberPlatesTemp(id)
@@ -48,7 +48,7 @@ namespace Crossbones.ALPR.Api.NumberPlatesTemp.Service
             _ = await Execute(cmd);
             return id;
         }
-        public async Task<PagedResponse<M.NumberPlateTempDTO>> GetAll(Pager paging)
+        public async Task<PagedResponse<DTO.NumberPlateTempDTO>> GetAll(Pager paging)
         {
             GridFilter filter = GetGridFilter();
             GridSort sort = GetGridSort();
@@ -57,7 +57,7 @@ namespace Crossbones.ALPR.Api.NumberPlatesTemp.Service
             {
                 Paging = paging
             };
-            var t0 = Inquire<IEnumerable<M.NumberPlateTempDTO>>(dataQuery);
+            var t0 = Inquire<IEnumerable<DTO.NumberPlateTempDTO>>(dataQuery);
 
             var countQuery = new GetNumberPlatesTemp(RecId.Empty, GetQueryFilter.Count);
             var t1 = Inquire<RowCount>(countQuery);
@@ -68,15 +68,15 @@ namespace Crossbones.ALPR.Api.NumberPlatesTemp.Service
 
             return PaginationHelper.GetPagedResponse(list, total);
         }
-        public async Task<M.NumberPlateTempDTO> Get(RecId LPRecId)
+        public async Task<DTO.NumberPlateTempDTO> Get(RecId recId)
         {
-            var query = new GetNumberPlatesTemp(LPRecId, GetQueryFilter.Single);
-            var res = await Inquire<IEnumerable<M.NumberPlateTempDTO>>(query);
+            var query = new GetNumberPlatesTemp(recId, GetQueryFilter.Single);
+            var res = await Inquire<IEnumerable<DTO.NumberPlateTempDTO>>(query);
             return res.FirstOrDefault();
         }
-        public async Task Change(RecId LPRecId, M.NumberPlateTempDTO request)
+        public async Task Change(RecId recId, DTO.NumberPlateTempDTO request)
         {
-            var cmd = new ChangeNumberPlatesTemp(LPRecId)
+            var cmd = new ChangeNumberPlatesTemp(recId)
             {
                 Ncicnumber = request.Ncicnumber,
                 FirstName = request.FirstName,
@@ -105,9 +105,9 @@ namespace Crossbones.ALPR.Api.NumberPlatesTemp.Service
             _ = await Execute(cmd);
         }
 
-        public async Task Delete(RecId LPRecId)
+        public async Task Delete(RecId recId)
         {
-            var cmd = new DeleteNumberPlatesTemp(LPRecId);
+            var cmd = new DeleteNumberPlatesTemp(recId);
             _ = await Execute(cmd);
         }
 

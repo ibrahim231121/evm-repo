@@ -4,7 +4,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Change
 {
     public class ChangeUserCapturedPlateItem : RecIdItemMessage
     {
-        public ChangeUserCapturedPlateItem(RecId id, long userId, long capturedId) : base(id)
+        public ChangeUserCapturedPlateItem(RecId recId, long userId, long capturedId) : base(recId)
         {
             UserId = userId;
             CapturedId = capturedId;

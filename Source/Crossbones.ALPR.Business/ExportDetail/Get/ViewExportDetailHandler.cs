@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using Corssbones.ALPR.Business.Enums;
-using Crossbones.ALPR.Models;
-using Crossbones.ALPR.Models.Items;
+using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Query;
 using Crossbones.Modules.Common.Exceptions;
 using Crossbones.Modules.Common.Pagination;
 using Microsoft.EntityFrameworkCore;
 using E = Corssbones.ALPR.Database.Entities;
+using Crossbones.ALPR.Models;
 
 namespace Corssbones.ALPR.Business.ExportDetail.Get
 {
@@ -39,7 +39,7 @@ namespace Corssbones.ALPR.Business.ExportDetail.Get
                     throw new RecordNotFound($"Unable to process your request because Export Detail is not found against provided Id '{query.Id}'");
                 }
 
-                var res = mapper.Map<List<ExportDetailDTO>>(data);
+                var res = mapper.Map<List<DTO.ExportDetailDTO>>(data);
 
                 return res;
             }

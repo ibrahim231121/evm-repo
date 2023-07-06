@@ -8,19 +8,19 @@ namespace Crossbones.ALPR.Business.NumberPlates.Get
 {
     public class GetNumberPlate : RecIdItemMessage
     {
-        public GetNumberPlate(RecId sysSerial, GetQueryFilter filter, GridFilter gridFilter, GridSort sort) : base(sysSerial)
+        public GetNumberPlate(RecId recId, GetQueryFilter filter, GridFilter gridFilter, GridSort sort) : base(recId)
         {
             Filter = filter;
             GridFilter = gridFilter;
             Sort = sort;
         }
 
-        public GetNumberPlate(RecId sysSerial, GetQueryFilter filter) : base(sysSerial)
+        public GetNumberPlate(RecId recId, GetQueryFilter filter) : base(recId)
         {
             Filter = filter;
         }
 
-        public GetNumberPlate(RecId sysSerial, GetQueryFilter filter, long hotListId) : base(sysSerial)
+        public GetNumberPlate(RecId recId, GetQueryFilter filter, long hotListId) : base(recId)
         {
             Filter = filter;
             HotListID = hotListId;

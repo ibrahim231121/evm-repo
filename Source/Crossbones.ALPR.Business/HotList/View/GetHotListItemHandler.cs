@@ -1,6 +1,6 @@
 ﻿using Corssbones.ALPR.Business.Enums;
 using Crossbones.ALPR.Models;
-using Crossbones.ALPR.Models.Items;
+using Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Query;
 using Crossbones.Modules.Common;

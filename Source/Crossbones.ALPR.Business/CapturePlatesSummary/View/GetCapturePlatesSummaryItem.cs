@@ -7,7 +7,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
 {
     public class GetCapturePlatesSummaryItem : RecIdItemMessage
     {
-        public GetCapturePlatesSummaryItem(long userId, RecId sysSerial, long capturedPlateId, GetQueryFilter queryFilter, List<long> capturedPlateIds = null, GridFilter filter = null, Pager paging = null, GridSort sort = null) : base(sysSerial)
+        public GetCapturePlatesSummaryItem(long userId, RecId recId, long capturedPlateId, GetQueryFilter queryFilter, List<long> capturedPlateIds = null, GridFilter filter = null, Pager paging = null, GridSort sort = null) : base(recId)
         {
             Paging = paging;
             Filter = filter;

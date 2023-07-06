@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Crossbones.ALPR.Models.Items;
+using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Query;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +18,7 @@ namespace Crossbones.ALPR.Business.State.Get
         {
             var _repository = context.Get<Corssbones.ALPR.Database.Entities.State>();
             var res = await _repository.Many().ToListAsync();
-            var data = mapper.Map<List<StateDTO>>(res);
+            var data = mapper.Map<List<DTO.StateDTO>>(res);
             return data;
         }
     }

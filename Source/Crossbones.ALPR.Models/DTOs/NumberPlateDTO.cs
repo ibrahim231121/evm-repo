@@ -1,11 +1,18 @@
-﻿namespace Crossbones.ALPR.Models.Items
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Crossbones.ALPR.Models.DTOs
 {
     public class NumberPlateDTO
     {
         public long RecId { get; set; }
         public string? NCICNumber { get; set; }
         public string? AgencyId { get; set; }
-        public string DateOfInterest { get; set; }
+
+        [Required(ErrorMessage = "Date Of Interest can not be null")]
+        public DateTime DateOfInterest { get; set; }
+
+        [Required(ErrorMessage = "License Plate can not be null")]
+        [StringLength(10, ErrorMessage = "License Plate lenght should be between 6 to 20 characters",MinimumLength = 6)]
         public string LicensePlate { get; set; }
         public byte? StateId { get; set; }
         public string? LicenseYear { get; set; }

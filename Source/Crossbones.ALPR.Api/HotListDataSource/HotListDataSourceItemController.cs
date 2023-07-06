@@ -18,9 +18,9 @@ namespace Crossbones.ALPR.Api.HotListDataSource
         [ProducesResponseType(201)]
         public async Task<IActionResult> Add([FromBody] HotlistDataSource hotListDataSourceItem)
         {
-            var RecId = await _service.Add(hotListDataSourceItem);
+            var recId = await _service.Add(hotListDataSourceItem);
 
-            return Created($"{baseUrl}/HotListDataSource/{RecId}", RecId);
+            return Created($"{baseUrl}/HotListDataSource/{recId}", recId);
         }
 
         [HttpGet]
@@ -29,26 +29,26 @@ namespace Crossbones.ALPR.Api.HotListDataSource
             return PaginatedOk(await _service.GetAll(paging));
         }
 
-        [HttpGet("{RecId}")]
-        public async Task<IActionResult> GetOne(long RecId)
+        [HttpGet("{recId}")]
+        public async Task<IActionResult> GetOne(long recId)
         {
-            var res = await _service.Get(new RecId(RecId));
+            var res = await _service.Get(new RecId(recId));
             return Ok(res);
         }
 
-        [HttpPut("{RecId}")]
+        [HttpPut("{recId}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> Change(long RecId, [FromBody] HotlistDataSource hotListDataSourceItem)
+        public async Task<IActionResult> Change(long recId, [FromBody] HotlistDataSource hotListDataSourceItem)
         {
-            await _service.Change(new RecId(RecId), hotListDataSourceItem);
+            await _service.Change(new RecId(recId), hotListDataSourceItem);
             return NoContent();
         }
 
-        [HttpDelete("{RecId}")]
+        [HttpDelete("{recId}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> DeleteOne(long RecId)
+        public async Task<IActionResult> DeleteOne(long recId)
         {
-            await _service.Delete(new RecId(RecId));
+            await _service.Delete(new RecId(recId));
             return NoContent();
         }
 

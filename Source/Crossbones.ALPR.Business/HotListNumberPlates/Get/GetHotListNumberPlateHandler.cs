@@ -2,7 +2,7 @@
 using Corssbones.ALPR.Business.Enums;
 using Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Models;
-using Crossbones.ALPR.Models.Items;
+using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Query;
 using Crossbones.Modules.Common.Exceptions;
@@ -43,7 +43,7 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Get
                 {
                     throw new RecordNotFound($"Unable to process your request because HotList Number Plate is not found against provided Id '{query.Id}'");
                 }
-                var res = _mapper.Map<List<HotListNumberPlateDTO>>(data);
+                var res = _mapper.Map<List<DTO.HotListNumberPlateDTO>>(data);
                 return res;
             }
         }

@@ -5,7 +5,7 @@ namespace Crossbones.ALPR.Business.NumberPlates.Add
 {
     public class AddNumberPlate : RecIdItemMessage
     {
-        public AddNumberPlate(RecId id) : base(id)
+        public AddNumberPlate(RecId recId) : base(recId)
         {
         }
 

@@ -1,6 +1,6 @@
 ﻿using Crossbones.ALPR.Common;
 using Crossbones.ALPR.Common.ValueObjects;
-using Crossbones.ALPR.Models.Items;
+using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Api;
 using Crossbones.Modules.Common.Pagination;
 using Microsoft.AspNetCore.Http;
@@ -12,17 +12,17 @@ namespace Crossbones.ALPR.Api.ExportDetails
     public class ExportDetailController : BaseController
     {
         readonly IExportDetailService exportDetailService;
-        ValidateModel<ExportDetailDTO> validateModel;
+        ValidateModel<DTO.ExportDetailDTO> validateModel;
 
         public ExportDetailController(ApiParams feature, IExportDetailService _exportDetailService) : base(feature)
         {
             exportDetailService = _exportDetailService;
-            validateModel = new ValidateModel<ExportDetailDTO>();
+            validateModel = new ValidateModel<DTO.ExportDetailDTO>();
         }
 
         [HttpPost]
         [ProducesResponseType(201)]
-        public async Task<IActionResult> Add([FromBody] ExportDetailDTO exportDetail)
+        public async Task<IActionResult> Add([FromBody] DTO.ExportDetailDTO exportDetail)
         {
             (bool isValid, string errorList) = validateModel.Validate(exportDetail);
             if (isValid)
@@ -42,21 +42,21 @@ namespace Crossbones.ALPR.Api.ExportDetails
             return PagedResult(await exportDetailService.GetAll(paging));
         }
 
-        [HttpGet("{Id}")]
-        public async Task<IActionResult> GetOne(long Id)
+        [HttpGet("{recId}")]
+        public async Task<IActionResult> GetOne(long recId)
         {
-            var res = await exportDetailService.Get(new RecId(Id));
+            var res = await exportDetailService.Get(new RecId(recId));
             return Ok(res);
         }
 
-        [HttpPut("{Id}")]
+        [HttpPut("{recId}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> Change(long Id, [FromBody] ExportDetailDTO exportDetail)
+        public async Task<IActionResult> Change(long recId, [FromBody] DTO.ExportDetailDTO exportDetail)
         {
             (bool isValid, string errorList) = validateModel.Validate(exportDetail);
             if (isValid)
             {
-                await exportDetailService.Change(new RecId(Id), exportDetail);
+                await exportDetailService.Change(new RecId(recId), exportDetail);
                 return NoContent();
             }
             else
@@ -65,11 +65,11 @@ namespace Crossbones.ALPR.Api.ExportDetails
             }
         }
 
-        [HttpDelete("{Id}")]
+        [HttpDelete("{recId}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> DeleteOne(long Id)
+        public async Task<IActionResult> DeleteOne(long recId)
         {
-            await exportDetailService.Delete(new RecId(Id));
+            await exportDetailService.Delete(new RecId(recId));
             return NoContent();
         }
 

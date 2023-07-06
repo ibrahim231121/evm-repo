@@ -18,9 +18,9 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummary
         [ProducesResponseType(201)]
         public async Task<IActionResult> Add([FromBody] CapturePlatesSummaryDTO capturedPlateSummaryItem)
         {
-            var RecId = await _service.Add(capturedPlateSummaryItem);
+            var recId = await _service.Add(capturedPlateSummaryItem);
 
-            return Created($"{baseUrl}/CapturePlatesSummary/{RecId}", RecId);
+            return Created($"{baseUrl}/CapturePlatesSummary/{recId}", recId);
         }
 
         [HttpGet("{userId}")]

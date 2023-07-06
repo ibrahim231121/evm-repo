@@ -1,5 +1,5 @@
 ﻿using Crossbones.ALPR.Common.ValueObjects;
-using Crossbones.ALPR.Models.Items;
+using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Common.Pagination;
 
 namespace Crossbones.ALPR.Api.ExportDetails
@@ -11,21 +11,21 @@ namespace Crossbones.ALPR.Api.ExportDetails
         /// </summary>
         /// <param name="addExportDetail"></param>
         /// <returns></returns>
-        Task<RecId> Add(ExportDetailDTO addExportDetail);
+        Task<RecId> Add(DTO.ExportDetailDTO addExportDetail);
 
         /// <summary>
         /// Get Export Detail by Id
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        Task<ExportDetailDTO> Get(RecId Id);
+        Task<DTO.ExportDetailDTO> Get(RecId recId);
 
         /// <summary>
         /// Get all Export Details
         /// </summary>
         /// <param name="paging"></param>
         /// <returns></returns>
-        Task<PagedResponse<ExportDetailDTO>> GetAll(Pager paging);
+        Task<PagedResponse<DTO.ExportDetailDTO>> GetAll(Pager paging);
 
         /// <summary>
         /// Edit or Update Export Detail
@@ -33,14 +33,14 @@ namespace Crossbones.ALPR.Api.ExportDetails
         /// <param name="Id"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task Change(RecId Id, ExportDetailDTO request);
+        Task Change(RecId recId, DTO.ExportDetailDTO request);
 
         /// <summary>
         /// Delete Export Detail through Id
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        Task Delete(RecId Id);
+        Task Delete(RecId recId);
 
         /// <summary>
         /// Delete every Export Details
