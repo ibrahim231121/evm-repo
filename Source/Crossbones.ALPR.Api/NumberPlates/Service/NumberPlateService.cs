@@ -127,8 +127,8 @@ namespace Crossbones.ALPR.Api.NumberPlates.Service
         public async Task<DTO.NumberPlateDTO> Get(RecId RecId)
         {
             var query = new GetNumberPlate(RecId, GetQueryFilter.Single);
-            var res = await Inquire<IEnumerable<DTO.NumberPlateDTO>>(query);
-            return res.FirstOrDefault();
+            var res = await Inquire<DTO.NumberPlateDTO>(query);
+            return res;
         }
 
         public async Task<PagedResponse<DTO.NumberPlateDTO>> GetAllByHotList(Pager page, long hotListId)
