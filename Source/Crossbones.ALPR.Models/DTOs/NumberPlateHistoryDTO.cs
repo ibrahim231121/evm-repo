@@ -39,5 +39,7 @@ namespace Crossbones.ALPR.Models.DTOs
         public long UserId { get; set; }
 
         public string Unit { get; set; }
+
+        public string Notes { get; set; }
     }
 }

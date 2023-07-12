@@ -81,6 +81,7 @@ namespace Corssbones.ALPR.Business.NumberPlateHistory.Get
                             State = z.state.StateName,
                             UserId = z.cps.UserId,
                             Unit = z.cps.UnitId,
+                            Notes = z.cp.Notes,
                             Distance = filterByLatitude ?
                                             filterByLongitude ? z.cp.GeoLocation.Distance(new Point(longitude, latitude)) :
                                                                 z.cp.GeoLocation.Distance(new Point(z.cp.GeoLocation.X, latitude)) :
