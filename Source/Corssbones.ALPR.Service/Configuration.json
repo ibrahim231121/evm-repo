@@ -4,24 +4,19 @@
     "RouterMemoryInMB": 20,
     "RequestTimeOut": 5,
     "Language": "English",
-    "ConfigurationDatabases": [
-      "Data Source=.;Initial Catalog=Configuration;Integrated Security=true;Connection Timeout=30;"
-    ],
-    //"VaultIntegration": "false",
+    "DatabaseConfiguration": {
+      "ConfigurationDatabases": [
+        "Data Source=.; Initial Catalog=Configuration;Integrated Security=true;Connection Timeout=30;"
+      ],
+      "TrustServerCertificate": true
+    },
+    "VaultIntegration": "false",
     "VaultConfiguration": {
-      //"Token": "hvs.CAESIN6K7ajEXxdvcnkOQcRYv9mpxKeottMLzARD4TKV-ZnZGh4KHGh2cy43ZTE1SVUwMHF1VU1kNzJrZjh2TklPZms",
-      //"Address": "http://10.227.141.206:8200",
-      //"MountPoint": "secret",
-      //"SecretPath": "EVM4/Tennant/",
-      //"SecretType": "database",
-      //"Status" :  false
-      "RoleId": "88ad257d-6911-1f9b-dc90-754fd8e05b9d",
-      "SecretId": "c37d4fde-b9b7-c961-6b24-ef0a1f61171a",
+      "Token": "hvs.CAESIN6K7ajEXxdvcnkOQcRYv9mpxKeottMLzARD4TKV-ZnZGh4KHGh2cy43ZTE1SVUwMHF1VU1kNzJrZjh2TklPZms",
       "Address": "http://10.227.141.206:8200",
       "MountPoint": "secret",
-      "SecretPath": "EVM4/Tenant/",
-      "SecretType": "database",
-      "Status": false
+      "SecretPath": "EVM4/Tennant/",
+      "SecretType": "database"
     },
     "RedisConfiguration": {
       "IP": "127.0.0.1",
@@ -68,22 +63,6 @@
     "ConsulServiceConfiguration": {
       "Port": 8500,
       "URL": "http://127.0.0.1"
-    },
-    "MQTTConfiguration": {
-      "Username": "admin",
-      "Password": "hivemq",
-      "IpAddress": "127.0.0.1",
-      "Port": 1883,
-      "Subcriptions": [ "$share/mqttrouter/Tenant/+/Station/+/Unit/+/rest/Request/+/#" ],
-      "Version": 5, // Versions 3, 4, 5
-      "ReconnectDelay": 5, // Time in seconds
-      "QoS": 1 // QoS Levels - 0, 1, 2,
-    },
-    "FluentdConfiguration": {
-      "Host": "10.227.141.206",
-      "Port": 24224,
-      "Status": false
-
     }
   }
 }

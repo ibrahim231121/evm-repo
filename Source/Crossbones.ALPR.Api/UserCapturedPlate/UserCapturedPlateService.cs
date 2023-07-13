@@ -14,12 +14,12 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummaryStatus
         /// <summary>
         /// Gets the specified user captured plate identifier.
         /// </summary>
-        /// <param name="recId">The user captured plate identifier.</param>
+        /// <param name="userCapturedPlateId">The user captured plate identifier.</param>
         /// <returns></returns>
-        public async Task<Tuple<long, long>> Get(RecId recId)
+        public async Task<Tuple<long, long>> Get(RecId userCapturedPlateId)
         {
             var query = new GetUserCapturedPlateItem(new RecId(0),
-                                                            recId,
+                                                            userCapturedPlateId,
                                                             GetQueryFilter.Single);
 
             var resp = await Inquire<Tuple<long, long>>(query);

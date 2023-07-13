@@ -1,5 +1,4 @@
 ﻿using Crossbones.Modules.Common.Configuration;
-using Crossbones.Modules.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 
@@ -9,19 +8,15 @@ namespace Crossbones.ALPR.Common.Log
     {
         public static string GetLogMessage(HttpRequest httpRequest, string message)
         {
-            var data = ExtractDataFromHeader(httpRequest);
-            return $"Action: {data["Method"]} URL: {data["Url"]} TenantId: {data["TenantId"]} UserId: {data["UserId"]} IP: {data["IPV4"]} UserAgent: {data["User-Agent"]} Message: {message}";
+            var headerDictionary = ExtractDataFromHeader(httpRequest);
+            return $"[{httpRequest.Method}] Url:{headerDictionary["Url"]} TenantId:{headerDictionary["TenantId"]} UserId:{headerDictionary["UserId"]} IP:{headerDictionary["IPV4"]} UserAgent:{headerDictionary["User-Agent"]} Message:{message}";
         }
-        public static void FillRequestInformation(HttpRequest httpRequest, IRequestInformation requestInfo, long tenantId)
+        public static void FillRequestInformation(HttpRequest httpRequest, IRequestInformation requestInfo)
         {
-            //var data = ExtractDataFromHeader(httpRequest);
-            //var tenantId = Convert.ToInt64(data["TenantId"].ToString());
-            requestInfo.TenantServiceId = Utility.GetFormattedTenantServiceId(tenantId, ServiceType.ALPR);
-
-            if (tenantId <= 0)
-            {
-                throw new RecordNotFound("TenantId not found in HTTP header!");
-            }
+            var headerDictionary = ExtractDataFromHeader(httpRequest);
+            requestInfo.UserId = Convert.ToInt64(headerDictionary["UserId"].ToString());
+            requestInfo.TenantId = Convert.ToInt64(headerDictionary["TenantId"].ToString());
+            requestInfo.TenantServiceId = Utility.GetFormattedTenantServiceId(requestInfo.TenantId, ServiceType.ALPR);
         }
         private static IDictionary<string, object> ExtractDataFromHeader(HttpRequest httpRequest)
         {
@@ -31,16 +26,10 @@ namespace Crossbones.ALPR.Common.Log
             foreach (var item in httpRequest.Headers)
                 headerDictionary.Add(item.Key, item.Value);
 
-            if (headerDictionary.ContainsKey("tenantid"))
-            {
-                var temp = headerDictionary["tenantid"];
-                headerDictionary.Remove("tenantid");
-                headerDictionary.Add("TenantId", temp);
-            }
+
             headerDictionary.Add("IPV4", ip.MapToIPv4().ToString());
             headerDictionary.Add("IPV6", ip.MapToIPv6().ToString());
             headerDictionary.Add("Url", httpRequest.GetDisplayUrl());
-            headerDictionary.Add("Method", httpRequest.Method);
 
             if (!httpRequest.Headers.ContainsKey("User-Agent"))
                 headerDictionary.Add("User-Agent", "N/A");

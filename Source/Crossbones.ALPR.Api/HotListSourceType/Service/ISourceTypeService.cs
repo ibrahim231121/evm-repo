@@ -1,7 +1,7 @@
 ﻿using Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Common.ValueObjects;
-using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Common.Pagination;
+using DTO = Crossbones.ALPR.Models.DTOs;
 
 namespace Crossbones.ALPR.Api.HotListSourceType.Service
 {
@@ -20,7 +20,7 @@ namespace Crossbones.ALPR.Api.HotListSourceType.Service
         /// </summary>
         /// <param name="SourceTypeId">Database record Id</param>
         /// <returns>SourceType record</returns>
-        Task<DTO.SourceTypeDTO> Get(RecId recId);
+        Task<DTO.SourceTypeDTO> Get(RecId SourceTypeRecId);
 
         /// <summary>
         /// It is used to Get All SourceType data from database
@@ -31,17 +31,17 @@ namespace Crossbones.ALPR.Api.HotListSourceType.Service
         /// <summary>
         /// It is used to update SourceType data from database
         /// </summary>
-        /// <param name="recId">Database record Id</param>
+        /// <param name="SourceTypeRecId">Database record Id</param>
         /// <param name="request">SourceType domain model</param>
         /// <returns></returns>
-        Task Change(RecId recId, SourceType request);
+        Task Change(RecId SourceTypeRecId, SourceType request);
 
         /// <summary>
         /// It is used to Delete Single SourceType data from database
         /// </summary>
         /// <param name="SourceTypeId">Database record Id</param>
         /// <returns></returns>
-        Task Delete(RecId recId);
+        Task Delete(RecId SourceTypeRecId);
 
         /// <summary>
         /// It is used to Delete All SourceType data from database

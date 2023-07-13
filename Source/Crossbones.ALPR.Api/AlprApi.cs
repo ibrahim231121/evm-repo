@@ -6,11 +6,13 @@ using Crossbones.ALPR.Api.CapturePlatesSummaryStatus;
 using Crossbones.ALPR.Api.ExportDetails;
 using Crossbones.ALPR.Api.HotList.Service;
 using Crossbones.ALPR.Api.HotListDataSource.Service;
+using Crossbones.ALPR.Api.HotListDataSourceMapping.Service;
 using Crossbones.ALPR.Api.HotListNumberPlates;
 using Crossbones.ALPR.Api.HotListSourceType.Service;
 using Crossbones.ALPR.Api.NumberPlates.Service;
 using Crossbones.ALPR.Api.NumberPlatesTemp.Service;
 using Crossbones.ALPR.Api.State;
+using Crossbones.ALPR.Common.Log;
 using Crossbones.ALPR.Common.ServiceConfiguration;
 using Crossbones.Common;
 using Crossbones.Modules.Api;
@@ -28,6 +30,7 @@ using Crossbones.Transport.Pipes;
 using Crossbones.Workers;
 using Crossbones.Workers.Common;
 using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using System.Net;
@@ -54,6 +57,7 @@ namespace Crossbones.ALPR.Api
         readonly string cors = "*";
 
         readonly ITenantDbProvider _tenantDbProvider;
+        IServiceCollection _services;
 
         public AlprApi(ITenantDbProvider tenantDbProvider)
         {
@@ -63,9 +67,39 @@ namespace Crossbones.ALPR.Api
             _tenantDbProvider = tenantDbProvider;
         }
 
+        //protected override void RegisterApplicationDependencies(IApplicationBuilder app)
+        //{
+        //    base.RegisterApplicationDependencies(app);
+        //    app.UseHangfireDashboard("/dashboard");
+        //}
+
         protected override void RegisterDependencies(IServiceCollection services)
         {
+            _services = services;
             base.RegisterDependencies(services);
+
+            //services.AddHangfire(configuration => configuration
+            //   .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+            //   .UseSimpleAssemblyNameTypeSerializer()
+            //   .UseRecommendedSerializerSettings()
+            //   .UseSqlServerStorage(
+            //    _tenantDbProvider.GetTenantDatabases().Values!.FirstOrDefault(),// + "TrustServerCertificate=True;",
+            //    new SqlServerStorageOptions
+            //    {
+            //        CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+            //        SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+            //        QueuePollInterval = TimeSpan.Zero,
+            //        UseRecommendedIsolationLevel = true,
+            //        DisableGlobalLocks = true
+            //    }));
+
+            //services.AddHangfireServer();
+
+            //GlobalConfiguration.Configuration.UseSqlServerStorage(_tenantDbProvider.GetTenantDatabases().Values!.FirstOrDefault());
+
+
+            services.AddSingleton<IServiceDiscoveryConfiguration>(_configuration);
+
             services.Add(new ServiceDescriptor(typeof(ISequenceProxyFactory), typeof(SequenceProxyProvider), ServiceLifetime.Scoped));
             services.AddScoped<ServiceArguments>();
 
@@ -73,6 +107,8 @@ namespace Crossbones.ALPR.Api
             services.Add(new ServiceDescriptor(typeof(IExportDetailService), typeof(ExportDetailService), ServiceLifetime.Transient));
             services.Add(new ServiceDescriptor(typeof(IHotListNumberPlateService), typeof(HotListNumberPlateService), ServiceLifetime.Transient));
             services.Add(new ServiceDescriptor(typeof(IHotListDataSourceItemService), typeof(HotListDataSourceItemService), ServiceLifetime.Transient));
+            services.Add(new ServiceDescriptor(typeof(IHotListDataSourceMappingService), typeof(HotListDataSourceMappingService), ServiceLifetime.Transient));
+
             services.Add(new ServiceDescriptor(typeof(ISourceTypeService), typeof(SourceTypeService), ServiceLifetime.Transient));
 
             services.AddScoped<ICapturedPlateService, CapturedPlateService>();
@@ -84,6 +120,7 @@ namespace Crossbones.ALPR.Api
             services.Add(new ServiceDescriptor(typeof(IStateService), typeof(StateService), ServiceLifetime.Transient));
 
             services.AddSingleton<IMessageChannel>(_channel);
+            services.AddSingleton<IMemoryCache, MemoryCache>();
 
             services.AddSingleton(typeof(ServiceType), ServiceType.ALPR);
             services.AddLazyResolution();
@@ -93,6 +130,7 @@ namespace Crossbones.ALPR.Api
                 options.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc;
             });
 
+
             var mappingConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new ALPRMappingProfile());
@@ -101,6 +139,7 @@ namespace Crossbones.ALPR.Api
             var mapper = mappingConfig.CreateMapper();
             services.AddSingleton<IMapper>(mapper);
         }
+
 
         protected override void Setup(CancellationToken token)
         {
@@ -123,6 +162,7 @@ namespace Crossbones.ALPR.Api
                 x.HttpVersion = (Crossbones.Modules.Api.HttpVersion)_apiConfiguration.HttpVersion;
                 x.AddExceptionMiddleware<ExeceptionHandling>(ex =>
                 {
+                    Log.Error(LogRequest.GetLogMessage(_services.BuildServiceProvider().GetService<IHttpContextAccessorTenant>().HttpContext.Request, ex.Message));
                     return ex switch
                     {
                         RecordNotFound e => ExceptionsHelper.GetStatusCodeOfException(e),

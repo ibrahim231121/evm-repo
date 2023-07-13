@@ -1,8 +1,8 @@
 ﻿using Crossbones.ALPR.Common.ValueObjects;
-using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Common;
 using Crossbones.Modules.Common.Pagination;
 using Crossbones.Modules.Common.Queryables;
+using DTO = Crossbones.ALPR.Models.DTOs;
 
 namespace Crossbones.ALPR.Api.HotList.Service
 {
@@ -20,7 +20,7 @@ namespace Crossbones.ALPR.Api.HotList.Service
         /// </summary>
         /// <param name="HotlistId">Database record Id</param>
         /// <returns>Hotlist record</returns>
-        Task<DTO.HotListDTO> Get(RecId recId);
+        Task<DTO.HotListDTO> Get(RecId HotlistRecId);
 
         /// <summary>
         /// It is used to Get All Hotlist data from database
@@ -34,14 +34,14 @@ namespace Crossbones.ALPR.Api.HotList.Service
         /// <param name="HotItemRecId">Database record Id</param>
         /// <param name="request">Hotlist domain model</param>
         /// <returns></returns>
-        Task Change(RecId recId, DTO.HotListDTO request);
+        Task Change(RecId HotlistRecId, DTO.HotListDTO request);
 
         /// <summary>
         /// It is used to Delete Single Hotlist data from database
         /// </summary>
         /// <param name="HotlistId">Database record Id</param>
         /// <returns></returns>
-        Task Delete(RecId recId);
+        Task Delete(RecId HotlistRecId);
 
         /// <summary>
         /// It is used to Delete All Hotlist data from database

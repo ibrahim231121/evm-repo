@@ -1,11 +1,11 @@
 ﻿using Corssbones.ALPR.Business.Enums;
 using Crossbones.ALPR.Models;
-using Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Query;
 using Crossbones.Modules.Common;
 using LanguageExt;
 using Microsoft.EntityFrameworkCore;
+using DTO = Crossbones.ALPR.Models.DTOs;
 using E = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.HotList.Get
@@ -22,7 +22,7 @@ namespace Corssbones.ALPR.Business.HotList.Get
             }
             else
             {
-                var hotlistQuery = _repository.Many(x => query.QueryFilter == GetQueryFilter.Single ? x.RecId == query.Id : true).Include(hotlist => hotlist.Source).Select(x => new HotListDTO()
+                var hotlistQuery = _repository.Many(x => query.QueryFilter == GetQueryFilter.Single ? x.RecId == query.Id : true).Include(hotlist => hotlist.Source).Select(x => new DTO.HotListDTO()
                 {
                     Name = x.Name,
                     Description = x.Description,

@@ -9,7 +9,7 @@ namespace Corssbones.ALPR.Business.ExportDetail.Add
         public DateTime ExportedOn { get; set; }
         public string ExportPath { get; set; } = null!;
         public string? UriLocation { get; set; }
-        public AddExportDetail(RecId recId) : base(recId)
+        public AddExportDetail(RecId id) : base(id)
         {
         }
     }

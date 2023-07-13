@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+
 namespace Corssbones.ALPR.Database.Entities;
 
 public partial class State

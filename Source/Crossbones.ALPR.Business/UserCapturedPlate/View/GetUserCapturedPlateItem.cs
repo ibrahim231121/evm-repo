@@ -5,7 +5,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
 {
     public class GetUserCapturedPlateItem : RecIdItemMessage
     {
-        public GetUserCapturedPlateItem(long userId, RecId recId, GetQueryFilter queryFilter) : base(recId)
+        public GetUserCapturedPlateItem(long userId, RecId sysSerial, GetQueryFilter queryFilter) : base(sysSerial)
         {
             UserId = userId;
             QueryFilter = queryFilter;

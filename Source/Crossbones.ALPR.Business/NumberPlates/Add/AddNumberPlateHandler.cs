@@ -13,7 +13,7 @@ namespace Crossbones.ALPR.Business.NumberPlates.Add
         protected override async Task OnMessage(AddNumberPlate command, ICommandContext context, CancellationToken token)
         {
             var _repository = context.Get<NumberPlate>();
-            var numberPlateExist = await _repository.Exists(x => x.LicensePlate == command.LicensePlate);
+            var numberPlateExist = await _repository.Exists(x => x.LicensePlate == command.Item.LicensePlate);
 
             if (numberPlateExist)
             {
@@ -21,7 +21,7 @@ namespace Crossbones.ALPR.Business.NumberPlates.Add
             }                
             else
             {
-                await _repository.Add(mapper.Map<NumberPlate>(command), token);
+                await _repository.Add(mapper.Map<NumberPlate>(command.Item), token);
 
                 context.Success($"Licnese Plate has been added, RecId: {command.Id}");
             }

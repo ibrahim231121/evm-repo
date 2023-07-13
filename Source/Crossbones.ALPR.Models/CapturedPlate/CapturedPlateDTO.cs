@@ -4,8 +4,6 @@
     {
         public long CapturedPlateId { get; set; }
 
-        public long NumberPlateId { get; set; }
-
         public string NumberPlate { get; set; }
 
         public string HotlistName { get; set; }

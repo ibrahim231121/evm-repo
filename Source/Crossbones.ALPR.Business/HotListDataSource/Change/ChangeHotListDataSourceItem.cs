@@ -8,7 +8,7 @@ namespace Crossbones.ALPR.Business.HotListDataSource.Change
     public class ChangeHotListDataSourceItem : RecIdItemMessage
     {
 
-        public ChangeHotListDataSourceItem(RecId recId) : base(recId)
+        public ChangeHotListDataSourceItem(RecId id) : base(id)
         {
 
         }

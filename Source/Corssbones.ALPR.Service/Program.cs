@@ -8,6 +8,7 @@ using Crossbones.Logging.Display;
 using Crossbones.Logging.Nlog;
 using Crossbones.Microkernel;
 using Crossbones.Modules.Business.Common;
+using Crossbones.Modules.Cache.Common.Configuration;
 using Crossbones.Modules.Common.Configuration;
 using Crossbones.Modules.Common.ServiceDiscovery;
 using Crossbones.Modules.Logger;
@@ -34,7 +35,8 @@ namespace Corssbones.ALPR.Service
             //configuration.VaultConfiguration.ServiceType = (byte)ServiceType.ALPR;
 
             // Step 2: Get your configuration DB string. You will need it to get tenants info  
-            var configurationDatabaseConnection = configuration.ConfigurationDatabases!.FirstOrDefault();
+            var configurationDatabaseConnection = configuration.DatabaseConfiguration
+                .ConfigurationDatabases?.FirstOrDefault() ?? throw new Exception("No database provided for reading configuration");
             // Code below is completely OPTIONAL. No need if you are sure this eats up processing time.
             // OR have it in DEVELOPMENT but disable in PRODUCTION. or Don't use it at all.
 #if DEBUG
@@ -74,7 +76,7 @@ namespace Corssbones.ALPR.Service
             // Step 4:Define log writers and pipe type
             //configuration.FluentdConfiguration.Tag = ServiceType.ALPR.ToString();
             var nLogWriter = new NlogWriter(new NlogConfiguration(config.LogFormat, config.FolderLocation.logging, configuration.FluentdConfiguration, ServiceType.ALPR.ToString()));
-            nLogWriter.Info("ALPR micro-service is starting...!", DateTime.UtcNow);
+            nLogWriter.Info("User micro-service is starting...!", DateTime.UtcNow);
             nLogWriter.Info($"Assembly file version {Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion}", DateTime.UtcNow);
             nLogWriter.Info($"Assembly Version {Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>().Version}", DateTime.UtcNow);
             config.PipeCreate = (pipe) => new InMemoryPipe(pipe);
@@ -88,19 +90,19 @@ namespace Corssbones.ALPR.Service
 
             string serviceId = await ConsulService.Register(configuration, nLogWriter);
 
-            configuration.MQTTConfiguration.ClientId = $"{configuration.Name}_{serviceId}";
-            log.Info($"Registering service on MQTTBroker with CliendId: {configuration.MQTTConfiguration.ClientId}");
+            //configuration.MQTTConfiguration.ClientId = $"{configuration.Name}_{serviceId}";
+            //log.Info($"Registering service on MQTTBroker with CliendId: {configuration.MQTTConfiguration.ClientId}");
 
             IDictionary<string, string> t0;
 
             if (configuration.VaultConfiguration != null && configuration.VaultConfiguration.Status)
             {
                 var vault = new VaultService(new VaultConfigurationProvider(configuration.VaultConfiguration));
-                t0 = vault.Read((byte)ServiceType.ALPR);
+                t0 = vault.Read(log, (byte)ServiceType.ALPR);
             }
             else
             {
-                t0 = await TenantConfiguration.Read(configurationDatabaseConnection, log, ServiceType.ALPR);
+                t0 = await TenantConfiguration.Read(configuration.DatabaseConfiguration, log, ServiceType.ALPR);
             }
 
 
@@ -108,7 +110,7 @@ namespace Corssbones.ALPR.Service
             // Register your ITenantDbProvider implementation
             //var t0 = await TenantConfiguration.Read(configurationDatabaseConnection, log, ServiceType.ALPR);
 
-            var t1 = t0!.ToDictionary(x => x.Key, x => x.Value);
+            var t1 = t0.ToDictionary(x => x.Key, x => x.Value);
 
             var tdp = new ALPRTenantsProvider(t1);
 
@@ -119,6 +121,14 @@ namespace Corssbones.ALPR.Service
             config.Register<IVaultConfiguration>(() => new VaultConfigurationProvider(configuration.VaultConfiguration), LifeSpan.Singleton);
             config.Register<SequenceConfiguration>(() => new SequenceConfiguration(5000, 10000, ALPRResources.HotList), LifeSpan.Singleton);
             //config.Register<SequenceConfiguration>(() => new SequenceConfiguration(5000, 10000, ALPRResources.ExortDetail), LifeSpan.Singleton);
+            config.Register<IServiceDiscoveryConfiguration>(() => configuration, LifeSpan.Singleton);
+            config.Register<CacheConfiguration>(() => new CacheConfiguration((byte)ServiceType.ALPR, configuration.RedisConfiguration), LifeSpan.Singleton);
+            config.Register<RedisConfiguration>(() => configuration.RedisConfiguration, LifeSpan.Singleton);
+
+
+            nLogWriter.Info("ALPR micro-service is starting...!", DateTime.UtcNow);
+            nLogWriter.Info($"Assembly file version {Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion}", DateTime.UtcNow);
+            nLogWriter.Info($"Assembly Version {Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>().Version}", DateTime.UtcNow);
 
             //List your workers. you need to provide this list to micro kernel. 
             var loader = new ManifestReader(

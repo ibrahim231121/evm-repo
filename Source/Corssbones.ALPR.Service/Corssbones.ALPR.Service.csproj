@@ -10,12 +10,12 @@
   <ItemGroup>
     <PackageReference Include="Crossbones.DI.SimpleInjector" Version="1.1.6.13" />
     <PackageReference Include="Crossbones.Logging.Display" Version="1.1.6.14" />
-    <PackageReference Include="Crossbones.Logging.Nlog" Version="1.1.6.15" />
+    <PackageReference Include="Crossbones.Logging.Nlog" Version="1.1.6.16" />
     <PackageReference Include="Crossbones.Microkernel" Version="1.1.6.13" />
-    <PackageReference Include="Crossbones.Modules.Logger" Version="1.1.6.13" />
-    <PackageReference Include="Crossbones.Modules.Sequence" Version="1.0.0.3" />
+    <PackageReference Include="Crossbones.Modules.Logger" Version="1.1.6.15" />
+    <PackageReference Include="Crossbones.Modules.Sequence" Version="1.0.0.4" />
     <PackageReference Include="Crossbones.Transport.InMemory" Version="1.1.6.13" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.7">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -28,7 +28,7 @@
 
   <ItemGroup>
     <None Update="Configuration.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

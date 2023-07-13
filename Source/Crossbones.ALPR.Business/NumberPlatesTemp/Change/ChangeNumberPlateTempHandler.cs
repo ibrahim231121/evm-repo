@@ -28,7 +28,7 @@ namespace Corssbones.ALPR.Business.NumberPlatesTemp.Change
                     NumberPlate.LastName = command.LastName;
                     NumberPlate.NumberPlate = command.NumberPlate;
                     NumberPlate.AgencyId = command.AgencyId;
-                    NumberPlate.StateId = byte.Parse(command.StateId);
+                    //NumberPlate.StateId = command.StateId;
                     NumberPlate.DateOfInterest = command.DateOfInterest;
                     NumberPlate.ViolationInfo = command.ViolationInfo;
                     NumberPlate.LicenseType = command.LicenseType;

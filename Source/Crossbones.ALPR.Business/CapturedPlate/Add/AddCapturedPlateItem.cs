@@ -5,7 +5,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Add
 {
     public class AddCapturedPlateItem : RecIdItemMessage
     {
-        public AddCapturedPlateItem(RecId recId, CapturedPlateDTO capturedPlateItem) : base(recId)
+        public AddCapturedPlateItem(RecId id, CapturedPlateDTO capturedPlateItem) : base(id)
         {
             CapturedPlateItem = capturedPlateItem;
         }

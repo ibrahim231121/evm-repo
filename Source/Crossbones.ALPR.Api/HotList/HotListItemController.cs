@@ -1,11 +1,11 @@
 ﻿using Crossbones.ALPR.Api.HotList.Service;
 using Crossbones.ALPR.Common.ValueObjects;
-using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Api;
 using Crossbones.Modules.Common.Pagination;
 using Crossbones.Modules.Common.Queryables;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using DTO = Crossbones.ALPR.Models.DTOs;
 
 namespace Crossbones.ALPR.Api.HotList
 {
@@ -20,9 +20,9 @@ namespace Crossbones.ALPR.Api.HotList
         [ProducesResponseType(201)]
         public async Task<IActionResult> Add([FromBody] DTO.HotListDTO hotListItem)
         {
-            var recId = await _service.Add(hotListItem);
+            var RecId = await _service.Add(hotListItem);
 
-            return Created($"{baseUrl}/HotList/{recId}", recId);
+            return Created($"{baseUrl}/HotList/{RecId}", RecId);
         }
 
         [HttpGet]
@@ -54,32 +54,32 @@ namespace Crossbones.ALPR.Api.HotList
             return PaginatedOk(await _service.GetAll(paging, filter, sort));
         }
 
-        [HttpGet("{recId}")]
-        public async Task<IActionResult> GetOne(long recId)
+        [HttpGet("{RecId}")]
+        public async Task<IActionResult> GetOne(long RecId)
         {
-            var res = await _service.Get(new RecId(recId));
+            var res = await _service.Get(new RecId(RecId));
             return Ok(res);
         }
 
-        [HttpPut("{recId}")]
+        [HttpPut("{RecId}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> Change(long recId, [FromBody] DTO.HotListDTO hotListItem)
+        public async Task<IActionResult> Change(long RecId, [FromBody] DTO.HotListDTO hotListItem)
         {
-            await _service.Change(new RecId(recId), hotListItem);
+            await _service.Change(new RecId(RecId), hotListItem);
             return NoContent();
         }
 
-        [HttpDelete("{recId}")]
+        [HttpDelete("{RecId}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> DeleteOne(long recId)
+        public async Task<IActionResult> DeleteOne(long RecId)
         {
-            await _service.Delete(new RecId(recId));
+            await _service.Delete(new RecId(RecId));
             return NoContent();
         }
 
         [HttpDelete]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> DeleteMany([FromQuery]string hotlistIds)
+        public async Task<IActionResult> DeleteMany([FromQuery] string hotlistIds)
         {
             List<long> idsToDelete = new List<long>();
 
@@ -87,9 +87,9 @@ namespace Crossbones.ALPR.Api.HotList
             {
                 string[] ids = hotlistIds.Split(",");
 
-                if(ids != null && ids.Length > 0)
+                if (ids != null && ids.Length > 0)
                 {
-                    foreach(string id in ids)
+                    foreach (string id in ids)
                     {
                         long hotlistId;
 

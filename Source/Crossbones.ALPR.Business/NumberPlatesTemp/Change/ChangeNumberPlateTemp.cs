@@ -4,13 +4,13 @@ namespace Corssbones.ALPR.Business.NumberPlatesTemp.Change
 {
     public class ChangeNumberPlatesTemp : RecIdItemMessage
     {
-        public ChangeNumberPlatesTemp(RecId recId) : base(recId) { }
+        public ChangeNumberPlatesTemp(RecId id) : base(id) { }
         public string ImportSerialId { get; set; }
         public string Ncicnumber { get; set; }
         public string AgencyId { get; set; }
         public DateTime DateOfInterest { get; set; }
         public string NumberPlate { get; set; }
-        public string StateId { get; set; }
+        public long StateId { get; set; }
         public string LicenseYear { get; set; }
         public string LicenseType { get; set; }
         public string VehicleYear { get; set; }

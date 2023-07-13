@@ -5,7 +5,7 @@ namespace Corssbones.ALPR.Business.SourceType.Change
     public class ChangeSourceType : RecIdItemMessage
     {
 
-        public ChangeSourceType(RecId recId) : base(recId)
+        public ChangeSourceType(RecId id) : base(id)
         {
 
         }

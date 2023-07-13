@@ -1,6 +1,7 @@
-﻿using Crossbones.ALPR.Common.ValueObjects;
-using DTO = Crossbones.ALPR.Models.DTOs;
+﻿using Corssbones.ALPR.Business.HotListNumberPlates.Add;
+using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.Modules.Common.Pagination;
+using DTO = Crossbones.ALPR.Models.DTOs;
 
 namespace Crossbones.ALPR.Api.HotListNumberPlates
 {
@@ -24,7 +25,7 @@ namespace Crossbones.ALPR.Api.HotListNumberPlates
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        Task<DTO.HotListNumberPlateDTO> Get(RecId recId);
+        Task<DTO.HotListNumberPlateDTO> Get(RecId Id);
 
         /// <summary>
         /// Edit or Update HotList Number Plate
@@ -32,19 +33,22 @@ namespace Crossbones.ALPR.Api.HotListNumberPlates
         /// <param name="Id"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task Change(RecId recId, DTO.HotListNumberPlateDTO request);
+        Task Change(RecId Id, DTO.HotListNumberPlateDTO request);
 
         /// <summary>
         /// Delete HotList Number Plate through Id
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        Task Delete(RecId recId);
+        Task Delete(RecId Id);
 
         /// <summary>
         /// Delete every HotList Number Plates
         /// </summary>
         /// <returns></returns>
         Task DeleteAll();
+
+        Task<AddHotListNumberPlate> GetAddCommand(DTO.HotListNumberPlateDTO request);
+
     }
 }

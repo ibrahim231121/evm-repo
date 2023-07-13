@@ -6,7 +6,7 @@ namespace Crossbones.ALPR.Business.HotListDataSource.Add
 {
     public class AddHotListDataSourceItem : RecIdItemMessage
     {
-        public AddHotListDataSourceItem(RecId recId) : base(recId)
+        public AddHotListDataSourceItem(RecId id) : base(id)
         {
         }
 

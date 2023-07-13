@@ -7,9 +7,9 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummaryStatus
         /// <summary>
         /// Gets the specified user captured plate identifier.
         /// </summary>
-        /// <param name="recId">The user captured plate identifier.</param>
+        /// <param name="userCapturedPlateId">The user captured plate identifier.</param>
         /// <returns></returns>
-        Task<Tuple<long, long>> Get(RecId recId);
+        Task<Tuple<long, long>> Get(RecId userCapturedPlateId);
 
         /// <summary>
         /// Gets all captured plate Id.

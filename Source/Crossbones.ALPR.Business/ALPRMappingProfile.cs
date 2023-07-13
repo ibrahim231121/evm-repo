@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Corssbones.ALPR.Business.NumberPlatesTemp.Add;
+using Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Business.HotList.Add;
 using Crossbones.ALPR.Business.HotListDataSource.Add;
 using Crossbones.ALPR.Business.NumberPlates.Add;
@@ -22,19 +23,19 @@ namespace Corssbones.ALPR.Business
             CreateMap<E.Hotlist, AddHotListItem>().ReverseMap();
             CreateMap<E.HotlistDataSource, AddHotListDataSourceItem>().ReverseMap();
 
-            CreateMap<E.HotListNumberPlate, DTO.HotListNumberPlateDTO>().ReverseMap();
+            CreateMap<HotListNumberPlate, DTO.HotListNumberPlateDTO>().ReverseMap();
 
-            CreateMap<E.Hotlist, DTO.HotListDTO>().ReverseMap();
+            CreateMap<Hotlist, DTO.HotListDTO>().ReverseMap();
 
-            CreateMap<E.NumberPlate, DTO.NumberPlateDTO>()
+            CreateMap<NumberPlate, DTO.NumberPlateDTO>()
                 .ForMember(dest => dest.DateOfInterest, x => x.MapFrom(src => src.DateOfInterest.ToString("yyyy-MM-dd HH:mm")))
                 .ForMember(dest => dest.StateName, x => x.MapFrom(src => src.State.StateName));
-            CreateMap<AddNumberPlate, E.NumberPlate>();
+            CreateMap<AddNumberPlate, NumberPlate>();
 
-            CreateMap<E.NumberPlateTemp, DTO.NumberPlateTempDTO>().ReverseMap();
-            CreateMap<AddNumberPlatesTemp,E.NumberPlateTemp>().ReverseMap();
+            CreateMap<NumberPlateTemp, DTO.NumberPlateTempDTO>().ReverseMap();
+            CreateMap<AddNumberPlatesTemp, NumberPlateTemp>().ReverseMap();
 
-            CreateMap<E.State, DTO.StateDTO>().ReverseMap();
+            CreateMap<State, DTO.StateDTO>().ReverseMap();
         }
     }
 }

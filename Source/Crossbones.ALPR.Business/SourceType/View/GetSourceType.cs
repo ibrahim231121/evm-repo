@@ -6,7 +6,7 @@ namespace Corssbones.ALPR.Business.SourceType.View
 {
     public class GetSourceType : RecIdItemMessage
     {
-        public GetSourceType(RecId recId, GetQueryFilter filter) : base(recId)
+        public GetSourceType(RecId sysSerial, GetQueryFilter filter) : base(sysSerial)
         {
             Filter = filter;
         }

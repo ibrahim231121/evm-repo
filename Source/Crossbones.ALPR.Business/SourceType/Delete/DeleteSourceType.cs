@@ -4,7 +4,7 @@ namespace Corssbones.ALPR.Business.SourceType.Delete
 {
     public class DeleteSourceType : RecIdItemMessage
     {
-        public DeleteSourceType(RecId recId) : base(recId)
+        public DeleteSourceType(RecId id) : base(id)
         {
 
         }

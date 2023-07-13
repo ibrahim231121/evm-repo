@@ -20,8 +20,8 @@ namespace Crossbones.ALPR.Api.NumberPlatesTemp
         [ProducesResponseType(201)]
         public async Task<IActionResult> Add([FromBody] DTO.NumberPlateTempDTO numberPlatesTemp)
         {
-            var recId = await _service.Add(numberPlatesTemp);
-            return Created($"{baseUrl}/LicensePlatesTemp/{recId}", recId);
+            var RecId = await _service.Add(numberPlatesTemp);
+            return Created($"{baseUrl}/LicensePlatesTemp/{RecId}", RecId);
         }
 
         [HttpGet]
@@ -30,26 +30,26 @@ namespace Crossbones.ALPR.Api.NumberPlatesTemp
             return PagedResult(await _service.GetAll(paging));
         }
 
-        [HttpGet("{recId}")]
-        public async Task<IActionResult> GetOne(long recId)
+        [HttpGet("{RecId}")]
+        public async Task<IActionResult> GetOne(long sysSerial)
         {
-            var res = await _service.Get(new RecId(recId));
+            var res = await _service.Get(new RecId(sysSerial));
             return Ok(res);
         }
 
-        [HttpPut("{recId}")]
+        [HttpPut("{RecId}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> Change(long recId, [FromBody] DTO.NumberPlateTempDTO numberPlatesTemp)
+        public async Task<IActionResult> Change(long sysSerial, [FromBody] DTO.NumberPlateTempDTO numberPlatesTemp)
         {
-            await _service.Change(new RecId(recId), numberPlatesTemp);
+            await _service.Change(new RecId(sysSerial), numberPlatesTemp);
             return NoContent();
         }
 
-        [HttpDelete("{recId}")]
+        [HttpDelete("{RecId}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> DeleteOne(long recId)
+        public async Task<IActionResult> DeleteOne(long RecId)
         {
-            await _service.Delete(new RecId(recId));
+            await _service.Delete(new RecId(RecId));
             return NoContent();
         }
         [HttpDelete]

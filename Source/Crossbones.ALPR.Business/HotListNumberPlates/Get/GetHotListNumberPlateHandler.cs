@@ -2,13 +2,13 @@
 using Corssbones.ALPR.Business.Enums;
 using Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Models;
-using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Query;
 using Crossbones.Modules.Common.Exceptions;
 using Crossbones.Modules.Common.Pagination;
-using LanguageExt;
 using Microsoft.EntityFrameworkCore;
+using DTO = Crossbones.ALPR.Models.DTOs;
+
 
 namespace Corssbones.ALPR.Business.HotListNumberPlates.Get
 {
@@ -43,6 +43,7 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Get
                 {
                     throw new RecordNotFound($"Unable to process your request because HotList Number Plate is not found against provided Id '{query.Id}'");
                 }
+                data.ForEach(x => { x.NumberPlate = numberPlates.FirstOrDefault(y => y.RecId == x.NumberPlatesId); x.HotList = hostLists.FirstOrDefault(z => z.RecId == x.HotListId); });
                 var res = _mapper.Map<List<DTO.HotListNumberPlateDTO>>(data);
                 return res;
             }

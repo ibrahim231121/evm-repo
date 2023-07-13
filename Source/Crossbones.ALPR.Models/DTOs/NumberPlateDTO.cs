@@ -35,5 +35,6 @@ namespace Crossbones.ALPR.Models.DTOs
         public string? ImportSerialId { get; set; }
         public string? HotList { get; set; }
         public string? StateName { get; set; }
+        public bool NeedFullInsertion { get; set; }
     }
 }

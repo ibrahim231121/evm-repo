@@ -1,11 +1,11 @@
 ﻿using Crossbones.ALPR.Common;
-using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Query;
 using Crossbones.Modules.Common;
 using Crossbones.Modules.Common.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.Geometries;
+using DTO = Crossbones.ALPR.Models.DTOs;
 using E = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.NumberPlateHistory.Get
@@ -22,7 +22,7 @@ namespace Corssbones.ALPR.Business.NumberPlateHistory.Get
 
             bool exist = await numberPlateRepository.Exists(numberPlate => numberPlate.RecId == query.Id, token);
 
-            if(exist)
+            if (exist)
             {
                 double latitude = 0;
                 bool filterByLatitude = false;
@@ -54,18 +54,18 @@ namespace Corssbones.ALPR.Business.NumberPlateHistory.Get
                     Join(statesRepository.Many(),
                          f => f.cp.State,
                          state => state.RecId,
-                         (f, state) => new { f.np , f.cp, state }).
+                         (f, state) => new { f.np, f.cp, state }).
                     Join(capturePlateSummaryRepository.Many(),
-                        f=>f.cp.RecId,
-                        cps=> cps.CapturePlateId,
-                        (f, cps) => new {f.np, f.cp, f.state, cps}).
+                        f => f.cp.RecId,
+                        cps => cps.CapturePlateId,
+                        (f, cps) => new { f.np, f.cp, f.state, cps }).
                     GroupJoin(hotlistNumberPlateRepository.Many().Include(hotListNumberPlate => hotListNumberPlate.NumberPlate).Include(hotListNumberPlate => hotListNumberPlate.HotList),
                         fh => fh.np.LicensePlate,
                         hotListNumberPlate => hotListNumberPlate.NumberPlate.LicensePlate,
                         (fh, hotListNumberPlate) => new { fh.np, fh.cp, fh.state, fh.cps, hotListNumberPlate }).
                     SelectMany(
                         hotlist => hotlist.hotListNumberPlate.DefaultIfEmpty(),
-                        (z,e) => new DTO.NumberPlateHistoryDTO()
+                        (z, e) => new DTO.NumberPlateHistoryDTO()
                         {
                             Id = z.np.RecId,
                             NumberPlate = z.np.LicensePlate,
@@ -81,7 +81,6 @@ namespace Corssbones.ALPR.Business.NumberPlateHistory.Get
                             State = z.state.StateName,
                             UserId = z.cps.UserId,
                             Unit = z.cps.UnitId,
-                            Notes = z.cp.Notes,
                             Distance = filterByLatitude ?
                                             filterByLongitude ? z.cp.GeoLocation.Distance(new Point(longitude, latitude)) :
                                                                 z.cp.GeoLocation.Distance(new Point(z.cp.GeoLocation.X, latitude)) :

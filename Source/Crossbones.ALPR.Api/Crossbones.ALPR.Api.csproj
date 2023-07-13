@@ -13,17 +13,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Crossbones.Modules.Api" Version="1.1.8.30" />
     <PackageReference Include="Crossbones.Modules.Sequence.Common" Version="1.0.0.4" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.8.2" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.8.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Crossbones.ALPR.Business\Corssbones.ALPR.Business.csproj" />
     <ProjectReference Include="..\Crossbones.ALPR.Common\Crossbones.ALPR.Common.csproj" />
     <ProjectReference Include="..\Crossbones.ALPR.Models\Crossbones.ALPR.Models.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ALPREvents\" />
   </ItemGroup>
 
 </Project>

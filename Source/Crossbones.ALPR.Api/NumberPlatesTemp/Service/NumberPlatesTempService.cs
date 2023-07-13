@@ -68,15 +68,15 @@ namespace Crossbones.ALPR.Api.NumberPlatesTemp.Service
 
             return PaginationHelper.GetPagedResponse(list, total);
         }
-        public async Task<DTO.NumberPlateTempDTO> Get(RecId recId)
+        public async Task<DTO.NumberPlateTempDTO> Get(RecId LPRecId)
         {
-            var query = new GetNumberPlatesTemp(recId, GetQueryFilter.Single);
+            var query = new GetNumberPlatesTemp(LPRecId, GetQueryFilter.Single);
             var res = await Inquire<IEnumerable<DTO.NumberPlateTempDTO>>(query);
             return res.FirstOrDefault();
         }
-        public async Task Change(RecId recId, DTO.NumberPlateTempDTO request)
+        public async Task Change(RecId LPRecId, DTO.NumberPlateTempDTO request)
         {
-            var cmd = new ChangeNumberPlatesTemp(recId)
+            var cmd = new ChangeNumberPlatesTemp(LPRecId)
             {
                 Ncicnumber = request.Ncicnumber,
                 FirstName = request.FirstName,
@@ -105,9 +105,9 @@ namespace Crossbones.ALPR.Api.NumberPlatesTemp.Service
             _ = await Execute(cmd);
         }
 
-        public async Task Delete(RecId recId)
+        public async Task Delete(RecId LPRecId)
         {
-            var cmd = new DeleteNumberPlatesTemp(recId);
+            var cmd = new DeleteNumberPlatesTemp(LPRecId);
             _ = await Execute(cmd);
         }
 

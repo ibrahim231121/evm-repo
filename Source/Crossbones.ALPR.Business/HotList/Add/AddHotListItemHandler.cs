@@ -1,8 +1,12 @@
-﻿using AutoMapper;
+﻿using Crossbones.Modules.Common.Exceptions;
+
+using AutoMapper;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
+
 using Crossbones.Modules.Common.Exceptions;
 using E = Corssbones.ALPR.Database.Entities;
+using AutoMapper;
 
 namespace Crossbones.ALPR.Business.HotList.Add
 {

@@ -1,14 +1,20 @@
 ﻿using Crossbones.ALPR.Common.ValueObjects;
+using E = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.HotListNumberPlates.Add
 {
     public class AddHotListNumberPlate : RecIdItemMessage
     {
-        public long HotListID { get; set; }
-        public long NumberPlatesId { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public AddHotListNumberPlate(RecId recId) : base(recId)
+        public AddHotListNumberPlate(RecId id) : base(id)
         {
         }
+
+        public E.HotListNumberPlate Item { get; set; }
+
+        public override string ToString()
+        {
+            return $"H_ID: {Item.HotListId} N_ID: {Item.NumberPlatesId}";
+        }
+
     }
 }

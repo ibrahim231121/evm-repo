@@ -8,7 +8,7 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Get
     {
         public Pager Paging { get; set; }
         public GetQueryFilter Filter { get; set; }
-        public GetHotListNumberPlate(RecId recId, GetQueryFilter filter) : base(recId)
+        public GetHotListNumberPlate(RecId sysSerial, GetQueryFilter filter) : base(sysSerial)
         {
             Filter = filter;
         }

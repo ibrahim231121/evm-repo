@@ -2,6 +2,8 @@
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
 using Crossbones.Modules.Common.Exceptions;
+using Newtonsoft.Json;
+using DTO = Crossbones.ALPR.Models.DTOs;
 using E = Corssbones.ALPR.Database.Entities;
 
 namespace Crossbones.ALPR.Business.HotListDataSource.Add
@@ -22,7 +24,7 @@ namespace Crossbones.ALPR.Business.HotListDataSource.Add
             else
             {
                 var res = mapper.Map<E.HotlistDataSource>(command.Item);
-
+                res.SchemaDefinition = JsonConvert.SerializeObject(new DTO.HotListDataSourceMappingDTO(), Formatting.Indented);
                 await _repository.Add(res, token);
                 context.Success($"HotListDataSource Item has been added, RecId:{command.Id}");
             }

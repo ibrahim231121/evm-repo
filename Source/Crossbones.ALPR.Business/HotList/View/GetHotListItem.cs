@@ -7,7 +7,7 @@ namespace Corssbones.ALPR.Business.HotList.Get
 {
     public class GetHotListItem : RecIdItemMessage
     {
-        public GetHotListItem(RecId recId, GetQueryFilter filter) : base(recId)
+        public GetHotListItem(RecId sysSerial, GetQueryFilter filter) : base(sysSerial)
         {
             QueryFilter = filter;
         }

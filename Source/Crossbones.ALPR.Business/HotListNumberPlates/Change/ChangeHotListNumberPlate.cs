@@ -9,7 +9,7 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Change
         public DateTime CreatedOn { get; set; }
         public DateTime LastUpdatedOn { get; set; }
         public byte[] LastTimeStamp { get; set; } = null!;
-        public ChangeHotListNumberPlate(RecId recId) : base(recId)
+        public ChangeHotListNumberPlate(RecId id) : base(id)
         {
         }
     }

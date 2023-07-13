@@ -7,9 +7,9 @@ using Corssbones.ALPR.Business.SourceType.View;
 using Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.ALPR.Models;
-using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Common.Pagination;
 using Crossbones.Modules.Sequence.Common.Interfaces;
+using DTO = Crossbones.ALPR.Models.DTOs;
 
 namespace Crossbones.ALPR.Api.HotListSourceType.Service
 {
@@ -31,9 +31,9 @@ namespace Crossbones.ALPR.Api.HotListSourceType.Service
             return id;
         }
 
-        public async Task Change(RecId recId, SourceType request)
+        public async Task Change(RecId SourceTypeRecId, SourceType request)
         {
-            var cmd = new ChangeSourceType(recId)
+            var cmd = new ChangeSourceType(SourceTypeRecId)
             {
                 SourceTypeName = request.SourceTypeName,
                 Description = request.Description,
@@ -41,9 +41,9 @@ namespace Crossbones.ALPR.Api.HotListSourceType.Service
             _ = await Execute(cmd);
         }
 
-        public async Task Delete(RecId recId)
+        public async Task Delete(RecId SourceTypeRecId)
         {
-            var cmd = new DeleteSourceType(recId);
+            var cmd = new DeleteSourceType(SourceTypeRecId);
             _ = await Execute(cmd);
         }
 
@@ -53,9 +53,9 @@ namespace Crossbones.ALPR.Api.HotListSourceType.Service
             _ = await Execute(cmd);
         }
 
-        public async Task<DTO.SourceTypeDTO> Get(RecId recId)
+        public async Task<DTO.SourceTypeDTO> Get(RecId SourceTypeRecId)
         {
-            var query = new GetSourceType(recId, GetQueryFilter.Single);
+            var query = new GetSourceType(SourceTypeRecId, GetQueryFilter.Single);
             var res = await Inquire<IEnumerable<DTO.SourceTypeDTO>>(query);
             return res.FirstOrDefault();
         }

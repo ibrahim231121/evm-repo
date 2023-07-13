@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Items\**" />
+    <EmbeddedResource Remove="Items\**" />
+    <None Remove="Items\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Crossbones.ALPR.Database\Crossbones.ALPR.Database.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -5,7 +5,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Change
 {
     public class ChangeCapturePlatesSummaryItem : RecIdItemMessage
     {
-        public ChangeCapturePlatesSummaryItem(RecId recId, CapturePlatesSummaryDTO updatedItem) : base(recId)
+        public ChangeCapturePlatesSummaryItem(RecId id, CapturePlatesSummaryDTO updatedItem) : base(id)
         {
             UpdatedItem = updatedItem;
         }

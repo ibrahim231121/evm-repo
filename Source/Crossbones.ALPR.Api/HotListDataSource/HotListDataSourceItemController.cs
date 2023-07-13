@@ -4,6 +4,7 @@ using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.Modules.Api;
 using Crossbones.Modules.Common.Pagination;
 using Microsoft.AspNetCore.Mvc;
+using DTO = Crossbones.ALPR.Models.DTOs;
 
 namespace Crossbones.ALPR.Api.HotListDataSource
 {
@@ -16,11 +17,11 @@ namespace Crossbones.ALPR.Api.HotListDataSource
 
         [HttpPost]
         [ProducesResponseType(201)]
-        public async Task<IActionResult> Add([FromBody] HotlistDataSource hotListDataSourceItem)
+        public async Task<IActionResult> Add([FromBody] DTO.HotListDataSourceDTO hotListDataSourceItem)
         {
-            var recId = await _service.Add(hotListDataSourceItem);
+            var RecId = await _service.Add(hotListDataSourceItem);
 
-            return Created($"{baseUrl}/HotListDataSource/{recId}", recId);
+            return Created($"{baseUrl}/HotListDataSource/{RecId}", RecId);
         }
 
         [HttpGet]
@@ -29,26 +30,26 @@ namespace Crossbones.ALPR.Api.HotListDataSource
             return PaginatedOk(await _service.GetAll(paging));
         }
 
-        [HttpGet("{recId}")]
-        public async Task<IActionResult> GetOne(long recId)
+        [HttpGet("{RecId}")]
+        public async Task<IActionResult> GetOne(long RecId)
         {
-            var res = await _service.Get(new RecId(recId));
+            var res = await _service.Get(new RecId(RecId));
             return Ok(res);
         }
 
-        [HttpPut("{recId}")]
+        [HttpPut("{RecId}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> Change(long recId, [FromBody] HotlistDataSource hotListDataSourceItem)
+        public async Task<IActionResult> Change(long RecId, [FromBody] HotlistDataSource hotListDataSourceItem)
         {
-            await _service.Change(new RecId(recId), hotListDataSourceItem);
+            await _service.Change(new RecId(RecId), hotListDataSourceItem);
             return NoContent();
         }
 
-        [HttpDelete("{recId}")]
+        [HttpDelete("{RecId}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> DeleteOne(long recId)
+        public async Task<IActionResult> DeleteOne(long RecId)
         {
-            await _service.Delete(new RecId(recId));
+            await _service.Delete(new RecId(RecId));
             return NoContent();
         }
 

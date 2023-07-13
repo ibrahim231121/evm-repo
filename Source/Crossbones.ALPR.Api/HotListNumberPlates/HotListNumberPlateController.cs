@@ -1,10 +1,10 @@
 ﻿using Crossbones.ALPR.Common;
 using Crossbones.ALPR.Common.ValueObjects;
-using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Api;
 using Crossbones.Modules.Common.Pagination;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using DTO = Crossbones.ALPR.Models.DTOs;
 
 namespace Crossbones.ALPR.Api.HotListNumberPlates
 {
@@ -43,21 +43,21 @@ namespace Crossbones.ALPR.Api.HotListNumberPlates
             return PagedResult(result);
         }
 
-        [HttpGet("{recId}")]
-        public async Task<IActionResult> GetOne(long recId)
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetOne(long Id)
         {
-            var res = await hotListNumberPlateService.Get(new RecId(recId));
+            var res = await hotListNumberPlateService.Get(new RecId(Id));
             return Ok(res);
         }
 
-        [HttpPut("{recId}")]
+        [HttpPut("{Id}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> Change(long recId, [FromBody] DTO.HotListNumberPlateDTO hotListNumberPlate)
+        public async Task<IActionResult> Change(long Id, [FromBody] DTO.HotListNumberPlateDTO hotListNumberPlate)
         {
             (bool isValid, string errorList) = validateModel.Validate(hotListNumberPlate);
             if (isValid)
             {
-                await hotListNumberPlateService.Change(new RecId(recId), hotListNumberPlate);
+                await hotListNumberPlateService.Change(new RecId(Id), hotListNumberPlate);
                 return NoContent();
             }
             else
@@ -66,11 +66,11 @@ namespace Crossbones.ALPR.Api.HotListNumberPlates
             }
         }
 
-        [HttpDelete("{recId}")]
+        [HttpDelete("{Id}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> DeleteOne(long recId)
+        public async Task<IActionResult> DeleteOne(long Id)
         {
-            await hotListNumberPlateService.Delete(new RecId(recId));
+            await hotListNumberPlateService.Delete(new RecId(Id));
             return NoContent();
         }
 

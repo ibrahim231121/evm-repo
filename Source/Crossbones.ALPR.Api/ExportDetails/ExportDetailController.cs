@@ -1,10 +1,10 @@
 ﻿using Crossbones.ALPR.Common;
 using Crossbones.ALPR.Common.ValueObjects;
-using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Api;
 using Crossbones.Modules.Common.Pagination;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using DTO = Crossbones.ALPR.Models.DTOs;
 
 namespace Crossbones.ALPR.Api.ExportDetails
 {
@@ -42,21 +42,21 @@ namespace Crossbones.ALPR.Api.ExportDetails
             return PagedResult(await exportDetailService.GetAll(paging));
         }
 
-        [HttpGet("{recId}")]
-        public async Task<IActionResult> GetOne(long recId)
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetOne(long Id)
         {
-            var res = await exportDetailService.Get(new RecId(recId));
+            var res = await exportDetailService.Get(new RecId(Id));
             return Ok(res);
         }
 
-        [HttpPut("{recId}")]
+        [HttpPut("{Id}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> Change(long recId, [FromBody] DTO.ExportDetailDTO exportDetail)
+        public async Task<IActionResult> Change(long Id, [FromBody] DTO.ExportDetailDTO exportDetail)
         {
             (bool isValid, string errorList) = validateModel.Validate(exportDetail);
             if (isValid)
             {
-                await exportDetailService.Change(new RecId(recId), exportDetail);
+                await exportDetailService.Change(new RecId(Id), exportDetail);
                 return NoContent();
             }
             else
@@ -65,11 +65,11 @@ namespace Crossbones.ALPR.Api.ExportDetails
             }
         }
 
-        [HttpDelete("{recId}")]
+        [HttpDelete("{Id}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> DeleteOne(long recId)
+        public async Task<IActionResult> DeleteOne(long Id)
         {
-            await exportDetailService.Delete(new RecId(recId));
+            await exportDetailService.Delete(new RecId(Id));
             return NoContent();
         }
 

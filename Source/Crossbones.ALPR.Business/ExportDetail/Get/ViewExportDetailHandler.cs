@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using Corssbones.ALPR.Business.Enums;
-using DTO = Crossbones.ALPR.Models.DTOs;
+using Crossbones.ALPR.Models;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Query;
 using Crossbones.Modules.Common.Exceptions;
 using Crossbones.Modules.Common.Pagination;
 using Microsoft.EntityFrameworkCore;
+using DTO = Crossbones.ALPR.Models.DTOs;
 using E = Corssbones.ALPR.Database.Entities;
-using Crossbones.ALPR.Models;
 
 namespace Corssbones.ALPR.Business.ExportDetail.Get
 {

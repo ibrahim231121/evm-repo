@@ -5,7 +5,7 @@ namespace Crossbones.ALPR.Business.HotListDataSource.Delete
 {
     public class DeleteHotListDataSourceItem : RecIdItemMessage
     {
-        public DeleteHotListDataSourceItem(RecId recId) : base(recId)
+        public DeleteHotListDataSourceItem(RecId id) : base(id)
         {
 
         }

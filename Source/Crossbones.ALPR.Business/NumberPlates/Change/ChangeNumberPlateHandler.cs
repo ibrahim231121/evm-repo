@@ -29,7 +29,7 @@ namespace Crossbones.ALPR.Business.NumberPlates.Change
                     NumberPlate.LastName = command.LastName;
                     NumberPlate.LicensePlate = command.NumberPlate;
                     NumberPlate.AgencyId = command.AgencyId;
-                    NumberPlate.StateId = command.StateId;
+                    //NumberPlate.StateId = command.StateId;
                     NumberPlate.DateOfInterest = command.DateOfInterest;
                     NumberPlate.ViolationInfo = command.ViolationInfo;
                     NumberPlate.LicenseType = command.LicenseType;
