@@ -1,12 +1,12 @@
 ﻿
 using Corssbones.ALPR.Business.Enums;
 using Crossbones.ALPR.Models;
+using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Query;
 using Crossbones.Modules.Common.Exceptions;
 using Crossbones.Modules.Common.Pagination;
 using Microsoft.EntityFrameworkCore;
-using DTO = Crossbones.ALPR.Models.DTOs;
 using E = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.SourceType.View

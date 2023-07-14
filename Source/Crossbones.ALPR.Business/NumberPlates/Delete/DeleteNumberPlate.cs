@@ -5,7 +5,7 @@ namespace Crossbones.ALPR.Business.NumberPlates.Delete
 {
     public class DeleteNumberPlate : RecIdItemMessage
     {
-        public DeleteNumberPlate(RecId id) : base(id)
+        public DeleteNumberPlate(RecId recId) : base(recId)
         {
 
         }

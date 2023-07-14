@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Crossbones.Modules.Common" Version="1.0.0.54" />
+    <PackageReference Include="Crossbones.Modules.Common" Version="1.0.0.58" />
     <PackageReference Include="Crossbones.Modules.MQTT.Config" Version="1.0.0.6" />
     <PackageReference Include="Crossbones.Modules.Vault" Version="1.0.0.7" />
   </ItemGroup>

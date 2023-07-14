@@ -7,7 +7,7 @@ namespace Corssbones.ALPR.Business.HotListDataSource.View
 {
     public class GetHotListDataSource : RecIdItemMessage
     {
-        public GetHotListDataSource(RecId sysSerial, GetQueryFilter filter) : base(sysSerial)
+        public GetHotListDataSource(RecId recId, GetQueryFilter filter) : base(recId)
         {
             Filter = filter;
         }

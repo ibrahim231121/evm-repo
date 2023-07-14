@@ -5,7 +5,7 @@ namespace Crossbones.ALPR.Business.NumberPlates.Change
 {
     public class ChangeNumberPlate : RecIdItemMessage
     {
-        public ChangeNumberPlate(RecId id) : base(id) { }
+        public ChangeNumberPlate(RecId recId) : base(recId) { }
         public string? ImportSerialId { get; set; }
         public string? Ncicnumber { get; set; }
         public string? AgencyId { get; set; }

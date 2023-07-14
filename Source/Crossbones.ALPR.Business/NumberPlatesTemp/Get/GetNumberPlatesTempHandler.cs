@@ -2,12 +2,12 @@
 using Corssbones.ALPR.Business.Enums;
 using Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Models;
+using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Query;
 using Crossbones.Modules.Common.Exceptions;
 using Crossbones.Modules.Common.Pagination;
 using Microsoft.EntityFrameworkCore;
-using DTO = Crossbones.ALPR.Models.DTOs;
 
 namespace Corssbones.ALPR.Business.NumberPlatesTemp.Get
 {
@@ -35,7 +35,7 @@ namespace Corssbones.ALPR.Business.NumberPlatesTemp.Get
                 {
                     throw new RecordNotFound($"Unable to process your request because License Plate data is not found against provided Id {query.Id}");
                 }
-
+                
                 var res = mapper.Map<List<DTO.NumberPlateTempDTO>>(data);
                 return res;
             }

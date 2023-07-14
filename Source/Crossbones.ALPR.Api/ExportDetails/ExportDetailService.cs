@@ -5,9 +5,9 @@ using Corssbones.ALPR.Business.ExportDetail.Delete;
 using Corssbones.ALPR.Business.ExportDetail.Get;
 using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.ALPR.Models;
+using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Common.Pagination;
 using Crossbones.Modules.Sequence.Common.Interfaces;
-using DTO = Crossbones.ALPR.Models.DTOs;
 
 namespace Crossbones.ALPR.Api.ExportDetails
 {
@@ -32,9 +32,9 @@ namespace Crossbones.ALPR.Api.ExportDetails
             return id;
         }
 
-        public async Task Change(RecId Id, DTO.ExportDetailDTO request)
+        public async Task Change(RecId recId, DTO.ExportDetailDTO request)
         {
-            var cmd = new ChangeExportDetail(Id)
+            var cmd = new ChangeExportDetail(recId)
             {
                 TicketNumber = request.TicketNumber,
                 CapturedPlateId = request.CapturedPlateId,
@@ -45,9 +45,9 @@ namespace Crossbones.ALPR.Api.ExportDetails
             _ = await Execute(cmd);
         }
 
-        public async Task Delete(RecId Id)
+        public async Task Delete(RecId recId)
         {
-            var cmd = new DeleteExportDetail(Id);
+            var cmd = new DeleteExportDetail(recId);
             _ = await Execute(cmd);
         }
 
@@ -57,9 +57,9 @@ namespace Crossbones.ALPR.Api.ExportDetails
             _ = await Execute(cmd);
         }
 
-        public async Task<DTO.ExportDetailDTO> Get(RecId Id)
+        public async Task<DTO.ExportDetailDTO> Get(RecId recId)
         {
-            var query = new GetExportDetail(Id, GetQueryFilter.Single);
+            var query = new GetExportDetail(recId, GetQueryFilter.Single);
             var res = await Inquire<IEnumerable<DTO.ExportDetailDTO>>(query);
             return res.FirstOrDefault();
         }

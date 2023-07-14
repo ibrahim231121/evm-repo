@@ -11,8 +11,8 @@ namespace Corssbones.ALPR.Database
             var builder = new DbContextOptionsBuilder<AlprContext>();
             builder.UseSqlServer(cnnStr!);
             var ctx = new AlprContext(builder.Options, messageChannel, tenantServiceId);
-            ctx.Database?.OpenConnection();
-
+            /*            ctx.Database?.OpenConnection();
+            */
             return ctx;
         }
 

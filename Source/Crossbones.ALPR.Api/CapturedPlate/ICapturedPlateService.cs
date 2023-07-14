@@ -24,9 +24,9 @@ namespace Crossbones.ALPR.Api.CapturedPlate
         /// <summary>
         /// Gets the specified captured plate identifier.
         /// </summary>
-        /// <param name="capturedPlateId">The captured plate identifier.</param>
+        /// <param name="recId">The captured plate identifier.</param>
         /// <returns></returns>
-        Task<CapturedPlateDTO> Get(RecId capturedPlateId);
+        Task<CapturedPlateDTO> Get(RecId recId);
 
 
         /// <summary>
@@ -42,18 +42,18 @@ namespace Crossbones.ALPR.Api.CapturedPlate
         /// <summary>
         /// Changes the specified captured plate system serial.
         /// </summary>
-        /// <param name="capturedPlateRecId">The captured plate system serial.</param>
+        /// <param name="recId">The captured plate system serial.</param>
         /// <param name="capturedPlateItem">The captured plate item.</param>
         /// <returns></returns>
-        Task Change(RecId capturedPlateRecId, CapturedPlateDTO capturedPlateItem);
+        Task Change(RecId recId, CapturedPlateDTO capturedPlateItem);
 
 
         /// <summary>
         /// Deletes the specified captured plate system serial.
         /// </summary>
-        /// <param name="capturedPlateRecId">The captured plate system serial.</param>
+        /// <param name="recId">The captured plate system serial.</param>
         /// <returns></returns>
-        Task Delete(RecId capturedPlateRecId);
+        Task Delete(RecId recId);
 
 
         /// <summary>

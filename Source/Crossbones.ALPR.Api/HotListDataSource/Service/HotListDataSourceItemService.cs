@@ -5,6 +5,7 @@ using Crossbones.ALPR.Business.HotListDataSource.Add;
 using Crossbones.ALPR.Business.HotListDataSource.Change;
 using Crossbones.ALPR.Business.HotListDataSource.Delete;
 using Crossbones.ALPR.Common.ValueObjects;
+using Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Common;
 using Crossbones.Modules.Common.Pagination;
 using Crossbones.Modules.Common.Queryables;
@@ -39,9 +40,9 @@ namespace Crossbones.ALPR.Api.HotListDataSource.Service
         }
 
 
-        public async Task Change(RecId RecId, E.HotlistDataSource request)
+        public async Task Change(RecId recId, E.HotlistDataSource request)
         {
-            ChangeHotListDataSourceItem _object = new(RecId);
+            ChangeHotListDataSourceItem _object = new(recId);
 
             var cmd = mapper.Map<E.HotlistDataSource, DTO.HotListDataSourceDTO>(request);
             _object.Item = cmd;
@@ -51,9 +52,9 @@ namespace Crossbones.ALPR.Api.HotListDataSource.Service
         }
 
 
-        public async Task Delete(RecId HotlistRecId)
+        public async Task Delete(RecId recId)
         {
-            var cmd = new DeleteHotListDataSourceItem(HotlistRecId);
+            var cmd = new DeleteHotListDataSourceItem(recId);
             _ = await Execute(cmd);
         }
 
@@ -63,21 +64,21 @@ namespace Crossbones.ALPR.Api.HotListDataSource.Service
             _ = await Execute(cmd);
         }
 
-        public async Task<DTO.HotListDataSourceDTO> Get(RecId HotlistRecId)
+        public async Task<HotListDataSourceDTO> Get(RecId recId)
         {
-            var query = new GetHotListDataSource(HotlistRecId, GetQueryFilter.Single);
-            var res = await Inquire<IEnumerable<DTO.HotListDataSourceDTO>>(query);
+            var query = new GetHotListDataSource(recId, GetQueryFilter.Single);
+            var res = await Inquire<IEnumerable<HotListDataSourceDTO>>(query);
             return res.FirstOrDefault();
         }
 
-        public async Task<PageResponse<DTO.HotListDataSourceDTO>> GetAll(Pager paging)
+        public async Task<PageResponse<HotListDataSourceDTO>> GetAll(Pager paging)
         {
             GridFilter filter = GetGridFilter();
             GridSort sort = GetGridSort();
 
             var dataQuery = new GetHotListDataSource(RecId.Empty, GetQueryFilter.All)
             { Paging = paging, GridFilter = filter, Sort = sort };
-            return await Inquire<PageResponse<DTO.HotListDataSourceDTO>>(dataQuery);
+            return await Inquire<PageResponse<HotListDataSourceDTO>>(dataQuery);
         }
 
     }

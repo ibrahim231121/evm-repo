@@ -4,7 +4,7 @@ namespace Corssbones.ALPR.Business.NumberPlatesTemp.Change
 {
     public class ChangeNumberPlatesTemp : RecIdItemMessage
     {
-        public ChangeNumberPlatesTemp(RecId id) : base(id) { }
+        public ChangeNumberPlatesTemp(RecId recId) : base(recId) { }
         public string ImportSerialId { get; set; }
         public string Ncicnumber { get; set; }
         public string AgencyId { get; set; }

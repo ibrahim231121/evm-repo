@@ -20,7 +20,6 @@ namespace Crossbones.ALPR.Api.NumberPlates.Service
     {
         readonly ISequenceProxy _numberPlatesSequenceProxy;
         readonly IMapper mapper;
-
         public NumberPlateService(ServiceArguments args, ISequenceProxyFactory sequenceProxyFactory, IMapper _mapper) : base(args)
         {
             _numberPlatesSequenceProxy = sequenceProxyFactory.GetProxy(ALPRResources.NumberPlate);
@@ -40,19 +39,9 @@ namespace Crossbones.ALPR.Api.NumberPlates.Service
             var numberPlateSysSerial = new RecId(await _numberPlatesSequenceProxy.Next(CancellationToken.None));
             var command = new AddNumberPlate(numberPlateSysSerial);
 
-            command.Item = new E.NumberPlate()
-            {
-                RecId = command.Id,
-                LicensePlate = request.LicensePlate,
-                DateOfInterest = Convert.ToDateTime(request.DateOfInterest),
-                CreatedOn = request.CreatedOn,
-                LastUpdatedOn = request.LastUpdatedOn,
-                //LastTimeStamp = request.LastTimeStamp,
-            };
-
-            //var _obj = mapper.Map<M.NumberPlates, E.NumberPlate>(request);
-            //command.Item = _obj;
-            //command.Item.SysSerial = command.Id;
+            var _obj = mapper.Map<DTO.NumberPlateDTO, E.NumberPlate>(request);
+            command.Item = _obj;
+            command.Item.RecId = command.Id;
 
             return command;
         }
@@ -67,31 +56,15 @@ namespace Crossbones.ALPR.Api.NumberPlates.Service
             return await Inquire<PageResponse<DTO.NumberPlateDTO>>(dataQuery);
 
         }
-        public async Task<PagedResponse<DTO.NumberPlateDTO>> GetAllByHotList(Pager page, long hotListId)
-        {
-            var dataQuery = new GetNumberPlate(RecId.Empty, GetQueryFilter.FilterByHostList, hotListId)
-            {
-                Paging = page
-            };
-            var t0 = Inquire<IEnumerable<DTO.NumberPlateDTO>>(dataQuery);
 
-            var countQuery = new GetNumberPlate(RecId.Empty, GetQueryFilter.Count);
-            var t1 = Inquire<RowCount>(countQuery);
 
-            await Task.WhenAll(t0, t1);
-            var list = await t0;
-            var total = (await t1).Total;
-
-            return PaginationHelper.GetPagedResponse(list, total);
-        }
-
-        public async Task<PageResponse<DTO.NumberPlateHistoryDTO>> GetNumberPlateHistory(RecId numberPlateId, Pager pager)
+        public async Task<PageResponse<DTO.NumberPlateHistoryDTO>> GetNumberPlateHistory(RecId recId, Pager pager)
         {
             GridFilter filter = GetGridFilter();
 
             GridSort sort = GetGridSort();
 
-            var dataQuery = new GetNumberPlateHistoryItem(numberPlateId, pager, filter, sort);
+            var dataQuery = new GetNumberPlateHistoryItem(recId, pager, filter, sort);
 
             var taskGetNumberPlateHistory = Inquire<PageResponse<DTO.NumberPlateHistoryDTO>>(dataQuery);
 
@@ -99,9 +72,9 @@ namespace Crossbones.ALPR.Api.NumberPlates.Service
 
             return numberPlateHistory;
         }
-        public async Task Change(RecId LPRecId, DTO.NumberPlateDTO request)
+        public async Task Change(RecId recId, DTO.NumberPlateDTO request)
         {
-            var cmd = new ChangeNumberPlate(LPRecId)
+            var cmd = new ChangeNumberPlate(recId)
             {
                 Ncicnumber = request.NCICNumber,
                 FirstName = request.FirstName,
@@ -132,9 +105,9 @@ namespace Crossbones.ALPR.Api.NumberPlates.Service
             _ = await Execute(cmd);
         }
 
-        public async Task Delete(RecId LPSysSerial)
+        public async Task Delete(RecId recId)
         {
-            var cmd = new DeleteNumberPlate(LPSysSerial);
+            var cmd = new DeleteNumberPlate(recId);
             _ = await Execute(cmd);
         }
 
@@ -144,11 +117,30 @@ namespace Crossbones.ALPR.Api.NumberPlates.Service
             _ = await Execute(cmd);
         }
 
-        public async Task<DTO.NumberPlateDTO> Get(RecId LPSysSerial)
+        public async Task<DTO.NumberPlateDTO> Get(RecId RecId)
         {
-            var query = new GetNumberPlate(LPSysSerial, GetQueryFilter.Single);
-            var res = await Inquire<IEnumerable<DTO.NumberPlateDTO>>(query);
-            return res.FirstOrDefault();
+            var query = new GetNumberPlate(RecId, GetQueryFilter.Single);
+            var res = await Inquire<DTO.NumberPlateDTO>(query);
+            return res;
         }
+
+        public async Task<PagedResponse<DTO.NumberPlateDTO>> GetAllByHotList(Pager page, long hotListId)
+        {
+            var dataQuery = new GetNumberPlate(RecId.Empty, GetQueryFilter.FilterByHostList, hotListId)
+            {
+                Paging = page
+            };
+            var t0 = Inquire<IEnumerable<DTO.NumberPlateDTO>>(dataQuery);
+
+            var countQuery = new GetNumberPlate(RecId.Empty, GetQueryFilter.Count);
+            var t1 = Inquire<RowCount>(countQuery);
+
+            await Task.WhenAll(t0, t1);
+            var list = await t0;
+            var total = (await t1).Total;
+
+            return PaginationHelper.GetPagedResponse(list, total);
+        }
+
     }
 }

@@ -8,7 +8,6 @@ using Crossbones.Logging.Display;
 using Crossbones.Logging.Nlog;
 using Crossbones.Microkernel;
 using Crossbones.Modules.Business.Common;
-using Crossbones.Modules.Cache.Common.Configuration;
 using Crossbones.Modules.Common.Configuration;
 using Crossbones.Modules.Common.ServiceDiscovery;
 using Crossbones.Modules.Logger;
@@ -28,8 +27,7 @@ namespace Corssbones.ALPR.Service
             // Step 1: Define your configuration files and read them. Although you can read multiple files, of JSON and XML,
             // try not misusing the feature by ONLY specifying the files that actually exist. that is, if you do not  
             // use an XML file, there is absolutely NO POINT mentioning one in the files.  
-            var files = new[] { @"Configuration.json" };
-            var configuration = FileConfiguration.Read<ALPRServiceConfiguration>(files);
+            var configuration = FileConfiguration.Read<ALPRServiceConfiguration>(new[] { @"Configuration.json" });
             configuration.Name = ServiceType.ALPR.ToString();
             var logPathInfo = (logFileName: DateTime.UtcNow.ToString("MMddyyyy"), rootDir: AppDomain.CurrentDomain.BaseDirectory);
             //configuration.VaultConfiguration.ServiceType = (byte)ServiceType.ALPR;
@@ -57,7 +55,9 @@ namespace Corssbones.ALPR.Service
                 {
                     MessageLength = configuration.LogFormat.ExceptionLength,
                     TextLength = configuration.LogFormat.TextLength,
-                    ExceptionLength = configuration.LogFormat.ExceptionLength
+                    ExceptionLength = configuration.LogFormat.ExceptionLength,
+                    MinLevel = NLog.LogLevel.Error
+                    
                 },
                 FolderLocation = new Crossbones.Microkernel.Structures.FolderLocation(
                     String.Empty, String.Empty, String.Empty,
@@ -76,11 +76,11 @@ namespace Corssbones.ALPR.Service
             // Step 4:Define log writers and pipe type
             //configuration.FluentdConfiguration.Tag = ServiceType.ALPR.ToString();
             var nLogWriter = new NlogWriter(new NlogConfiguration(config.LogFormat, config.FolderLocation.logging, configuration.FluentdConfiguration, ServiceType.ALPR.ToString()));
-            nLogWriter.Info("User micro-service is starting...!", DateTime.UtcNow);
+            nLogWriter.Info("ALPR micro-service is starting...!", DateTime.UtcNow);
             nLogWriter.Info($"Assembly file version {Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion}", DateTime.UtcNow);
             nLogWriter.Info($"Assembly Version {Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>().Version}", DateTime.UtcNow);
-            config.PipeCreate = (pipe) => new InMemoryPipe(pipe);
-            config.PipeType = typeof(InMemoryPipe);
+            //config.PipeCreate = (pipe) => new InMemoryPipe(pipe);
+            //config.PipeType = typeof(InMemoryPipe);
             config.LogCreaters.Add((fmt, path) => nLogWriter);
             config.LogCreaters.Add((fmt, path) => new DisplayWriter(fmt));
 
@@ -122,13 +122,9 @@ namespace Corssbones.ALPR.Service
             config.Register<SequenceConfiguration>(() => new SequenceConfiguration(5000, 10000, ALPRResources.HotList), LifeSpan.Singleton);
             //config.Register<SequenceConfiguration>(() => new SequenceConfiguration(5000, 10000, ALPRResources.ExortDetail), LifeSpan.Singleton);
             config.Register<IServiceDiscoveryConfiguration>(() => configuration, LifeSpan.Singleton);
-            config.Register<CacheConfiguration>(() => new CacheConfiguration((byte)ServiceType.ALPR, configuration.RedisConfiguration), LifeSpan.Singleton);
-            config.Register<RedisConfiguration>(() => configuration.RedisConfiguration, LifeSpan.Singleton);
+            /*config.Register<CacheConfiguration>(() => new CacheConfiguration((byte)ServiceType.ALPR, configuration.RedisConfiguration), LifeSpan.Singleton);
+            config.Register<RedisConfiguration>(() => configuration.RedisConfiguration, LifeSpan.Singleton);*/
 
-
-            nLogWriter.Info("ALPR micro-service is starting...!", DateTime.UtcNow);
-            nLogWriter.Info($"Assembly file version {Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion}", DateTime.UtcNow);
-            nLogWriter.Info($"Assembly Version {Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>().Version}", DateTime.UtcNow);
 
             //List your workers. you need to provide this list to micro kernel. 
             var loader = new ManifestReader(
@@ -148,7 +144,7 @@ namespace Corssbones.ALPR.Service
             };
 
             // Start your micro kernel. if everything is correct, it should run fine at this stage
-            using (var kernel = new Kernel<InMemoryPipe>(config, loader, (x) => new InMemoryPipe(x)))
+            using (var kernel = new Kernel<InMemoryPipe>(config, loader, (x) => new InMemoryPipe(x), serviceId))
             {
                 var cts = new CancellationTokenSource();
                 kernel.Run(cts.Token);

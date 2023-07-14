@@ -4,11 +4,11 @@ using Crossbones.ALPR.Business.HotList.Add;
 using Crossbones.ALPR.Business.HotList.Change;
 using Crossbones.ALPR.Business.HotList.Delete;
 using Crossbones.ALPR.Common.ValueObjects;
+using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Common;
 using Crossbones.Modules.Common.Pagination;
 using Crossbones.Modules.Common.Queryables;
 using Crossbones.Modules.Sequence.Common.Interfaces;
-using DTO = Crossbones.ALPR.Models.DTOs;
 
 namespace Crossbones.ALPR.Api.HotList.Service
 {
@@ -26,20 +26,20 @@ namespace Crossbones.ALPR.Api.HotList.Service
             return id;
         }
 
-        public async Task Change(RecId HotlistRecId, DTO.HotListDTO request)
+        public async Task Change(RecId recId, DTO.HotListDTO request)
         {
-            var cmd = new ChangeHotListItem(HotlistRecId, request);
+            var cmd = new ChangeHotListItem(recId, request);
             _ = await Execute(cmd);
         }
 
-        public async Task Delete(RecId HotlistRecId)
+        public async Task Delete(RecId recId)
         {
-            if (HotlistRecId == null || HotlistRecId <= 0 || HotlistRecId == RecId.Empty)
+            if (recId == null || recId <= 0 || recId == RecId.Empty)
             {
-                HotlistRecId = new RecId(-1);
+                recId = new RecId(-1);
             }
 
-            var cmd = new DeleteHotListItem(HotlistRecId);
+            var cmd = new DeleteHotListItem(recId);
             _ = await Execute(cmd);
 
         }
@@ -50,9 +50,9 @@ namespace Crossbones.ALPR.Api.HotList.Service
             _ = await Execute(cmd);
         }
 
-        public async Task<DTO.HotListDTO> Get(RecId HotlistRecId)
+        public async Task<DTO.HotListDTO> Get(RecId recId)
         {
-            var query = new GetHotListItem(HotlistRecId, GetQueryFilter.Single);
+            var query = new GetHotListItem(recId, GetQueryFilter.Single);
             var res = await Inquire<DTO.HotListDTO>(query);
             return res;
         }

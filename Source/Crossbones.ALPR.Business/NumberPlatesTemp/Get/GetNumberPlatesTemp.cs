@@ -6,7 +6,7 @@ namespace Corssbones.ALPR.Business.NumberPlatesTemp.Get
 {
     public class GetNumberPlatesTemp : RecIdItemMessage
     {
-        public GetNumberPlatesTemp(RecId sysSerial, GetQueryFilter filter) : base(sysSerial)
+        public GetNumberPlatesTemp(RecId recId, GetQueryFilter filter) : base(recId)
         {
             Filter = filter;
         }

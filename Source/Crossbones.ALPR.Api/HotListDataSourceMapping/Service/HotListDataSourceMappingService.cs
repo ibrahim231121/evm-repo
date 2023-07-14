@@ -7,12 +7,14 @@ using Crossbones.ALPR.Api.NumberPlates.Service;
 using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.Modules.Business;
 using Crossbones.Modules.Common.Queryables;
+using System.Diagnostics;
 using DTO = Crossbones.ALPR.Models.DTOs;
 
 namespace Crossbones.ALPR.Api.HotListDataSourceMapping.Service
 {
     public class HotListDataSourceMappingService : ServiceBase, IHotListDataSourceMappingService
     {
+        private const int MAXIMUM_BLOCK_SIZE_FOR_INGESTION = 50000;
         readonly INumberPlateService numberPlateService;
         readonly IHotListNumberPlateService hotListNumberPlateService;
         readonly IHotListDataSourceItemService hotListDataSourceItemService;
@@ -30,10 +32,10 @@ namespace Crossbones.ALPR.Api.HotListDataSourceMapping.Service
 
         public async Task AddNumberPlatesToDataBase(IEnumerable<DTO.NumberPlateDTO> numberPlates, long hotListId)
         {
-            //Stopwatch stopwatch = Stopwatch.StartNew();
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
             //numberPlates.ForEach(async licensePlate =>
-            for (int _count = 0; _count <= numberPlates.Count() && _count <= 500; _count++)
+            for (int _count = 0; _count < numberPlates.Count() && _count < MAXIMUM_BLOCK_SIZE_FOR_INGESTION; _count++)
             {
                 var licensePlate = numberPlates.ToArr()[_count];
                 var chainCommand = new ChainCommand();
@@ -54,8 +56,8 @@ namespace Crossbones.ALPR.Api.HotListDataSourceMapping.Service
                 if (chainCommand.Commands.Any())
                     _ = await Execute(chainCommand);
             }
-            //stopwatch.Stop();
-            //Console.WriteLine("Time Elapsed : " + TimeSpan.FromTicks(stopwatch.ElapsedTicks));
+            stopwatch.Stop();
+            Console.WriteLine("Time Elapsed : " + TimeSpan.FromTicks(stopwatch.ElapsedTicks));
         }
 
         private async Task GetHotListDataSourceInfo(DTO.HotListDataSourceDTO hotListDataSourceItem)

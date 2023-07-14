@@ -15,12 +15,12 @@ namespace Crossbones.ALPR.Business.NumberPlates.Get
         //    Sort = sort;
         //}
 
-        public GetNumberPlate(RecId sysSerial, GetQueryFilter filter) : base(sysSerial)
+        public GetNumberPlate(RecId recId, GetQueryFilter filter) : base(recId)
         {
             Filter = filter;
         }
 
-        public GetNumberPlate(RecId sysSerial, GetQueryFilter filter, long hotListId) : base(sysSerial)
+        public GetNumberPlate(RecId recId, GetQueryFilter filter, long hotListId) : base(recId)
         {
             Filter = filter;
             HotListID = hotListId;

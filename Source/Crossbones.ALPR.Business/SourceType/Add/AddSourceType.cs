@@ -4,7 +4,7 @@ namespace Corssbones.ALPR.Business.SourceType.Add
 {
     public class AddSourceType : RecIdItemMessage
     {
-        public AddSourceType(RecId id) : base(id)
+        public AddSourceType(RecId recId) : base(recId)
         {
 
         }

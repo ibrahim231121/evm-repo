@@ -100,6 +100,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
                                             (z, e) => new CapturedPlateDTO()
                                             {
                                                 CapturedPlateId = z.s.RecId,
+                                                NumberPlateId = e.NumberPlate == null ? 0 : e.NumberPlate.RecId,
                                                 NumberPlate = z.s.NumberPlate,
                                                 Description = "",
                                                 HotlistName = e.HotList.Name,
@@ -131,6 +132,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
                                             Select(z => new CapturedPlateDTO()
                                             {
                                                 CapturedPlateId = z.s.RecId,
+                                                NumberPlateId = z.sh.NumberPlate == null ? 0 : z.sh.NumberPlate.RecId,
                                                 NumberPlate = z.s.NumberPlate,
                                                 Description = "",
                                                 HotlistName = z.sh.HotList.Name,

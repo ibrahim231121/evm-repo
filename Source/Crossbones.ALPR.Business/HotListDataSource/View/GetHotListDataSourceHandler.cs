@@ -35,8 +35,8 @@ namespace Corssbones.ALPR.Business.HotListDataSource.View
                 var singleRequest = query.Filter == GetQueryFilter.Single;
                 var data = (singleRequest switch
                 {
-                    true => _repositoryHotListDataSource.Many(x => x.RecId == query.Id).Include(x => x.SourceType).Include(x => x.Hotlists),
-                    false => _repositoryHotListDataSource.Many().Include(x => x.SourceType).Include(x => x.Hotlists),
+                    true => _repositoryHotListDataSource.Many(x => x.RecId == query.Id, token).Include(x => x.SourceType).Include(x => x.Hotlists),
+                    false => _repositoryHotListDataSource.Many(token).Include(x => x.SourceType).Include(x => x.Hotlists),
                 })
                 //.Select(z => mapper.Map<E.HotlistDataSource, HotListDataSourceItem>(z))
                 .Select(z => new DTO.HotListDataSourceDTO()

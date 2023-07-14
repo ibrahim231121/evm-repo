@@ -21,9 +21,7 @@ namespace Crossbones.ALPR.Api.HotListNumberPlates
         {
             hotListNumberSequenceProxy = sequenceProxyFactory.GetProxy(ALPRResources.HotListNumberPlate);
             mapper = _mapper;
-
         }
-
         public async Task<RecId> Add(DTO.HotListNumberPlateDTO request)
         {
             var id = new RecId(await hotListNumberSequenceProxy.Next(CancellationToken.None));
@@ -48,9 +46,9 @@ namespace Crossbones.ALPR.Api.HotListNumberPlates
             return command;
         }
 
-        public async Task Change(RecId Id, DTO.HotListNumberPlateDTO request)
+        public async Task Change(RecId recId, DTO.HotListNumberPlateDTO request)
         {
-            var cmd = new ChangeHotListNumberPlate(Id)
+            var cmd = new ChangeHotListNumberPlate(recId)
             {
                 HotListID = request.HotListId,
                 CreatedOn = DateTime.UtcNow,
@@ -60,9 +58,9 @@ namespace Crossbones.ALPR.Api.HotListNumberPlates
             _ = await Execute(cmd);
         }
 
-        public async Task Delete(RecId Id)
+        public async Task Delete(RecId recId)
         {
-            var cmd = new DeleteHotListNumberPlate(Id);
+            var cmd = new DeleteHotListNumberPlate(recId);
             _ = await Execute(cmd);
         }
 
@@ -72,9 +70,9 @@ namespace Crossbones.ALPR.Api.HotListNumberPlates
             _ = await Execute(cmd);
         }
 
-        public async Task<DTO.HotListNumberPlateDTO> Get(RecId Id)
+        public async Task<DTO.HotListNumberPlateDTO> Get(RecId recId)
         {
-            var query = new GetHotListNumberPlate(Id, GetQueryFilter.Single);
+            var query = new GetHotListNumberPlate(recId, GetQueryFilter.Single);
             var res = await Inquire<IEnumerable<DTO.HotListNumberPlateDTO>>(query);
             return res.FirstOrDefault();
         }
@@ -93,5 +91,6 @@ namespace Crossbones.ALPR.Api.HotListNumberPlates
 
             return PaginationHelper.GetPagedResponse(list, total);
         }
+
     }
 }

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Query;
 using Microsoft.EntityFrameworkCore;
-using DTO = Crossbones.ALPR.Models.DTOs;
 
 namespace Crossbones.ALPR.Business.State.Get
 {

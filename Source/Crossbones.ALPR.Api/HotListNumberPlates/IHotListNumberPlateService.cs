@@ -25,7 +25,7 @@ namespace Crossbones.ALPR.Api.HotListNumberPlates
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        Task<DTO.HotListNumberPlateDTO> Get(RecId Id);
+        Task<DTO.HotListNumberPlateDTO> Get(RecId recId);
 
         /// <summary>
         /// Edit or Update HotList Number Plate
@@ -33,14 +33,14 @@ namespace Crossbones.ALPR.Api.HotListNumberPlates
         /// <param name="Id"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task Change(RecId Id, DTO.HotListNumberPlateDTO request);
+        Task Change(RecId recId, DTO.HotListNumberPlateDTO request);
 
         /// <summary>
         /// Delete HotList Number Plate through Id
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        Task Delete(RecId Id);
+        Task Delete(RecId recId);
 
         /// <summary>
         /// Delete every HotList Number Plates

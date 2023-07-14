@@ -9,7 +9,6 @@ using Crossbones.Modules.Common.Pagination;
 using Microsoft.EntityFrameworkCore;
 using DTO = Crossbones.ALPR.Models.DTOs;
 
-
 namespace Corssbones.ALPR.Business.HotListNumberPlates.Get
 {
     public class GetHotListNumberPlateHandler : QueryHandlerBase<GetHotListNumberPlate>
@@ -43,7 +42,6 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Get
                 {
                     throw new RecordNotFound($"Unable to process your request because HotList Number Plate is not found against provided Id '{query.Id}'");
                 }
-                data.ForEach(x => { x.NumberPlate = numberPlates.FirstOrDefault(y => y.RecId == x.NumberPlatesId); x.HotList = hostLists.FirstOrDefault(z => z.RecId == x.HotListId); });
                 var res = _mapper.Map<List<DTO.HotListNumberPlateDTO>>(data);
                 return res;
             }

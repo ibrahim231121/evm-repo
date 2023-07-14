@@ -4,7 +4,7 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Delete
 {
     public class DeleteHotListNumberPlate : RecIdItemMessage
     {
-        public DeleteHotListNumberPlate(RecId id) : base(id)
+        public DeleteHotListNumberPlate(RecId recId) : base(recId)
         {
         }
     }

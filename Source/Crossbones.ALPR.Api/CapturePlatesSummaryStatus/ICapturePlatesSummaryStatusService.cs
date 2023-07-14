@@ -19,9 +19,9 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummaryStatus
         /// <summary>
         /// Gets the specified captured plate summary status system serial.
         /// </summary>
-        /// <param name="capturedPlateSummaryStatusRecId">The captured plate summary status system serial.</param>
+        /// <param name="recId">The captured plate summary status system serial.</param>
         /// <returns></returns>
-        Task<CapturePlatesSummaryStatusDTO> Get(RecId capturedPlateSummaryStatusRecId);
+        Task<CapturePlatesSummaryStatusDTO> Get(RecId recId);
 
         /// <summary>
         /// Gets all.
@@ -36,18 +36,18 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummaryStatus
         /// <summary>
         /// Changes the specified captured plate summary status system serial.
         /// </summary>
-        /// <param name="capturedPlateSummaryStatusRecId">The captured plate summary status system serial.</param>
+        /// <param name="recId">The captured plate summary status system serial.</param>
         /// <param name="capturedPlateSummaryStatusItem">The captured plate summary status item.</param>
         /// <returns></returns>
-        Task Change(RecId capturedPlateSummaryStatusRecId, CapturePlatesSummaryStatusDTO capturedPlateSummaryStatusItem);
+        Task Change(RecId recId, CapturePlatesSummaryStatusDTO capturedPlateSummaryStatusItem);
 
 
         /// <summary>
         /// Deletes the specified captured plate summary status system serial.
         /// </summary>
-        /// <param name="capturedPlateSummaryStatusRecId">The captured plate summary status system serial.</param>
+        /// <param name="recId">The captured plate summary status system serial.</param>
         /// <returns></returns>
-        Task Delete(RecId capturedPlateSummaryStatusRecId);
+        Task Delete(RecId recId);
 
 
         /// <summary>

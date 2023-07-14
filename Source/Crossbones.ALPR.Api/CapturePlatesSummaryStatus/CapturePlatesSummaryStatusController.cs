@@ -19,9 +19,9 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummaryStatus
         [ProducesResponseType(201)]
         public async Task<IActionResult> Add([FromBody] CapturePlatesSummaryStatusDTO capturedPlateSummaryStatusItem)
         {
-            var RecId = await _service.Add(capturedPlateSummaryStatusItem);
+            var recId = await _service.Add(capturedPlateSummaryStatusItem);
 
-            return Created($"{baseUrl}/CapturedPlate/{RecId}", RecId);
+            return Created($"{baseUrl}/CapturedPlate/{recId}", recId);
         }
 
         [HttpGet]
@@ -55,26 +55,26 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummaryStatus
             return PagedResult(res);
         }
 
-        [HttpGet("{RecId}")]
-        public async Task<IActionResult> GetOne(long RecId)
+        [HttpGet("{recId}")]
+        public async Task<IActionResult> GetOne(long recId)
         {
-            var res = await _service.Get(new RecId(RecId));
+            var res = await _service.Get(new RecId(recId));
             return Ok(res);
         }
 
         [HttpPut]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> Change([FromQuery] long RecId, [FromBody] CapturePlatesSummaryStatusDTO capturedPlateSummaryStatusItem)
+        public async Task<IActionResult> Change([FromQuery] long recId, [FromBody] CapturePlatesSummaryStatusDTO capturedPlateSummaryStatusItem)
         {
-            await _service.Change(new RecId(RecId), capturedPlateSummaryStatusItem);
+            await _service.Change(new RecId(recId), capturedPlateSummaryStatusItem);
             return NoContent();
         }
 
-        [HttpDelete("{RecId}")]
+        [HttpDelete("{recId}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> DeleteOne(long RecId)
+        public async Task<IActionResult> DeleteOne(long recId)
         {
-            await _service.Delete(new RecId(RecId));
+            await _service.Delete(new RecId(recId));
             return NoContent();
         }
 

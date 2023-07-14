@@ -1,6 +1,6 @@
 ﻿using Crossbones.ALPR.Common.ValueObjects;
-using Crossbones.Modules.Common.Pagination;
 using DTO = Crossbones.ALPR.Models.DTOs;
+using Crossbones.Modules.Common.Pagination;
 
 namespace Crossbones.ALPR.Api.ExportDetails
 {
@@ -18,7 +18,7 @@ namespace Crossbones.ALPR.Api.ExportDetails
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        Task<DTO.ExportDetailDTO> Get(RecId Id);
+        Task<DTO.ExportDetailDTO> Get(RecId recId);
 
         /// <summary>
         /// Get all Export Details
@@ -33,14 +33,14 @@ namespace Crossbones.ALPR.Api.ExportDetails
         /// <param name="Id"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task Change(RecId Id, DTO.ExportDetailDTO request);
+        Task Change(RecId recId, DTO.ExportDetailDTO request);
 
         /// <summary>
         /// Delete Export Detail through Id
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        Task Delete(RecId Id);
+        Task Delete(RecId recId);
 
         /// <summary>
         /// Delete every Export Details
