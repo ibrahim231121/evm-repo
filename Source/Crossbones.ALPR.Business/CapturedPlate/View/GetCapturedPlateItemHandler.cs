@@ -35,6 +35,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
             var ucpRepsitory = context.Get<Entities.UserCapturedPlate>();
             var cpsRepsitory = context.Get<Entities.CapturePlatesSummary>();
             var hnpRepository = context.Get<Entities.HotListNumberPlate>();
+            var npRepository = context.Get<Entities.NumberPlate>();
             var statesRepository = context.Get<Entities.State>();
 
             
@@ -48,6 +49,8 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
             var cpQueryable = cpRepsitory.Many();
 
             var statesQueryable = statesRepository.Many();
+
+            var numberPlatesQueryable = npRepository.Many();
 
             double latitude = 0;
             bool filterByLatitude = false;
@@ -86,7 +89,11 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
                 Join(statesQueryable,
                      fs=>fs.s.State,
                      st=>st.RecId,
-                     (fs, st) => new { fs.f, fs.s, fs.y, st });
+                     (fs, st) => new { fs.f, fs.s, fs.y, st }).
+                Join(numberPlatesQueryable,
+                     fn => fn.s.NumberPlate,
+                     np => np.LicensePlate,
+                     (fn, np) => new { fn.f, fn.s, fn.y, fn.st, np });
 
             if (query.HotListId == 0)
             {
@@ -94,13 +101,13 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
                                             GroupJoin(hnpRepository.Many().Include(hotListNumberPlate => hotListNumberPlate.NumberPlate).Include(hotListNumberPlate => hotListNumberPlate.HotList),
                                              fh => fh.s.NumberPlate,
                                              sh => sh.NumberPlate.LicensePlate,
-                                             (fh, sh) => new { fh.f, fh.s, fh.y, fh.st, sh }).
+                                             (fh, sh) => new { fh.f, fh.s, fh.y, fh.st, fh.np, sh }).
                                             SelectMany(
                                                 hotlist => hotlist.sh.DefaultIfEmpty(),
                                             (z, e) => new CapturedPlateDTO()
                                             {
                                                 CapturedPlateId = z.s.RecId,
-                                                NumberPlateId = e.NumberPlate == null ? 0 : e.NumberPlate.RecId,
+                                                NumberPlateId = z.np.RecId,
                                                 NumberPlate = z.s.NumberPlate,
                                                 Description = "",
                                                 HotlistName = e.HotList.Name,
@@ -128,11 +135,11 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
                                             Join(hnpRepository.Many(hotListNumPlate => hotListNumPlate.HotListId == query.HotListId).Include(hotListNumberPlate => hotListNumberPlate.NumberPlate).Include(hotListNumberPlate => hotListNumberPlate.HotList),
                                                 fh => fh.s.NumberPlate,
                                                 sh => sh.NumberPlate.LicensePlate,
-                                                (fh, sh) => new { fh.f, fh.s, fh.y, fh.st, sh }).
+                                                (fh, sh) => new { fh.f, fh.s, fh.y, fh.st, fh.np, sh }).
                                             Select(z => new CapturedPlateDTO()
                                             {
                                                 CapturedPlateId = z.s.RecId,
-                                                NumberPlateId = z.sh.NumberPlate == null ? 0 : z.sh.NumberPlate.RecId,
+                                                NumberPlateId = z.np.RecId,
                                                 NumberPlate = z.s.NumberPlate,
                                                 Description = "",
                                                 HotlistName = z.sh.HotList.Name,
