@@ -6,7 +6,7 @@ using Crossbones.Modules.Common;
 using Crossbones.Modules.Common.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.Geometries;
-using E = Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.NumberPlateHistory.Get
 {
@@ -14,11 +14,11 @@ namespace Corssbones.ALPR.Business.NumberPlateHistory.Get
     {
         protected override async Task<object> OnQuery(GetNumberPlateHistoryItem query, IQueryContext context, CancellationToken token)
         {
-            var numberPlateRepository = context.Get<E.NumberPlate>();
-            var capturedPlateRepository = context.Get<E.CapturedPlate>();
-            var statesRepository = context.Get<E.State>();
-            var hotlistNumberPlateRepository = context.Get<E.HotListNumberPlate>();
-            var capturePlateSummaryRepository = context.Get<E.CapturePlatesSummary>();
+            var numberPlateRepository = context.Get<Entities.NumberPlate>();
+            var capturedPlateRepository = context.Get<Entities.CapturedPlate>();
+            var statesRepository = context.Get<Entities.State>();
+            var hotlistNumberPlateRepository = context.Get<Entities.HotListNumberPlate>();
+            var capturePlateSummaryRepository = context.Get<Entities.CapturePlatesSummary>();
 
             bool exist = await numberPlateRepository.Exists(numberPlate => numberPlate.RecId == query.Id, token);
 

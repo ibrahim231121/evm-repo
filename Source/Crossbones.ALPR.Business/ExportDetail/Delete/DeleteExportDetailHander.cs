@@ -3,7 +3,7 @@ using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
 using Crossbones.Modules.Common.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using E = Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.ExportDetail.Delete
 {
@@ -11,7 +11,7 @@ namespace Corssbones.ALPR.Business.ExportDetail.Delete
     {
         protected override async Task OnMessage(DeleteExportDetail command, ICommandContext context, CancellationToken token)
         {
-            var _repository = context.Get<E.ALPRExportDetail>();
+            var _repository = context.Get<Entities.ALPRExportDetail>();
             var singleDeleteRequest = command.Id != RecId.Empty;
 
             var result = singleDeleteRequest switch

@@ -1,7 +1,7 @@
 ﻿using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
 using Crossbones.Modules.Common.Exceptions;
-using E = Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.ExportDetail.Add
 {
@@ -9,7 +9,7 @@ namespace Corssbones.ALPR.Business.ExportDetail.Add
     {
         protected override async Task OnMessage(AddExportDetail command, ICommandContext context, CancellationToken token)
         {
-            var _repository = context.Get<E.ALPRExportDetail>();
+            var _repository = context.Get<Entities.ALPRExportDetail>();
             var isEntryExists = await _repository.Exists((x => x.TicketNumber == command.TicketNumber), token);
             if (isEntryExists)
             {
@@ -17,7 +17,7 @@ namespace Corssbones.ALPR.Business.ExportDetail.Add
             }
             else
             {
-                await _repository.Add(new E.ALPRExportDetail()
+                await _repository.Add(new Entities.ALPRExportDetail()
                 {
                     RecId = command.Id,
                     TicketNumber = command.TicketNumber,

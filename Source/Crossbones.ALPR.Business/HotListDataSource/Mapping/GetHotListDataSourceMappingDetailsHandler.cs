@@ -66,7 +66,7 @@ namespace Corssbones.ALPR.Business.HotListDataSource.Mapping
                 RecId = x.Database is null ? 0 : x.Database.RecId,
                 InsertType = 1,
                 LicensePlate = x.FileData.LicensePlate,
-                DateOfInterest = x.FileData.DateOfInterest,
+                DateOfInterest = DateTime.Parse(x.FileData.DateOfInterest),
                 LicenseYear = x.FileData.LicenseYear,
                 LicenseType = x.FileData.LicenseType,
                 AgencyId = "1077", //x.FileData.Agency, Convert Agency Name to Agency ID

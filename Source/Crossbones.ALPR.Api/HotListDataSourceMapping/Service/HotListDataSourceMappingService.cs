@@ -42,7 +42,7 @@ namespace Crossbones.ALPR.Api.HotListDataSourceMapping.Service
 
                 RecId _numberPlateId;
 
-                if (licensePlate.NeedFullInsertion)
+                if ((bool)licensePlate.NeedFullInsertion)
                 {
                     var numerPlateCommand = await numberPlateService.GetAddCommand(licensePlate);
                     _numberPlateId = numerPlateCommand.Id;

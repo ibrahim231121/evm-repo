@@ -1,6 +1,6 @@
 ﻿using Corssbones.ALPR.Business;
 using Crossbones.ALPR.Common.ValueObjects;
-using E = Corssbones.ALPR.Database.Entities;
+using Crossbones.ALPR.Models.DTOs;
 
 namespace Crossbones.ALPR.Business.NumberPlates.Add
 {
@@ -9,12 +9,7 @@ namespace Crossbones.ALPR.Business.NumberPlates.Add
         public AddNumberPlate(RecId recId) : base(recId)
         {
         }
-        public E.NumberPlate Item { get; set; }
 
-        public override string ToString()
-        {
-            return Item.LicensePlate;
-        }
-
+        public NumberPlateDTO NumberPlateDTO { get; set; }
     }
 }

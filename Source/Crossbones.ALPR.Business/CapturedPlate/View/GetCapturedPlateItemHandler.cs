@@ -12,7 +12,7 @@ using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using E = Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Get
 {
@@ -31,11 +31,11 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
                             + (tsLifeSpan.Hours > 0 ? tsLifeSpan.ToString("%h") + "h " : string.Empty)
                             + (tsLifeSpan.Minutes > 0 ? tsLifeSpan.ToString("%m") + "m" : string.Empty);
 
-            var cpRepsitory = context.Get<E.CapturedPlate>();
-            var ucpRepsitory = context.Get<E.UserCapturedPlate>();
-            var cpsRepsitory = context.Get<E.CapturePlatesSummary>();
-            var hnpRepository = context.Get<E.HotListNumberPlate>();
-            var statesRepository = context.Get<E.State>();
+            var cpRepsitory = context.Get<Entities.CapturedPlate>();
+            var ucpRepsitory = context.Get<Entities.UserCapturedPlate>();
+            var cpsRepsitory = context.Get<Entities.CapturePlatesSummary>();
+            var hnpRepository = context.Get<Entities.HotListNumberPlate>();
+            var statesRepository = context.Get<Entities.State>();
 
             
             var ucpQueryable = ucpRepsitory.Many(cp =>

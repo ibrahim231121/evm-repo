@@ -6,7 +6,7 @@ using Crossbones.Modules.Common.Exceptions;
 using LanguageExt;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using E = Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Get
 {
@@ -21,7 +21,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
                 applySort = typeof(CapturePlatesSummaryDTO).GetProperty(query.Sort.Field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) != null;
             }
 
-            var cpsRepsitory = context.Get<E.CapturePlatesSummary>();
+            var cpsRepsitory = context.Get<Entities.CapturePlatesSummary>();
 
             switch (query.QueryFilter)
             {

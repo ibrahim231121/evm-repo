@@ -4,7 +4,7 @@ using Crossbones.Modules.Business.Handlers.Command;
 using Crossbones.Modules.Common.Exceptions;
 using NetTopologySuite;
 using NetTopologySuite.Geometries;
-using E = Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Change
 {
@@ -12,7 +12,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Change
     {
         protected override async Task OnMessage(ChangeCapturedPlateItem command, ICommandContext context, CancellationToken token)
         {
-            var cpRepository = context.Get<E.CapturedPlate>();
+            var cpRepository = context.Get<Entities.CapturedPlate>();
             bool entityExist = await cpRepository.Exists(x => x.RecId == command.Id, token);
 
             if (entityExist)

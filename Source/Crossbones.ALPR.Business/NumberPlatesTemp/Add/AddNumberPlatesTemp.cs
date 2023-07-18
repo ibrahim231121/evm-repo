@@ -13,7 +13,7 @@ namespace Corssbones.ALPR.Business.NumberPlatesTemp.Add
         public string AgencyId { get; set; }
         public DateTime DateOfInterest { get; set; }
         public string NumberPlate { get; set; }
-        public long StateId { get; set; }
+        public string StateId { get; set; }
         public string LicenseYear { get; set; }
         public string LicenseType { get; set; }
         public string VehicleYear { get; set; }

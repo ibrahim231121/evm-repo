@@ -20,5 +20,11 @@ namespace Crossbones.ALPR.Api.State
 
             return StatusCode(StatusCodes.Status200OK, stateList.Select(x => new { id = x.RecId, label = x.StateName }));
         }
+
+        [HttpGet("HealthCheck")]
+        public IActionResult HealthCheck()
+        {
+            return Ok(true);
+        }
     }
 }

@@ -1,62 +1,53 @@
-﻿using AutoMapper;
-using Corssbones.ALPR.Business.Enums;
+﻿using Corssbones.ALPR.Business.Enums;
 using Corssbones.ALPR.Business.NumberPlateHistory.Get;
 using Crossbones.ALPR.Business.NumberPlates.Add;
 using Crossbones.ALPR.Business.NumberPlates.Change;
 using Crossbones.ALPR.Business.NumberPlates.Delete;
 using Crossbones.ALPR.Business.NumberPlates.Get;
 using Crossbones.ALPR.Common.ValueObjects;
-using Crossbones.ALPR.Models;
+using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Common;
 using Crossbones.Modules.Common.Pagination;
 using Crossbones.Modules.Common.Queryables;
 using Crossbones.Modules.Sequence.Common.Interfaces;
-using DTO = Crossbones.ALPR.Models.DTOs;
-using E = Corssbones.ALPR.Database.Entities;
+using Crossbones.ALPR.Models;
 
 namespace Crossbones.ALPR.Api.NumberPlates.Service
 {
     public class NumberPlateService : ServiceBase, INumberPlateService
     {
         readonly ISequenceProxy _numberPlatesSequenceProxy;
-        readonly IMapper mapper;
-        public NumberPlateService(ServiceArguments args, ISequenceProxyFactory sequenceProxyFactory, IMapper _mapper) : base(args)
+        public NumberPlateService(ServiceArguments args, ISequenceProxyFactory sequenceProxyFactory) : base(args)
         {
             _numberPlatesSequenceProxy = sequenceProxyFactory.GetProxy(ALPRResources.NumberPlate);
-            mapper = _mapper;
         }
 
         public async Task<RecId> Add(DTO.NumberPlateDTO request)
         {
-            var id = new RecId(await _numberPlatesSequenceProxy.Next(CancellationToken.None));
             var cmd = await GetAddCommand(request);
             _ = await Execute(cmd);
-            return id;
+            return cmd.Id;
         }
 
         public async Task<AddNumberPlate> GetAddCommand(DTO.NumberPlateDTO request)
         {
-            var numberPlateSysSerial = new RecId(await _numberPlatesSequenceProxy.Next(CancellationToken.None));
-            var command = new AddNumberPlate(numberPlateSysSerial);
-
-            var _obj = mapper.Map<DTO.NumberPlateDTO, E.NumberPlate>(request);
-            command.Item = _obj;
-            command.Item.RecId = command.Id;
+            var recId = new RecId(await _numberPlatesSequenceProxy.Next(CancellationToken.None));
+            var command = new AddNumberPlate(recId);
+            command.NumberPlateDTO = request;
+            command.NumberPlateDTO.RecId = command.Id;
 
             return command;
         }
 
-        public async Task<PageResponse<DTO.NumberPlateDTO>> GetAll(Pager paging)
+        public Task<PageResponse<DTO.NumberPlateDTO>> GetAll(Pager paging)
         {
             GridFilter filter = GetGridFilter();
             GridSort sort = GetGridSort();
 
-            var dataQuery = new GetNumberPlate(RecId.Empty, GetQueryFilter.All)
-            { Paging = paging, GridFilter = filter, Sort = sort };
-            return await Inquire<PageResponse<DTO.NumberPlateDTO>>(dataQuery);
+            var dataQuery = new GetNumberPlate(RecId.Empty, GetQueryFilter.All, filter, sort) { Paging = paging };
+            return Inquire<PageResponse<DTO.NumberPlateDTO>>(dataQuery);
 
         }
-
 
         public async Task<PageResponse<DTO.NumberPlateHistoryDTO>> GetNumberPlateHistory(RecId recId, Pager pager)
         {
@@ -76,30 +67,7 @@ namespace Crossbones.ALPR.Api.NumberPlates.Service
         {
             var cmd = new ChangeNumberPlate(recId)
             {
-                Ncicnumber = request.NCICNumber,
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                Alias = request.Alias,
-                AgencyId = request.AgencyId,
-                InsertType = request.InsertType,
-                LicenseType = request.LicenseType,
-                CreatedOn = (DateTime)request.CreatedOn,
-                DateOfInterest = Convert.ToDateTime(request.DateOfInterest),
-                //LastTimeStamp = request.LastTimeStamp,
-                LastUpdatedOn = DateTime.UtcNow,
-                LicenseYear = request.LicenseYear,
-                Note = request.Note,
-                Notes = request.Notes,
-                NumberPlate = request.LicensePlate,
-                //StateId = request.StateId,
-                Status = request.Status,
-                VehicleColor = request.VehicleColor,
-                VehicleMake = request.VehicleMake,
-                VehicleModel = request.VehicleModel,
-                VehicleStyle = request.VehicleStyle,
-                VehicleYear = request.VehicleYear,
-                ViolationInfo = request.ViolationInfo,
-                ImportSerialId = request.ImportSerialId
+                NumberPlateDTO = request              
             };
 
             _ = await Execute(cmd);
@@ -142,5 +110,6 @@ namespace Crossbones.ALPR.Api.NumberPlates.Service
             return PaginationHelper.GetPagedResponse(list, total);
         }
 
+        
     }
 }

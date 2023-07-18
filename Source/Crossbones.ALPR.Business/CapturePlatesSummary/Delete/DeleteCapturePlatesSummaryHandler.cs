@@ -2,7 +2,7 @@
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
 using Crossbones.Modules.Common.Exceptions;
-using E = Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Delete
 {
@@ -10,7 +10,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Delete
     {
         protected override async Task OnMessage(DeleteCapturePlatesSummaryItem command, ICommandContext context, CancellationToken token)
         {
-            var cpsRepository = context.Get<E.CapturePlatesSummary>();
+            var cpsRepository = context.Get<Entities.CapturePlatesSummary>();
 
             switch (command.DeletdCommandFilter)
             {

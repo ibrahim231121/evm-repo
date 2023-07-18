@@ -88,5 +88,10 @@ namespace Crossbones.ALPR.Api.HotListDataSourceMapping
             return $"Mapping for all data sources will be executed on Hourly basis.";
         }
 
+        [HttpGet("HealthCheck")]
+        public IActionResult HealthCheck()
+        {
+            return Ok(true);
+        }
     }
 }

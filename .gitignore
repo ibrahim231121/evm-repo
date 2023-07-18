@@ -286,3 +286,7 @@ Thumbs.db
 /.vs/slnx.sqlite-journal
 /Source/.vs/ProjectEvaluation/corssbones.alpr.service.metadata.v7.bin
 /Source/.vs/ProjectEvaluation/corssbones.alpr.service.projects.v7.bin
+/Source/Crossbones.ALPR.Database/obj/Crossbones.ALPR.Database.csproj.nuget.dgspec.json
+/Source/Crossbones.ALPR.Models/bin/Debug/net6.0/Crossbones.ALPR.Database.dll
+/Source/Crossbones.ALPR.Models/bin/Debug/net6.0/Crossbones.ALPR.Database.pdb
+/Source/Crossbones.ALPR.Database/obj/Crossbones.ALPR.Database.csproj.nuget.g.props

@@ -8,12 +8,12 @@ namespace Crossbones.ALPR.Business.NumberPlates.Get
 {
     public class GetNumberPlate : RecIdItemMessage
     {
-        //public GetNumberPlate(SysSerial sysSerial, GetQueryFilter filter, GridFilter gridFilter, GridSort sort) : base(sysSerial)
-        //{
-        //    Filter = filter;
-        //    GridFilter = gridFilter;
-        //    Sort = sort;
-        //}
+        public GetNumberPlate(RecId recId, GetQueryFilter filter, GridFilter gridFilter, GridSort sort) : base(recId)
+        {
+            Filter = filter;
+            GridFilter = gridFilter;
+            Sort = sort;
+        }
 
         public GetNumberPlate(RecId recId, GetQueryFilter filter) : base(recId)
         {
@@ -29,7 +29,7 @@ namespace Crossbones.ALPR.Business.NumberPlates.Get
         public Pager Paging { get; set; }
         public GetQueryFilter Filter { get; set; }
         public GridFilter GridFilter { get; set; }
-        public GridSort Sort { get; set; }
+        public GridSort Sort { get; }
         public long HotListID { get; set; }
     }
 }

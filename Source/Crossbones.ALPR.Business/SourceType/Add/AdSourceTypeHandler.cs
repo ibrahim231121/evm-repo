@@ -1,7 +1,7 @@
 ﻿using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
 using Crossbones.Modules.Common.Exceptions;
-using E = Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.SourceType.Add
 {
@@ -9,7 +9,7 @@ namespace Corssbones.ALPR.Business.SourceType.Add
     {
         protected override async Task OnMessage(AddSourceType command, ICommandContext context, CancellationToken token)
         {
-            var _repository = context.Get<E.SourceType>();
+            var _repository = context.Get<Entities.SourceType>();
             var nameExist = await _repository.Exists(x => x.SourceTypeName == command.SourceTypeName, token);
             if (nameExist)
             {
@@ -17,7 +17,7 @@ namespace Corssbones.ALPR.Business.SourceType.Add
             }
             else
             {
-                await _repository.Add(new E.SourceType()
+                await _repository.Add(new Entities.SourceType()
                 {
                     SourceTypeName = command.SourceTypeName,
                     Description = command.Description,

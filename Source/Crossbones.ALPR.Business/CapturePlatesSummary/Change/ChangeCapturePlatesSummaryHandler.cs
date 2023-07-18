@@ -3,7 +3,7 @@ using Crossbones.ALPR.Common.Validation;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
 using Crossbones.Modules.Common.Exceptions;
-using E = Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Change
 {
@@ -11,7 +11,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Change
     {
         protected override async Task OnMessage(ChangeCapturePlatesSummaryItem command, ICommandContext context, CancellationToken token)
         {
-            var cpsRepository = context.Get<E.CapturePlatesSummary>();
+            var cpsRepository = context.Get<Entities.CapturePlatesSummary>();
             bool entityExist = await cpsRepository.Exists(x => x.UserId == command.UpdatedItem.UserId && x.CapturePlateId == command.UpdatedItem.CapturePlateId, token);
 
             if (entityExist)

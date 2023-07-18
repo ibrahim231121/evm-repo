@@ -14,7 +14,7 @@ namespace Crossbones.ALPR.Business.NumberPlates.Change
 
             if (entityExist)
             {
-                var numPlateExist = await _repository.Exists(x => x.LicensePlate == command.NumberPlate && x.RecId != command.Id, token);
+                var numPlateExist = await _repository.Exists(x => x.LicensePlate == command.NumberPlateDTO.LicensePlate && x.RecId != command.Id, token);
                 if (numPlateExist)
                 {
                     throw new DuplicationNotAllowed("License Plate Already Exist");
@@ -22,26 +22,26 @@ namespace Crossbones.ALPR.Business.NumberPlates.Change
                 else
                 {
                     var NumberPlate = await _repository.One(x => x.RecId == command.Id);
-                    NumberPlate.Status = command.Status;
-                    NumberPlate.Notes = command.Notes;
+                    NumberPlate.Status = command.NumberPlateDTO.Status;
+                    NumberPlate.Notes = command.NumberPlateDTO.Notes;
                     NumberPlate.LastUpdatedOn = DateTime.UtcNow;
-                    NumberPlate.FirstName = command.FirstName;
-                    NumberPlate.LastName = command.LastName;
-                    NumberPlate.LicensePlate = command.NumberPlate;
-                    NumberPlate.AgencyId = command.AgencyId;
-                    //NumberPlate.StateId = command.StateId;
-                    NumberPlate.DateOfInterest = command.DateOfInterest;
-                    NumberPlate.ViolationInfo = command.ViolationInfo;
-                    NumberPlate.LicenseType = command.LicenseType;
-                    NumberPlate.Ncicnumber = command.Ncicnumber;
-                    NumberPlate.LicenseYear = command.LicenseYear;
-                    NumberPlate.VehicleColor = command.VehicleColor;
-                    NumberPlate.VehicleMake = command.VehicleMake;
-                    NumberPlate.VehicleModel = command.VehicleModel;
-                    NumberPlate.VehicleYear = command.VehicleYear;
-                    NumberPlate.VehicleStyle = command.VehicleStyle;
-                    NumberPlate.LicenseType = command.LicenseType;
-                    NumberPlate.Alias = command.Alias;
+                    NumberPlate.FirstName = command.NumberPlateDTO.FirstName;
+                    NumberPlate.LastName = command.NumberPlateDTO.LastName;
+                    NumberPlate.LicensePlate = command.NumberPlateDTO.LicensePlate;
+                    NumberPlate.AgencyId = command.NumberPlateDTO.AgencyId;
+                    NumberPlate.StateId = command.NumberPlateDTO.StateId;
+                    NumberPlate.DateOfInterest = command.NumberPlateDTO.DateOfInterest;
+                    NumberPlate.ViolationInfo = command.NumberPlateDTO.ViolationInfo;
+                    NumberPlate.LicenseType = command.NumberPlateDTO.LicenseType;
+                    NumberPlate.Ncicnumber = command.NumberPlateDTO.NCICNumber;
+                    NumberPlate.LicenseYear = command.NumberPlateDTO.LicenseYear;
+                    NumberPlate.VehicleColor = command.NumberPlateDTO.VehicleColor;
+                    NumberPlate.VehicleMake = command.NumberPlateDTO.VehicleMake;
+                    NumberPlate.VehicleModel = command.NumberPlateDTO.VehicleModel;
+                    NumberPlate.VehicleYear = command.NumberPlateDTO.VehicleYear;
+                    NumberPlate.VehicleStyle = command.NumberPlateDTO.VehicleStyle;
+                    NumberPlate.LicenseType = command.NumberPlateDTO.LicenseType;
+                    NumberPlate.Alias = command.NumberPlateDTO.Alias;
 
                     await _repository.Update(NumberPlate, token);
                     context.Success($"License Plate has been updated, RecId:{command.Id}");

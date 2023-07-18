@@ -1,7 +1,7 @@
 ﻿using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
 using Crossbones.Modules.Common.Exceptions;
-using E = Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Add
 {
@@ -9,7 +9,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Add
     {
         protected override async Task OnMessage(AddUserCapturedPlateItem command, ICommandContext context, CancellationToken token)
         {
-            var ucpRepository = context.Get<E.UserCapturedPlate>();
+            var ucpRepository = context.Get<Entities.UserCapturedPlate>();
 
             if (command.UserId < 0)
             {
@@ -21,7 +21,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Add
                 throw new InvalidValue("UserCapturedPlate capturedId can not less than 0");
             }
 
-            var userCapturedPlate = new E.UserCapturedPlate()
+            var userCapturedPlate = new Entities.UserCapturedPlate()
             {
                 RecId = command.Id,
                 UserId = command.UserId,

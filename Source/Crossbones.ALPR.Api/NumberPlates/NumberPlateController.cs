@@ -1,11 +1,12 @@
 ﻿using Crossbones.ALPR.Api.NumberPlates.Service;
 using Crossbones.ALPR.Common;
 using Crossbones.ALPR.Common.ValueObjects;
+using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Api;
 using Crossbones.Modules.Common.Pagination;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using DTO = Crossbones.ALPR.Models.DTOs;
+using Microsoft.AspNetCore.Routing;
 
 namespace Crossbones.ALPR.Api.NumberPlates
 {
@@ -14,8 +15,8 @@ namespace Crossbones.ALPR.Api.NumberPlates
     {
         readonly INumberPlateService _service;
         ValidateModel<DTO.NumberPlateDTO> validateModel;
-        public NumberPlateController(ApiParams feature, INumberPlateService service) : base(feature)
-        {
+        public NumberPlateController(ApiParams feature, INumberPlateService service) : base(feature) 
+        { 
             _service = service;
             validateModel = new ValidateModel<DTO.NumberPlateDTO>();
         }
@@ -34,7 +35,7 @@ namespace Crossbones.ALPR.Api.NumberPlates
             else
             {
                 return BadRequest(ErrorMessage);
-            }
+            }            
         }
 
         [HttpGet]
@@ -69,9 +70,9 @@ namespace Crossbones.ALPR.Api.NumberPlates
         public async Task<IActionResult> Change(long recId, [FromBody] DTO.NumberPlateDTO numberPlates)
         {
             (bool isValid, string ErrorMessage) = validateModel.Validate(numberPlates);
-
+            
             if (isValid)
-            {
+            { 
                 await _service.Change(new RecId(recId), numberPlates);
                 return Ok(new { statusCode = StatusCodes.Status204NoContent, message = "Successfully updated" });
             }

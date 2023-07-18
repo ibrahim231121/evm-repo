@@ -1,7 +1,7 @@
 ﻿using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
 using Crossbones.Modules.Common.Exceptions;
-using E = Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.ExportDetail.Change
 {
@@ -9,7 +9,7 @@ namespace Corssbones.ALPR.Business.ExportDetail.Change
     {
         protected override async Task OnMessage(ChangeExportDetail command, ICommandContext context, CancellationToken token)
         {
-            var _repository = context.Get<E.ALPRExportDetail>();
+            var _repository = context.Get<Entities.ALPRExportDetail>();
             var entityExist = await _repository.Exists(x => x.RecId == command.Id, token);
             if (entityExist)
             {

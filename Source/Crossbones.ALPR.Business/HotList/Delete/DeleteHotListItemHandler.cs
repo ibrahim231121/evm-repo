@@ -2,7 +2,7 @@
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
 using Crossbones.Modules.Common.Exceptions;
-using E = Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 
 namespace Crossbones.ALPR.Business.HotList.Delete
 {
@@ -10,8 +10,8 @@ namespace Crossbones.ALPR.Business.HotList.Delete
     {
         protected override async Task OnMessage(DeleteHotListItem command, ICommandContext context, CancellationToken token)
         {
-            var _repository = context.Get<E.Hotlist>();
-            var hotlistNumberPlateRepo = context.Get<E.HotListNumberPlate>();
+            var _repository = context.Get<Entities.Hotlist>();
+            var hotlistNumberPlateRepo = context.Get<Entities.HotListNumberPlate>();
 
             var singleDeleteRequest = command.Id != RecId.Empty;
 

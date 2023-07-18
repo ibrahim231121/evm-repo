@@ -2,7 +2,7 @@
 using Crossbones.Modules.Business.Handlers.Query;
 using Crossbones.Modules.Common.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using E = Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Get
 {
@@ -10,7 +10,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
     {
         protected override async Task<object> OnQuery(GetUserCapturedPlateItem query, IQueryContext context, CancellationToken token)
         {
-            var ucpRepsitory = context.Get<E.UserCapturedPlate>();
+            var ucpRepsitory = context.Get<Entities.UserCapturedPlate>();
 
             switch (query.QueryFilter)
             {

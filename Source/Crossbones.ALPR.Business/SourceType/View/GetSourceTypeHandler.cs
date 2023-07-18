@@ -7,7 +7,7 @@ using Crossbones.Modules.Business.Handlers.Query;
 using Crossbones.Modules.Common.Exceptions;
 using Crossbones.Modules.Common.Pagination;
 using Microsoft.EntityFrameworkCore;
-using E = Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.SourceType.View
 {
@@ -15,7 +15,7 @@ namespace Corssbones.ALPR.Business.SourceType.View
     {
         protected override async Task<object> OnQuery(GetSourceType query, IQueryContext context, CancellationToken token)
         {
-            var _repository = context.Get<E.SourceType>();
+            var _repository = context.Get<Entities.SourceType>();
 
             if (query.Filter == GetQueryFilter.Count)
             {

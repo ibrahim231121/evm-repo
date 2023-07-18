@@ -3,7 +3,7 @@ using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
 using Crossbones.Modules.Common.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using E = Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 
 namespace Crossbones.ALPR.Business.HotListDataSource.Delete
 {
@@ -11,7 +11,7 @@ namespace Crossbones.ALPR.Business.HotListDataSource.Delete
     {
         protected override async Task OnMessage(DeleteHotListDataSourceItem command, ICommandContext context, CancellationToken token)
         {
-            var _repository = context.Get<E.HotlistDataSource>();
+            var _repository = context.Get<Entities.HotlistDataSource>();
             var singleDeleteRequest = command.Id != RecId.Empty;
 
             var result = singleDeleteRequest switch

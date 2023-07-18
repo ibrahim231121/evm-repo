@@ -3,7 +3,7 @@ using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
 using Crossbones.Modules.Common.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using E = Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Delete
 {
@@ -11,7 +11,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Delete
     {
         protected override async Task OnMessage(DeleteCapturedPlateItem command, ICommandContext context, CancellationToken token)
         {
-            var cpRepository = context.Get<E.CapturedPlate>();
+            var cpRepository = context.Get<Entities.CapturedPlate>();
 
             switch (command.DeletdCommandFilter)
             {
@@ -28,10 +28,10 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Delete
                     }
                     break;
                 case DeleteCommandFilter.AllOfUser:
-                    var ucpRepository = context.Get<E.UserCapturedPlate>();
+                    var ucpRepository = context.Get<Entities.UserCapturedPlate>();
 
                     var capturedPlates = await ucpRepository.Many(ucp => ucp.UserId == command.UserId, token).
-                                                                            Select(ucp => new E.CapturedPlate() { RecId = ucp.CapturedId }).
+                                                                            Select(ucp => new Entities.CapturedPlate() { RecId = ucp.CapturedId }).
                                                                             ToListAsync();
 
                     if (capturedPlates == null || capturedPlates.Count == 0)

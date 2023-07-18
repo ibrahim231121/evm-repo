@@ -6,7 +6,7 @@ using Crossbones.Modules.Business.Handlers.Query;
 using Crossbones.Modules.Common.Exceptions;
 using Crossbones.Modules.Common.Pagination;
 using Microsoft.EntityFrameworkCore;
-using E = Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Models;
 
 namespace Corssbones.ALPR.Business.ExportDetail.Get
@@ -19,7 +19,7 @@ namespace Corssbones.ALPR.Business.ExportDetail.Get
         protected override async Task<object> OnQuery(GetExportDetail query, IQueryContext context, CancellationToken token)
         {
 
-            var _repository = context.Get<E.ALPRExportDetail>();
+            var _repository = context.Get<Entities.ALPRExportDetail>();
 
             if (query.Filter == GetQueryFilter.Count)
             {
