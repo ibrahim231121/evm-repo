@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
 using Crossbones.Modules.Common.Exceptions;
@@ -13,9 +13,9 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Add
 
         protected override async Task OnMessage(AddHotListNumberPlate command, ICommandContext context, CancellationToken token)
         {
-            var hotListNumberPlateRepo = context.Get<HotListNumberPlate>();
-            var hotListRepo = context.Get<Hotlist>();
-            var numberPlateRepo = context.Get<NumberPlate>();
+            var hotListNumberPlateRepo = context.Get<Entities.HotListNumberPlate>();
+            var hotListRepo = context.Get<Entities.Hotlist>();
+            var numberPlateRepo = context.Get<Entities.NumberPlate>();
 
             var nameExist = await hotListNumberPlateRepo.Exists(x => x.HotListId == command.Item.HotListId && x.NumberPlatesId == command.Item.NumberPlatesId, token);
             if (nameExist)
@@ -24,7 +24,7 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Add
             }
             else
             {
-                await hotListNumberPlateRepo.Add(mapper.Map<HotListNumberPlate>(command.Item), token);
+                await hotListNumberPlateRepo.Add(mapper.Map<Entities.HotListNumberPlate>(command.Item), token);
                 context.Success($"HotList Number Plate has been added, SysSerial:{command.Id}");
             }
         }

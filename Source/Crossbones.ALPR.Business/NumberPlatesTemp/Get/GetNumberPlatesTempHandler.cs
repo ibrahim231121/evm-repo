@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Corssbones.ALPR.Business.Enums;
-using Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Models;
 using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Business.Contexts;
@@ -17,7 +17,7 @@ namespace Corssbones.ALPR.Business.NumberPlatesTemp.Get
         public GetNumberPlatesTempHandler(IMapper _mapper) => mapper = _mapper;
         protected override async Task<object> OnQuery(GetNumberPlatesTemp query, IQueryContext context, CancellationToken token)
         {
-            var _repository = context.Get<NumberPlateTemp>();
+            var _repository = context.Get<Entities.NumberPlateTemp>();
 
             if (query.Filter == GetQueryFilter.Count)
                 return new RowCount(await _repository.Count());

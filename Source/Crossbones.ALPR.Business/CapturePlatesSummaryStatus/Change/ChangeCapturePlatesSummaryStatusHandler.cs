@@ -1,5 +1,5 @@
-﻿using Crossbones.ALPR.Common;
-using Crossbones.ALPR.Common.Validation;
+﻿using AutoMapper;
+using Crossbones.ALPR.Common;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
 using Crossbones.Modules.Common.Exceptions;
@@ -9,6 +9,11 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Change
 {
     public class ChangeCapturePlatesSummaryStatusHandler : CommandHandlerBase<ChangeCapturePlatesSummaryStatusItem>
     {
+        IMapper mapper;
+        public ChangeCapturePlatesSummaryStatusHandler(IMapper _mapper)
+        {
+            mapper = _mapper;
+        }
         protected override async Task OnMessage(ChangeCapturePlatesSummaryStatusItem command, ICommandContext context, CancellationToken token)
         {
             var cpssRepository = context.Get<Entities.CapturePlatesSummaryStatus>();
@@ -18,9 +23,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Change
             {
                 command.UpdatedItem.SyncId = command.Id;
 
-                CapturedPlateValidations.ValidateCapturePlateSummaryStatusItem(command.UpdatedItem);
-
-                var capturePlatesSummary = DTOHelper.ConvertFromDTO(command.UpdatedItem);
+                var capturePlatesSummary = mapper.Map<Entities.CapturePlatesSummaryStatus>(command.UpdatedItem); //DTOHelper.ConvertFromDTO(command.UpdatedItem);
 
                 await cpssRepository.Update(capturePlatesSummary, token);
 

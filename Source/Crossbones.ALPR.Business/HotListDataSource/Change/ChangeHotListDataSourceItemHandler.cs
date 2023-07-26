@@ -2,8 +2,7 @@
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
 using Crossbones.Modules.Common.Exceptions;
-using E = Corssbones.ALPR.Database.Entities;
-using AutoMapper;
+using Entities = Corssbones.ALPR.Database.Entities;
 
 namespace Crossbones.ALPR.Business.HotListDataSource.Change
 {
@@ -14,7 +13,7 @@ namespace Crossbones.ALPR.Business.HotListDataSource.Change
 
         protected override async Task OnMessage(ChangeHotListDataSourceItem command, ICommandContext context, CancellationToken token)
         {
-            var _repository = context.Get<E.HotlistDataSource>();
+            var _repository = context.Get<Entities.HotlistDataSource>();
             var entityExist = await _repository.Exists(x => x.RecId == command.Id, token);
             if (entityExist)
             {
@@ -25,7 +24,7 @@ namespace Crossbones.ALPR.Business.HotListDataSource.Change
                 }
                 else
                 {
-                    var res = mapper.Map<E.HotlistDataSource>(command.Item);
+                    var res = mapper.Map<Entities.HotlistDataSource>(command.Item);
                     await _repository.Update(res, token);
                     context.Success($"HotListDataSource item has been updated, RecId:{res.RecId}");
                 }

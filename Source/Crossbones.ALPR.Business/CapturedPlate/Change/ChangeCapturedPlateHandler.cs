@@ -1,5 +1,4 @@
-﻿using Crossbones.ALPR.Common.Validation;
-using Crossbones.Modules.Business.Contexts;
+﻿using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
 using Crossbones.Modules.Common.Exceptions;
 using NetTopologySuite;
@@ -17,7 +16,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Change
 
             if (entityExist)
             {
-                CapturedPlateValidations.ValidateCapturedPlateItem(command.UpdateItem);
+                //CapturedPlateValidations.ValidateCapturedPlateItem(command.UpdateItem);
 
                 var point = NtsGeometryServices.Instance.CreateGeometryFactory().CreatePoint(new Coordinate(command.UpdateItem.Longitude, command.UpdateItem.Latitude));
                 point.SRID = 4326;

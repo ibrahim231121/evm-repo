@@ -1,12 +1,8 @@
 ﻿using Crossbones.Modules.Common.Exceptions;
-
 using AutoMapper;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
-
-using Crossbones.Modules.Common.Exceptions;
-using E = Corssbones.ALPR.Database.Entities;
-using AutoMapper;
+using Entities = Corssbones.ALPR.Database.Entities;
 
 namespace Crossbones.ALPR.Business.HotList.Add
 {
@@ -18,7 +14,7 @@ namespace Crossbones.ALPR.Business.HotList.Add
 
         protected override async Task OnMessage(AddHotListItem command, ICommandContext context, CancellationToken token)
         {
-            var _repository = context.Get<E.Hotlist>();
+            var _repository = context.Get<Entities.Hotlist>();
             var nameExist = await _repository.Exists(x => x.Name == command.ItemToAdd.Name, token);
             if (nameExist)
             {
@@ -26,10 +22,7 @@ namespace Crossbones.ALPR.Business.HotList.Add
             }
             else
             {
-                command.ItemToAdd.RecId = command.Id;
-
-                var res = mapper.Map<E.Hotlist>(command.ItemToAdd);
-                res.Source = null;//Since mapper is creating the object of navigation property so SQL is throwing error.
+                var res = mapper.Map<Entities.Hotlist>(command.ItemToAdd);
                 await _repository.Add(res, token);
                 context.Success($"HotList Item has been added, RecId:{command.Id}");
             }

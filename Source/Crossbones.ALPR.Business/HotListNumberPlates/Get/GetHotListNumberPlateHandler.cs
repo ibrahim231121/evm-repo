@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Corssbones.ALPR.Business.Enums;
-using Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Models;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Query;
@@ -21,9 +21,9 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Get
         }
         protected override async Task<object> OnQuery(GetHotListNumberPlate query, IQueryContext context, CancellationToken token)
         {
-            var hotListNumberPlatesRepo = context.Get<HotListNumberPlate>();
-            var hostLists = await context.Get<Hotlist>().Many().ToListAsync(token);
-            var numberPlates = await context.Get<NumberPlate>().Many().ToListAsync(token);
+            var hotListNumberPlatesRepo = context.Get<Entities.HotListNumberPlate>();
+            var hostLists = await context.Get<Entities.Hotlist>().Many().ToListAsync(token);
+            var numberPlates = await context.Get<Entities.NumberPlate>().Many().ToListAsync(token);
 
             if (query.Filter == GetQueryFilter.Count)
             {

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
 using Crossbones.Modules.Common.Exceptions;
@@ -12,7 +12,7 @@ namespace Crossbones.ALPR.Business.NumberPlates.Add
         public AddNumberPlateHandler(IMapper _mapper) => mapper = _mapper;
         protected override async Task OnMessage(AddNumberPlate command, ICommandContext context, CancellationToken token)
         {
-            var _repository = context.Get<NumberPlate>();
+            var _repository = context.Get<Entities.NumberPlate>();
             var numberPlateExist = await _repository.Exists(x => x.LicensePlate == command.NumberPlateDTO.LicensePlate);
 
             if (numberPlateExist)
@@ -21,7 +21,7 @@ namespace Crossbones.ALPR.Business.NumberPlates.Add
             }
             else
             {
-                await _repository.Add(mapper.Map<NumberPlate>(command.NumberPlateDTO), token);
+                await _repository.Add(mapper.Map<Entities.NumberPlate>(command.NumberPlateDTO), token);
 
                 context.Success($"Licnese Plate has been added, RecId: {command.Id}");
             }

@@ -1,8 +1,10 @@
-﻿using Crossbones.ALPR.Common.ValueObjects;
+﻿using Crossbones.ALPR.Common;
+using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.ALPR.Models.CapturedPlate;
 using Crossbones.Modules.Api;
 using Crossbones.Modules.Common.Pagination;
 using Crossbones.Modules.Common.Queryables;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -12,16 +14,30 @@ namespace Crossbones.ALPR.Api.CapturedPlate
     public class CapturedPlateController : BaseController
     {
         readonly ICapturedPlateService _service;
+        ValidateModel<CapturedPlateDTO> validateModel;
 
-        public CapturedPlateController(ApiParams feature, ICapturedPlateService service) : base(feature) => _service = service;
+        public CapturedPlateController(ApiParams feature, ICapturedPlateService service) : base(feature)
+        {
+            _service = service;
+            validateModel = new ValidateModel<CapturedPlateDTO>();
+        }
 
         [HttpPost]
         [ProducesResponseType(201)]
         public async Task<IActionResult> Add([FromBody] CapturedPlateDTO capturedPlateItem)
         {
-            var recId = await _service.Add(capturedPlateItem);
+            (bool isValid, string errorList) = validateModel.Validate(capturedPlateItem);
+            if (isValid)
+            {
+                var recId = await _service.Add(capturedPlateItem);
 
-            return Created($"{baseUrl}/CapturedPlate/{recId}", recId);
+                return Created($"{baseUrl}/CapturedPlate/{recId}", recId);
+            }
+            else
+            {
+                return BadRequest(new { statusCode = StatusCodes.Status400BadRequest, message = errorList });
+            }
+            
         }
 
         [HttpGet]
@@ -66,8 +82,17 @@ namespace Crossbones.ALPR.Api.CapturedPlate
         [ProducesResponseType(204)]
         public async Task<IActionResult> Change([FromQuery] long recId, [FromBody] CapturedPlateDTO capturedPlateItem)
         {
-            await _service.Change(new RecId(recId), capturedPlateItem);
-            return NoContent();
+            (bool isValid, string errorList) = validateModel.Validate(capturedPlateItem);
+            if (isValid)
+            {
+                await _service.Change(new RecId(recId), capturedPlateItem);
+                return NoContent();
+            }
+            else
+            {
+                return BadRequest(new { statusCode = StatusCodes.Status400BadRequest, message = errorList });
+            }
+            
         }
 
         [HttpDelete("{recId}")]

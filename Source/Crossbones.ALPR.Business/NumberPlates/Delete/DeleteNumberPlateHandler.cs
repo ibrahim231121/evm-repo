@@ -1,4 +1,4 @@
-﻿using Corssbones.ALPR.Database.Entities;
+﻿using Entities = Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
@@ -11,13 +11,13 @@ namespace Crossbones.ALPR.Business.NumberPlates.Delete
     {
         protected override async Task OnMessage(DeleteNumberPlate command, ICommandContext context, CancellationToken token)
         {
-            var _repository = context.Get<NumberPlate>();
-            var hotListNumberPlateList = await context.Get<HotListNumberPlate>().Many().ToListAsync();
+            var _repository = context.Get<Entities.NumberPlate>();
+            var hotListNumberPlateList = await context.Get<Entities.HotListNumberPlate>().Many().ToListAsync();
             var singleDeleteRequest = command.Id != RecId.Empty;
 
             if (hotListNumberPlateList.Any(x=>x.NumberPlatesId == command.Id))
             {
-                throw new DeleteNotAllowed("Can not delete number plate since it is associated with HotList");
+                throw new DeleteNotAllowed("Can not delete number plate since it is associated with hotlist.");
             }
             else
             {

@@ -109,7 +109,7 @@ public partial class AlprContext : DbContextWithChannel
                 .IsRowVersion()
                 .IsConcurrencyToken();
 
-            entity.HasOne(d => d.Source).WithMany(p => p.Hotlists).HasConstraintName("FK_HotList_HotListDataSource");
+            entity.HasOne(d => d.Source).WithMany(p => p.Hotlists).HasForeignKey(d=>d.SourceId).HasConstraintName("FK_HotList_HotListDataSource");
         });
 
         modelBuilder.Entity<HotlistDataSource>(entity =>

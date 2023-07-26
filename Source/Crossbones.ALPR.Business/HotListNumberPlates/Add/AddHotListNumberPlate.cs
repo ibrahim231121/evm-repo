@@ -1,5 +1,5 @@
 ﻿using Crossbones.ALPR.Common.ValueObjects;
-using E = Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.HotListNumberPlates.Add
 {
@@ -9,7 +9,7 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Add
         {
         }
 
-        public E.HotListNumberPlate Item { get; set; }
+        public Entities.HotListNumberPlate Item { get; set; }
 
         public override string ToString()
         {

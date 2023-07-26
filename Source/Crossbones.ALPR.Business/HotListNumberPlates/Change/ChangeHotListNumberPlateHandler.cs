@@ -1,4 +1,4 @@
-﻿using Corssbones.ALPR.Database.Entities;
+﻿using Entities = Corssbones.ALPR.Database.Entities;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
 using Crossbones.Modules.Common.Exceptions;
@@ -9,7 +9,7 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Change
     {
         protected override async Task OnMessage(ChangeHotListNumberPlate command, ICommandContext context, CancellationToken token)
         {
-            var _repository = context.Get<HotListNumberPlate>();
+            var _repository = context.Get<Entities.HotListNumberPlate>();
             var entityExist = await _repository.Exists(x => x.RecId == command.Id, token);
             if (entityExist)
             {

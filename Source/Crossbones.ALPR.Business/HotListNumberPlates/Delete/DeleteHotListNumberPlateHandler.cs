@@ -1,4 +1,4 @@
-﻿using Corssbones.ALPR.Database.Entities;
+﻿using Entities = Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
@@ -12,7 +12,7 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Delete
     {
         protected override async Task OnMessage(DeleteHotListNumberPlate command, ICommandContext context, CancellationToken token)
         {
-            var _repository = context.Get<HotListNumberPlate>();
+            var _repository = context.Get<Entities.HotListNumberPlate>();
             var singleDeleteRequest = command.Id != RecId.Empty;
 
             var result = singleDeleteRequest switch

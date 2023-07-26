@@ -9,7 +9,7 @@ using Crossbones.ALPR.Models;
 using Crossbones.Modules.Common.Pagination;
 using Crossbones.Modules.Sequence.Common.Interfaces;
 using DTO = Crossbones.ALPR.Models.DTOs;
-using E = Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 
 namespace Crossbones.ALPR.Api.HotListNumberPlates
 {
@@ -34,7 +34,7 @@ namespace Crossbones.ALPR.Api.HotListNumberPlates
         {
             var hotListNumberPlateId = new RecId(await hotListNumberSequenceProxy.Next(CancellationToken.None));
             var command = new AddHotListNumberPlate(hotListNumberPlateId);
-            command.Item = new E.HotListNumberPlate
+            command.Item = new Entities.HotListNumberPlate
             {
                 RecId = command.Id,
                 HotListId = request.HotListId,

@@ -7,7 +7,7 @@ using Crossbones.Modules.Common;
 using Crossbones.Modules.Common.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using DTO = Crossbones.ALPR.Models.DTOs;
-using E = Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.HotListDataSource.View
 {
@@ -19,7 +19,7 @@ namespace Corssbones.ALPR.Business.HotListDataSource.View
 
         protected override async Task<object> OnQuery(GetHotListDataSource query, IQueryContext context, CancellationToken token)
         {
-            var _repositoryHotListDataSource = context.Get<E.HotlistDataSource>();
+            var _repositoryHotListDataSource = context.Get<Entities.HotlistDataSource>();
 
             if (query.Filter == GetQueryFilter.Count)
             {
@@ -44,7 +44,7 @@ namespace Corssbones.ALPR.Business.HotListDataSource.View
                     RecId = z.RecId,
                     Name = z.Name,
                     SourceName = z.SourceName,
-                    SourceType = mapper.Map<E.SourceType, DTO.SourceTypeDTO>(z.SourceType),
+                    SourceType = mapper.Map<Entities.SourceType, DTO.SourceTypeDTO>(z.SourceType),
                     SourceTypeName = z.SourceType.SourceTypeName,
                     SchedulePeriod = z.SchedulePeriod,
                     ConnectionType = z.ConnectionType,

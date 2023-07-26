@@ -1,4 +1,4 @@
-﻿using Corssbones.ALPR.Database.Entities;
+﻿using Entities = Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.Modules.Common;
 using Crossbones.Modules.Common.Pagination;
@@ -34,7 +34,7 @@ namespace Crossbones.ALPR.Api.HotListDataSource.Service
         /// <param name="HotItemRecId">Database record Id</param>
         /// <param name="request">HotListDataSource domain model</param>
         /// <returns></returns>
-        Task Change(RecId recId, HotlistDataSource request);
+        Task Change(RecId recId, Entities.HotlistDataSource request);
 
         /// <summary>
         /// It is used to Delete Single HotListDataSource data from database

@@ -1,4 +1,4 @@
-﻿using Corssbones.ALPR.Database.Entities;
+﻿using Entities = Corssbones.ALPR.Database.Entities;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
@@ -53,7 +53,7 @@ namespace Crossbones.ALPR.Models.DTOs
         public string? SourceTypeName { get; set; }
         public virtual SourceTypeDTO? SourceType { get; set; }
 
-        public virtual ICollection<Hotlist> Hotlists { get; set; }
+        public virtual ICollection<Entities.Hotlist> Hotlists { get; set; }
 
     }
 }

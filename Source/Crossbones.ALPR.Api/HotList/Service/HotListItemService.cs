@@ -21,6 +21,7 @@ namespace Crossbones.ALPR.Api.HotList.Service
         public async Task<RecId> Add(DTO.HotListDTO request)
         {
             var id = new RecId(await _hotListSequenceProxy.Next(CancellationToken.None));
+            request.RecId = id;
             var cmd = new AddHotListItem(id, request);
             _ = await Execute(cmd);
             return id;

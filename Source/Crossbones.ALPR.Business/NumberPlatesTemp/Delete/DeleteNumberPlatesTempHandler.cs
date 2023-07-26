@@ -1,4 +1,4 @@
-﻿using Corssbones.ALPR.Database.Entities;
+﻿using Entities = Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Command;
@@ -11,7 +11,7 @@ namespace Corssbones.ALPR.Business.NumberPlatesTemp.Delete
     {
         protected override async Task OnMessage(DeleteNumberPlatesTemp command, ICommandContext context, CancellationToken token)
         {
-            var _repository = context.Get<NumberPlateTemp>();
+            var _repository = context.Get<Entities.NumberPlateTemp>();
             var singleDeleteRequest = command.Id != RecId.Empty;
 
             var result = singleDeleteRequest switch

@@ -4,7 +4,7 @@ using Corssbones.ALPR.Business.SourceType.Add;
 using Corssbones.ALPR.Business.SourceType.Change;
 using Corssbones.ALPR.Business.SourceType.Delete;
 using Corssbones.ALPR.Business.SourceType.View;
-using Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.ALPR.Models;
 using DTO = Crossbones.ALPR.Models.DTOs;
@@ -19,7 +19,7 @@ namespace Crossbones.ALPR.Api.HotListSourceType.Service
 
         public SourceTypeService(ServiceArguments args, ISequenceProxyFactory sequenceProxyFactory) : base(args) => _sourceTypeSequenceProxy = sequenceProxyFactory.GetProxy(ALPRResources.HotList);
 
-        public async Task<RecId> Add(SourceType request)
+        public async Task<RecId> Add(Entities.SourceType request)
         {
             var id = new RecId(await _sourceTypeSequenceProxy.Next(CancellationToken.None));
             var cmd = new AddSourceType(id)
@@ -31,7 +31,7 @@ namespace Crossbones.ALPR.Api.HotListSourceType.Service
             return id;
         }
 
-        public async Task Change(RecId recId, SourceType request)
+        public async Task Change(RecId recId, Entities.SourceType request)
         {
             var cmd = new ChangeSourceType(recId)
             {

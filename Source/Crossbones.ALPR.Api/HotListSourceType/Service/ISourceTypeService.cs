@@ -1,4 +1,4 @@
-﻿using Corssbones.ALPR.Database.Entities;
+﻿using Entities = Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Common.ValueObjects;
 using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Common.Pagination;
@@ -13,7 +13,7 @@ namespace Crossbones.ALPR.Api.HotListSourceType.Service
         /// </summary>
         /// <param name="request">SourceType domain model</param>
         /// <returns>SourceTypeId generated against the record</returns>
-        Task<RecId> Add(SourceType request);
+        Task<RecId> Add(Entities.SourceType request);
 
         /// <summary>
         /// It is used to Get Single SourceType data from database
@@ -34,7 +34,7 @@ namespace Crossbones.ALPR.Api.HotListSourceType.Service
         /// <param name="recId">Database record Id</param>
         /// <param name="request">SourceType domain model</param>
         /// <returns></returns>
-        Task Change(RecId recId, SourceType request);
+        Task Change(RecId recId, Entities.SourceType request);
 
         /// <summary>
         /// It is used to Delete Single SourceType data from database

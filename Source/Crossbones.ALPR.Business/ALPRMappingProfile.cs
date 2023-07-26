@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Corssbones.ALPR.Business.CapturedPlate.Add;
 using Corssbones.ALPR.Business.NumberPlatesTemp.Add;
-using Crossbones.ALPR.Business.HotList.Add;
+using Corssbones.ALPR.Business.SourceType.Add;
 using Crossbones.ALPR.Business.HotListDataSource.Add;
 using Crossbones.ALPR.Business.NumberPlates.Add;
+using Crossbones.ALPR.Models.CapturedPlate;
 using DTO = Crossbones.ALPR.Models.DTOs;
 using Entities = Corssbones.ALPR.Database.Entities;
 
@@ -27,16 +29,16 @@ namespace Corssbones.ALPR.Business
 
             #endregion
 
-            #region Hotlist Mapping
+            #region Hotlist
 
-            CreateMap<Entities.Hotlist, AddHotListItem>().ReverseMap();
-            CreateMap<Entities.Hotlist, DTO.HotListDTO>().ReverseMap();
+            CreateMap<DTO.HotListDTO,Entities.Hotlist>().ForMember(dest => dest.Source, x => x.NullSubstitute(null));
+            CreateMap<Entities.Hotlist,DTO.HotListDTO>();
 
             #endregion
 
             #region HotlistDataSource
 
-            CreateMap<Entities.HotlistDataSource, AddHotListDataSourceItem>().ReverseMap();
+            CreateMap<DTO.HotListDataSourceDTO, Entities.HotlistDataSource>();
 
             #endregion
 
@@ -62,6 +64,37 @@ namespace Corssbones.ALPR.Business
             CreateMap<Entities.State, DTO.StateDTO>().ReverseMap();
 
             #endregion
+
+            #region CapturePlatesSummary
+
+            CreateMap<Entities.CapturePlatesSummary, CapturePlatesSummaryDTO>().ReverseMap();
+
+            #endregion
+
+            #region CapturePlatesSummaryStatus
+
+            CreateMap<Entities.CapturePlatesSummaryStatus, CapturePlatesSummaryStatusDTO>().ReverseMap();
+
+            #endregion
+
+            #region SourceType
+
+            CreateMap<AddSourceType, Entities.SourceType>();
+
+            #endregion
+
+            #region UserCapturedPlate
+
+            CreateMap<AddUserCapturedPlateItem, Entities.UserCapturedPlate>();
+
+            #endregion
+
+            #region CapturePlate
+
+            CreateMap<CapturedPlateDTO, Entities.CapturedPlate>().ReverseMap();
+
+            #endregion
+
         }
     }
 }

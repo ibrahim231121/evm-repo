@@ -20,7 +20,7 @@ public partial class Hotlist
     public string? Description { get; set; }
 
     [Column("SourceID")]
-    public long? SourceId { get; set; }
+    public long SourceId { get; set; }
 
     [StringLength(1000)]
     [Unicode(false)]
@@ -32,7 +32,7 @@ public partial class Hotlist
     public DateTime CreatedOn { get; set; }
 
     [Column(TypeName = "datetime")]
-    public DateTime LastUpdatedOn { get; set; }
+    public DateTime? LastUpdatedOn { get; set; }
 
     public byte[] LastTimeStamp { get; set; } = null!;
 
@@ -54,9 +54,8 @@ public partial class Hotlist
 
     public int? AudioSize { get; set; }
 
-    [ForeignKey("SourceId")]
     [InverseProperty("Hotlists")]
-    public virtual HotlistDataSource? Source { get; set; }
+    public virtual HotlistDataSource Source { get; set; }
 
     public virtual ICollection<HotListNumberPlate> HotListNumberPlates { get; set; } = new List<HotListNumberPlate>();
 }

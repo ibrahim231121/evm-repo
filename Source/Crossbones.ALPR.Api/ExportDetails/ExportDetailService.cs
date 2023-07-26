@@ -21,11 +21,14 @@ namespace Crossbones.ALPR.Api.ExportDetails
             var id = new RecId(await exportDetailSequenceProxy.Next(CancellationToken.None));
             var cmd = new AddExportDetail(id)
             {
-                CapturedPlateId = addExportDetail.CapturedPlateId,
-                ExportedOn = addExportDetail.ExportedOn,
-                ExportPath = addExportDetail.ExportPath,
-                TicketNumber = addExportDetail.TicketNumber,
-                UriLocation = addExportDetail.UriLocation
+                ItemToAdd = new DTO.ExportDetailDTO
+                {
+                    CapturedPlateId = addExportDetail.CapturedPlateId,
+                    ExportedOn = addExportDetail.ExportedOn,
+                    ExportPath = addExportDetail.ExportPath,
+                    TicketNumber = addExportDetail.TicketNumber,
+                    UriLocation = addExportDetail.UriLocation
+                }                
             };
 
             await Execute(cmd);
@@ -36,11 +39,14 @@ namespace Crossbones.ALPR.Api.ExportDetails
         {
             var cmd = new ChangeExportDetail(recId)
             {
-                TicketNumber = request.TicketNumber,
-                CapturedPlateId = request.CapturedPlateId,
-                UriLocation = request.UriLocation,
-                ExportedOn = request.ExportedOn,
-                ExportPath = request.ExportPath
+                ItemToUpdate = new DTO.ExportDetailDTO
+                {
+                    TicketNumber = request.TicketNumber,
+                    CapturedPlateId = request.CapturedPlateId,
+                    UriLocation = request.UriLocation,
+                    ExportedOn = request.ExportedOn,
+                    ExportPath = request.ExportPath
+                }                
             };
             _ = await Execute(cmd);
         }

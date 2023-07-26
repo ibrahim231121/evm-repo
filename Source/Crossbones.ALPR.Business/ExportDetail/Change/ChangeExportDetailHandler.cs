@@ -13,7 +13,7 @@ namespace Corssbones.ALPR.Business.ExportDetail.Change
             var entityExist = await _repository.Exists(x => x.RecId == command.Id, token);
             if (entityExist)
             {
-                var nameExist = await _repository.Exists(x => x.TicketNumber == command.TicketNumber && x.RecId != command.Id, token);
+                var nameExist = await _repository.Exists(x => x.TicketNumber == command.ItemToUpdate.TicketNumber && x.RecId != command.Id, token);
                 if (nameExist)
                 {
                     throw new DuplicationNotAllowed("Export Detail Already Exist");
@@ -21,11 +21,11 @@ namespace Corssbones.ALPR.Business.ExportDetail.Change
                 else
                 {
                     var exportDetail = await _repository.One(x => x.RecId == command.Id);
-                    exportDetail.TicketNumber = command.TicketNumber;
-                    exportDetail.CapturedPlateId = command.CapturedPlateId;
-                    exportDetail.ExportedOn = command.ExportedOn;
-                    exportDetail.ExportPath = command.ExportPath;
-                    exportDetail.UriLocation = command.UriLocation;
+                    exportDetail.TicketNumber = command.ItemToUpdate.TicketNumber;
+                    exportDetail.CapturedPlateId = command.ItemToUpdate.CapturedPlateId;
+                    exportDetail.ExportedOn = command.ItemToUpdate.ExportedOn;
+                    exportDetail.ExportPath = command.ItemToUpdate.ExportPath;
+                    exportDetail.UriLocation = command.ItemToUpdate.UriLocation;
 
                     await _repository.Update(exportDetail, token);
                     context.Success($"Export Detail has been updated, RecId:{command.Id}");

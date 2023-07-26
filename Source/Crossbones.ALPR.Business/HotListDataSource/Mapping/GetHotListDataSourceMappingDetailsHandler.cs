@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 using System.Globalization;
 using System.Net;
 using DTO = Crossbones.ALPR.Models.DTOs;
-using E = Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.HotListDataSource.Mapping
 {
@@ -38,10 +38,10 @@ namespace Corssbones.ALPR.Business.HotListDataSource.Mapping
                 _ => await GetRecordsFromLocal(schemaDefinition!, query.DataSourceItem.LocationPath, token)
             };
 
-            var stateRepository = context.Get<E.State>()
+            var stateRepository = context.Get<Entities.State>()
                 .Many(token);
 
-            var _numberPlateListHasNoEntryInMappingRepository = context.Get<E.NumberPlate>()
+            var _numberPlateListHasNoEntryInMappingRepository = context.Get<Entities.NumberPlate>()
                 .Many(token)
                 .Include(x => x.State)
                 .Include(x => x.HotListNumberPlates);

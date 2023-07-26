@@ -1,18 +1,12 @@
-﻿using Corssbones.ALPR.Database.Entities;
+﻿using Entities = Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Common;
 using Crossbones.ALPR.Models.CapturedPlate;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Query;
-using Crossbones.Modules.Business.Repositories;
 using Crossbones.Modules.Common;
 using Crossbones.Modules.Common.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.Geometries;
-using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using Entities = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.CapturedPlate.Get
 {
@@ -112,6 +106,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Get
                                                 Description = "",
                                                 HotlistName = e.HotList.Name,
                                                 CapturedAt = z.s.CapturedAt,
+                                                LastUpdated = z.s.LastUpdated,
                                                 UnitId = z.y.UnitId,
                                                 User = z.f.UserId,
                                                 Confidence = z.s.Confidence == null ? 0 : (int)z.s.Confidence,

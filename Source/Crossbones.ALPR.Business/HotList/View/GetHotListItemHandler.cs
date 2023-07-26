@@ -6,7 +6,7 @@ using Crossbones.Modules.Common;
 using LanguageExt;
 using Microsoft.EntityFrameworkCore;
 using DTO = Crossbones.ALPR.Models.DTOs;
-using E = Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 
 namespace Corssbones.ALPR.Business.HotList.Get
 {
@@ -14,7 +14,7 @@ namespace Corssbones.ALPR.Business.HotList.Get
     {
         protected override async Task<object> OnQuery(GetHotListItem query, IQueryContext context, CancellationToken token)
         {
-            var _repository = context.Get<E.Hotlist>();
+            var _repository = context.Get<Entities.Hotlist>();
 
             if (query.QueryFilter == GetQueryFilter.Count)
             {

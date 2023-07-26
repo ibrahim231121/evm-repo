@@ -1,4 +1,4 @@
-﻿using Corssbones.ALPR.Database.Entities;
+﻿using Entities = Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Models.CapturedPlate;
 
 namespace Crossbones.ALPR.Common
@@ -7,7 +7,7 @@ namespace Crossbones.ALPR.Common
     {
         #region ConvertToDTO
 
-        public static CapturePlatesSummaryDTO ConvertToDTO(CapturePlatesSummary item)
+        public static CapturePlatesSummaryDTO ConvertToDTO(Entities.CapturePlatesSummary item)
         {
             if (item == null)
             {
@@ -28,7 +28,7 @@ namespace Crossbones.ALPR.Common
             return capturePlatesSummaryItem;
         }
 
-        public static CapturePlatesSummaryStatusDTO ConvertToDTO(CapturePlatesSummaryStatus item)
+        public static CapturePlatesSummaryStatusDTO ConvertToDTO(Entities.CapturePlatesSummaryStatus item)
         {
             if (item == null)
             {
@@ -49,13 +49,13 @@ namespace Crossbones.ALPR.Common
 
         #region ConvertFromDTO
 
-        public static CapturePlatesSummary ConvertFromDTO(CapturePlatesSummaryDTO item)
+        public static Entities.CapturePlatesSummary ConvertFromDTO(CapturePlatesSummaryDTO item)
         {
             if (item == null)
             {
                 return null;
             }
-            var capturePlatesSummaryItem = new CapturePlatesSummary()
+            var capturePlatesSummaryItem = new Entities.CapturePlatesSummary()
             {
                 UserId = item.UserId,
                 CapturePlateId = item.CapturePlateId,
@@ -70,13 +70,13 @@ namespace Crossbones.ALPR.Common
             return capturePlatesSummaryItem;
         }
 
-        public static CapturePlatesSummaryStatus ConvertFromDTO(CapturePlatesSummaryStatusDTO item)
+        public static Entities.CapturePlatesSummaryStatus ConvertFromDTO(CapturePlatesSummaryStatusDTO item)
         {
             if (item == null)
             {
                 return null;
             }
-            var capturePlatesSummaryItem = new CapturePlatesSummaryStatus()
+            var capturePlatesSummaryItem = new Entities.CapturePlatesSummaryStatus()
             {
                 SyncId = item.SyncId,
                 LastExecutionDate = item.LastExecutionDate,

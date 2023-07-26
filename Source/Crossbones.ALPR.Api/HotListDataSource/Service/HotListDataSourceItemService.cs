@@ -11,7 +11,7 @@ using Crossbones.Modules.Common.Pagination;
 using Crossbones.Modules.Common.Queryables;
 using Crossbones.Modules.Sequence.Common.Interfaces;
 using DTO = Crossbones.ALPR.Models.DTOs;
-using E = Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 
 namespace Crossbones.ALPR.Api.HotListDataSource.Service
 {
@@ -40,11 +40,11 @@ namespace Crossbones.ALPR.Api.HotListDataSource.Service
         }
 
 
-        public async Task Change(RecId recId, E.HotlistDataSource request)
+        public async Task Change(RecId recId, Entities.HotlistDataSource request)
         {
             ChangeHotListDataSourceItem _object = new(recId);
 
-            var cmd = mapper.Map<E.HotlistDataSource, DTO.HotListDataSourceDTO>(request);
+            var cmd = mapper.Map<Entities.HotlistDataSource, DTO.HotListDataSourceDTO>(request);
             _object.Item = cmd;
             _object.Item.RecId = _object.Id;
 

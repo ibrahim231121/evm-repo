@@ -1,8 +1,10 @@
-﻿using Crossbones.ALPR.Common.ValueObjects;
+﻿using Crossbones.ALPR.Common;
+using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.ALPR.Models.CapturedPlate;
 using Crossbones.Modules.Api;
 using Crossbones.Modules.Common.Pagination;
 using Crossbones.Modules.Common.Queryables;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -12,16 +14,30 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummaryStatus
     public class CapturePlatesSummaryStatusController : BaseController
     {
         ICapturePlatesSummaryStatusService _service;
+        ValidateModel<CapturePlatesSummaryStatusDTO> validateModel;
 
-        public CapturePlatesSummaryStatusController(ApiParams feature, ICapturePlatesSummaryStatusService service) : base(feature) => _service = service;
+        public CapturePlatesSummaryStatusController(ApiParams feature, ICapturePlatesSummaryStatusService service) : base(feature) 
+        { 
+            _service = service;
+            validateModel = new ValidateModel<CapturePlatesSummaryStatusDTO>();
+        }
 
         [HttpPost]
         [ProducesResponseType(201)]
         public async Task<IActionResult> Add([FromBody] CapturePlatesSummaryStatusDTO capturedPlateSummaryStatusItem)
         {
-            var recId = await _service.Add(capturedPlateSummaryStatusItem);
+            (bool isValid, string errorList) = validateModel.Validate(capturedPlateSummaryStatusItem);
+            if (isValid)
+            {
+                var recId = await _service.Add(capturedPlateSummaryStatusItem);
 
-            return Created($"{baseUrl}/CapturedPlate/{recId}", recId);
+                return Created($"{baseUrl}/CapturedPlate/{recId}", recId);
+            }
+            else
+            {
+                return BadRequest(new { statusCode = StatusCodes.Status400BadRequest, message = errorList });
+            }
+            
         }
 
         [HttpGet]
@@ -65,9 +81,17 @@ namespace Crossbones.ALPR.Api.CapturePlatesSummaryStatus
         [HttpPut]
         [ProducesResponseType(204)]
         public async Task<IActionResult> Change([FromQuery] long recId, [FromBody] CapturePlatesSummaryStatusDTO capturedPlateSummaryStatusItem)
-        {
-            await _service.Change(new RecId(recId), capturedPlateSummaryStatusItem);
-            return NoContent();
+        {           
+            (bool isValid, string errorList) = validateModel.Validate(capturedPlateSummaryStatusItem);
+            if (isValid)
+            {
+                await _service.Change(new RecId(recId), capturedPlateSummaryStatusItem);
+                return NoContent();
+            }
+            else
+            {
+                return BadRequest(new { statusCode = StatusCodes.Status400BadRequest, message = errorList });
+            }
         }
 
         [HttpDelete("{recId}")]

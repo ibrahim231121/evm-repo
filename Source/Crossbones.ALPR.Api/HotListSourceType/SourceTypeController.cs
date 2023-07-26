@@ -1,5 +1,5 @@
 ﻿
-using Corssbones.ALPR.Database.Entities;
+using Entities = Corssbones.ALPR.Database.Entities;
 using Crossbones.ALPR.Api.HotListSourceType.Service;
 using Crossbones.ALPR.Common.ValueObjects;
 using Crossbones.Modules.Api;
@@ -17,7 +17,7 @@ namespace Crossbones.ALPR.Api.HotListSourceType
 
         [HttpPost]
         [ProducesResponseType(201)]
-        public async Task<IActionResult> Add([FromBody] SourceType sourceTypeItem)
+        public async Task<IActionResult> Add([FromBody] Entities.SourceType sourceTypeItem)
         {
             var recId = await _service.Add(sourceTypeItem);
 
@@ -41,7 +41,7 @@ namespace Crossbones.ALPR.Api.HotListSourceType
 
         [HttpPut("{recId}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> Change(long recId, [FromBody] SourceType sourceTypeItem)
+        public async Task<IActionResult> Change(long recId, [FromBody] Entities.SourceType sourceTypeItem)
         {
             await _service.Change(new RecId(recId), sourceTypeItem);
             return NoContent();
