@@ -13,7 +13,7 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Add
 
         public override string ToString()
         {
-            return $"H_ID: {Item.HotListId} N_ID: {Item.NumberPlatesId}";
+            return $"H_ID: {Item.HotListId} N_ID: {Item.NumberPlateId}";
         }
 
     }

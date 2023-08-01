@@ -19,7 +19,7 @@ namespace Corssbones.ALPR.Business.ExportDetail.Get
         protected override async Task<object> OnQuery(GetExportDetail query, IQueryContext context, CancellationToken token)
         {
 
-            var _repository = context.Get<Entities.ALPRExportDetail>();
+            var _repository = context.Get<Entities.AlprExportDetail>();
 
             if (query.Filter == GetQueryFilter.Count)
             {

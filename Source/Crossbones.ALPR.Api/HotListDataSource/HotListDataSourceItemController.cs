@@ -5,6 +5,10 @@ using Crossbones.Modules.Api;
 using Crossbones.Modules.Common.Pagination;
 using Microsoft.AspNetCore.Mvc;
 using DTO = Crossbones.ALPR.Models.DTOs;
+using Crossbones.ALPR.Common;
+using Corssbones.ALPR.Database.Entities;
+using Microsoft.AspNetCore.Http;
+using Crossbones.ALPR.Api.HotListNumberPlates;
 
 namespace Crossbones.ALPR.Api.HotListDataSource
 {
@@ -12,16 +16,30 @@ namespace Crossbones.ALPR.Api.HotListDataSource
     public class HotListDataSourceItemController : BaseController
     {
         readonly IHotListDataSourceItemService _service;
+        ValidateModel<DTO.HotListDataSourceDTO> validateModel;
 
-        public HotListDataSourceItemController(ApiParams feature, IHotListDataSourceItemService service) : base(feature) => _service = service;
+        public HotListDataSourceItemController(ApiParams feature, IHotListDataSourceItemService service) : base(feature)
+        {
+            _service = service;
+            validateModel = new ValidateModel<DTO.HotListDataSourceDTO>();
+        }
 
         [HttpPost]
         [ProducesResponseType(201)]
         public async Task<IActionResult> Add([FromBody] DTO.HotListDataSourceDTO hotListDataSourceItem)
         {
-            var recId = await _service.Add(hotListDataSourceItem);
+            (bool isValid, string errorList) = validateModel.Validate(hotListDataSourceItem);
+            if (isValid)
+            {
+                var recId = await _service.Add(hotListDataSourceItem);
 
-            return Created($"{baseUrl}/HotListDataSource/{recId}", recId);
+                return Created($"{baseUrl}/HotListDataSource/{recId}", recId);
+            }
+            else
+            {
+                return BadRequest(new { statusCode = StatusCodes.Status400BadRequest, message = errorList });
+            }
+            
         }
 
         [HttpGet]
@@ -41,6 +59,16 @@ namespace Crossbones.ALPR.Api.HotListDataSource
         [ProducesResponseType(204)]
         public async Task<IActionResult> Change(long recId, [FromBody] Entities.HotlistDataSource hotListDataSourceItem)
         {
+            //(bool isValid, string errorList) = validateModel.Validate(hotListNumberPlate);
+            //if (isValid)
+            //{
+            //    await _service.Change(new RecId(recId), hotListDataSourceItem);
+            //    return NoContent();
+            //}
+            //else
+            //{
+            //    return BadRequest(new { statusCode = StatusCodes.Status400BadRequest, message = errorList });
+            //}
             await _service.Change(new RecId(recId), hotListDataSourceItem);
             return NoContent();
         }

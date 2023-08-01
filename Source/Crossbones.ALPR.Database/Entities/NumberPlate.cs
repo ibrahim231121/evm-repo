@@ -37,9 +37,9 @@ public partial class NumberPlate
 
     public short? InsertType { get; set; }
 
-    public DateTime? CreatedOn { get; set; }
+    public DateTime CreatedOn { get; set; }
 
-    public DateTime? LastUpdatedOn { get; set; }
+    public DateTime LastUpdatedOn { get; set; }
 
     public byte[]? LastTimeStamp { get; set; }
 

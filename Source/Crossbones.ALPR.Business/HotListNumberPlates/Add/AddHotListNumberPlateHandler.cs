@@ -17,7 +17,7 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Add
             var hotListRepo = context.Get<Entities.Hotlist>();
             var numberPlateRepo = context.Get<Entities.NumberPlate>();
 
-            var nameExist = await hotListNumberPlateRepo.Exists(x => x.HotListId == command.Item.HotListId && x.NumberPlatesId == command.Item.NumberPlatesId, token);
+            var nameExist = await hotListNumberPlateRepo.Exists(x => x.HotListId == command.Item.HotListId && x.NumberPlateId == command.Item.NumberPlateId, token);
             if (nameExist)
             {
                 throw new DuplicationNotAllowed("Entry with same attributes already exist");

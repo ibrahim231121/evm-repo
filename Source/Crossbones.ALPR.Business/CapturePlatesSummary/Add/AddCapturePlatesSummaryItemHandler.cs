@@ -28,7 +28,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Add
             }
             else
             {
-                var capturePlatesSummary = mapper.Map<Entities.CapturePlatesSummary>(command.ItemToAdd); //DTOHelper.ConvertFromDTO(command.ItemToAdd);
+                var capturePlatesSummary = mapper.Map<Entities.CapturePlatesSummary>(command.ItemToAdd);
 
                 await cpsRepository.Add(capturePlatesSummary, token);
 

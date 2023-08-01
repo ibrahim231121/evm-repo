@@ -24,6 +24,8 @@ namespace Crossbones.ALPR.Api.NumberPlates.Service
 
         public async Task<RecId> Add(DTO.NumberPlateDTO request)
         {
+            request.CreatedOn = DateTime.UtcNow;
+            request.LastUpdatedOn = DateTime.UtcNow;
             var cmd = await GetAddCommand(request);
             _ = await Execute(cmd);
             return cmd.Id;
@@ -65,6 +67,7 @@ namespace Crossbones.ALPR.Api.NumberPlates.Service
         }
         public async Task Change(RecId recId, DTO.NumberPlateDTO request)
         {
+            request.LastUpdatedOn = DateTime.UtcNow;
             var cmd = new ChangeNumberPlate(recId)
             {
                 NumberPlateDTO = request              

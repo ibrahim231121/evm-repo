@@ -16,7 +16,6 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Change
 
             if (entityExist)
             {
-                //CapturedPlateValidations.ValidateCapturedPlateItem(command.UpdateItem);
 
                 var point = NtsGeometryServices.Instance.CreateGeometryFactory().CreatePoint(new Coordinate(command.UpdateItem.Longitude, command.UpdateItem.Latitude));
                 point.SRID = 4326;

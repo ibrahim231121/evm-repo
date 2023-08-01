@@ -15,7 +15,7 @@ namespace Crossbones.ALPR.Business.NumberPlates.Delete
             var hotListNumberPlateList = await context.Get<Entities.HotListNumberPlate>().Many().ToListAsync();
             var singleDeleteRequest = command.Id != RecId.Empty;
 
-            if (hotListNumberPlateList.Any(x=>x.NumberPlatesId == command.Id))
+            if (hotListNumberPlateList.Any(x=>x.NumberPlateId == command.Id))
             {
                 throw new DeleteNotAllowed("Can not delete number plate since it is associated with hotlist.");
             }

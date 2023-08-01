@@ -51,7 +51,7 @@ namespace Crossbones.ALPR.Api.HotListDataSourceMapping.Service
                 else { _numberPlateId = new RecId(licensePlate.RecId); }
 
                 chainCommand += await hotListNumberPlateService.GetAddCommand(
-                    new DTO.HotListNumberPlateDTO() { HotListId = hotListId, NumberPlatesId = _numberPlateId });
+                    new DTO.HotListNumberPlateDTO() { HotListId = hotListId, NumberPlateId = _numberPlateId });
 
                 if (chainCommand.Commands.Any())
                     _ = await Execute(chainCommand);

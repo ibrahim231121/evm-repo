@@ -45,7 +45,7 @@ namespace Crossbones.ALPR.Business.NumberPlates.Get
 
                 foreach (var item in hotListNumberPlates)
                 {
-                    data.Add(numberPlateList.FirstOrDefault(x => x.RecId == item.NumberPlatesId));
+                    data.Add(numberPlateList.FirstOrDefault(x => x.RecId == item.NumberPlateId));
                 }
 
                 var res = mapper.Map<List<DTO.NumberPlateDTO>>(data);
@@ -91,7 +91,7 @@ namespace Crossbones.ALPR.Business.NumberPlates.Get
                 {
                     var data = await _repository.Many().Include(x => x.State).GroupJoin(hotListNumberPlateRepository.Many().Include(y => y.NumberPlate).Include(y => y.HotList),
                          ft => ft.RecId,
-                         st => st.NumberPlatesId,
+                         st => st.NumberPlateId,
                          (ft, st) => new { ft, st }).
                          SelectMany(
                          hotList => hotList.st.DefaultIfEmpty(),
@@ -133,7 +133,7 @@ namespace Crossbones.ALPR.Business.NumberPlates.Get
 
         static string ReturnHotListName(long numberPlateId)
         {
-            long? hotListId = hotListNumberPlates?.FirstOrDefault(z => z.NumberPlatesId == numberPlateId)?.HotListId;
+            long? hotListId = hotListNumberPlates?.FirstOrDefault(z => z.NumberPlateId == numberPlateId)?.HotListId;
             return (hotListId > 0) ? hotLists?.FirstOrDefault(y => y.RecId == hotListId).Name : "Not Assigned";
         }
     }

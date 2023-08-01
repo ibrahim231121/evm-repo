@@ -23,7 +23,7 @@ namespace Corssbones.ALPR.Business
 
             #region ALPRExportDetail
 
-            CreateMap<Entities.ALPRExportDetail, DTO.ExportDetailDTO>().ReverseMap();
+            CreateMap<Entities.AlprExportDetail, DTO.ExportDetailDTO>().ReverseMap();
             CreateMap<Entities.HotlistDataSource, DTO.HotListDataSourceDTO>().ReverseMap();
             CreateMap<Entities.SourceType, DTO.SourceTypeDTO>().ReverseMap();
 

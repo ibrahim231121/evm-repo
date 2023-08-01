@@ -8,11 +8,10 @@ namespace Crossbones.ALPR.Models.DTOs
         public string? NCICNumber { get; set; }
         public string? AgencyId { get; set; }
 
-        [Required(ErrorMessage = "Date Of Interest can not be null")]
+        [Range(typeof(DateTime), "January 1, 2010", "December 31, 2030", ErrorMessage = "Value for {0} must be between {1} and {2}")]
         public DateTime DateOfInterest { get; set; }
 
-        [Required(ErrorMessage = "License Plate can not be null")]
-        [StringLength(10, ErrorMessage = "License Plate lenght should be between 6 to 20 characters",MinimumLength = 6)]
+        [StringLength(20, ErrorMessage = "License Plate lenght should be between 6 to 20 characters",MinimumLength = 6)]
         public string LicensePlate { get; set; }
         public byte? StateId { get; set; }
         public string? LicenseYear { get; set; }
@@ -24,7 +23,11 @@ namespace Crossbones.ALPR.Models.DTOs
         public string? VehicleColor { get; set; }
         public string? Note { get; set; }
         public short? InsertType { get; set; }
+
+        [Range(typeof(DateTime), "January 1, 2010", "December 31, 2030", ErrorMessage = "Value for {0} must be between {1} and {2}")]
         public DateTime? CreatedOn { get; set; }
+
+        [Range(typeof(DateTime), "January 1, 2010", "December 31, 2030", ErrorMessage = "Value for {0} must be between {1} and {2}")]
         public DateTime? LastUpdatedOn { get; set; }
         public short? Status { get; set; }
         public string FirstName { get; set; }
@@ -33,6 +36,8 @@ namespace Crossbones.ALPR.Models.DTOs
         public string? ViolationInfo { get; set; }
         public string? Notes { get; set; }
         public string? ImportSerialId { get; set; }
+
+        //Addtional Properties
         public string? HotList { get; set; }
         public string? StateName { get; set; }
         public bool? NeedFullInsertion { get; set; }

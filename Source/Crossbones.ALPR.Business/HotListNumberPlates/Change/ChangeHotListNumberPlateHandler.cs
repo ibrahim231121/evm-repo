@@ -13,7 +13,7 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Change
             var entityExist = await _repository.Exists(x => x.RecId == command.Id, token);
             if (entityExist)
             {
-                var nameExist = await _repository.Exists(x => x.HotListId == command.HotListID && x.NumberPlatesId == command.NumberPlatesId && x.RecId != command.Id, token);
+                var nameExist = await _repository.Exists(x => x.HotListId == command.HotListID && x.NumberPlateId == command.NumberPlatesId && x.RecId != command.Id, token);
                 if (nameExist)
                 {
                     throw new DuplicationNotAllowed("Entry with same attributes already exist");
@@ -22,7 +22,7 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Change
                 {
                     var hotListItem = await _repository.One(x => x.RecId == command.Id);
                     hotListItem.HotListId = command.HotListID;
-                    hotListItem.NumberPlatesId = command.NumberPlatesId;
+                    hotListItem.NumberPlateId = command.NumberPlatesId;
                     hotListItem.LastUpdatedOn = DateTime.UtcNow;
 
                     await _repository.Update(hotListItem, token);

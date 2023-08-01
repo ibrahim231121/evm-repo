@@ -10,11 +10,11 @@ using Newtonsoft.Json;
 namespace Crossbones.ALPR.Api.HotList
 {
     [Route("HotList")]
-    public class HotListItemController : BaseController
+    public class HotListController : BaseController
     {
-        readonly IHotListItemService _service;
+        readonly IHotListService _service;
 
-        public HotListItemController(ApiParams feature, IHotListItemService service) : base(feature) => _service = service;
+        public HotListController(ApiParams feature, IHotListService service) : base(feature) => _service = service;
 
         [HttpPost]
         [ProducesResponseType(201)]

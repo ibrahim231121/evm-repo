@@ -103,7 +103,7 @@ namespace Crossbones.ALPR.Api
             services.Add(new ServiceDescriptor(typeof(ISequenceProxyFactory), typeof(SequenceProxyProvider), ServiceLifetime.Scoped));
             services.AddScoped<ServiceArguments>();
 
-            services.Add(new ServiceDescriptor(typeof(IHotListItemService), typeof(HotListItemService), ServiceLifetime.Transient));
+            services.Add(new ServiceDescriptor(typeof(IHotListService), typeof(HotListService), ServiceLifetime.Transient));
             services.Add(new ServiceDescriptor(typeof(IExportDetailService), typeof(ExportDetailService), ServiceLifetime.Transient));
             services.Add(new ServiceDescriptor(typeof(IHotListNumberPlateService), typeof(HotListNumberPlateService), ServiceLifetime.Transient));
             services.Add(new ServiceDescriptor(typeof(IHotListDataSourceItemService), typeof(HotListDataSourceItemService), ServiceLifetime.Transient));

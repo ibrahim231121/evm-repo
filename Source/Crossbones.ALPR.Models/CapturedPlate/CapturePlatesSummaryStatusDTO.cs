@@ -6,10 +6,10 @@ namespace Crossbones.ALPR.Models.CapturedPlate
     {
         public long SyncId { get; set; }
 
-        [Range(typeof(DateTime), "January 1, 0001", "December 31, 9999", ErrorMessage = "Value for {0} must be between {1} and {2}")]
+        [Range(typeof(DateTime), "January 1, 2010", "December 31, 2030", ErrorMessage = "Value for {0} must be between {1} and {2}")]
         public DateTime? LastExecutionDate { get; set; }
 
-        [Range(typeof(DateTime), "January 1, 0001", "December 31, 9999", ErrorMessage = "Value for {0} must be between {1} and {2}")]
+        [Range(typeof(DateTime), "January 1, 2010", "December 31, 2030", ErrorMessage = "Value for {0} must be between {1} and {2}")]
         public DateTime? LastExecutionEndDate { get; set; }
 
         public int? StatusId { get; set; }

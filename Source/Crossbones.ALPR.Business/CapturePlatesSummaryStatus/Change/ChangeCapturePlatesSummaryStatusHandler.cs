@@ -23,7 +23,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Change
             {
                 command.UpdatedItem.SyncId = command.Id;
 
-                var capturePlatesSummary = mapper.Map<Entities.CapturePlatesSummaryStatus>(command.UpdatedItem); //DTOHelper.ConvertFromDTO(command.UpdatedItem);
+                var capturePlatesSummary = mapper.Map<Entities.CapturePlatesSummaryStatus>(command.UpdatedItem);
 
                 await cpssRepository.Update(capturePlatesSummary, token);
 

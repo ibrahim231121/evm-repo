@@ -12,11 +12,11 @@ using Crossbones.Modules.Sequence.Common.Interfaces;
 
 namespace Crossbones.ALPR.Api.HotList.Service
 {
-    public class HotListItemService : ServiceBase, IHotListItemService
+    public class HotListService : ServiceBase, IHotListService
     {
         readonly ISequenceProxy _hotListSequenceProxy;
 
-        public HotListItemService(ServiceArguments args, ISequenceProxyFactory sequenceProxyFactory) : base(args) => _hotListSequenceProxy = sequenceProxyFactory.GetProxy(ALPRResources.HotList);
+        public HotListService(ServiceArguments args, ISequenceProxyFactory sequenceProxyFactory) : base(args) => _hotListSequenceProxy = sequenceProxyFactory.GetProxy(ALPRResources.HotList);
 
         public async Task<RecId> Add(DTO.HotListDTO request)
         {

@@ -1,4 +1,7 @@
-﻿namespace Corssbones.ALPR.Database.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Corssbones.ALPR.Database.Entities;
 
 public partial class HotListNumberPlate
 {
@@ -6,16 +9,14 @@ public partial class HotListNumberPlate
 
     public long HotListId { get; set; }
 
-    public long NumberPlatesId { get; set; }
-
+    [Column("NumberPlatesId")]
+    public long NumberPlateId { get; set; }
     public DateTime CreatedOn { get; set; }
-
-    public DateTime? LastUpdatedOn { get; set; }
+    public DateTime LastUpdatedOn { get; set; }
 
     public byte[]? LastTimeStamp { get; set; }
 
     public virtual Hotlist HotList { get; set; } = null!;
 
     public virtual NumberPlate NumberPlate { get; set; } = null!;
-
 }

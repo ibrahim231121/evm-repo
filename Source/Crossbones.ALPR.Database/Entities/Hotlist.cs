@@ -32,7 +32,7 @@ public partial class Hotlist
     public DateTime CreatedOn { get; set; }
 
     [Column(TypeName = "datetime")]
-    public DateTime? LastUpdatedOn { get; set; }
+    public DateTime LastUpdatedOn { get; set; }
 
     public byte[] LastTimeStamp { get; set; } = null!;
 

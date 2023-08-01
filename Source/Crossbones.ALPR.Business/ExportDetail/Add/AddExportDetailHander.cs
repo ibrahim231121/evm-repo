@@ -15,7 +15,7 @@ namespace Corssbones.ALPR.Business.ExportDetail.Add
         }
         protected override async Task OnMessage(AddExportDetail command, ICommandContext context, CancellationToken token)
         {
-            var _repository = context.Get<Entities.ALPRExportDetail>();
+            var _repository = context.Get<Entities.AlprExportDetail>();
             var isEntryExists = await _repository.Exists((x => x.TicketNumber == command.ItemToAdd.TicketNumber), token);
             if (isEntryExists)
             {
@@ -23,7 +23,7 @@ namespace Corssbones.ALPR.Business.ExportDetail.Add
             }
             else
             {
-                var exportDetail = mapper.Map<Entities.ALPRExportDetail>(command.ItemToAdd);
+                var exportDetail = mapper.Map<Entities.AlprExportDetail>(command.ItemToAdd);
                 await _repository.Add(exportDetail, token);
                 context.Success($"Export Detail has been added, RecId:{command.Id}");
             }

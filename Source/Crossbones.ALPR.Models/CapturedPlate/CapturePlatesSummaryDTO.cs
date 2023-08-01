@@ -20,7 +20,7 @@ namespace Crossbones.ALPR.Models.CapturedPlate
         [MinLength(1, ErrorMessage = "LoginId can not be empty")]
         public string LoginId { get; set; } = null!;
 
-        [Range(typeof(DateTime), "January 1, 0001", "December 31, 9999", ErrorMessage = "Value for {0} must be between {1} and {2}")]
+        [Range(typeof(DateTime), "January 1, 2010", "December 31, 2030", ErrorMessage = "Value for {0} must be between {1} and {2}")]
         public DateTime CaptureDate { get; set; }
 
         public bool HasAlert { get; set; }

@@ -14,10 +14,10 @@ namespace Crossbones.ALPR.Models.CapturedPlate
 
         public string HotlistName { get; set; }
 
-        [Range(typeof(DateTime), "January 1, 1753", "December 31, 9999", ErrorMessage = "Value for {0} must be between {1} and {2}")]
+        [Range(typeof(DateTime), "January 1, 2010", "December 31, 2030", ErrorMessage = "Value for {0} must be between {1} and {2}")]
         public DateTime CapturedAt { get; set; } = DateTime.MaxValue;
 
-        [Range(typeof(DateTime), "January 1, 1753", "December 31, 9999", ErrorMessage = "Value for {0} must be between {1} and {2}")]
+        [Range(typeof(DateTime), "January 1, 2010", "December 31, 2030", ErrorMessage = "Value for {0} must be between {1} and {2}")]
         public DateTime LastUpdated { get; set; }
 
         public DateTime CapturedAtUtc

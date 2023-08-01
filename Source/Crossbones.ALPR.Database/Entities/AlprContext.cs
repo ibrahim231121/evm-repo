@@ -15,7 +15,7 @@ public partial class AlprContext : DbContextWithChannel
     {
     }
 
-    public virtual DbSet<ALPRExportDetail> ALPRExportDetail { get; set; }
+    public virtual DbSet<AlprExportDetail> ALPRExportDetail { get; set; }
 
     public virtual DbSet<CapturePlatesSummary> CapturePlatesSummaries { get; set; }
 
@@ -51,7 +51,7 @@ public partial class AlprContext : DbContextWithChannel
     {
         modelBuilder.UseCollation("Latin1_General_CI_AS");
 
-        modelBuilder.Entity<ALPRExportDetail>(entity =>
+        modelBuilder.Entity<AlprExportDetail>(entity =>
         {
             entity.Property(e => e.ExportedOn).HasDefaultValueSql("(getutcdate())");
         });
@@ -86,7 +86,7 @@ public partial class AlprContext : DbContextWithChannel
                 .IsRowVersion()
                 .IsConcurrencyToken();
             entity.Property(e => e.LastUpdatedOn).HasColumnType("datetime");
-            entity.Property(e => e.NumberPlatesId).HasColumnName("NumberPlatesID");
+            entity.Property(e => e.NumberPlateId).HasColumnName("NumberPlatesID");
 
             entity.HasOne(d => d.HotList).WithMany(p => p.HotListNumberPlates)
                 .HasForeignKey(d => d.HotListId)
@@ -94,7 +94,7 @@ public partial class AlprContext : DbContextWithChannel
                 .HasConstraintName("FK_HotListNumberPlates_HotList");
 
             entity.HasOne(d => d.NumberPlate).WithMany(p => p.HotListNumberPlates)
-                .HasForeignKey(d => d.NumberPlatesId)
+                .HasForeignKey(d => d.NumberPlateId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_HotListNumberPlates_NumberPlates");
         });

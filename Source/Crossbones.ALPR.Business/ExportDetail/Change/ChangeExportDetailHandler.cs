@@ -9,7 +9,7 @@ namespace Corssbones.ALPR.Business.ExportDetail.Change
     {
         protected override async Task OnMessage(ChangeExportDetail command, ICommandContext context, CancellationToken token)
         {
-            var _repository = context.Get<Entities.ALPRExportDetail>();
+            var _repository = context.Get<Entities.AlprExportDetail>();
             var entityExist = await _repository.Exists(x => x.RecId == command.Id, token);
             if (entityExist)
             {

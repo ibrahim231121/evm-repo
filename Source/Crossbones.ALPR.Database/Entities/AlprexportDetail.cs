@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Corssbones.ALPR.Database.Entities;
 
 [Table("ALPRExportDetail")]
-public partial class ALPRExportDetail
+public partial class AlprExportDetail
 {
     [Key]
     public long RecId { get; set; }

@@ -6,7 +6,7 @@ using Crossbones.Modules.Common.Queryables;
 
 namespace Crossbones.ALPR.Api.HotList.Service
 {
-    public interface IHotListItemService
+    public interface IHotListService
     {
         /// <summary>
         /// It is used to Add Hotlist data in the database

@@ -23,20 +23,20 @@ namespace Crossbones.ALPR.Api.NumberPlatesTemp.Service
             var id = new RecId(await _numberPlatesTempSequenceProxy.Next(CancellationToken.None));
             var cmd = new AddNumberPlatesTemp(id)
             {
-                Ncicnumber = request.Ncicnumber,
+                Ncicnumber = request.NCICNumber,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Alias = request.Alias,
                 AgencyId = request.AgencyId,
-                InsertType = request.InsertType,
+                InsertType = (short)request.InsertType,
                 LicenseType = request.LicenseType,
                 CreatedOn = DateTime.UtcNow,
                 DateOfInterest = request.DateOfInterest,
                 LicenseYear = request.LicenseYear,
                 Note = request.Note,
-                NumberPlate = request.NumberPlate,
-                StateId = request.StateId,
-                Status = request.Status,
+                NumberPlate = request.LicensePlate,
+                StateId = request.StateId.ToString(), //State Id will be short as it points to state table recId which is short as datatype
+                Status = (short)request.Status,
                 VehicleColor = request.VehicleColor,
                 VehicleMake = request.VehicleMake,
                 VehicleModel = request.VehicleModel,
@@ -78,21 +78,21 @@ namespace Crossbones.ALPR.Api.NumberPlatesTemp.Service
         {
             var cmd = new ChangeNumberPlatesTemp(recId)
             {
-                Ncicnumber = request.Ncicnumber,
+                Ncicnumber = request.NCICNumber,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Alias = request.Alias,
                 AgencyId = request.AgencyId,
-                InsertType = request.InsertType,
+                InsertType = (short)request.InsertType,
                 LicenseType = request.LicenseType,
-                CreatedOn = request.CreatedOn,
+                CreatedOn = (DateTime)request.CreatedOn,
                 DateOfInterest = request.DateOfInterest,
                 LastUpdatedOn = DateTime.UtcNow,
                 LicenseYear = request.LicenseYear,
                 Note = request.Note,
-                NumberPlate = request.NumberPlate,
-                StateId = request.StateId,
-                Status = request.Status,
+                NumberPlate = request.LicensePlate,
+                StateId = request.StateId.ToString(), //State Id will be short as it points to state table recId which is short as datatype
+                Status = (short)request.Status,
                 VehicleColor = request.VehicleColor,
                 VehicleMake = request.VehicleMake,
                 VehicleModel = request.VehicleModel,

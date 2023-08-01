@@ -11,7 +11,7 @@ namespace Corssbones.ALPR.Business.ExportDetail.Delete
     {
         protected override async Task OnMessage(DeleteExportDetail command, ICommandContext context, CancellationToken token)
         {
-            var _repository = context.Get<Entities.ALPRExportDetail>();
+            var _repository = context.Get<Entities.AlprExportDetail>();
             var singleDeleteRequest = command.Id != RecId.Empty;
 
             var result = singleDeleteRequest switch

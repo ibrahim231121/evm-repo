@@ -6,20 +6,21 @@ namespace Crossbones.ALPR.Models.DTOs
     {
         public long RecId { get; set; }
 
-        [Required(ErrorMessage = "CapturedPlateId can not null or <= 0")]
+        [Range(1, long.MaxValue, ErrorMessage = "Captured Plate Id should be greater than 0")]
         public long CapturedPlateId { get; set; }
-        [Required(ErrorMessage = "TicketNumber can not be null or <= 0")]
+
+        [Range(1, long.MaxValue, ErrorMessage = "Ticket Number should be greater than 0")]
         public long TicketNumber { get; set; }
-        [Required(ErrorMessage = "TicketNumber can not be null")]
+
+        [Range(typeof(DateTime), "January 1, 2010", "December 31, 2030", ErrorMessage = "Value for {0} must be between {1} and {2}")]
         public DateTime ExportedOn { get; set; }
 
-        [Required(ErrorMessage = "TicketNumber can not be null")]
-        [StringLength(1000)]
+        [StringLength(1000, ErrorMessage = "Export Path length should be <= 1",MinimumLength = 1)]
         public string ExportPath { get; set; } = null!;
 
-        [Required(ErrorMessage = "TicketNumber can not be null")]
-        [StringLength(1024, ErrorMessage = "UriLocation should not be greather than 1024 characters")]
-        [MinLength(10, ErrorMessage = "UriLocation should not be lower than 10 characters")]
+        //[Required(ErrorMessage = "UriLocation can not be null")]
+        //[StringLength(1024, ErrorMessage = "Uri Location should not be greather than 1024 characters")]
+        //[MinLength(10, ErrorMessage = "UriLocation should not be lower than 10 characters")]
         public string? UriLocation { get; set; }
     }
 }

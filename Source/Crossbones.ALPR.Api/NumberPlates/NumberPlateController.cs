@@ -25,7 +25,7 @@ namespace Crossbones.ALPR.Api.NumberPlates
         //[ProducesResponseType(201)]
         public async Task<IActionResult> Add([FromBody] DTO.NumberPlateDTO numberPlates)
         {
-            (bool isValid, string ErrorMessage) = validateModel.Validate(numberPlates);
+            (bool isValid, string errorList) = validateModel.Validate(numberPlates);
 
             if (isValid)
             {
@@ -34,7 +34,7 @@ namespace Crossbones.ALPR.Api.NumberPlates
             }
             else
             {
-                return BadRequest(ErrorMessage);
+                return BadRequest(new { statusCode = StatusCodes.Status400BadRequest, message = errorList });
             }            
         }
 
@@ -69,7 +69,7 @@ namespace Crossbones.ALPR.Api.NumberPlates
         //[ProducesResponseType(204)]
         public async Task<IActionResult> Change(long recId, [FromBody] DTO.NumberPlateDTO numberPlates)
         {
-            (bool isValid, string ErrorMessage) = validateModel.Validate(numberPlates);
+            (bool isValid, string errorList) = validateModel.Validate(numberPlates);
             
             if (isValid)
             { 
@@ -78,7 +78,7 @@ namespace Crossbones.ALPR.Api.NumberPlates
             }
             else
             {
-                return BadRequest(ErrorMessage);
+                return BadRequest(new { statusCode = StatusCodes.Status400BadRequest, message = errorList });
             }
         }
 

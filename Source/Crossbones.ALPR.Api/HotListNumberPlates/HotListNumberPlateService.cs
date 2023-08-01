@@ -38,7 +38,7 @@ namespace Crossbones.ALPR.Api.HotListNumberPlates
             {
                 RecId = command.Id,
                 HotListId = request.HotListId,
-                NumberPlatesId = request.NumberPlatesId,
+                NumberPlateId = request.NumberPlateId,
                 CreatedOn = DateTime.Now,
                 LastUpdatedOn = DateTime.Now,
             };
@@ -52,7 +52,7 @@ namespace Crossbones.ALPR.Api.HotListNumberPlates
             {
                 HotListID = request.HotListId,
                 CreatedOn = DateTime.UtcNow,
-                NumberPlatesId = request.NumberPlatesId,
+                NumberPlatesId = request.NumberPlateId,
                 LastUpdatedOn = DateTime.UtcNow,
             };
             _ = await Execute(cmd);

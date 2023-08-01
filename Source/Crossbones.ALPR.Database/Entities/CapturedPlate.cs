@@ -19,7 +19,7 @@ public partial class CapturedPlate
 
     [StringLength(50)]
     [Unicode(false)]
-    public string NumberPlate { get; set; } = null!;
+    public string NumberPlate { get; set; }
 
     public int? BackColor { get; set; }
 
@@ -66,7 +66,7 @@ public partial class CapturedPlate
     public string? Notes { get; set; }
 
     [Column("IRSAClientID")]
-    public int IrsaclientId { get; set; }
+    public int IrsacCientId { get; set; }
 
     public long ClientSerial { get; set; }
 

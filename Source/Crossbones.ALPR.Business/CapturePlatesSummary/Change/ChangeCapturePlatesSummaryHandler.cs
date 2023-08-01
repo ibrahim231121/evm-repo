@@ -20,9 +20,7 @@ namespace Corssbones.ALPR.Business.CapturedPlate.Change
 
             if (entityExist)
             {
-                //CapturedPlateValidations.ValidateCapturePlateSummaryItem(command.UpdatedItem);
-
-                var capturePlatesSummary = mapper.Map<Entities.CapturePlatesSummary>(command.UpdatedItem); //DTOHelper.ConvertFromDTO(command.UpdatedItem);
+                var capturePlatesSummary = mapper.Map<Entities.CapturePlatesSummary>(command.UpdatedItem);
 
                 await cpsRepository.Update(capturePlatesSummary, token);
 
