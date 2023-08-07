@@ -14,9 +14,6 @@ namespace Corssbones.ALPR.Business
                .Select(x => new KeyValuePair<string, string>(x[0].ToLowerInvariant(), x[1]))
                .ToDictionary(x => x.Key, x => x.Value);
 
-            var key = "multipleactiveresultsets";
-            if (!t.ContainsKey(key))
-                t.Add(key, "true");
 
             var fixedStr = string.Join(';', t.Select(x => $"{x.Key}={x.Value}"));
 
