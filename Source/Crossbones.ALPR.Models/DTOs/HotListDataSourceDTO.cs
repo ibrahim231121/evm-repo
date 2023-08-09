@@ -9,11 +9,11 @@ namespace Crossbones.ALPR.Models.DTOs
     {
         public long RecId { get; set; }
 
-        [StringLength(50, ErrorMessage = "ExportPath length should be <= 1", MinimumLength = 1)]
+        [StringLength(50, ErrorMessage = "Name length should be <= 1", MinimumLength = 1)]
         [Unicode(false)]
         public string Name { get; set; }
 
-        [StringLength(50, ErrorMessage = "ExportPath length should be <= 1", MinimumLength = 1)]
+        [StringLength(50, ErrorMessage = "SourceName length should be <= 1", MinimumLength = 1)]
         [Unicode(false)]
         public string SourceName { get; set; }
 
@@ -58,7 +58,7 @@ namespace Crossbones.ALPR.Models.DTOs
 
         public bool SkipFirstLine { get; set; }
 
-        [StringLength(8000, ErrorMessage = "ExportPath length should be <= 1", MinimumLength = 1)]
+        //[StringLength(8000, ErrorMessage = "Status Desc length should be <= 1", MinimumLength = 1)]
         [Unicode(false)]
         public string? StatusDesc { get; set; }
         public string? SourceTypeName { get; set; }

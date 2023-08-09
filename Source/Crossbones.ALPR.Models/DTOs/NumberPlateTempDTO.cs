@@ -11,7 +11,7 @@ namespace Crossbones.ALPR.Models.DTOs
         [Range(typeof(DateTime), "January 1, 2010", "December 31, 2030", ErrorMessage = "Value for {0} must be between {1} and {2}")]
         public DateTime DateOfInterest { get; set; }
 
-        [StringLength(20, ErrorMessage = "License Plate lenght should be between 6 to 20 characters", MinimumLength = 6)]
+        [StringLength(20, ErrorMessage = "License Plate lenght should be between 2 to 20 characters", MinimumLength = 2)]
         public string LicensePlate { get; set; }
         public byte? StateId { get; set; }
         public string? LicenseYear { get; set; }
