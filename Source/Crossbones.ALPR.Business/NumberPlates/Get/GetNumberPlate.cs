@@ -26,10 +26,17 @@ namespace Crossbones.ALPR.Business.NumberPlates.Get
             HotListID = hotListId;
         }
 
+        public GetNumberPlate(RecId recId, GetQueryFilter filter, string numberPlate) : base(recId)
+        {
+            Filter = filter;
+            NumberPlateString = numberPlate;
+        }
+
         public Pager Paging { get; set; }
         public GetQueryFilter Filter { get; set; }
         public GridFilter GridFilter { get; set; }
         public GridSort Sort { get; }
         public long HotListID { get; set; }
+        public string NumberPlateString { get; set; }
     }
 }

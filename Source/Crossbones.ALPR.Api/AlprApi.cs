@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Corssbones.ALPR.Business;
+using Crossbones.ALPR.Api.AlprSearch.Service;
 using Crossbones.ALPR.Api.CapturedPlate;
 using Crossbones.ALPR.Api.CapturePlatesSummary;
 using Crossbones.ALPR.Api.CapturePlatesSummaryStatus;
@@ -118,6 +119,7 @@ namespace Crossbones.ALPR.Api
             services.Add(new ServiceDescriptor(typeof(INumberPlateService), typeof(NumberPlateService), ServiceLifetime.Transient));
             services.Add(new ServiceDescriptor(typeof(INumberPlatesTempService), typeof(NumberPlatesTempService), ServiceLifetime.Transient));
             services.Add(new ServiceDescriptor(typeof(IStateService), typeof(StateService), ServiceLifetime.Transient));
+            services.Add(new ServiceDescriptor(typeof(ISearchService), typeof(SearchService), ServiceLifetime.Transient));
 
             services.AddSingleton<IMessageChannel>(_channel);
             services.AddSingleton<IMemoryCache, MemoryCache>();

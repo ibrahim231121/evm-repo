@@ -7,6 +7,8 @@ using Crossbones.Modules.Business.Handlers.Query;
 using Crossbones.Modules.Common;
 using Microsoft.EntityFrameworkCore;
 using DTO = Crossbones.ALPR.Models.DTOs;
+using Crossbones.Modules.Common.Queryables;
+using Crossbones.Modules.Common.Exceptions;
 
 namespace Crossbones.ALPR.Business.NumberPlates.Get
 {
@@ -50,6 +52,23 @@ namespace Crossbones.ALPR.Business.NumberPlates.Get
 
                 var res = mapper.Map<List<DTO.NumberPlateDTO>>(data);
                 return res;
+            }
+            else if (query.Filter == GetQueryFilter.SearchByNumberPlate)
+            {
+                var numberPlateList = await _repository
+                    .Many(x=>x.LicensePlate.ToLower().StartsWith(query.NumberPlateString.ToLower()))
+                    .OrderByDescending(x => x.CreatedOn)
+                    .Take(100)
+                    .ToListAsync();
+
+                if (numberPlateList.Count == 0)
+                {
+                    throw new RecordNotFound($"Number Plate against following input {query.NumberPlateString} was not found.");
+                }
+                else
+                {
+                    return numberPlateList.Select(x => x.LicensePlate).ToList();
+                }                
             }
             else
             {

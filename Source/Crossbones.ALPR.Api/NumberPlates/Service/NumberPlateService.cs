@@ -113,6 +113,12 @@ namespace Crossbones.ALPR.Api.NumberPlates.Service
             return PaginationHelper.GetPagedResponse(list, total);
         }
 
+        public async Task<List<string>> GetNumberPlate(string numberPlate)
+        {
+            var dataQuery = new GetNumberPlate(RecId.Empty, GetQueryFilter.SearchByNumberPlate, numberPlate);
+            var list = await Inquire<List<string>>(dataQuery);
+            return list;
+        }
         
     }
 }

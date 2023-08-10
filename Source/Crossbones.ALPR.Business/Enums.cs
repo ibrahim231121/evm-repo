@@ -8,7 +8,8 @@
         AllByUser,
         AllByUserWithOutPaging,
         Count,
-        FilterByHostList
+        FilterByHostList,
+        SearchByNumberPlate
     }
 
     public enum DeleteCommandFilter

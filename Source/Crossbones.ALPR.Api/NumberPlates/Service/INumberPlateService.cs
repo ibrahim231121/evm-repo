@@ -18,6 +18,7 @@ namespace Crossbones.ALPR.Api.NumberPlates.Service
         Task<DTO.NumberPlateDTO> Get(RecId recId);
         Task<PageResponse<DTO.NumberPlateDTO>> GetAll(Pager page);
         Task<PagedResponse<DTO.NumberPlateDTO>> GetAllByHotList(Pager page, long hotListId);
+        Task<List<string>> GetNumberPlate(string numberPlate);
         Task DeleteAll();
     }
 }
