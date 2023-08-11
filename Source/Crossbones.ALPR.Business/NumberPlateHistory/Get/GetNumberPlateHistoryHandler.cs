@@ -73,6 +73,7 @@ namespace Corssbones.ALPR.Business.NumberPlateHistory.Get
                             VehicleModel = z.np.VehicleModel,
                             VehicleYear = z.np.VehicleYear,
                             CapturedAt = z.cp.CapturedAt,
+                            CapturedAtStr = z.cp.CapturedAt.ToString("yyyy/MM/dd HH:mm:ss"),
                             Confidence = z.cp.Confidence.HasValue ? z.cp.Confidence.Value : 0,
                             Latitude = z.cp.GeoLocation.Y,
                             Longitude = z.cp.GeoLocation.X,

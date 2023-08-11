@@ -18,6 +18,8 @@ namespace Crossbones.ALPR.Models.DTOs
 
         public DateTime CapturedAt { get; set; }
 
+        public string CapturedAtStr { get; set; }
+
         public int Confidence { get; set; }
 
         public string State { get; set; }
