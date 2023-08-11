@@ -18,6 +18,7 @@ namespace Crossbones.ALPR.Common.Log
             requestInfo.TenantId = Convert.ToInt64(headerDictionary["TenantId"].ToString());
             requestInfo.TenantServiceId = Utility.GetFormattedTenantServiceId(requestInfo.TenantId, ServiceType.ALPR);
         }
+
         private static IDictionary<string, object> ExtractDataFromHeader(HttpRequest httpRequest)
         {
             var ip = httpRequest.HttpContext.Connection.RemoteIpAddress;
@@ -26,9 +27,12 @@ namespace Crossbones.ALPR.Common.Log
             foreach (var item in httpRequest.Headers)
                 headerDictionary.Add(item.Key, item.Value);
 
+            if (ip != null)
+            {
+                headerDictionary.Add("IPV4", ip.MapToIPv4().ToString());
+                headerDictionary.Add("IPV6", ip.MapToIPv6().ToString());
+            }
 
-            headerDictionary.Add("IPV4", ip.MapToIPv4().ToString());
-            headerDictionary.Add("IPV6", ip.MapToIPv6().ToString());
             headerDictionary.Add("Url", httpRequest.GetDisplayUrl());
 
             if (!httpRequest.Headers.ContainsKey("User-Agent"))

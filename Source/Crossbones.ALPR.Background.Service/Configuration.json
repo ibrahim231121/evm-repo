@@ -25,8 +25,8 @@
       "Password": "lvjedSdie351"
     },
     "WebServer": {
-      "IP": "0.0.0.0",
-      "Port": "8098"
+      "IP": "127.0.0.1",
+      "Port": "8097"
     },
     "ServiceURLs": {
       "AuditLogs": "http://127.0.0.1:8086/",
@@ -63,8 +63,7 @@
     },
     "ConsulServiceConfiguration": {
       "Port": 8500,
-      "URL": "http://127.0.0.1",
-      "UseDomainName": true
+      "URL": "http://127.0.0.1"
     }
   }
 }

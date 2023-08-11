@@ -14,8 +14,6 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Add
         protected override async Task OnMessage(AddHotListNumberPlate command, ICommandContext context, CancellationToken token)
         {
             var hotListNumberPlateRepo = context.Get<Entities.HotListNumberPlate>();
-            var hotListRepo = context.Get<Entities.Hotlist>();
-            var numberPlateRepo = context.Get<Entities.NumberPlate>();
 
             var nameExist = await hotListNumberPlateRepo.Exists(x => x.HotListId == command.Item.HotListId && x.NumberPlateId == command.Item.NumberPlateId, token);
             if (nameExist)
@@ -24,8 +22,9 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Add
             }
             else
             {
+
                 await hotListNumberPlateRepo.Add(mapper.Map<Entities.HotListNumberPlate>(command.Item), token);
-                context.Success($"HotList Number Plate has been added, SysSerial:{command.Id}");
+                context.Success($"HotList Number Plate has been added, RecId:{command.Id}");
             }
         }
     }

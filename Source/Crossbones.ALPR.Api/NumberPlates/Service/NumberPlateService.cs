@@ -46,7 +46,7 @@ namespace Crossbones.ALPR.Api.NumberPlates.Service
             GridFilter filter = GetGridFilter();
             GridSort sort = GetGridSort();
 
-            var dataQuery = new GetNumberPlate(RecId.Empty, GetQueryFilter.All, filter, sort) { Paging = paging };
+            var dataQuery = new GetNumberPlate(RecId.Empty, GetQueryFilter.All) { Paging = paging, GridFilter = filter, Sort = sort};
             return Inquire<PageResponse<DTO.NumberPlateDTO>>(dataQuery);
 
         }

@@ -17,13 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Crossbones.Modules.Common" Version="1.0.0.58" />
-    <PackageReference Include="Crossbones.Modules.MQTT.Config" Version="1.0.0.6" />
     <PackageReference Include="Crossbones.Modules.Vault" Version="1.0.0.7" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Crossbones.ALPR.Database\Crossbones.ALPR.Database.csproj" />
     <ProjectReference Include="..\Crossbones.ALPR.Models\Crossbones.ALPR.Models.csproj" />
   </ItemGroup>
 

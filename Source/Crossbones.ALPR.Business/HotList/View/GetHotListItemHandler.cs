@@ -1,8 +1,10 @@
-﻿using Corssbones.ALPR.Business.Enums;
+﻿using AutoMapper;
+using Corssbones.ALPR.Business.Enums;
 using Crossbones.ALPR.Models;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Query;
 using Crossbones.Modules.Common;
+using Crossbones.Modules.Common.Exceptions;
 using LanguageExt;
 using Microsoft.EntityFrameworkCore;
 using DTO = Crossbones.ALPR.Models.DTOs;
@@ -12,17 +14,29 @@ namespace Corssbones.ALPR.Business.HotList.Get
 {
     public class GetHotListItemHandler : QueryHandlerBase<GetHotListItem>
     {
+        readonly IMapper _mapper;
+        public GetHotListItemHandler(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
+
         protected override async Task<object> OnQuery(GetHotListItem query, IQueryContext context, CancellationToken token)
         {
             var _repository = context.Get<Entities.Hotlist>();
 
             if (query.QueryFilter == GetQueryFilter.Count)
             {
-                return new RowCount(await _repository.Count());
+                return new RowCount(await _repository.Count(token));
             }
             else
             {
-                var hotlistQuery = _repository.Many(x => query.QueryFilter == GetQueryFilter.Single ? x.RecId == query.Id : true).Include(hotlist => hotlist.Source).Select(x => new DTO.HotListDTO()
+                var singleRequest = query.QueryFilter == GetQueryFilter.Single;
+                var data = await (singleRequest switch
+                {
+                    true => _repository.Many(x => x.RecId == query.Id, token).Include(x => x.Source),
+                    false => _repository.Many(token).Include(x => x.Source),
+                })
+                .Select(x => new DTO.HotListDTO()
                 {
                     Name = x.Name,
                     Description = x.Description,
@@ -36,22 +50,16 @@ namespace Corssbones.ALPR.Business.HotList.Get
                     Color = x.Color,
                     SourceId = x.SourceId,
                     StationId = x.StationId,
-                    SourceName = x.Source == null ? string.Empty : x.Source.SourceName
-                });
+                    SourceName = x.Source == null ? string.Empty : x.Source.Name
 
-                switch (query.QueryFilter)
+                }).ToFilteredPagedListAsync(query.Filter, query.Paging, query.Sort, token);
+
+                if (!data.Any() && singleRequest)
                 {
-                    case GetQueryFilter.Single:
-                        return hotlistQuery.FirstOrDefault();
-                        break;
-                    case GetQueryFilter.All:
-                        return await hotlistQuery.ToFilteredPagedListAsync(query.Filter, query.Paging, query.Sort, token);
-                        break;
-                    default:
-                        break;
+                    throw new RecordNotFound($"Unable to process your request because HotList Record is not found against provided Id '{query.Id}'");
                 }
 
-                return null;
+                return data;
             }
         }
     }

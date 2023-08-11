@@ -40,12 +40,11 @@ namespace Crossbones.ALPR.Api.HotListDataSource.Service
         }
 
 
-        public async Task Change(RecId recId, Entities.HotlistDataSource request)
+        public async Task Change(RecId recId, DTO.HotListDataSourceDTO request)
         {
             ChangeHotListDataSourceItem _object = new(recId);
 
-            var cmd = mapper.Map<Entities.HotlistDataSource, DTO.HotListDataSourceDTO>(request);
-            _object.Item = cmd;
+            _object.Item = request;
             _object.Item.RecId = _object.Id;
 
             _ = await Execute(_object);

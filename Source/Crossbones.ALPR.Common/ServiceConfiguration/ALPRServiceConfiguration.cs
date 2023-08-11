@@ -3,7 +3,6 @@ using Crossbones.Modules.Common;
 using Crossbones.Modules.Common.Configuration;
 using Crossbones.Modules.Common.Fluentd;
 using Crossbones.Modules.Common.ServiceDiscovery;
-using Crossbones.Modules.MQTT.Config.Configuration;
 using Crossbones.Modules.Vault.Configuration;
 
 namespace Crossbones.ALPR.Common.ServiceConfiguration
@@ -15,6 +14,7 @@ namespace Crossbones.ALPR.Common.ServiceConfiguration
         public int RequestTimeOut { get; set; }
         public RedisConfiguration RedisConfiguration { get; set; }
         public DatabaseConfiguration DatabaseConfiguration { get; set; }
+        public string HangfireConnection { get; set; }
         public string Language { get; set; }
         public LogFormat LogFormat { get; set; }
         public ApiConfiguration ApiConfiguration { get; set; }
@@ -49,10 +49,6 @@ namespace Crossbones.ALPR.Common.ServiceConfiguration
         public bool ShowDbException { get; set; }
         public int RequestMaxProcessingTime { get; set; }
         public bool RequestMonitoring { get; set; }
-
-    }
-    public class MQTTConfiguration : MQTT_Configuration
-    {
 
     }
     public class TemporaryTenants

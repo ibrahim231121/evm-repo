@@ -57,7 +57,7 @@ namespace Crossbones.ALPR.Api.HotListDataSource
 
         [HttpPut("{recId}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> Change(long recId, [FromBody] Entities.HotlistDataSource hotListDataSourceItem)
+        public async Task<IActionResult> Change(long recId, [FromBody] DTO.HotListDataSourceDTO hotListDataSourceItem)
         {
             //(bool isValid, string errorList) = validateModel.Validate(hotListNumberPlate);
             //if (isValid)

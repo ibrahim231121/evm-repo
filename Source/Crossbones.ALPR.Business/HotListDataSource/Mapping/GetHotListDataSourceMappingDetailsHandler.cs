@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Crossbones.ALPR.Common;
 using Crossbones.Modules.Business.Contexts;
 using Crossbones.Modules.Business.Handlers.Query;
 using Crossbones.Modules.Common.Exceptions;
@@ -46,25 +47,37 @@ namespace Corssbones.ALPR.Business.HotListDataSource.Mapping
                 .Include(x => x.State)
                 .Include(x => x.HotListNumberPlates);
 
-            var data = records
-                              .Join(stateRepository, file => file.State, state => state.StateName, (file, state) => new { FileData = file, StateInfo = state })
+            var recordsWithStateInfo = records
+                                    .GroupJoin(stateRepository,
+                                          file => file.State,
+                                          state => state.StateName,
+                                          (file, state) => new { FileInfo = file, StateInfo = state })
+                                    .SelectMany(
+                                          x => x.StateInfo.DefaultIfEmpty(),
+                                          (file, state) => new { FileInfo = file.FileInfo, StateInfo = state });
+
+            var data = recordsWithStateInfo
                               //Left Data Source
                               //Performing Group join with Right Data Source
                               .GroupJoin(_numberPlateListHasNoEntryInMappingRepository, //Right Data Source
-                                    file => file.FileData.LicensePlate, //Outer Key Selector, i.e. Left Data Source Common Property
+                                    file => file.FileInfo.LicensePlate, //Outer Key Selector, i.e. Left Data Source Common Property
                                     db => db.LicensePlate, //Inner Key Selector, i.e. Right Data Source Common Property
-                                    (file, db) => new { FileData = file.FileData, Database = db, StateInfo = file.StateInfo }) //Projecting the Result
+                                    (file, db) => new { FileData = file, Database = db, StateInfo = file.StateInfo }) //Projecting the Result
                               .SelectMany(
                                     x => x.Database.DefaultIfEmpty(), //Performing Left Outer Join 
-                                    (file, db) => new { FileData = file.FileData, Database = db, StateInfo = file.StateInfo }) //Final Result Set
+                                    (file, db) => new { FileData = file.FileData.FileInfo, Database = db, StateInfo = file.StateInfo }) //Final Result Set
                               .Where(x => x.Database == null || x.Database.HotListNumberPlates.Count == 0)
+
                               .ToList();
+
+
+            //var _temp = mapper.Map<IEnumerable<DTO.HotListDataSourceMappingDTO>, IEnumerable<DTO.NumberPlateDTO>>(data.Select(x => x.FileData));
 
             var res = data.Select(x => new DTO.NumberPlateDTO
             {
                 NeedFullInsertion = x.Database is null,
                 RecId = x.Database is null ? 0 : x.Database.RecId,
-                InsertType = 1,
+                InsertType = (int)InsertType.CSV,
                 LicensePlate = x.FileData.LicensePlate,
                 DateOfInterest = DateTime.Parse(x.FileData.DateOfInterest),
                 LicenseYear = x.FileData.LicenseYear,
@@ -78,13 +91,13 @@ namespace Corssbones.ALPR.Business.HotListDataSource.Mapping
                 VehicleModel = x.FileData.VehicleModel,
                 VehicleColor = x.FileData.VehicleColor,
                 VehicleStyle = x.FileData.VehicleStyle,
-                StateName = x.StateInfo.StateName,
+                StateName = x.StateInfo?.StateName,
 
                 Notes = x.FileData.Notes,
                 NCICNumber = x.FileData.NCICNumber,
                 ImportSerialId = x.FileData.ImportSerial,
                 ViolationInfo = x.FileData.ViolationInfo,
-                StateId = x.StateInfo.RecId,
+                StateId = x.StateInfo?.RecId,
                 Note = "Note from Handler",
                 Status = 1, // Need to confirm what status is
                 CreatedOn = DateTime.Now,
@@ -99,8 +112,12 @@ namespace Corssbones.ALPR.Business.HotListDataSource.Mapping
             Stream _stream,
             CancellationToken token)
         {
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+            };
+
             using var reader = new StreamReader(_stream);
-            using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
+            using var csv = new CsvReader(reader, config);
             csv.Context.RegisterClassMap(new HotListDataSourceMappingProfile(schemaDefinition));
             return await csv.GetRecordsAsync<DTO.HotListDataSourceMappingDTO>(token).ToListAsync(token);
         }
@@ -116,7 +133,9 @@ namespace Corssbones.ALPR.Business.HotListDataSource.Mapping
             {
                 using var response = await request.GetResponseAsync();
                 using var responseStream = response.GetResponseStream();
-                return await GetCSVRecords(schemaDefinition, responseStream, token);
+                using var ms = new MemoryStream();
+                responseStream.CopyTo(ms);
+                return await GetCSVRecords(schemaDefinition, new MemoryStream(ms.ToArray()), token);
             }
             catch (WebException ex)
             {
@@ -124,7 +143,7 @@ namespace Corssbones.ALPR.Business.HotListDataSource.Mapping
             }
             catch (Exception ex)
             {
-                throw new WebException($"Unable to connect with {UNC_SOURCE_TAG} location : {ex.Message}");
+                throw new Exception($"Unable to connect with {UNC_SOURCE_TAG} location : {ex.Message}");
             }
         }
 
@@ -159,7 +178,9 @@ namespace Corssbones.ALPR.Business.HotListDataSource.Mapping
             {
                 using var response = await request.GetResponseAsync() as FtpWebResponse;
                 using var responseStream = response!.GetResponseStream();
-                return await GetCSVRecords(schemaDefinition, responseStream, token);
+                using var ms = new MemoryStream();
+                responseStream.CopyTo(ms);
+                return await GetCSVRecords(schemaDefinition, new MemoryStream(ms.ToArray()), token);
             }
             catch (WebException ex)
             {
@@ -167,7 +188,7 @@ namespace Corssbones.ALPR.Business.HotListDataSource.Mapping
             }
             catch (Exception ex)
             {
-                throw new WebException($"Unable to connect with {FTP_SOURCE_TAG} location : {ex.Message}");
+                throw new Exception($"Unable to connect with {FTP_SOURCE_TAG} location : {ex.Message}");
             }
         }
     }

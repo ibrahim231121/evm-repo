@@ -1,6 +1,5 @@
 ﻿using Crossbones.ALPR.Api.HotListDataSourceMapping.Service;
 using Crossbones.Modules.Api;
-using Hangfire;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Crossbones.ALPR.Api.HotListDataSourceMapping
@@ -9,29 +8,18 @@ namespace Crossbones.ALPR.Api.HotListDataSourceMapping
     public class HotListDataSourceMappingController : BaseController
     {
         private readonly IHotListDataSourceMappingService _service;
-        private readonly IBackgroundJobClient _backgroundJobClient;
-        private readonly IRecurringJobManager _recurringJobManager;
 
-        public HotListDataSourceMappingController(ApiParams feature,
-            IHotListDataSourceMappingService service
-            //IBackgroundJobClient backgroundJobClient,
-            //IRecurringJobManager recurringJobManager
-            ) : base(feature)
-        {
-            _service = service;
-            //_backgroundJobClient = backgroundJobClient;
-            //_recurringJobManager = recurringJobManager;
-        }
+        public HotListDataSourceMappingController(ApiParams feature, IHotListDataSourceMappingService service) : base(feature) => _service = service;
 
-        [HttpGet]
-        [Route("ExecuteMapping/{SysSerial}")]
-        public async Task<IActionResult> ExecuteMapping(long SysSerial)
+        [HttpPost("recId")]
+        [Route("ExecuteMapping")]
+        public async Task<IActionResult> ExecuteMapping([FromQuery] long recId)
         {
-            var response = await _service.ExecuteMappingForSingleDataSource(SysSerial);
+            var response = await _service.ExecuteMappingForSingleDataSource(recId);
             return Ok(response);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("ExecuteMappingForAll")]
         public async Task<IActionResult> ExecuteMappingForAll()
         {
@@ -39,53 +27,22 @@ namespace Crossbones.ALPR.Api.HotListDataSourceMapping
             return Ok(response);
         }
 
-        [HttpGet]
-        [Route("IFireAndForgetJob")]
-        public string FireAndForgetJob()
+        [HttpPost("recId")]
+        [Route("EnqueJobSingleDataSource")]
+        public async Task<IActionResult> EnqueJobSingleDataSource([FromQuery] long recId)
         {
-            //Fire - and - Forget Jobs
-            //Fire - and - forget jobs are executed only once and almost immediately after creation.
-            var jobId = _backgroundJobClient.Enqueue(() => _service.ExecuteMappingForAllDataSources());
-
-            return $"Job ID: {jobId}. Mapping for all data sources has been executed once.";
+            var jobId = await _service.EnqueJobSingleDataSource(recId);
+            string response = jobId.Equals(string.Empty) ? "Job initiated error" : "Job started successfully";
+            return Ok(response);
         }
 
-        [HttpGet]
-        [Route("IDelayedJob")]
-        public string DelayedJob()
+        [HttpPost]
+        [Route("EnqueJobAllDataSources")]
+        public async Task<IActionResult> EnqueJobAllDataSources()
         {
-            TimeSpan time = TimeSpan.FromSeconds(30);
-            //Delayed Jobs
-            //Delayed jobs are executed only once too, but not immediately, after a certain time interval.
-            var jobId = _backgroundJobClient.Schedule(() => _service.ExecuteMappingForAllDataSources(), time);
-
-            return $"Job ID: {jobId}. Mapping for all data sources has been executed with {time.TotalSeconds} seconds delay.";
-        }
-
-        [HttpGet]
-        [Route("IContinuousJob")]
-        public string ContinuousJob()
-        {
-            //Fire - and - Forget Jobs
-            //Fire - and - forget jobs are executed only once and almost immediately after creation.
-            var parentjobId = _backgroundJobClient.Enqueue(() => _service.ExecuteMappingForAllDataSources());
-
-            //Continuations
-            //Continuations are executed when its parent job has been finished.
-            _ = BackgroundJob.ContinueJobWith(parentjobId, () => _service.ExecuteMappingForAllDataSources());
-
-            return "Welcome user in Continuos Job Demo!";
-        }
-
-        [HttpGet]
-        [Route("IRecurringJob")]
-        public string RecurringJobs()
-        {
-            //Recurring Jobs
-            //Recurring jobs fire many times on the specified CRON schedule.
-            _recurringJobManager.AddOrUpdate("jobId", () => _service.ExecuteMappingForAllDataSources(), Cron.Hourly);
-
-            return $"Mapping for all data sources will be executed on Hourly basis.";
+            await _service.EnqueJobAllDataSources();
+            
+            return Ok("Job enqueued successfully");
         }
 
         [HttpGet("HealthCheck")]

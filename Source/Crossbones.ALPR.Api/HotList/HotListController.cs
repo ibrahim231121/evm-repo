@@ -3,9 +3,7 @@ using Crossbones.ALPR.Common.ValueObjects;
 using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Api;
 using Crossbones.Modules.Common.Pagination;
-using Crossbones.Modules.Common.Queryables;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace Crossbones.ALPR.Api.HotList
 {
@@ -28,30 +26,7 @@ namespace Crossbones.ALPR.Api.HotList
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] Pager paging)
         {
-            GridFilter filter;
-            GridSort sort;
-
-            Microsoft.Extensions.Primitives.StringValues HeaderGridFilter;
-            Microsoft.Extensions.Primitives.StringValues HeaderGridSort;
-
-            try
-            {
-                HttpContext.Request.Headers.TryGetValue("GridFilter", out HeaderGridFilter);
-                filter = JsonConvert.DeserializeObject<GridFilter>(HeaderGridFilter);
-
-                HttpContext.Request.Headers.TryGetValue("GridSort", out HeaderGridSort);
-                sort = JsonConvert.DeserializeObject<GridSort>(HeaderGridSort);
-            }
-            catch
-            {
-                filter = new GridFilter();
-                filter.Logic = "and";
-                filter.Filters = new List<GridFilter>();
-
-                sort = new GridSort();
-            }
-
-            return PaginatedOk(await _service.GetAll(paging, filter, sort));
+            return PaginatedOk(await _service.GetAll(paging));
         }
 
         [HttpGet("{recId}")]

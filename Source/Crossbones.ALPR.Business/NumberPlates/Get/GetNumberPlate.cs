@@ -35,7 +35,7 @@ namespace Crossbones.ALPR.Business.NumberPlates.Get
         public Pager Paging { get; set; }
         public GetQueryFilter Filter { get; set; }
         public GridFilter GridFilter { get; set; }
-        public GridSort Sort { get; }
+        public GridSort Sort { get; set; }
         public long HotListID { get; set; }
         public string NumberPlateString { get; set; }
     }

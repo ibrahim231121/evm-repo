@@ -58,8 +58,11 @@ namespace Crossbones.ALPR.Api.HotList.Service
             return res;
         }
 
-        public async Task<PageResponse<DTO.HotListDTO>> GetAll(Pager paging, GridFilter filter, GridSort sort)
+        public async Task<PageResponse<DTO.HotListDTO>> GetAll(Pager paging)
         {
+            GridFilter filter = GetGridFilter();
+            GridSort sort = GetGridSort();
+
             var dataQuery = new GetHotListItem(RecId.Empty, GetQueryFilter.All) { Paging = paging, Filter = filter, Sort = sort };
             var t0 = Inquire<PageResponse<DTO.HotListDTO>>(dataQuery);
 

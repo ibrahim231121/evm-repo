@@ -17,7 +17,6 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Get
         public GetHotListNumberPlateHandler(IMapper mapper)
         {
             _mapper = mapper;
-
         }
         protected override async Task<object> OnQuery(GetHotListNumberPlate query, IQueryContext context, CancellationToken token)
         {
@@ -34,8 +33,8 @@ namespace Corssbones.ALPR.Business.HotListNumberPlates.Get
                 var singleRequest = query.Filter == GetQueryFilter.Single;
                 var data = await (singleRequest switch
                 {
-                    true => hotListNumberPlatesRepo.Many(x => x.RecId == query.Id).Include(x => x.NumberPlate).Include(x => x.HotList),
-                    false => hotListNumberPlatesRepo.Many().Include(x => x.NumberPlate).Include(x => x.HotList),
+                    true => hotListNumberPlatesRepo.Many(x => x.RecId == query.Id, token).Include(x => x.NumberPlate).Include(x => x.HotList),
+                    false => hotListNumberPlatesRepo.Many(token).Include(x => x.NumberPlate).Include(x => x.HotList),
                 }).ApplyPaging(query.Paging).ToListAsync(token);
 
                 if (!data.Any() && singleRequest)

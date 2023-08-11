@@ -2,7 +2,6 @@
 using DTO = Crossbones.ALPR.Models.DTOs;
 using Crossbones.Modules.Common;
 using Crossbones.Modules.Common.Pagination;
-using Crossbones.Modules.Common.Queryables;
 
 namespace Crossbones.ALPR.Api.HotList.Service
 {
@@ -26,7 +25,7 @@ namespace Crossbones.ALPR.Api.HotList.Service
         /// It is used to Get All Hotlist data from database
         /// </summary>
         /// <returns>List of Hotlist records</returns>
-        Task<PageResponse<DTO.HotListDTO>> GetAll(Pager paging, GridFilter filter, GridSort sort);
+        Task<PageResponse<DTO.HotListDTO>> GetAll(Pager paging);
 
         /// <summary>
         /// It is used to update Hotlist data from database

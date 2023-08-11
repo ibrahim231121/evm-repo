@@ -30,8 +30,8 @@ namespace Crossbones.ALPR.Models.DTOs
         [Range(typeof(DateTime), "January 1, 2010", "December 31, 2030", ErrorMessage = "Value for {0} must be between {1} and {2}")]
         public DateTime? LastUpdatedOn { get; set; }
         public short? Status { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
         public string? Alias { get; set; }
         public string? ViolationInfo { get; set; }
         public string? Notes { get; set; }

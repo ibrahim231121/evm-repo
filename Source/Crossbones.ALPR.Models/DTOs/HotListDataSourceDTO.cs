@@ -15,14 +15,12 @@ namespace Crossbones.ALPR.Models.DTOs
 
         [StringLength(50, ErrorMessage = "SourceName length should be <= 1", MinimumLength = 1)]
         [Unicode(false)]
-        public string SourceName { get; set; }
-
+        public string? SourceName { get; set; }
         public long? AgencyId { get; set; }
 
         [Range(1, long.MaxValue, ErrorMessage = "Source Type Id should be greater than 0")]
         public long SourceTypeId { get; set; }
-
-        public decimal? SchedulePeriod { get; set; }
+        public string? SchedulePeriod { get; set; }
 
         public bool? IsExpire { get; set; }
 
@@ -63,6 +61,8 @@ namespace Crossbones.ALPR.Models.DTOs
         public string? StatusDesc { get; set; }
         public string? SourceTypeName { get; set; }
         public virtual SourceTypeDTO? SourceType { get; set; }
-        public virtual ICollection<Entities.Hotlist> Hotlists { get; set; }
+
+        public virtual ICollection<Entities.Hotlist>? Hotlists { get; set; }
+
     }
 }

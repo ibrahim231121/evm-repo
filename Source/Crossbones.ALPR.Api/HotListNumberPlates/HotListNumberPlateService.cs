@@ -24,10 +24,9 @@ namespace Crossbones.ALPR.Api.HotListNumberPlates
         }
         public async Task<RecId> Add(DTO.HotListNumberPlateDTO request)
         {
-            var id = new RecId(await hotListNumberSequenceProxy.Next(CancellationToken.None));
             var cmd = await GetAddCommand(request);
             await Execute(cmd);
-            return id;
+            return cmd.Id;
         }
 
         public async Task<AddHotListNumberPlate> GetAddCommand(DTO.HotListNumberPlateDTO request)

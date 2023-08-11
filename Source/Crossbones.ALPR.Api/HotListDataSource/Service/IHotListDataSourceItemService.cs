@@ -34,7 +34,7 @@ namespace Crossbones.ALPR.Api.HotListDataSource.Service
         /// <param name="HotItemRecId">Database record Id</param>
         /// <param name="request">HotListDataSource domain model</param>
         /// <returns></returns>
-        Task Change(RecId recId, Entities.HotlistDataSource request);
+        Task Change(RecId recId, DTO.HotListDataSourceDTO request);
 
         /// <summary>
         /// It is used to Delete Single HotListDataSource data from database

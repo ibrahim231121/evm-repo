@@ -46,7 +46,7 @@ namespace Corssbones.ALPR.Business.HotListDataSource.View
                     SourceName = z.SourceName,
                     SourceType = mapper.Map<Entities.SourceType, DTO.SourceTypeDTO>(z.SourceType),
                     SourceTypeName = z.SourceType.SourceTypeName,
-                    SchedulePeriod = z.SchedulePeriod,
+                    SchedulePeriod = z.SchedulePeriod.ToString(),
                     ConnectionType = z.ConnectionType,
                     LastRun = z.LastRun,
                     Status = z.Status,

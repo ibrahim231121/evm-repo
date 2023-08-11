@@ -1,6 +1,7 @@
 ﻿using Crossbones.ALPR.Common.Log;
 using Crossbones.Common;
 using Crossbones.Logging;
+using Crossbones.Modules.Api;
 using Crossbones.Modules.Business;
 using Crossbones.Modules.Common.Exceptions;
 using Crossbones.Modules.Common.Queryables;
@@ -14,7 +15,7 @@ namespace Crossbones.ALPR.Api
     {
         internal readonly ILogger _logger;
         internal readonly ICommunicator _communicator;
-        internal readonly IHttpContextAccessor _httpContextAccessor;
+        internal readonly IHttpContextAccessorTenant _httpContextAccessor;
         public ServiceBase(ServiceArguments args) => (_logger, _communicator, _httpContextAccessor) = (args._logger, args._communicator, args._httpContext);
         protected Task<Unit> Execute<T>(T command) where T : class
         {

@@ -10,4 +10,10 @@ namespace Crossbones.ALPR.Common
     {
         public const int PAGE_SIZE = 25;
     }
+
+    public enum InsertType
+    {
+        CSV,
+        UI,
+    }
 }

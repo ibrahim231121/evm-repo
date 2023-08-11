@@ -17,7 +17,6 @@ namespace Corssbones.ALPR.Business
             #region HotListNumberPlate
 
             CreateMap<Entities.HotListNumberPlate, DTO.HotListNumberPlateDTO>().ReverseMap();
-            CreateMap<Entities.HotListNumberPlate, DTO.HotListNumberPlateDTO>().ReverseMap();
 
             #endregion
 
@@ -45,7 +44,7 @@ namespace Corssbones.ALPR.Business
             #region NumberPlate
 
             CreateMap<Entities.NumberPlate, DTO.NumberPlateDTO>()
-                .ForMember(dest => dest.DateOfInterest, x => x.MapFrom(src => src.DateOfInterest.ToString("yyyy-MM-dd HH:mm")))
+                .ForMember(dest => dest.DateOfInterest, x => x.MapFrom(src => src.DateOfInterest/*.ToString("yyyy-MM-dd HH:mm")*/))
                 .ForMember(dest => dest.StateName, x => x.MapFrom(src => src.State.StateName));
             CreateMap<AddNumberPlate, Entities.NumberPlate>();
             CreateMap<DTO.NumberPlateDTO, Entities.NumberPlate>();

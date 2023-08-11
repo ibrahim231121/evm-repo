@@ -30,6 +30,7 @@ using Crossbones.Modules.Sequence.Common.Proxy;
 using Crossbones.Transport.Pipes;
 using Crossbones.Workers;
 using Crossbones.Workers.Common;
+using Hangfire;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
@@ -68,36 +69,31 @@ namespace Crossbones.ALPR.Api
             _tenantDbProvider = tenantDbProvider;
         }
 
-        //protected override void RegisterApplicationDependencies(IApplicationBuilder app)
-        //{
-        //    base.RegisterApplicationDependencies(app);
-        //    app.UseHangfireDashboard("/dashboard");
-        //}
+        protected override Task Run(CancellationToken token)
+        {
+            var _task = base.Run(token);
+
+            var serviceProvider = _services.BuildServiceProvider();
+
+            var mappingService = serviceProvider.GetService<IHotListDataSourceMappingService>();
+            mappingService!.EnqueJobAllDataSources();
+
+            Console.WriteLine($"Job {HotListDataSourceMappingService.RECURRING_JOB_NAME} enqueued successfully");
+
+            return _task;
+        }
 
         protected override void RegisterDependencies(IServiceCollection services)
         {
             _services = services;
             base.RegisterDependencies(services);
 
-            //services.AddHangfire(configuration => configuration
-            //   .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
-            //   .UseSimpleAssemblyNameTypeSerializer()
-            //   .UseRecommendedSerializerSettings()
-            //   .UseSqlServerStorage(
-            //    _tenantDbProvider.GetTenantDatabases().Values!.FirstOrDefault(),// + "TrustServerCertificate=True;",
-            //    new SqlServerStorageOptions
-            //    {
-            //        CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
-            //        SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
-            //        QueuePollInterval = TimeSpan.Zero,
-            //        UseRecommendedIsolationLevel = true,
-            //        DisableGlobalLocks = true
-            //    }));
-
-            //services.AddHangfireServer();
-
-            //GlobalConfiguration.Configuration.UseSqlServerStorage(_tenantDbProvider.GetTenantDatabases().Values!.FirstOrDefault());
-
+            GlobalConfiguration.Configuration
+                //.SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+                //.UseColouredConsoleLogProvider()
+                //.UseSimpleAssemblyNameTypeSerializer()
+                //.UseRecommendedSerializerSettings()
+                .UseSqlServerStorage(_configuration.HangfireConnection);
 
             services.AddSingleton<IServiceDiscoveryConfiguration>(_configuration);
 
@@ -141,7 +137,6 @@ namespace Crossbones.ALPR.Api
             var mapper = mappingConfig.CreateMapper();
             services.AddSingleton<IMapper>(mapper);
         }
-
 
         protected override void Setup(CancellationToken token)
         {
@@ -188,7 +183,5 @@ namespace Crossbones.ALPR.Api
             });
             base.Setup(token);
         }
-
-
     }
 }
