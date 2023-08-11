@@ -16,13 +16,6 @@ namespace Corssbones.ALPR.Business.Search
 {
     public class AlprAdvanceSearch : RecIdItemMessage
     {
-        public AlprAdvanceSearch(RecId _id) : base(_id)
-        {
-        }
-
-        public AlprAdvanceSearch() : base(RecId.Empty)
-        {
-        }
 
         public AlprAdvanceSearch(AlprSearchParams query) : base(RecId.Empty)
         {
@@ -50,6 +43,9 @@ namespace Corssbones.ALPR.Business.Search
         public GridFilter GridFilter { get; set; }
         public GridSort Sort { get; set; }
 
+        /// <summary>
+        /// Check to implement Pagination/Data filter on server side, not in use yet
+        /// </summary>
         public bool IsServerSide { get; set; }
     }
 
@@ -135,34 +131,75 @@ namespace Corssbones.ALPR.Business.Search
                 LoginId = y.LoginId,
             });
 
-            var fullOuterJoin = (from np in numberPlateData
-                                 from cp in capturePlateData
+            var leftOuterJoin = from np in numberPlateData
+                                join cp in capturePlateData
+                                on np.LicensePlate equals cp.NumberPlate into
+                                FinalData
+                                from capturePlate in FinalData.DefaultIfEmpty()
+                                select new DTO.AlprSearchResponse
+                                {
+                                    NumberPlateId = np.RecId.ToString(),
+                                    CapturedPlateId = capturePlate.CapturedPlateId.ToString(),
+                                    NumberPlate = string.IsNullOrEmpty(np.LicensePlate) ? capturePlate.NumberPlate : np.LicensePlate,
+                                    HotlistName = np.HotList,
+                                    CapturedAt = capturePlate.CapturedAt,
+                                    StateName = np.StateName,
+                                    UnitId = capturePlate.UnitId,
+                                    User = capturePlate.User.ToString(),
+                                    Confidence = capturePlate.Confidence.ToString(),
+                                    TicketNumber = capturePlate.TicketNumber.ToString(),
+                                    Longitude = capturePlate.Longitude.ToString(),
+                                    Latitude = capturePlate.Latitude.ToString(),
+                                    NCICNumber = np.NCICNumber,
+                                    DateOfInterest = np.DateOfInterest,
+                                    LicenseYear = np.LicenseYear,
+                                    LicenseType = np.LicenseType,
+                                    VehicleYear = np.VehicleYear,
+                                    VehicleMake = np.VehicleMake,
+                                    VehicleModel = np.VehicleModel,
+                                    InsertType = np.InsertType.ToString(),
+                                    Status = np.Status.ToString(),
+                                    Note = np.Note,
+                                    FirstName = np.FirstName,
+                                    LastName = np.LastName,
+                                    ViolationInfo = np.ViolationInfo
+                                };
+
+            var rightOuterJoin = from cp in capturePlateData
+                                 join np in numberPlateData on
+                                 cp.NumberPlate equals np.LicensePlate into
+                                 FinalData
+                                 from numberPlate in FinalData.DefaultIfEmpty()
                                  select new DTO.AlprSearchResponse
                                  {
-                                     NumberPlate = np.LicensePlate,
-                                     HotlistName = np.HotList,
+                                     NumberPlateId = numberPlate.RecId.ToString(),
+                                     CapturedPlateId = cp.CapturedPlateId.ToString(),
+                                     NumberPlate = string.IsNullOrEmpty(cp.NumberPlate) ? numberPlate.LicensePlate : cp.NumberPlate,
+                                     HotlistName = numberPlate.HotList,
                                      CapturedAt = cp.CapturedAt,
-                                     StateName = np.StateName,
+                                     StateName = numberPlate.StateName,
                                      UnitId = cp.UnitId,
                                      User = cp.User.ToString(),
                                      Confidence = cp.Confidence.ToString(),
                                      TicketNumber = cp.TicketNumber.ToString(),
                                      Longitude = cp.Longitude.ToString(),
                                      Latitude = cp.Latitude.ToString(),
-                                     NCICNumber = np.NCICNumber,
-                                     DateOfInterest = np.DateOfInterest,
-                                     LicenseYear = np.LicenseYear,
-                                     LicenseType = np.LicenseType,
-                                     VehicleYear = np.VehicleYear,
-                                     VehicleMake = np.VehicleMake,
-                                     VehicleModel = np.VehicleModel,
-                                     InsertType = np.InsertType.ToString(),
-                                     Status = np.Status.ToString(),
-                                     Note = np.Note,
-                                     FirstName = np.FirstName,
-                                     LastName = np.LastName,
-                                     ViolationInfo = np.ViolationInfo
-                                 });
+                                     NCICNumber = numberPlate.NCICNumber,
+                                     DateOfInterest = numberPlate.DateOfInterest,
+                                     LicenseYear = numberPlate.LicenseYear,
+                                     LicenseType = numberPlate.LicenseType,
+                                     VehicleYear = numberPlate.VehicleYear,
+                                     VehicleMake = numberPlate.VehicleMake,
+                                     VehicleModel = numberPlate.VehicleModel,
+                                     InsertType = numberPlate.InsertType.ToString(),
+                                     Status = numberPlate.Status.ToString(),
+                                     Note = numberPlate.Note,
+                                     FirstName = numberPlate.FirstName,
+                                     LastName = numberPlate.LastName,
+                                     ViolationInfo = numberPlate.ViolationInfo
+                                 };
+
+            var fullOuterJoin = rightOuterJoin.Union(leftOuterJoin);
 
             if (query.QueryParam != null)
             {
@@ -176,7 +213,7 @@ namespace Corssbones.ALPR.Business.Search
                         {
                             Field = "NumberPlate",
                             Value = query.QueryParam.NumberPlate,
-                            Operator = "contains",
+                            Operator = "eq",
                             FieldType = "string"
                         });
                     }

@@ -23,7 +23,7 @@
         public string? NCICNumber { get; set; }
         public string? AgencyId { get; set; }
         public DateTime? DateOfInterest { get; set; }
-        public string? LicensePlate { get; set; }
+        public string? CapturePlate { get; set; }
         public string? StateId { get; set; }
         public string? LicenseYear { get; set; }
         public string? LicenseType { get; set; }
